@@ -49,6 +49,14 @@ group :development, :test do
 
   # Use sqlite3 as the database for Active Record
   gem "sqlite3"
+
+  gem "byebug"
+  gem "launchy"
+  gem "rubocop", require: false
+  gem "rubocop-performance", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-rspec", require: false
+  gem "rubycritic", require: false
 end
 
 group :development do
@@ -60,4 +68,10 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem "cucumber-rails", require: false
+  gem "database_cleaner"
+  gem "rails-controller-testing"
+  gem "rspec-rails"
+  gem "simplecov", require: false
+  gem "ZenTest"
 end

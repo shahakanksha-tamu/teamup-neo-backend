@@ -15,10 +15,7 @@ class SessionManagerController < ApplicationController
   def google_oauth_callback_handler
     auth = request.env["omniauth.auth"]
 
-    @user = User.find_by(email: auth["info"]["email"], provider: auth["provider"]) do |u|
-      @user.uid =  auth["uid"]
-    end
-
+    @user = User.find_by(email: auth["info"]["email"], provider: auth["provider"])
     if @user.present?
       login @user
     else
