@@ -1,0 +1,256 @@
+{
+  "Cucumber Features": {
+    "coverage": {
+      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/models/user.rb": {
+        "lines": [
+          1,
+          1,
+          null
+        ]
+      },
+      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/models/application_record.rb": {
+        "lines": [
+          1,
+          1,
+          null
+        ]
+      },
+      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/controllers/landing_page_controller.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          7,
+          1,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/controllers/application_controller.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          11,
+          null,
+          null,
+          1,
+          11,
+          null,
+          null,
+          1,
+          4,
+          1,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/helpers/application_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/helpers/dashboard_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/helpers/landing_page_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/helpers/session_manager_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/controllers/session_manager_controller.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          2,
+          2,
+          null,
+          null,
+          1,
+          3,
+          null,
+          3,
+          3,
+          2,
+          null,
+          1,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/controllers/dashboard_controller.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1727809674
+  },
+  "RSpec": {
+    "coverage": {
+      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/controllers/application_controller.rb": {
+        "lines": [
+          0,
+          null,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/controllers/dashboard_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/controllers/landing_page_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/controllers/session_manager_controller.rb": {
+        "lines": [
+          0,
+          0,
+          null,
+          0,
+          null,
+          null,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/helpers/application_helper.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/helpers/dashboard_helper.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/helpers/landing_page_helper.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/helpers/session_manager_helper.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/models/application_record.rb": {
+        "lines": [
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/models/user.rb": {
+        "lines": [
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      }
+    },
+    "timestamp": 1727809610
+  }
+}
