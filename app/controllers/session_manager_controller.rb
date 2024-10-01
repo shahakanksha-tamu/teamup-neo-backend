@@ -1,5 +1,10 @@
 class SessionManagerController < ApplicationController
+  skip_before_action :require_login, only: [ :google_oauth_callback_handler ]
+
   def logout
+    # TODO:
+    # 1) Reset the session
+    # 2) Redirect to the landing page with flash message
   end
 
   def login(user)
@@ -9,7 +14,11 @@ class SessionManagerController < ApplicationController
 
   def google_oauth_callback_handler
     auth = request.env["omniauth.auth"]
-    @user = User.find_by(email: auth["info"]["email"], provider: auth["provider"])
+
+    @user = User.find_by(email: auth["info"]["email"], provider: auth["provider"]) do |u|
+      @user.uid =  auth["uid"]
+    end
+
     if @user.present?
       login @user
     else
