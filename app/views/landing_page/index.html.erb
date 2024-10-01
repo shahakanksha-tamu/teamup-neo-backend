@@ -1,2 +1,88 @@
-<h1>This is the Landing page</h1>
-<%= button_to "Login with Google", "/auth/google_oauth2", data: {turbo: "false"} %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to NEO</title>
+  <style>
+    /* Google Fonts for custom font */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #1e90ff, #ff6347); /* Fancy background gradient */
+      color: #fff;
+    }
+
+    .container {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 1.5s ease-out; /* Fade-in animation */
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 3rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
+
+    .login-btn {
+      display: inline-block;
+      padding: 12px 25px;
+      background-color: #ff6347;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover transition */
+    }
+
+    .login-btn:hover {
+      background-color: #ff4500; /* Hover effect */
+      transform: scale(1.05);    /* Button grows slightly */
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px); /* Slide up effect */
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      .login-btn {
+        font-size: 1rem;
+        padding: 10px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to NEO</h1>
+    <a href="/login" class="login-btn">Login with Google</a>
+  </div>
+</body>
+</html>
