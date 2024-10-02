@@ -514,7 +514,6 @@ DEPENDENCIES
   capybara
   cucumber-rails
   database_cleaner
-  database_cleaner-active_record
   debug
   importmap-rails
   jbuilder
