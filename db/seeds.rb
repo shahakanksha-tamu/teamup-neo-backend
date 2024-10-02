@@ -1,8 +1,8 @@
 
   users = [
     { first_name: "Akanksha", last_name: "Shah", email: "shahakanksha@tamu.edu", role: "admin" },
-    { first_name: "Rahaan", last_name: "Gandhi", email: "Rahaang99@tamu.edu", role: 0 },
-    { first_name: "Dhruva", last_name: "Khanwelkar", email: "Dhruvak@tamu.edu", role: 0 },
+    { first_name: "Rahaan", last_name: "Gandhi", email: "rahaang99@tamu.edu", role: 0 },
+    { first_name: "Dhruva", last_name: "Khanwelkar", email: "dhruvak@tamu.edu", role: 0 },
     { first_name: "Meghana", last_name: "Pradhan", email: "meghna.pradhan@tamu.edu", role: 0 },
     { first_name: "Ramneek", last_name: "Kaur", email: "ramneek983@tamu.edu", role: 0 },
     { first_name: "Hao", last_name: "Jin", email: "q389974204@tamu.edu", role: 0 },
