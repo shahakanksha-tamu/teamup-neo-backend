@@ -51,6 +51,10 @@ group :development, :test do
   gem "sqlite3"
 
   gem "byebug"
+  gem "rspec-rails"
+  gem "capybara"
+  gem "cucumber-rails", require: false
+  gem 'database_cleaner-active_record'
   gem "launchy"
   gem "rubocop", require: false
   gem "rubocop-performance", require: false
@@ -66,12 +70,12 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
+  
   gem "selenium-webdriver"
-  gem "cucumber-rails", require: false
   gem "database_cleaner"
   gem "rails-controller-testing"
-  gem "rspec-rails"
   gem "simplecov", require: false
   gem "ZenTest"
+  gem 'factory_bot_rails'
+  gem 'faker'
 end
