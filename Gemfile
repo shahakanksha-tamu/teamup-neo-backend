@@ -76,6 +76,4 @@ group :test do
   gem "rails-controller-testing"
   gem "simplecov", require: false
   gem "ZenTest"
-  gem 'factory_bot_rails'
-  gem 'faker'
 end
