@@ -511,7 +511,6 @@ DEPENDENCIES
   bootsnap
   brakeman
   byebug
-  capybara
   cucumber-rails
   database_cleaner
   debug
