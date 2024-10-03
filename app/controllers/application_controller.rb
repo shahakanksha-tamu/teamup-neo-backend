@@ -18,4 +18,10 @@ class ApplicationController < ActionController::Base
       redirect_to root_path, alert: "You must be logged in to access the resource."
     end
   end
+
+  public 
+
+  def not_found
+    
+  end
 end
