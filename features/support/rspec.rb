@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 
 # This file prevents RSpec from issuing DEPRECATION warnings when it encounters

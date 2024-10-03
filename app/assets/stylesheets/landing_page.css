@@ -1,19 +1,11 @@
 
   .container {
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    animation: fadeIn 1.5s ease-out; /* Fade-in animation */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full viewport height */
-    width: 100vw; /* Full viewport width */
-    margin: 0;
-    box-sizing: border-box; /* Ensures padding is included in width/height */
+    margin-top: 25vh;
   }
 
   .login-btn {
