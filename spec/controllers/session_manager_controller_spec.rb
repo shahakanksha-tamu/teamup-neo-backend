@@ -26,14 +26,14 @@ RSpec.describe SessionManagerController, type: :controller do
       session[:user_id] = user.id
     end
 
-    it 'resets the session and redirects to root path with a notice' do # rubocop:disable RSpec/MultipleExpectations
+    it 'resets the session and redirects to root path with a notice' do
       get :logout
       expect(session[:user_id]).to be_nil
       expect(response).to redirect_to(root_path)
       expect(flash[:notice]).to eq('You are logged out.')
     end
 
-    it 'redirects to dashboard with an alert if an error occurs' do # rubocop:disable RSpec/MultipleExpectations
+    it 'redirects to dashboard with an alert if an error occurs' do
       allow(controller).to receive(:reset_session).and_raise(StandardError, 'An error occurred')
       get :logout
       expect(response).to redirect_to(dashboard_path)
@@ -54,7 +54,7 @@ RSpec.describe SessionManagerController, type: :controller do
         }
       end
 
-      it 'logs in the user and redirects to the dashboard' do # rubocop:disable RSpec/MultipleExpectations
+      it 'logs in the user and redirects to the dashboard' do
         post :google_oauth_callback_handler
         expect(session[:user_id]).to eq(user.id)
         expect(response).to redirect_to(dashboard_path)
@@ -70,7 +70,7 @@ RSpec.describe SessionManagerController, type: :controller do
         }
       end
 
-      it 'fails to log in and redirects to the root path' do # rubocop:disable RSpec/MultipleExpectations
+      it 'fails to log in and redirects to the root path' do
         post :google_oauth_callback_handler
         expect(session[:user_id]).to be_nil
         expect(response).to redirect_to(root_path)
@@ -81,7 +81,7 @@ RSpec.describe SessionManagerController, type: :controller do
 
   describe 'GET #google_oauth_failure_handler' do
     context 'when authentication fails' do
-      it 'redirects to root path with an alert message' do # rubocop:disable RSpec/MultipleExpectations
+      it 'redirects to root path with an alert message' do
         get :google_oauth_failure_handler, params: { message: 'invalid_credentials' }
         expect(response).to redirect_to(root_path)
         expect(flash[:alert]).to eq('Authentication failed: Invalid credentials')
@@ -89,7 +89,7 @@ RSpec.describe SessionManagerController, type: :controller do
     end
 
     context 'when other error messages are provided' do
-      it 'humanizes the failure message and shows the alert' do # rubocop:disable RSpec/MultipleExpectations
+      it 'humanizes the failure message and shows the alert' do
         get :google_oauth_failure_handler, params: { message: 'account_disabled' }
 
         expect(response).to redirect_to(root_path)

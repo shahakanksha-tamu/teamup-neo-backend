@@ -9,7 +9,7 @@ RSpec.describe DashboardController, type: :controller do
         session[:user_id] = nil
       end
 
-      it 'redirects the user to landing page when the user attempts to access the protected resources' do # rubocop:disable RSpec/MultipleExpectations
+      it 'redirects the user to landing page when the user attempts to access the protected resources' do
         get :index
         expect(session[:user_id]).to be_nil
         expect(response).to redirect_to(root_path)
