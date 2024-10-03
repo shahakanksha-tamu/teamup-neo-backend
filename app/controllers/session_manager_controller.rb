@@ -2,10 +2,13 @@ class SessionManagerController < ApplicationController
   skip_before_action :require_login, only: [ :google_oauth_callback_handler ]
 
   def logout
-    # TODO:
-    # 1) Reset the session
-    # 2) Redirect to the landing page with flash message
+      reset_session
+      redirect_to root_path, notice: "You are logged out."
+  rescue StandardError => e
+    redirect_to dashboard, alert: "Failed to logout: #{e.message}"
   end
+
+
 
   def login(user)
     session[:user_id] = user.id
