@@ -2,5 +2,17 @@
 
 # DashboardController handles all the methods/functions related to project dashboard
 class DashboardController < ApplicationController
-  def index; end
+
+  before_action :set_user_role
+  
+  def set_user_role
+      @role = User.find(session[:user_id]).role
+      unless @role
+          redirect_to landing_page_path
+      end
+  end
+
+  def index
+      @user = User.find(session[:user_id])
+  end
 end
