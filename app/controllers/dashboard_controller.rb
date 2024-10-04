@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# DashboardController handles all the methods/functions related to project dashboard
 class DashboardController < ApplicationController
 
   before_action :set_user_role

@@ -15,7 +15,7 @@ Scenario: login using google account
   Given I visit landing page
   Given I am already registered to Neo application with email "johndoe@gmail.com"
   When  I press Login with Google and choose "johndoe@gmail.com" as my google account for authentication
-  Then  Then I should be signed in as "johndoe@gmail.com"
+  Then  I should be signed in as "johndoe@gmail.com"
   And   I should see "Logout" button
 
 Scenario: login using invalid google account
@@ -33,4 +33,11 @@ Scenario: Access landing page after successful login
   When  I visit landing page
   Then  I should be on the dashboard page
 
+Scenario: User does not accept the Google OAuth authentication consent 
+  Given I visit landing page
+  Given I am already registered to Neo application with email "johndoe@gmail.com"
+  When  I press "Login with Google"
+  And   I cancel the Google OAuth consent
+  Then  I should be on the landing page
+  And   I should see "Authentication failed"
 
