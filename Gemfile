@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'bootstrap', '~> 5.0.0' 
+gem 'bootstrap', '~> 5.0.0'
+gem 'jquery-rails'
 
 gem 'sassc'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
