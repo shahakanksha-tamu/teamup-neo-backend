@@ -19,9 +19,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  public 
+  public
 
-  def not_found
-    
-  end
+  def not_found; end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   get 'calendars', to: 'calendars#index', as: :calendar_view
   get 'up' => 'rails/health#show', as: :rails_health_check
