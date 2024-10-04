@@ -7,7 +7,7 @@ class ProjectHubController < ApplicationController
         unless @role
             redirect_to landing_page_path
         end
-        if @role == 'student'
+        if @role == 'admin'
             redirect_to dashboard_path
         end
     end

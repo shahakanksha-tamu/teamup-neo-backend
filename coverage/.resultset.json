@@ -1,124 +1,194 @@
 {
   "Cucumber Features": {
     "coverage": {
-      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/models/user.rb": {
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/models/user.rb": {
         "lines": [
           1,
           1,
           null
         ]
       },
-      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/models/application_record.rb": {
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/models/application_record.rb": {
         "lines": [
           1,
           1,
           null
         ]
       },
-      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/controllers/landing_page_controller.rb": {
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/controllers/landing_page_controller.rb": {
         "lines": [
           1,
           1,
+          1,
+          5,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/controllers/application_controller.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          16,
+          null,
+          null,
+          1,
+          16,
+          null,
+          null,
+          1,
+          11,
+          0,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/helpers/application_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/helpers/dashboard_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/helpers/landing_page_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/helpers/project_hub_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/helpers/session_manager_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/helpers/settings_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/controllers/session_manager_controller.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          5,
+          5,
+          null,
+          null,
+          1,
+          5,
+          null,
+          5,
+          5,
+          5,
+          null,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/controllers/dashboard_controller.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          null,
+          1,
+          null,
           1,
           7,
-          1,
-          null,
-          null,
-          null
-        ]
-      },
-      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/controllers/application_controller.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          1,
-          null,
-          1,
-          null,
-          1,
-          11,
+          7,
+          0,
           null,
           null,
           1,
-          11,
-          null,
-          null,
-          1,
-          4,
-          1,
-          null,
+          0,
           null,
           null
         ]
       },
-      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/helpers/application_helper.rb": {
-        "lines": [
-          1,
-          null
-        ]
-      },
-      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/helpers/dashboard_helper.rb": {
-        "lines": [
-          1,
-          null
-        ]
-      },
-      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/helpers/landing_page_helper.rb": {
-        "lines": [
-          1,
-          null
-        ]
-      },
-      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/helpers/session_manager_helper.rb": {
-        "lines": [
-          1,
-          null
-        ]
-      },
-      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/controllers/session_manager_controller.rb": {
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/controllers/settings_controller.rb": {
         "lines": [
           1,
           1,
           null,
           1,
-          null,
-          null,
+          1,
+          1,
+          0,
           null,
           null,
           null,
           1,
-          2,
-          2,
-          null,
-          null,
           1,
-          3,
-          null,
-          3,
-          3,
-          2,
-          null,
-          1,
-          null,
           null,
           null
         ]
       },
-      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/controllers/dashboard_controller.rb": {
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/controllers/project_hub_controller.rb": {
         "lines": [
           1,
+          null,
           1,
+          null,
+          1,
+          1,
+          1,
+          0,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          0,
           null,
           null
         ]
       }
     },
-    "timestamp": 1727809674
+    "timestamp": 1728007060
   },
   "RSpec": {
     "coverage": {
-      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/controllers/application_controller.rb": {
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/controllers/application_controller.rb": {
         "lines": [
           0,
           null,
@@ -140,27 +210,69 @@
           0,
           0,
           0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          0,
           0
         ],
         "branches": {
         }
       },
-      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/controllers/dashboard_controller.rb": {
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/controllers/dashboard_controller.rb": {
+        "lines": [
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/controllers/landing_page_controller.rb": {
         "lines": [
           0,
           0,
           0,
+          0,
+          0,
+          0,
+          0,
           0
         ],
         "branches": {
         }
       },
-      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/controllers/landing_page_controller.rb": {
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/controllers/project_hub_controller.rb": {
         "lines": [
           0,
+          null,
+          0,
+          null,
           0,
           0,
           0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
           0,
           0,
           0,
@@ -169,7 +281,7 @@
         "branches": {
         }
       },
-      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/controllers/session_manager_controller.rb": {
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/controllers/session_manager_controller.rb": {
         "lines": [
           0,
           0,
@@ -200,40 +312,19 @@
         "branches": {
         }
       },
-      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/helpers/application_helper.rb": {
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/controllers/settings_controller.rb": {
         "lines": [
           0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/helpers/dashboard_helper.rb": {
-        "lines": [
           0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/helpers/landing_page_helper.rb": {
-        "lines": [
+          null,
           0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/helpers/session_manager_helper.rb": {
-        "lines": [
           0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/models/application_record.rb": {
-        "lines": [
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
           0,
           0,
           0
@@ -241,7 +332,64 @@
         "branches": {
         }
       },
-      "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/models/user.rb": {
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/helpers/application_helper.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/helpers/dashboard_helper.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/helpers/landing_page_helper.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/helpers/project_hub_helper.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/helpers/session_manager_helper.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/helpers/settings_helper.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/models/application_record.rb": {
+        "lines": [
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/Users/meghnapradhan/Desktop/Software_Eng/Neo/teamup-neo-backend/app/models/user.rb": {
         "lines": [
           0,
           0,
@@ -251,6 +399,6 @@
         }
       }
     },
-    "timestamp": 1727809610
+    "timestamp": 1728003315
   }
 }
