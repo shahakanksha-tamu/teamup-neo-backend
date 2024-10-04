@@ -13,7 +13,7 @@ Scenario: Admin accesses dashboard
     Given the admin is logged in with "janedoe@gmail.com"
     When the admin navigates to the dashboard
     Then the admin should be directed to the dashboard
-    And the student should see "admin Dashboard"
+    And the admin should see "user : admin"
 
 Scenario: Student accesses settings
     Given the admin is logged in with "janedoe@gmail.com"

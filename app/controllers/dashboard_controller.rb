@@ -1,16 +1,15 @@
 class DashboardController < ApplicationController
 
   before_action :set_user_role
-
-  private
-
+  
   def set_user_role
-    @role = User.find(session[:user_id]).role
-    unless @role
-      redirect_to landing_page_path
-    end
+      @role = User.find(session[:user_id]).role
+      unless @role
+          redirect_to landing_page_path
+      end
   end
+
   def index
-    @user = User.find(session[:user_id])
+      @user = User.find(session[:user_id])
   end
 end

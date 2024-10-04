@@ -13,7 +13,7 @@ Scenario: Student accesses dashboard
     Given the student is logged in with "johndoe@gmail.com"
     When the student navigates to the dashboard
     Then the student should be directed to the dashboard
-    And the studnet should see "student Dashboard" 
+    And the studnet should see "user : student" 
 
 
 Scenario: Student accesses settings
