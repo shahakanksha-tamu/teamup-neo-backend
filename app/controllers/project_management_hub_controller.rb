@@ -1,5 +1,4 @@
-class ProjectHubController < ApplicationController
-    
+class ProjectManagementHubController < ApplicationController
     before_action :set_user_role
 
     def set_user_role
@@ -7,7 +6,7 @@ class ProjectHubController < ApplicationController
         unless @role
             redirect_to landing_page_path
         end
-        if @role == 'admin'
+        if @role == 'student'
             redirect_to dashboard_path
         end
     end
