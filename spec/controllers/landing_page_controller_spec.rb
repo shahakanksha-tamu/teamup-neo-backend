@@ -14,4 +14,15 @@ RSpec.describe LandingPageController, type: :controller do
       expect(response).to render_template('index')
     end
   end
+
+  context 'when the user is logged in' do
+    before do
+      allow(controller).to receive(:logged_in?).and_return(true)
+    end
+
+    it 'redirects to the dashboard page' do
+      get :index
+      expect(response).to redirect_to(dashboard_path)
+    end
+  end
 end
