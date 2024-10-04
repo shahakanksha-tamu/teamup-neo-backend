@@ -5,6 +5,7 @@
         "lines": [
           null,
           null,
+          null,
           1,
           1,
           1,
@@ -17,6 +18,7 @@
       },
       "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/controllers/application_controller.rb": {
         "lines": [
+          null,
           null,
           null,
           1,
@@ -46,12 +48,15 @@
         "lines": [
           null,
           null,
+          null,
           1,
           null
         ]
       },
       "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/models/user.rb": {
         "lines": [
+          null,
+          null,
           null,
           null,
           1,
@@ -61,6 +66,8 @@
       },
       "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/models/application_record.rb": {
         "lines": [
+          null,
+          null,
           null,
           null,
           1,
@@ -111,18 +118,20 @@
         "lines": [
           null,
           null,
+          null,
           1,
           1,
           null
         ]
       }
     },
-    "timestamp": 1727971706
+    "timestamp": 1728075455
   },
   "RSpec": {
     "coverage": {
       "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/helpers/application_helper.rb": {
         "lines": [
+          null,
           null,
           null,
           1,
@@ -133,6 +142,7 @@
         "lines": [
           null,
           null,
+          null,
           1,
           1,
           null
@@ -140,6 +150,7 @@
       },
       "/Users/akankshashah/Documents/TAMU ACAD/SE /project/teamup-neo-backend/app/controllers/application_controller.rb": {
         "lines": [
+          null,
           null,
           null,
           1,
@@ -169,6 +180,7 @@
         "lines": [
           null,
           null,
+          null,
           1,
           1,
           1,
@@ -222,6 +234,8 @@
         "lines": [
           null,
           null,
+          null,
+          null,
           1,
           1,
           null
@@ -231,12 +245,14 @@
         "lines": [
           null,
           null,
+          null,
+          null,
           1,
           1,
           null
         ]
       }
     },
-    "timestamp": 1727971723
+    "timestamp": 1728075597
   }
 }
