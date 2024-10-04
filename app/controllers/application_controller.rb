@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# ApplicationController acts as a base class for all the controllers
 class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern

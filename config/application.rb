@@ -9,6 +9,9 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 
 module TeamupNeoBackend
+  # The TeamupNeoBackend::Application class configures the Rails application.
+  # It sets up middleware, routes, initializers, and other application-wide settings.
+  # This class inherits from Rails::Application and serves as the entry point for the application.
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.2

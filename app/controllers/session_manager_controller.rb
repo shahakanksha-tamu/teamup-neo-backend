@@ -4,15 +4,11 @@
 class SessionManagerController < ApplicationController
   skip_before_action :require_login, only: %i[google_oauth_callback_handler google_oauth_failure_handler]
 
-  def logout; end
-
-  def login(user)
-    if @user.present?
-      session[:user_id] = user.id
-      redirect_to dashboard_path, notice: 'You are logged in.'
-    else
-      redirect_to root_path, alert: 'Login failed.'
-    end
+  def logout
+    reset_session
+    redirect_to root_path, notice: 'You are logged out.'
+  rescue StandardError => e
+    redirect_to dashboard_path, alert: "Failed to logout: #{e.message}"
   end
 
   def google_oauth_callback_handler
@@ -24,5 +20,16 @@ class SessionManagerController < ApplicationController
   def google_oauth_failure_handler
     redirect_to root_path,
                 alert: "Authentication failed: #{params[:message].humanize}"
+  end
+
+  private
+
+  def login(user)
+    if user.present?
+      session[:user_id] = user.id
+      redirect_to dashboard_path, notice: 'You are logged in.'
+    else
+      redirect_to root_path, alert: 'Login failed.'
+    end
   end
 end
