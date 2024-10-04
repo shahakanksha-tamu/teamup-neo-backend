@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_03_033321) do
-  create_table "students", force: :cascade do |t|
+ActiveRecord::Schema[7.2].define(version: 2024_10_04_004334) do
+  create_table "admins", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "admins_projects", id: false, force: :cascade do |t|
+    t.integer "admin_id", null: false
+    t.integer "project_id", null: false
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "projects_students", id: false, force: :cascade do |t|
+    t.integer "student_id", null: false
+    t.integer "project_id", null: false
   end
 
   create_table "users", force: :cascade do |t|
