@@ -13,4 +13,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root 'landing_page#index'
   match '*path', to: 'application#not_found', via: :all
+  get '/auth/failure', to: 'session_manager#google_oauth_failure_handler'
+
+
 end
