@@ -1,7 +1,9 @@
-# frozen_string_literal: true
-
 source 'https://rubygems.org'
 
+gem 'bootstrap', '~> 5.0.0'
+gem 'jquery-rails'
+
+gem 'sassc'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.2.1'
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
@@ -68,7 +70,6 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-
   gem 'capybara'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
