@@ -1,9 +1,9 @@
 # README
 ## Version: Sprint 1 MVP
 ## Links
-Deployment: https://teamup-neo-ba74edfc326f.herokuapp.com
-Code Climate: https://codeclimate.com/github/shahakanksha-tamu/teamup-neo-backend
-TWA link: https://docs.google.com/document/d/1UJPuRpy88v_93F4VPQSZGwPWX9yjqdwD4mbKQIw6viM/edit?usp=sharing
+- Deployment: https://teamup-neo-ba74edfc326f.herokuapp.com
+- Code Climate: https://codeclimate.com/github/shahakanksha-tamu/teamup-neo-backend
+- TWA link: https://docs.google.com/document/d/1UJPuRpy88v_93F4VPQSZGwPWX9yjqdwD4mbKQIw6viM/edit?usp=sharing
 ## Features
 #### Login Using Google OAuth
 Users can log in via OAuth.
