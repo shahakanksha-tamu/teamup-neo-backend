@@ -1,0 +1,94 @@
+# Team Neo Working Agreement
+
+## Norms and Values 
+### Communication:
+
+We prioritize clear and transparent communication between team members. To facilitate this, Slack will be our primary platform for daily communication. In cases where urgent communication is required, or if there is no response on Slack, we will use WhatsApp to ensure timely responses.
+
+We aim to be responsive on all communication platforms and strive to reply within a reasonable timeframe to avoid blocking the progress of other team members or workflow.
+
+### Agendas:
+
+Apart from Scrum meetings, all other meetings must have a well-defined agenda that is shared with the entire team in advance. We aim to keep meetings focused, with an emphasis on discussing blockers and ensuring they are on the path to resolution.
+
+Each meeting should conclude with clear action items, ideally delegated to specific team members. Meeting minutes (MoM) should be recorded to track discussions and serve as a reference for anyone who missed the meeting.
+
+### Disagreements:
+
+We accept that disagreements are inevitable, and we aim to foster a safe space where all team members can freely voice their opinions. Everyone is encouraged to engage in respectful discussions, even when there are disagreements.
+
+If a disagreement cannot be resolved among those involved, they should seek assistance from a neutral team member to help facilitate a respectful and constructive resolution.
+
+### Roles:
+
+We have two defined roles: Product Owner and Scrum Master. We expect the team members in these roles to perform their duties to the best of their abilities during the sprint, with the rest of the team providing support as needed. While there are no specific roles assigned to the remaining team members, we expect everyone to be accountable for their tasks and consistently give their best effort.
+
+
+### Values:
+
+As a team, we value proactive collaboration, inclusion, and continuous learning. We aim to build a great product by leveraging our collective strengths and supporting each other. We aim to improve both as developers and team members, learning from challenges and growing together.
+
+
+## Roles for Retrospecitves
+For Sprint Retrospectives the roles are typically assigned to help facilitate productive discussions and ensure that the session is structured and goal-oriented. We would follow below roles and responsibilities:
+
+### Scrum Master
+
+- Guide the retrospective and keep the discussion focused on the agenda.
+- Ensure that all team members participate and that no one dominates the conversation.
+- Encourage open communication and create a safe space for honest feedback.
+- Help to manage time and ensure the session stays within the allocated time.
+- Help to navigate the discussion around the following points.
+
+ What went well? Highlight successes and achievements, and encourage celebration. 
+ What went wrong? Identify blockers, and keep the discussion constructive. 
+ How can we improve? Brainstorm actionable improvements, and prioritize key actions.
+ Shoutouts? Acknowledge contributions and build team morale.
+
+### Note Taker
+
+- Take detailed notes during the retrospective, capturing key points, insights, and action items in a document or on Confluence.
+- Summarize and share the retrospective findings with the team after the session.
+- Ensure transparency by recording what was discussed and decided, and making the notes available to the entire team for future reference.
+
+### Participants / Team Members
+
+- Actively participate by sharing thoughts on what went well, what didn't, and what can be improved. 
+- Offer constructive feedback, focusing on team processes rather than blaming individuals. 
+- Listen and engage in discussions, providing input on potential solutions or changes. Support the team in identifying improvements and commit to action items.
+
+
+## How to Handle Conflict
+Handling conflict within a team requires acknowledging the conflict, communicating openly, and finding common ground.
+
+Transparent Communication and Active Listening:
+Transparent communication and active listening are encouraged.
+Team members should express their perspectives calmly.
+
+Constructive Feedback:
+Feedback will be provided constructively and with respect.
+
+Addressing Concerns Promptly:
+Open communication about concerns or disagreements should occur as soon as they arise.
+
+Ownership and Accountability:
+Each team member will take ownership of their actions and decisions.
+
+Collaborative Problem-Solving:
+Conflicts will be resolved through collaboration, seeking solutions that benefit the team and the project.
+
+Decision-Making:
+Decisions will be based on data, team goals, and mutual understanding.
+
+## Definition of Done:
+The Definition of Done is a set of criteria that a product release must meet for the team to consider it as completed and ready for customers.
+
+DoDs for all User Stories:
+
+All files must be compliant with Rubocop standards and no more than 1 offense per file exists after running Rubocop.
+Implement Cucumber scenarios and Rspec Tests for a minimum coverage of 90% for all files associated with the story.
+Write clean code without breaking other subsequent features.
+Pull other changes and make sure the story branch is up to date with its parent branch.
+Must report completion notes as comments on JIRA Story.
+PRs must contain details on work done in the branch as well as Jira Story Number and must assign the PR to the person responsible for their work.
+In addition to the above, user stories can have specific DoDs due to the nature of the tasks.
