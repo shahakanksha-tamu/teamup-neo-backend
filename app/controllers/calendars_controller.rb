@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Handles all functions concerning with the Calendar view.
 class CalendarsController < ApplicationController
   def set_user_role
     @role = User.find(session[:user_id]).role

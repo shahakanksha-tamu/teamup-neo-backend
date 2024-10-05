@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 gem 'bootstrap', '~> 5.0.0'
@@ -73,6 +75,7 @@ group :test do
   gem 'capybara'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
+  gem 'factory_bot_rails'
   gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
