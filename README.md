@@ -1,24 +1,31 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Version: Sprint 1 MVP
 
-Things you may want to cover:
+## Links
+Deployment: https://teamup-neo-ba74edfc326f.herokuapp.com
 
-* Ruby version
+Code Climate: https://codeclimate.com/github/shahakanksha-tamu/teamup-neo-backend 
 
-* System dependencies
+## Features
 
-* Configuration
+#### Login Using Google OAuth
+Users can log in via OAuth.
+User sessions persist after login.
+Error handling and redirects for failed logins.
+#### Logout Using Google OAuth
+Users can log out and clear their session.
+Error handling and redirects for illegal logout attempts.
+#### Page UI
+Landing page UI.
+Basic dashboard place holder.
+#### Session Management and Access Authority Check
+Authority check for resources requiring logging in.
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Setting Up Locally
+#### 1. bundle install
+#### 2. configure the credential file and master key
+#### 4. rails db:create
+#### 5. rails db:migrate
+#### 6. rails db:seed
+#### 7. rails server
