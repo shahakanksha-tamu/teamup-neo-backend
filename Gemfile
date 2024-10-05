@@ -83,3 +83,7 @@ group :test do
   gem 'factory_bot_rails'
 
 end
+
+group :production do
+  gem 'pg' # for Heroku deployment
+end
