@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-# DashboardController handles all the methods/functions related to project dashboard
-class DashboardController < ApplicationController
-  before_action :set_user_role
-
+# Handles all functions concerning with the Calendar view.
+class CalendarsController < ApplicationController
   def set_user_role
     @role = User.find(session[:user_id]).role
     return if @role

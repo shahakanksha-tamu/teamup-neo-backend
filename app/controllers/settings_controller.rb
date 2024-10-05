@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# DashboardController handles all the methods/functions related to project dashboard
-class DashboardController < ApplicationController
+# Controller to handle all settings related functions
+class SettingsController < ApplicationController
   before_action :set_user_role
 
   def set_user_role
