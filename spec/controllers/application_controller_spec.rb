@@ -63,7 +63,7 @@ RSpec.describe ApplicationController, type: :controller do
 
   describe '#require_login' do
     context 'when user is logged in' do
-      let(:user) { double('User', id: 1) } # Mock user object
+      let(:user) { double('User', id: 1) } 
 
       before do
         allow(User).to receive(:find).with(1).and_return(user) 
