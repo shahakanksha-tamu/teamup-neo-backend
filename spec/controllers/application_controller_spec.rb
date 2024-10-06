@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe ApplicationController, type: :controller do
   controller do
     def index
-      render plain: "Hello, world!"
+      render plain: 'Hello, world!'
     end
   end
 
   describe '#current_user' do
     context 'when user is logged in' do
-      let(:user) { double('User', id: 1) } 
+      let(:user) { instance_double(User, id: 1) }
 
       before do
         allow(User).to receive(:find).with(1).and_return(user) # Mock find method
@@ -36,10 +38,10 @@ RSpec.describe ApplicationController, type: :controller do
 
   describe '#logged_in?' do
     context 'when user is logged in' do
-      let(:user) { double('User', id: 1) } 
+      let(:user) { instance_double(User, id: 1) }
 
       before do
-        allow(User).to receive(:find).with(1).and_return(user) 
+        allow(User).to receive(:find).with(1).and_return(user)
         session[:user_id] = 1
         get :index
       end
@@ -63,10 +65,10 @@ RSpec.describe ApplicationController, type: :controller do
 
   describe '#require_login' do
     context 'when user is logged in' do
-      let(:user) { double('User', id: 1) } 
+      let(:user) { instance_double(User, id: 1) }
 
       before do
-        allow(User).to receive(:find).with(1).and_return(user) 
+        allow(User).to receive(:find).with(1).and_return(user)
         session[:user_id] = 1
         get :index
       end
@@ -84,7 +86,7 @@ RSpec.describe ApplicationController, type: :controller do
 
       it 'redirects to root_path with an alert' do
         expect(response).to redirect_to(root_path)
-        expect(flash[:alert]).to eq("You must be logged in to access the resource.")
+        expect(flash[:alert]).to eq('You must be logged in to access the resource.')
       end
     end
   end
