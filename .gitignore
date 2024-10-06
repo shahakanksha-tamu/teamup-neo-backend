@@ -38,3 +38,4 @@
 /node_modules
 config/credentials.yml.enc
 coverage/*
+coverage/.resultset.json
