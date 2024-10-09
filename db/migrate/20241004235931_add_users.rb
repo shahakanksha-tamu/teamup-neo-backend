@@ -6,6 +6,5 @@ class AddUsers < ActiveRecord::Migration[7.2]
     User.create(first_name: 'David', last_name: 'Kebo', email: 'davidkebo@tamu.edu', role: 'admin')
     User.create(first_name: 'Shashankit', last_name: 'Thakur', email: 'shashankit.thakur@gmail.com', role: 'admin')
     User.create(first_name: 'Akanksha', last_name: 'Shah', email: 'shahakanksha286@gmail.com', role: 'student')
-    User.create(first_name: 'Shashankit', last_name: 'Thakur', email: 'shashankit.t@gmail.com', role: 'student')
   end
 end
