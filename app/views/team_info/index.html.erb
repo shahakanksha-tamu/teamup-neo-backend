@@ -1,0 +1,56 @@
+<div class="container-fluid p-5">
+  <div class="row">
+   
+    <div class="col-md-9">
+      <h3 class="team-info-heading">Team Members Information</h3>
+      <div>
+        <div class="row">
+          <% @users.each do |user| %>
+            <div class="col-md-6">
+              <div class="card rounded mb-3 card-hover" style="max-width: 540px;">
+                <div class="row g-0">
+                  <div class="col-12 col-md-4 d-flex justify-content-left align-items-center">
+                    <%= image_tag asset_path('user icon.png'), height: '150', width: '150', class: 'img-fluid' %>
+                  </div>
+                  <div class="col-12 col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title"><%=user.first_name%> <%=user.last_name%></h5>
+                      <p class="card-text"><%=user.email%><br>+1 (214)-899-5566</p>
+                      <p class="card-text"><small class="text-muted">Last updated at <%=user.updated_at.to_date%></small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    
+    <aside class="col-md-3 ml-3 position-sticky" style="top: 20px;">
+      <div>
+        <h3 class="team-info-heading">Key Contacts</h3>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <strong>John Doe</strong><br>
+            Project Manager<br>
+            johndoe@example.com<br>
+            +1 (123)-456-7890
+          </li>
+          <li class="list-group-item">
+            <strong>Jane Smith</strong><br>
+            HR Manager<br>
+            janesmith@example.com<br>
+            +1 (987)-654-3210
+          </li>
+          <li class="list-group-item">
+            <strong>Michael Johnson</strong><br>
+            IT Support<br>
+            michaeljohnson@example.com<br>
+            +1 (555)-555-5555
+          </li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</div>

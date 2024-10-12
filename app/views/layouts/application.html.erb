@@ -20,9 +20,9 @@
   </head>
 
   <body>
-     <% unless controller_name == 'pages' && action_name == 'landing' %>
-        <%= render 'layouts/navbar' %>
-      <% end %>
+    <% if @user %>
+      <%= render 'layouts/navbar' %>
+    <% end %>
     <%= render partial: 'shared/display_flash' if not flash.empty? %>
     <%= yield %>
   </body>
