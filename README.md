@@ -1,6 +1,6 @@
 # Teamup - Neo
 
-**Heroku Deployment Link** - https://akanksha-rotten-potatoes-57d5e3da28cc.herokuapp.com
+**Heroku Deployment Link** - https://teamup-neo-ba74edfc326f.herokuapp.com
  
 **Code Climate Quality Report** - https://codeclimate.com/github/shahakanksha-tamu/teamup-neo-backend
 
