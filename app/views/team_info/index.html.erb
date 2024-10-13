@@ -15,7 +15,7 @@
                   <div class="col-12 col-md-8">
                     <div class="card-body">
                       <h5 class="card-title"><%=user.first_name%> <%=user.last_name%></h5>
-                      <p class="card-text"><%=user.email%><br>+1 (214)-899-5566</p>
+                      <p class="card-text"><i class="material-icons icon email-icon">mail</i><a href="mailto:<%=user.email%>"><%=user.email%></a><br><i class="material-icons icon">call</i>+1 (214)-899-5566</p>
                       <p class="card-text"><small class="text-muted">Last updated at <%=user.updated_at.to_date%></small></p>
                     </div>
                   </div>
