@@ -24,31 +24,21 @@
             </div>
           <% end %>
         </div>
-      </div>
+      </div> 
     </div>
     
-    <aside class="col-md-3 ml-3 position-sticky" style="top: 20px;">
+    <aside class="col-md-3">
       <div>
         <h3 class="team-info-heading">Key Contacts</h3>
-        <ul class="list-group">
-          <li class="list-group-item">
-            <strong>John Doe</strong><br>
-            Project Manager<br>
-            johndoe@example.com<br>
-            +1 (123)-456-7890
-          </li>
-          <li class="list-group-item">
-            <strong>Jane Smith</strong><br>
-            HR Manager<br>
-            janesmith@example.com<br>
-            +1 (987)-654-3210
-          </li>
-          <li class="list-group-item">
-            <strong>Michael Johnson</strong><br>
-            IT Support<br>
-            michaeljohnson@example.com<br>
-            +1 (555)-555-5555
-          </li>
+        <ul class="list-group mentor">
+          <% @mentors.each do |mentor| %>
+            <li class="list-group-item" style="background-color: #f8f8f8;">
+              <strong><%=mentor.first_name%> <%=mentor.last_name%></strong><br>
+              <%=mentor.role.titleize%><br>
+              <%=mentor.email%><br>
+              +1 (123)-456-7890
+            </li>
+          <% end %>
         </ul>
       </div>
     </aside>
