@@ -2,18 +2,37 @@
 
 # Users
 users = [
-  { first_name: 'Akanksha', last_name: 'Shah', email: 'shahakanksha@tamu.edu', contact: '1234567890', role: 'admin' },
-  { first_name: 'Rahaan', last_name: 'Gandhi', email: 'rahaang99@tamu.edu', contact: '1234567891', role: 'student' },
-  { first_name: 'Dhruva', last_name: 'Khanwelkar', email: 'dhruvak@tamu.edu', contact: '1234567892', role: 'student' },
-  { first_name: 'Meghana', last_name: 'Pradhan', email: 'meghna.pradhan@tamu.edu', contact: '1234567893', role: 'student' },
-  { first_name: 'Ramneek', last_name: 'Kaur', email: 'ramneek983@tamu.edu', contact: '1234567894', role: 'student' },
-  { first_name: 'Hao', last_name: 'Jin', email: 'q389974204@tamu.edu', contact: '1234567895', role: 'student' },
-  { first_name: 'Yiyang', last_name: 'Yan', email: 'yyy2000@tamu.edu', contact: '1234567896', role: 'student' }
+  { first_name: 'Akanksha', last_name: 'Shah', email: 'shahakanksha@tamu.edu', role: 'admin' },
+  { first_name: 'Rahaan', last_name: 'Gandhi', email: 'rahaang99@tamu.edu', role: 0 },
+  { first_name: 'Dhruva', last_name: 'Khanwelkar', email: 'dhruvak@tamu.edu', role: 0 },
+  { first_name: 'Meghana', last_name: 'Pradhan', email: 'meghna.pradhan@tamu.edu', role: 0 },
+  { first_name: 'Ramneek', last_name: 'Kaur', email: 'ramneek983@tamu.edu', role: 0 },
+  { first_name: 'Hao', last_name: 'Jin', email: 'q389974204@tamu.edu', role: 0 },
+  { first_name: 'Yiyang', last_name: 'Yan', email: 'yyy2000@tamu.edu', role: 0 }
 ]
 
 users.each do |user|
   User.find_or_create_by!(user)
 end
+
+users = [
+  { first_name: 'Akanksha', last_name: 'Shah', email: 'shahakanksha@tamu.edu', contact: '1234567890', role: 'admin' },
+  { first_name: 'Rahaan', last_name: 'Gandhi', email: 'rahaang99@tamu.edu', contact: '1234567891', role: 0 },
+  { first_name: 'Dhruva', last_name: 'Khanwelkar', email: 'dhruvak@tamu.edu', contact: '1234567892', role: 0 },
+  { first_name: 'Meghana', last_name: 'Pradhan', email: 'meghna.pradhan@tamu.edu', contact: '1234567893', role: 0 },
+  { first_name: 'Ramneek', last_name: 'Kaur', email: 'ramneek983@tamu.edu', contact: '1234567894', role: 0 },
+  { first_name: 'Hao', last_name: 'Jin', email: 'q389974204@tamu.edu', contact: '1234567895', role: 0 },
+  { first_name: 'Yiyang', last_name: 'Yan', email: 'yyy2000@tamu.edu', contact: '1234567896', role: 0 }
+]
+
+users.each do |user_data|
+  # Find the user by their email
+  user = User.find_or_initialize_by(email: user_data[:email])
+  
+  # Update the user attributes (including contact) if they already exist
+  user.update!(first_name: user_data[:first_name], last_name: user_data[:last_name], contact: user_data[:contact], role: user_data[:role])
+end
+
 
 # Projects
 projects = [
@@ -37,9 +56,9 @@ end
 
 # Tasks
 tasks = [
-  { task_name: 'Setup project environment', description: 'Setup Rails environment', status: 'Incomplete', milestone_id: Milestone.find_by(title: 'Milestone 1').id, deadline: Time.now + 2.days },
-  { task_name: 'Implement database', description: 'Design and implement the database schema', status: 'Incomplete', milestone_id: Milestone.find_by(title: 'Milestone 1').id, deadline: Time.now + 5.days },
-  { task_name: 'Final testing', description: 'Test all features', status: 'Incomplete', milestone_id: Milestone.find_by(title: 'Milestone 2').id, deadline: Time.now + 10.days }
+  { task_name: 'Setup project environment', description: 'Setup Rails environment', status: 'Not Completed', milestone_id: Milestone.find_by(title: 'Milestone 1').id, deadline: Time.now + 2.days },
+  { task_name: 'Implement database', description: 'Design and implement the database schema', status: 'Not Completed', milestone_id: Milestone.find_by(title: 'Milestone 1').id, deadline: Time.now + 5.days },
+  { task_name: 'Final testing', description: 'Test all features', status: 'Not Completed', milestone_id: Milestone.find_by(title: 'Milestone 2').id, deadline: Time.now + 10.days }
 ]
 
 tasks.each do |task|

@@ -1,6 +1,6 @@
 class Timeline < ApplicationRecord
   belongs_to :project
-  belongs_to :milestone
+  has_many :milestone
 
   # Validations
   validates :start_date, presence: true

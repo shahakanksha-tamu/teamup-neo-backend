@@ -53,7 +53,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_13_000601) do
     t.integer "milestone_id"
     t.string "task_name", limit: 255
     t.text "description"
-    t.string "status", limit: 20
+    t.string "status", limit: 20, default: "Not Completed"
     t.datetime "deadline"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -77,11 +77,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_13_000601) do
     t.string "last_name"
     t.string "email", null: false
     t.string "contact", limit: 10
-    t.string "role", default: "student"
+    t.integer "role", default: 0
     t.string "photo", limit: 200
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "provider", default: "google_oauth2"
+    t.index ["email"], name: "index_users_on_email_unique", unique: true
   end
 
   add_foreign_key "milestones", "projects"
