@@ -37,6 +37,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_13_000601) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_student_assignments_on_project_id"
+    t.index ["user_id", "project_id"], name: "index_student_assignments_on_user_id_and_project_id", unique: true
     t.index ["user_id"], name: "index_student_assignments_on_user_id"
   end
 
