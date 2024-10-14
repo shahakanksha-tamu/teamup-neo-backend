@@ -2,7 +2,7 @@
   <div class="row">
    
     <div class="col-md-9">
-      <h3 class="team-info-heading">Team Members Information</h3>
+      <h3 class="team-info-heading">Team Members Information For <%=@project_name %></h3>
       <div>
         <div class="row">
         <% if @team_members.present? %>
@@ -39,8 +39,8 @@
             <li class="list-group-item" style="background-color: #f8f8f8;">
               <strong><%=mentor.first_name%> <%=mentor.last_name%></strong><br>
               <%=mentor.role.titleize%><br>
-              <%=mentor.email%><br>
-              +1 (123)-456-7890
+              <i class="material-icons icon email-icon">mail</i><a href="mailto:<%=mentor.email%>"><%=mentor.email%></a><br>
+              <i class="material-icons icon">call</i>+1 (123)-456-7890
             </li>
           <% end %>
         </ul>
