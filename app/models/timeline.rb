@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class Timeline < ApplicationRecord
   belongs_to :project
-  has_many :milestone
+  has_many :milestones, dependent: :nullify
 
   # Validations
   validates :start_date, presence: true
@@ -10,9 +12,8 @@ class Timeline < ApplicationRecord
   private
 
   def end_date_after_start_date
-    if end_date < start_date
-      errors.add(:end_date, "must be after the start date")
-    end
+    return unless end_date < start_date
+
+    errors.add(:end_date, 'must be after the start date')
   end
 end
-  

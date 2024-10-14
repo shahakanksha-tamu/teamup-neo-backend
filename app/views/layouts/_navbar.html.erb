@@ -1,6 +1,15 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">Teamup-NEO</a>
+   <img src="<%= asset_path('teamup.png') %>" alt="App Icon" width="50" height="50" style="margin-right: 10px;" class="d-inline-block align-text-top">
+    <%= link_to "NEO", dashboard_path, class: "navbar-brand" %>
+     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <% if @role == 'student' %>
+            <%= link_to "Team Members", dashboard_team_view_path, class: "nav-link" %>
+          <% end %>
+        </li>
+      </ul>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -13,8 +22,13 @@
         <li class="nav-item">
           <%= link_to "Calendar", calendar_view_path, class: "nav-link" %>
         </li>
-        <li class="nav-item">
-          <%= link_to "Project Hub", project_hub_path, class: "nav-link" %>
+        <li class="nav-item">           
+            <% if @role == 'student' %>
+              <%= link_to "Project Hub", project_hub_path, class: "nav-link" %>
+            <% else %>
+              <%= link_to "Manage Projects", project_management_hub_path, class: "nav-link" %>
+            <% end %>
+
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
