@@ -14,9 +14,7 @@ class SessionManagerController < ApplicationController
   def google_oauth_callback_handler
     auth = request.env['omniauth.auth']
     @user = User.find_by(email: auth['info']['email'], provider: auth['provider'])
-    # fetch profile photo of the user
-    # @user.image = auth.info.image
-    login @user
+    login(@user, auth['info']['image'])
   end
 
   def google_oauth_failure_handler
@@ -26,11 +24,13 @@ class SessionManagerController < ApplicationController
 
   private
 
-  def login(user)
+  def login(user, photo)
     if user.present?
       session[:user_id] = user.id
-      # update the profile photo if it does not exists already
-      # save the user into database
+      unless user.photo?
+        user.photo = photo
+        @user.save
+      end
       redirect_to dashboard_path, notice: 'You are logged in.'
     else
       redirect_to root_path, alert: 'Login failed.'
