@@ -29,7 +29,7 @@ class SessionManagerController < ApplicationController
       session[:user_id] = user.id
       unless user.photo?
         user.photo = photo
-        @user.save
+        user.save
       end
       redirect_to dashboard_path, notice: 'You are logged in.'
     else

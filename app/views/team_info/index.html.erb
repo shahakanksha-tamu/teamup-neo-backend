@@ -10,7 +10,7 @@
               <div class="card rounded mb-3 card-hover" style="max-width: 540px;">
                 <div class="row g-0">
                   <div class="col-12 col-md-4 d-flex justify-content-left align-items-center">
-                    <%= image_tag asset_path('user icon.png'), height: '150', width: '150', class: 'img-fluid' %>
+                    <img src="<%= user.photo.present? ? "#{user.photo}?sz=200" : asset_path("user icon.png") %>" alt="App Icon" width="150" height="150", class='img-fluid'>
                   </div>
                   <div class="col-12 col-md-8">
                     <div class="card-body">
