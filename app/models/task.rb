@@ -1,15 +1,16 @@
+# frozen_string_literal: true
+
 class Task < ApplicationRecord
   belongs_to :milestone
-  has_many :task_assignments
-  has_many :users, through: :task_assignments
+  has_one :task_assignment, dependent: :destroy
+  has_one :user, through: :task_assignment
   enum status: {
-    "Not Completed" => 'Not Completed',
-    "Completed" => 'Completed',
-    "Delayed" => 'Delayed'
+    'Not Completed' => 'Not Completed',
+    'Completed' => 'Completed',
+    'Delayed' => 'Delayed'
   }
 
   # Validations
   validates :task_name, presence: true
   validates :status, presence: true
 end
-  
