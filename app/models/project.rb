@@ -1,4 +1,8 @@
+# frozen_string_literal: true
+
 class Project < ApplicationRecord
-  has_and_belongs_to_many :admins
-  has_and_belongs_to_many :students
+  has_many :student_assignments, dependent: :destroy
+  has_many :users, through: :student_assignments
+  has_many :milestones, dependent: :destroy
+  has_one :timeline, dependent: :destroy
 end

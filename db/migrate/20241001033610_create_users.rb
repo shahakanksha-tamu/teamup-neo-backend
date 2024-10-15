@@ -4,8 +4,10 @@ class CreateUsers < ActiveRecord::Migration[7.2]
       t.string :first_name
       t.string :last_name
       t.string :email, null: false
+      t.string :contact, limit: 10
       t.integer :role, default: 0
-
+      t.string :photo, limit: 200
+      t.string :provider, default: "google_oauth2"
       t.timestamps
       t.index :email, unique: true, name: 'index_users_on_email_unique'
     end

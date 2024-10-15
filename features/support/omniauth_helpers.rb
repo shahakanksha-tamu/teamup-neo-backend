@@ -20,5 +20,4 @@ module OmniAuthHelpers
     visit '/auth/failure?message=user_denied_consent&strategy=google_oauth2'
   end
 end
-
 World(OmniAuthHelpers)
