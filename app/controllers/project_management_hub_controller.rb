@@ -5,6 +5,7 @@ class ProjectManagementHubController < ApplicationController
   before_action :set_project, only: [:add_student, :remove_student]
   def index
     # This action will render an empty view
+    @project = Project.find(params[:project_id])
   end
   def team
     @project = Project.find(params[:project_id])
