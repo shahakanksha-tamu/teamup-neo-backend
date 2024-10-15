@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get '/project_management_hub', to: 'project_management_hub#index', as: :project_management_hub
   get '/settings', to: 'settings#index', as: :settings
 
+  post '/create_project', to: 'project_management_hub#create_project', as: :create_project
+
   # Defines the root path route ("/")
   root 'landing_page#index'
   match '*path', to: 'application#not_found', via: :all
