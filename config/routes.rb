@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   get '/project_hub', to: 'project_hub#index', as: :project_hub
 
   # Project Management Hub routes
-  get 'projects/:project_id/project_management_hub', to: 'project_management_hub#index', as: :project_management_hub
+  get 'projects/:project_id/project_management_hub', to: 'project_management_hub#index', as: 'project_management_hub'
   get 'projects/:project_id/management_hub', to: 'project_management_hub#team', as: 'project_management_hub_team'
   post 'projects/:project_id/add_student', to: 'project_management_hub#add_student', as: 'add_student_to_project'
   delete 'projects/:project_id/remove_student', to: 'project_management_hub#remove_student', as: 'remove_student_from_project'

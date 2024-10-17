@@ -82,7 +82,9 @@ group :test do
   gem 'simplecov', require: false
   gem 'ZenTest'
 end
-
-group :production do
-  gem 'pg' # for Heroku deployment
+group :development, :test do
+  gem 'faker'
 end
+# group :production do
+#   gem 'pg' # for Heroku deployment
+# end
