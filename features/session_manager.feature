@@ -3,7 +3,7 @@ Feature: Session Management
     Given I am logged in as a valid user
     When an error occurs during logout
     Then I should be redirected to the dashboard
-    And I should see an alert message "Failed to logout: [error message]"
+    And I should see an alert message Failed to logout: "error message"
 
   Scenario: User login fails
     Given I am on the login page
