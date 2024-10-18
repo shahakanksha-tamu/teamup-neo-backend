@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   get '/project_hub', to: 'project_hub#index', as: :project_hub
   get '/project_management_hub', to: 'project_management_hub#index', as: :project_management_hub
   get '/settings', to: 'settings#index', as: :settings
+
+  post '/create_project', to: 'project_management_hub#create_project', as: :create_project
+
   get '/auth/failure', to: 'session_manager#google_oauth_failure_handler'
   # Defines the root path route ("/")
   root 'landing_page#index'
