@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+
 source 'https://rubygems.org'
 
 gem 'bootstrap', '~> 5.0.0'
@@ -85,4 +86,8 @@ end
 
 group :production do
   gem 'pg' # for Heroku deployment
+end
+
+group :development, :test do
+  gem 'faker'
 end
