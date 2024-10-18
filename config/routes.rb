@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :resources
   get 'calendars', to: 'calendars#index', as: :calendar_view
   get 'up' => 'rails/health#show', as: :rails_health_check
   get 'logout', to: 'session_manager#logout', as: :logout
