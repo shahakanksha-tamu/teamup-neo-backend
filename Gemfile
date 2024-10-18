@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+
 source 'https://rubygems.org'
 
 gem 'bootstrap', '~> 5.0.0'
@@ -82,9 +83,11 @@ group :test do
   gem 'simplecov', require: false
   gem 'ZenTest'
 end
+
+# group :production do
+#   gem 'pg' # for Heroku deployment
+# end
+
 group :development, :test do
   gem 'faker'
-end
-group :production do
-  gem 'pg' # for Heroku deployment
 end
