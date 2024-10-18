@@ -84,9 +84,9 @@ group :test do
   gem 'ZenTest'
 end
 
-# group :production do
-#   gem 'pg' # for Heroku deployment
-# end
+group :production do
+  gem 'pg' # for Heroku deployment
+end
 
 group :development, :test do
   gem 'faker'
