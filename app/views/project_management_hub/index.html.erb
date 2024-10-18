@@ -1,3 +1,40 @@
 <h1>Project Management Hub</h1>
 <h2>email : <%= @user.email %></h2>
 <h2>user : <%= @role %></h2>
+
+<% if @projects.any? %>
+  <% @projects.each do |project| %>
+  <h3><%= project.name %></h3>
+  <ul>
+    <li>Description: <%= project.description %></li>
+    <li>Status: <%= project.status %></li>
+    <li>Objectives: <%= project.objectives %></li>
+
+    <li>Member:</li>
+      <ul>
+          <% project.users.each do |user| %>
+          <li><%= user.first_name%> <%= user.last_name%></li>
+          <% end %>
+      </ul>
+
+    <li>Milestones:</li>
+      <ul>
+          <% project.milestones.each do |milestone| %>
+          <li>Title: <%= milestone.title %></li>
+          <li>Due: <%= milestone.deadline %></li>
+          <li>Objective: <%= milestone.objective %></li>
+          <% end %>
+
+          <% if project.timeline %>
+          <li>Timeline:</li>
+          <li>Start Date: <%= project.timeline.start_date %></li>
+          <li>End Date: <%= project.timeline.end_date %></li>
+          <% end %>
+      </ul>
+  </ul>
+  <% end %>
+<% else %>
+  <p>No projects.</p>
+<% end %>
+
+<%= button_to "Logout", "/logout", method: :get%>
