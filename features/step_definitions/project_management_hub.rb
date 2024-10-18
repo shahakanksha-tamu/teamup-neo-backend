@@ -27,5 +27,24 @@ When("I click on the student dropdown") do
   
 When("I select {string} from the student dropdown") do |student_email|
     puts "Student Email: #{student_email}"
-    find(".student-select").click
+    select student_email, from: 'user_id'
+    selected_option = find('.student-select option[selected]')
+    expect(selected_option.text).to eq(student_email)
   end
+
+  When("I click Add Student") do
+    user_id = find(".student-select").value # Get the selected user's ID from the dropdown
+    puts "UserId #{user_id}"
+    button = find("#add-student", data: { user_id: user_id }) # Find the button with the specific data attribute
+    button.click
+  end
+  
+  Then("I should see a success message {string}") do |message|
+    expect(page).to have_content(message)
+  end
+  
+
+  
+  
+
+  

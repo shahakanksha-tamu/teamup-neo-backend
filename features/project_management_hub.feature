@@ -33,3 +33,6 @@ Scenario: Adding a student to the project
  And I navigate to the project management page for "Alpha Project"
 When I click on the student dropdown
   And I select "janesmith@gmail.com" from the student dropdown
+  And I click the "Add Student" button
+  Then I should see a success message "janesmith@gmail.com was successfully added to the team."
+

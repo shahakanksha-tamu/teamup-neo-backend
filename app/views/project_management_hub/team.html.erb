@@ -3,9 +3,9 @@
 </h1>
 
 <h2 class="h5">Team Members</h2>
-<ul class="list-group mb-4">
+<ul class="list-group mb-4 user-list-group">
   <% @project.users.each do |member| %>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
+    <li class="list-group-item d-flex justify-content-between align-items-center list-class">
       <span>
         <%= member.email || member.username || member.id %> <!-- Adjust identifier based on your User model -->
       </span>
@@ -22,7 +22,7 @@
   <div class="form-group mb-3">
     <%= label_tag :user_id, "Select Student", class: "form-label" %>
     <%= select_tag :user_id, options_from_collection_for_select(User.where(role: :student), :id, :email || :username), 
-        class: "form-select", 
+        class: "form-select student-select", 
         prompt: "Choose a student" %>
   </div>
   <%= f.submit "Add Student", class: "btn btn-primary" %>
