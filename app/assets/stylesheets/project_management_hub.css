@@ -51,7 +51,7 @@
     padding: 20px;
     border: 1px solid #888;
     width: 60%;
-    max-width: 500px;
+    max-width: 1000px;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   }
@@ -102,7 +102,7 @@
   }
 
   .submit-btn {
-    background-color: #4CAF50;
+    background-color: rgb(255, 212, 105); 
     color: white;
     padding: 12px 20px;
     border: none;
@@ -113,10 +113,51 @@
   }
 
   .submit-btn:hover {
-    background-color: #45a049;
+    background-color: rgb(170, 141, 68); 
   }
 
   .submit-btn:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.5);
+  }
+
+  @media (min-width: 992px) {
+    .modal-lg {
+      max-width: 50%; 
+    }
+  }
+  
+  .modal-body {
+    max-height: 70vh; 
+    overflow-y: auto;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .modal-footer {
+    justify-content: flex-end;
+    border-top: 1px solid #ddd;
+  }
+
+  .btn-primary {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+  }
+
+  .btn-primary:hover {
+    background-color: #45a049;
+    border-color: #45a049;
+  }
+
+  .btn-secondary {
+    background-color: #f1f1f1;
+    color: #333;
+    border-color: #ccc;
+  }
+
+  .btn-secondary:hover {
+    background-color: #e7e7e7;
+    border-color: #adadad;
   }
