@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Given('the following student assignments exist for {string}') do |email, assignments_table|
   user = User.find_by(email:)
   assignments_table.hashes.each do |assignment|

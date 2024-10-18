@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Timeline represents the project phases and their scheduled deadlines
 class Timeline < ApplicationRecord
   belongs_to :project
   has_many :milestones, dependent: :nullify
