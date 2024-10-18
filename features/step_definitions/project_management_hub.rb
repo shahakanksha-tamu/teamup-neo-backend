@@ -11,28 +11,21 @@
     project = Project.find_by(name: project_name)
     expect(project).not_to be_nil
     visit(project_management_hub_team_path(project.id))
+    expect(current_path).to eq(project_management_hub_team_path(project.id))
+
   end
   
   Then('I shouldd see {string}') do |text|
     expect(page).to have_content(text)
   end
-#   Given('I am on the Project Management Hub page for {string}') do |project_name|
-#     project = Project.find_by(name: project_name)
-#     expect(project).not_to be_nil
-#     visit(project_management_hub_team_path(project.id)) # Ensure this matches your actual route
-#   end
+
+When("I click on the student dropdown") do
+     puts "Current URL: #{current_path}" # Debugging line to print the current URL
+    find(".student-select").click  
+    end
   
-#   When("I select {string} from the dropdown") do |student_email|
-#     select student_email, from: "user_email"
-#   end
   
-#   When("I click Add Student") do
-#     click_button "Add Student"
-#   end
-#   Then('I should see a success message {string}') do |message|
-#     expect(page).to have_content(message)
-#   end
-  
-#   Then('{string} should be in the list of team members') do |email|
-#     expect(page).to have_content(email)
-#   end
+When("I select {string} from the student dropdown") do |student_email|
+    puts "Student Email: #{student_email}"
+    find(".student-select").click
+  end

@@ -26,3 +26,10 @@ Scenario: Accessing the team management page as a logged-in user
   And I navigate to the project management page for "Alpha Project"
   Then I shouldd see "Team Members"
 
+
+Scenario: Adding a student to the project
+ Given I am already registered to Neo application with email "johndoe@gmail.com"
+ When I press Login with Google and choose "johndoe@gmail.com" as my google account for authentication
+ And I navigate to the project management page for "Alpha Project"
+When I click on the student dropdown
+  And I select "janesmith@gmail.com" from the student dropdown
