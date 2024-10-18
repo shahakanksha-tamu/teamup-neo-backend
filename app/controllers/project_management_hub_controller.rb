@@ -1,8 +1,12 @@
 # Handles all functions related to the Project management hub page
 class ProjectManagementHubController < ApplicationController
   before_action :set_project, only: %i[index team add_student remove_student]
+  def dashboard
+    @projects = Project.all
+  end
+
   def index
-    # @project = Project.find(params[:project_id])
+    @project = Project.find(params[:project_id])
   end
 
   def team
@@ -16,7 +20,7 @@ class ProjectManagementHubController < ApplicationController
     else
       flash[:error] = 'Failed to add student to the team.'
     end
-    redirect_to project_management_hub_team_path(@project)
+    redirect_to project_team_management_path(@project)
   end
 
   def remove_student
@@ -26,7 +30,7 @@ class ProjectManagementHubController < ApplicationController
     else
       flash[:error] = "Failed to remove #{user.email} from the team."
     end
-    redirect_to project_management_hub_team_path(@project)
+    redirect_to project_team_management_path(@project)
   end
 
   private

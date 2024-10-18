@@ -7,10 +7,10 @@
   <!-- Buttons for Resource and Team Management -->
   <div class="text-center">
     <div class="d-inline-block mx-2">
-      <%= button_to "Resource Management", "#", class: "btn btn-primary btn-lg px-4" %>
+      <%= link_to  "Resource Management", project_resources_path(@project), class: "btn btn-primary btn-lg px-4" %>
     </div>
     <div class="d-inline-block mx-2">
-      <%= button_to "Team Management", project_management_hub_team_path(@project), method: :get, class: "btn btn-primary btn-lg px-4" %>
+      <%= button_to "Team Management", project_team_management_path(@project), method: :get, class: "btn btn-primary btn-lg px-4" %>
     </div>
   </div>
 </div>

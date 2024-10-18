@@ -14,10 +14,15 @@
     <% @resources.each do |resource| %>
       <tr>
         <td><%= resource.name %></td>
-        <td><%= link_to 'Download', resource.file.attached? ? rails_blob_path(resource.file, disposition: 'attachment') : '#', class: resource.file.attached? ? 'link' : 'disabled' %></td>
+        <td>
+          <% if resource.file.attached? %>
+            <%= link_to 'Download', rails_blob_path(resource.file, disposition: 'attachment'), class: 'link' %>
+          <% else %>
+            <span class="disabled">No file attached</span>
+          <% end %>
+        </td>
         <td>
           <%= link_to 'Show', project_resource_path(@project, resource) %>
-          <!-- You can add edit and delete links here if needed -->
         </td>
       </tr>
     <% end %>
