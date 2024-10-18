@@ -13,7 +13,7 @@ Scenario: Student accesses dashboard
     Given the student is logged in with "johndoe@gmail.com"
     When the student navigates to the dashboard
     Then the student should be directed to the dashboard
-    And the student should see "user : student" 
+    And the student should see "You have a pending project assignment. Please check again later." 
 
 
 Scenario: Student accesses settings

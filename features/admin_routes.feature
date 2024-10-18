@@ -13,7 +13,7 @@ Scenario: Admin accesses dashboard
     Given the admin is logged in with "janedoe@gmail.com"
     When the admin navigates to the project_management_hub
     Then the admin should be directed to the project_management_hub
-    And  the admin should see "user : admin"
+    And  the admin should see "Get Stated. Create a New Project."
 
 Scenario: Student accesses settings
     Given the admin is logged in with "janedoe@gmail.com"
