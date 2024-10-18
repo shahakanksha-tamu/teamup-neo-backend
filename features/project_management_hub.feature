@@ -36,3 +36,15 @@ When I click on the student dropdown
   And I click the "Add Student" button
   Then I should see a success message "janesmith@gmail.com was successfully added to the team."
 
+Scenario: Remove a student from the project
+  Given I am already registered to Neo application with email "johndoe@gmail.com"
+  When I press Login with Google and choose "johndoe@gmail.com" as my google account for authentication
+  And I navigate to the project management page for "Alpha Project"
+  When I click on the student dropdown
+  And I select "janesmith@gmail.com" from the student dropdown
+  And I click the "Add Student" button
+  Then I should see a success message "janesmith@gmail.com was successfully added to the team."
+  When I click on the remove button for "student1@mail.com"
+  Then I should see the removal success message "janesmith@gmail.com was successfully removed from the team."
+
+
