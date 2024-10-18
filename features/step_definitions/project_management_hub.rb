@@ -43,7 +43,26 @@ When("I select {string} from the student dropdown") do |student_email|
     expect(page).to have_content(message)
   end
   
+  When("I click on the remove button for {string}") do |student_email|
+    # Find the list of students within the user-list-group class
+    within(".user-list-group") do
+      # Print each list item for debugging purposes
+      all("li").each do |li|
+        puts "List Item: #{li.text}"  # Output the text content of each <li>
+      end
+  
+      # Now try to find the specific list item that contains the student's email
+      within("li", text: "janesmith@gmail.com") do
+        click_button "Remove"
+      end
+    end
+  end
 
+  Then("I should see the removal success message {string}") do |message|
+    expect(page).to have_content(message)
+  end
+  
+  
   
   
 
