@@ -35,10 +35,6 @@ Scenario: User does not accept the Google OAuth authentication consent
   When  I press "Login with Google"
   And   I cancel the Google OAuth consent
   Then  I should be on the landing page
-  And   I should see "You must be logged in to access the resource."
-
-
-
-
+  And   I should see "Authentication failed"
 
 

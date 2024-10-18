@@ -12,7 +12,7 @@ RSpec.describe SessionManagerController, type: :controller do
       first_name: 'FN',
       last_name: 'LN',
       email: 'testuser@gmail.com',
-      role: 'admin',
+      role: 'student',
       provider: 'google_oauth2'
     )
   end
@@ -31,13 +31,6 @@ RSpec.describe SessionManagerController, type: :controller do
       expect(session[:user_id]).to be_nil
       expect(response).to redirect_to(root_path)
       expect(flash[:notice]).to eq('You are logged out.')
-    end
-
-    it 'redirects to dashboard with an alert if an error occurs' do
-      allow(controller).to receive(:reset_session).and_raise(StandardError, 'An error occurred')
-      get :logout
-      expect(response).to redirect_to(dashboard_path)
-      expect(flash[:alert]).to eq('Failed to logout: An error occurred')
     end
   end
 

@@ -11,9 +11,9 @@ Background: users in database
 
 Scenario: Admin accesses dashboard
     Given the admin is logged in with "janedoe@gmail.com"
-    When the admin navigates to the dashboard
-    Then the admin should be directed to the dashboard
-    And the admin should see "user : admin"
+    When the admin navigates to the project_management_hub
+    Then the admin should be directed to the project_management_hub
+    And  the admin should see "user : admin"
 
 Scenario: Student accesses settings
     Given the admin is logged in with "janedoe@gmail.com"
@@ -24,7 +24,7 @@ Scenario: Student accesses settings
 Scenario: Student accesses project hub
     Given the admin is logged in with "janedoe@gmail.com"
     When the admin navigates to the project_hub
-    Then the admin should be directed to the dashboard
+    Then the admin should be directed to the project_management_hub
 
 
 Scenario: Student accesses project management hub

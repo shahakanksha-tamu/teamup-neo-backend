@@ -1,15 +1,21 @@
 # frozen_string_literal: true
 
 Given('I am logged in as a valid user') do
-  @user = FactoryBot.create(:user, provider: 'google_oauth2', email: 'test@example.com')
-
-  OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
-                                                                       provider: 'google_oauth2',
-                                                                       uid: '123545',
-                                                                       info: { email: @user.email }
-                                                                     })
-
-  visit '/auth/google_oauth2/callback'
+  mock_omniauth(:google_oauth2, {
+                  provider: 'google_oauth2',
+                  uid: '123456789',
+                  info: {
+                    email: 'johndoe@gmail.com',
+                    name: 'John Doe',
+                    image: 'https://example.com/testuser.jpg'
+                  },
+                  credentials: {
+                    token: 'mock_token',
+                    refresh_token: 'mock_refresh_token',
+                    expires_at: Time.zone.now + 1.week
+                  }
+                })
+  click_button('Login with Google')
 end
 
 When('an error occurs during logout') do

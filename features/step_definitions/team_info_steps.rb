@@ -78,3 +78,7 @@ Then('I should other team members information for project {string} and not conta
     expect(page).to have_content(member.contact)
   end
 end
+
+Then('I should be on the admin dashboard page') do
+  expect(current_path).to eq(project_management_hub_path)
+end

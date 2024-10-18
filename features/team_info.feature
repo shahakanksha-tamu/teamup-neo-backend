@@ -33,7 +33,7 @@ Scenario: Access team member information page as student
 Scenario: Access team member information page as admin
   Given I am logged in as "josie@gmail.com"
   When  I visit team information page as admin
-  Then  I should be on the dashboard page
+  Then  I should be on the admin dashboard page
   And   I should see "You are not authorized to access this page"
 
 Scenario: Student has no project assignment

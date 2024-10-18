@@ -5,9 +5,9 @@ When('I navigate to the calendar page') do
 end
 
 Then('I should see the calendar') do
-  expect(page).to have_content('Calendar') # Adjust to match your actual page content
+  expect(page).to have_content('Calendar')
 end
 
 Then('I should be redirected to the login page') do
-  visit(dashboard_path)
+  visit(root_path)
 end

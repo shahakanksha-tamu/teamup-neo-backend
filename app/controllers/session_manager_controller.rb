@@ -7,8 +7,6 @@ class SessionManagerController < ApplicationController
   def logout
     reset_session
     redirect_to root_path, notice: 'You are logged out.'
-  rescue StandardError => e
-    redirect_to dashboard_path, alert: "Failed to logout: #{e.message}"
   end
 
   def google_oauth_callback_handler
@@ -24,14 +22,19 @@ class SessionManagerController < ApplicationController
 
   private
 
-  def login(user, photo)
+  def login(user, photo) # rubocop:disable Metrics/MethodLength
     if user.present?
       session[:user_id] = user.id
       unless user.photo?
         user.photo = photo
         user.save
       end
-      redirect_to dashboard_path, notice: 'You are logged in.'
+
+      if user.role == 'student'
+        redirect_to dashboard_path, notice: 'You are logged in.'
+      else
+        redirect_to project_management_hub_path, notice: 'You are logged in.'
+      end
     else
       redirect_to root_path, alert: 'Login failed.'
     end

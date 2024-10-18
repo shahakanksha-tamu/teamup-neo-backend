@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
         { controller: 'project_management_hub', action: 'index' }
       ],
       student: [
+        { controller: 'dashboard', action: 'index' },
         { controller: 'project_hub', action: 'index' },
         { controller: 'team_info', action: 'index' }
       ]
@@ -31,7 +32,11 @@ class ApplicationController < ActionController::Base
 
     return unless restricted_roles.any? { |role| role_based_routes[role].include?(controller_action) }
 
-    redirect_to dashboard_path, alert: 'You are not authorized to access this page.'
+    if user_role == :student
+      redirect_to dashboard_path, alert: 'You are not authorized to access this page.'
+    else
+      redirect_to project_management_hub_path, alert: 'You are not authorized to access this page.'
+    end
   end
 
   def current_user
