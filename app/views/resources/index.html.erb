@@ -1,16 +1,25 @@
-<p style="color: green"><%= notice %></p>
+<h1>Resources for <%= @project.name %></h1>
 
-<% content_for :title, "Resources" %>
+<%= link_to 'New Resource', new_project_resource_path(@project) %>
 
-<h1>Resources</h1>
-
-<div id="resources">
-  <% @resources.each do |resource| %>
-    <%= render resource %>
-    <p>
-      <%= link_to "Show this resource", resource %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New resource", new_resource_path %>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>File</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @resources.each do |resource| %>
+      <tr>
+        <td><%= resource.name %></td>
+        <td><%= link_to 'Download', resource.file.attached? ? rails_blob_path(resource.file, disposition: 'attachment') : '#', class: resource.file.attached? ? 'link' : 'disabled' %></td>
+        <td>
+          <%= link_to 'Show', project_resource_path(@project, resource) %>
+          <!-- You can add edit and delete links here if needed -->
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

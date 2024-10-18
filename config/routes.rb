@@ -34,4 +34,8 @@ Rails.application.routes.draw do
 
   # Catch-all route for handling 404s
   match '*path', to: 'application#not_found', via: :all
+
+  resources :projects do
+    resources :resources, only: %i[new create index show]
+  end
 end

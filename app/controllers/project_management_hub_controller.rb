@@ -1,8 +1,8 @@
 # Handles all functions related to the Project management hub page
 class ProjectManagementHubController < ApplicationController
-  before_action :set_project, only: [:index, :team, :add_student, :remove_student]
+  before_action :set_project, only: %i[index team add_student remove_student]
   def index
-    @project = Project.find(params[:project_id])
+    # @project = Project.find(params[:project_id])
   end
 
   def team
@@ -14,7 +14,7 @@ class ProjectManagementHubController < ApplicationController
     if @project.add_student(user)
       flash[:success] = "#{user.email} was successfully added to the team."
     else
-      flash[:error] = "Failed to add student to the team."
+      flash[:error] = 'Failed to add student to the team.'
     end
     redirect_to project_management_hub_team_path(@project)
   end

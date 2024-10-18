@@ -1,10 +1,8 @@
-<p style="color: green"><%= notice %></p>
+<h1>Resource: <%= @resource.name %></h1>
 
-<%= render @resource %>
+<p>
+  <strong>File:</strong>
+  <%= link_to 'Download', @resource.file.attached? ? rails_blob_path(@resource.file, disposition: 'attachment') : '#', class: @resource.file.attached? ? 'link' : 'disabled' %>
+</p>
 
-<div>
-  <%= link_to "Edit this resource", edit_resource_path(@resource) %> |
-  <%= link_to "Back to resources", resources_path %>
-
-  <%= button_to "Destroy this resource", @resource, method: :delete %>
-</div>
+<%= link_to 'Back to Resources', project_resources_path(@project) %>
