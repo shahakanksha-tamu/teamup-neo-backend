@@ -10,7 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_13_000601) do
   create_table "milestones", force: :cascade do |t|
     t.integer "project_id"
     t.string "title"
