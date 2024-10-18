@@ -1,29 +1,88 @@
-<h1>Project Overview</h1>
+<div class="container-lg">
 <% if @projects.any? %>
   <% @projects.each do |project| %>
-  <h3><%= project.name %></h3>
-  <ul>
-    <li>Description: <%= project.description %></li>
-
-    <li>Status: <%= project.status %></li>
-
-    <li>Objectives: <%= project.objectives %></li>
-
-    <li>Milestones:</li>
-      <ul>
+  <div class="card mt-5 p-4">
+    <h2><%= project.name %></h2>
+    <hr>
+    <h3 class="mb-3">Project Overview</h3>
+    <div class="w-50 text-start">
+      <div class="row pb-3">
+        <div class="col-sm-3 text-secondary">
+          Description
+        </div>
+        <div class="col-sm-8">
+          <%= project.description %>
+        </div>
+      </div>
+      <div class="row pb-3">
+        <div class="col-sm-3 text-secondary">
+          Status
+        </div>
+        <div class="col-sm-8">
+          <span class="<%= project.status == 'active' ? 'text-success' : 'text-warning' %>">
+          <%= project.status %> </span>
+        </div>
+      </div>
+      <div class="row pb-3">
+        <div class="col-sm-3 text-secondary">
+          Objectives
+        </div>
+        <div class="col-sm-8">
+          <%= project.objectives %>
+        </div>
+      </div>
+    </div>
+    <h3 class="mt-3">Milestones</h3>
       <% project.milestones.each do |milestone| %>
-        <li>Title: <%= milestone.title %></li>
-        <li>Due: <%= milestone.deadline %></li>
-        <li>Objective: <%= milestone.objective %></li>
+        <div class="card w-50 mb-3">
+          <div class="card-header">
+            <%= milestone.title %>
+          </div>
+          <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3 text-secondary">
+                  Due
+                </div>
+                <div class="col-sm-8">
+                  <%= milestone.deadline %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3 text-secondary">
+                  Objective
+                </div>
+                <div class="col-sm-8">
+                  <%= milestone.objective %>
+                </div>
+              </div>
+          </div>
+        </div>
       <% end %>
-      <% if project.timeline %>
-        <li>Timeline:</li>
-        <li>Start Date: <%= project.timeline.start_date %></li>
-        <li>End Date: <%= project.timeline.end_date %></li>
-      <% end %>
-      </ul>
-  </ul>
+    
+    <% if project.timeline %>
+    <h3 class="mt-3">Timelines</h3>
+      <div class="w-50 text-start">
+        <div class="row pb-3">
+          <div class="col-sm-3 text-secondary">
+            Start Date 
+          </div>
+          <div class="col-sm-8">
+            <%= project.timeline.start_date %>
+          </div>
+        </div>
+        <div class="row pb-3">
+          <div class="col-sm-3 text-secondary">
+            End Date 
+          </div>
+          <div class="col-sm-8">
+            <%= project.timeline.end_date %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
   <% end %>
 <% else %>
   <p>You have a pending project assignment. Please check again later.</p>
 <% end %>
+</div>
