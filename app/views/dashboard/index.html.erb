@@ -1,7 +1,4 @@
-<h1>Dashboard</h1>
-<h2>email : <%= @user.email %></h2>
-<h2>user : <%= @role %></h2>
-
+<h1>Project Overview</h1>
 <% if @projects.any? %>
   <% @projects.each do |project| %>
   <h3><%= project.name %></h3>
@@ -25,26 +22,8 @@
         <li>End Date: <%= project.timeline.end_date %></li>
       <% end %>
       </ul>
-
-    <li>Members:</li>
-      <ul>
-      <% project.users.where.not(id: @current_user.id).each do |teammate| %>
-        <li><%= teammate.first_name %> <%= teammate.last_name %> (<%= teammate.email %>)</li>
-      <% end %>
-      </ul>
-
-    <li>Your Tasks:</li>
-      <ul>
-        <% @current_user.tasks.each do |task| %>
-          <li>Task: <%= task.title %></li>
-          <li>Due Date: <%= task.due_date %></li>
-          <li>Description: <%= task.description %></li>
-        <% end %>
-      </ul>
   </ul>
   <% end %>
 <% else %>
-  <p>No projects assigned.</p>
+  <p>You have a pending project assignment. Please check again later.</p>
 <% end %>
-
-<%= button_to "Logout", "/logout", method: :get%>

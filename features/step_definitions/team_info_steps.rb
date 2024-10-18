@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Given(/the following projects exist/) do |projects|
+Given('the given projects exists in the database') do |projects|
   projects.hashes.each do |row|
     Project.create!(
       name: row['name'],
@@ -11,7 +11,7 @@ Given(/the following projects exist/) do |projects|
   end
 end
 
-Given(/the following student assignments exist/) do |student_assignment_table|
+Given(/the given student assignments exist/) do |student_assignment_table|
   student_assignment_table.hashes.each do |row|
     user_email = row['user_email']
     project_name = row['project_name']

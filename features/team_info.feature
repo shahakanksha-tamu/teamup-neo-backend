@@ -14,11 +14,11 @@ Background: users in database
   | David            | Jones            | davidjones@gmail.com      |  admin        |  567323423 |  google_oauth2  |
   | Josie            | Mathew           | josie@gmail.com           |  admin        |  214435356 |  google_oauth2  |
 
-  And the following projects exist
+  And the given projects exists in the database
   | name                  |
   | Capstone Project      |
 
-  And the following student assignments exist
+  And the given student assignments exist
   | user_email             | project_name       |
   | johndoe@gmail.com      | Capstone Project   |
   | mariam@gmail.com       | Capstone Project   |
