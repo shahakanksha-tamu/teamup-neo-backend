@@ -1,5 +1,16 @@
-<h1>Project Management Hub</h1>
-<h2>email : <%= @user.email %></h2>
-<h2>user : <%= @role %></h2>
+<div class="container mt-5">
+  <div class="text-center">
+    <h1 class="display-4 mb-4">Project Hub</h1>
+  </div>
 
-<%= button_to "Logout", "/logout", method: :get%>
+
+  <!-- Buttons for Resource and Team Management -->
+  <div class="text-center">
+    <div class="d-inline-block mx-2">
+      <%= button_to "Resource Management", "#", class: "btn btn-primary btn-lg px-4" %>
+    </div>
+    <div class="d-inline-block mx-2">
+      <%= button_to "Team Management", project_management_hub_team_path(@project), method: :get, class: "btn btn-primary btn-lg px-4" %>
+    </div>
+  </div>
+</div>
