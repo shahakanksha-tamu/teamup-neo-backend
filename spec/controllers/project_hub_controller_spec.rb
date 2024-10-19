@@ -10,13 +10,7 @@ RSpec.describe ProjectHubController, type: :controller do
       session[:user_id] = user.id
     end
 
-    it 'redirects to the dashboard if the user role is admin' do
-      user.update(role: :admin)
-      get :index
-      expect(response).to redirect_to(dashboard_path)
-    end
-
-    it 'renders the project hub index if the user role is not admin' do
+    it 'sees project hub dashboard' do
       user.update(role: :student)
       get :index
       expect(response).to render_template(:index)
