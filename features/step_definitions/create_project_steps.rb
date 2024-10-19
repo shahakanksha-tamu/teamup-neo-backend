@@ -31,17 +31,16 @@ end
 When("I create a new project") do
   visit project_management_hub_path 
   click_button "Create New Project"  
-
-  fill_in 'project_name', with: @valid_attributes[:name]
-  fill_in 'project_description', with: @valid_attributes[:description]
-  fill_in 'project_start_date', with: @valid_attributes[:start_date]
-  fill_in 'project_end_date', with: @valid_attributes[:end_date]
+  fill_in 'Project Name', with: @valid_attributes[:name]
+  fill_in 'Project Description', with: @valid_attributes[:description]
+  fill_in 'Project Start Date', with: @valid_attributes[:start_date]
+  fill_in 'Project End Date', with: @valid_attributes[:end_date]
   
   # @valid_attributes[:user_ids].each do |user_id|
   #   select user_id.to_s, from: 'project_user_ids' 
   # end
 
-  click_button "Create Project" 
+  click_button "Create Project"
 end
 
 
