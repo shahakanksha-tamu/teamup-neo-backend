@@ -39,5 +39,4 @@
 config/credentials.yml.enc
 coverage/*
 coverage/.resultset.json
-db/seeds.rb
 .byebug_history

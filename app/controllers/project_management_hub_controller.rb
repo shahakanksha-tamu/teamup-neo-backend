@@ -2,7 +2,7 @@
 
 # Handles all functions related to the Project management hub page
 class ProjectManagementHubController < ApplicationController
-  before_action :set_project, except: ['index','create_project']
+  before_action :set_project, except: %w[index create_project]
 
   def index
     @projects = Project.includes(:users, :timeline, milestones: :tasks)
@@ -16,27 +16,24 @@ class ProjectManagementHubController < ApplicationController
     @project = Project.new(project_params)
 
     ActiveRecord::Base.transaction do
-      if @project.save
-        begin
-          create_timeline(@project)
-          create_student_assignments(@project, params[:user_ids])
-        rescue ActiveRecord::RecordInvalid => e
-          @project.errors.add(:base, "Error in associated data: #{e.message}")
-          raise ActiveRecord::Rollback
-        end
-        
-        if @project.errors.empty?
-          redirect_to project_management_hub_path, notice: 'Project was successfully created.' and return
-        end
-      else
-        # Project failed to save due to validation errors
+      raise ActiveRecord::Rollback unless @project.save
+
+      begin
+        create_timeline(@project)
+        create_student_assignments(@project, params[:user_ids])
+      rescue ActiveRecord::RecordInvalid => e
+        @project.errors.add(:base, "Error in associated data: #{e.message}")
         raise ActiveRecord::Rollback
       end
 
-      # if @project.errors.empty? # rubocop:disable Style/GuardClause
+      redirect_to project_management_hub_path, notice: 'Project was successfully created.' and return if @project.errors.empty?
+
+      # Project failed to save due to validation errors
+
+      # if @project.errors.empty?
       #   redirect_to project_management_hub_path, notice: 'Project was successfully created.' and return
       # else
-        raise ActiveRecord::Rollback
+      raise ActiveRecord::Rollback
       # end
 
       # Project failed to save due to validation errors
@@ -48,7 +45,7 @@ class ProjectManagementHubController < ApplicationController
                     else
                       'Failed to create project due to an unknown error.'
                     end
-    
+
     # flash.now[:alert] = error_message
     redirect_to project_management_hub_path, alert: error_message and return
   end
