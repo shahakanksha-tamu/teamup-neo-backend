@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 
 gem 'aws-sdk-s3', '~> 1.48'
-gem 'bootstrap', '~> 5.0.0'
+gem 'bootstrap', '~> 5.3.3'
 gem 'jquery-rails'
 
 gem 'sassc'
