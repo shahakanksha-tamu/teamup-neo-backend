@@ -10,36 +10,35 @@ Background: users and projects in database
     | Jane       | Smith     | janesmith@gmail.com | student| google_oauth2 |
     | Mark       | Lee       | marklee@gmail.com   | student| google_oauth2 |
   And the following projects exist
-    | name              |
-    | Alpha Project      |
-  And I am already registered to Neo application with email "johndoe@gmail.com"
-  And I visit landing page
+    | name              | status |
+    | Alpha Project      | active|
 
-Scenario: login using google account
-  When I press Login with Google and choose "johndoe@gmail.com" as my google account for authentication
-  Then I should be signed in as "johndoe@gmail.com"
-  And I should see "Logout" button
-
-Scenario: Accessing the team management page as a logged-in user
-  Given I am already registered to Neo application with email "johndoe@gmail.com"
-  When I press Login with Google and choose "johndoe@gmail.com" as my google account for authentication
+Scenario: Accessing the project dashboard page as a logged-in user
+  Given I am logged in as 'johndoe@gmail.com'
   And I navigate to the project management page for "Alpha Project"
-  Then I shouldd see "Team Members"
+  Then I shouldd see "Team Management"
+  And I should see "Resource Management"
 
+Scenario: Accessing the Team management page as a logged-in user
+  Given I am logged in as 'johndoe@gmail.com'
+  And I navigate to the project management page for "Alpha Project"
+  Then I shouldd see "Team Management"
+  And I click on the Team Management
+  Then I should see "Team Members"
 
 Scenario: Adding a student to the project
- Given I am already registered to Neo application with email "johndoe@gmail.com"
- When I press Login with Google and choose "johndoe@gmail.com" as my google account for authentication
- And I navigate to the project management page for "Alpha Project"
-When I click on the student dropdown
+  Given I am logged in as 'johndoe@gmail.com'
+  And I navigate to the project management page for "Alpha Project"
+  And I click on the Team Management
+  When I click on the student dropdown
   And I select "janesmith@gmail.com" from the student dropdown
   And I click the "Add Student" button
   Then I should see a success message "janesmith@gmail.com was successfully added to the team."
 
 Scenario: Remove a student from the project
-  Given I am already registered to Neo application with email "johndoe@gmail.com"
-  When I press Login with Google and choose "johndoe@gmail.com" as my google account for authentication
+  Given I am logged in as 'johndoe@gmail.com'
   And I navigate to the project management page for "Alpha Project"
+  And I click on the Team Management
   When I click on the student dropdown
   And I select "janesmith@gmail.com" from the student dropdown
   And I click the "Add Student" button
