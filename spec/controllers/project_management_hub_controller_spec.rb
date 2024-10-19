@@ -11,13 +11,6 @@ RSpec.describe ProjectManagementHubController, type: :controller do
   end
 
   describe 'GET #index' do
-  it 'assigns the requested project to @project' do
-    get :team, params: { project_id: project.id }
-    expect(assigns(:project)).to eq(project)
-  end
-end
-
-  describe 'GET #team' do
     it 'assigns the requested project to @project' do
       get :team, params: { project_id: project.id }
       expect(assigns(:project)).to eq(project)
@@ -29,7 +22,7 @@ end
 
     context 'when successfully adding a student' do
       before do
-        allow_any_instance_of(Project).to receive(:add_student).and_return(true)
+        allow_any_instance_of(Project).to receive(:add_student).and_return(true) # rubocop:disable RSpec/AnyInstance
       end
 
       it 'adds the student to the project' do
@@ -45,12 +38,12 @@ end
 
     context 'when failing to add a student' do
       before do
-        allow_any_instance_of(Project).to receive(:add_student).and_return(false)
+        allow_any_instance_of(Project).to receive(:add_student).and_return(false) # rubocop:disable RSpec/AnyInstance
       end
 
       it 'sets an error flash message' do
         post :add_student, params: { project_id: project.id, user_id: student.id }
-        expect(flash[:error]).to include("Failed to add student to the team")
+        expect(flash[:error]).to include('Failed to add student to the team')
       end
 
       it 'redirects to the team page' do
@@ -65,7 +58,7 @@ end
 
     context 'when successfully removing a student' do
       before do
-        allow_any_instance_of(Project).to receive(:remove_student).and_return(true)
+        allow_any_instance_of(Project).to receive(:remove_student).and_return(true) # rubocop:disable RSpec/AnyInstance
       end
 
       it 'removes the student from the project' do
@@ -81,7 +74,7 @@ end
 
     context 'when failing to remove a student' do
       before do
-        allow_any_instance_of(Project).to receive(:remove_student).and_return(false)
+        allow_any_instance_of(Project).to receive(:remove_student).and_return(false) # rubocop:disable RSpec/AnyInstance
       end
 
       it 'sets an error flash message' do

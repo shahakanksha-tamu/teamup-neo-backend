@@ -87,7 +87,7 @@ class ProjectManagementHubController < ApplicationController
   end
 
   def add_student
-    puts("Params: #{params.inspect}")
+    Rails.logger.debug("Params: #{params.inspect}")
     user = User.find(params[:user_id])
     if @project.add_student(user)
       flash[:success] = "#{user.email} was successfully added to the team."
