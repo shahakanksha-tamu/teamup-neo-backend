@@ -39,7 +39,7 @@ end
 
       it 'redirects to the team page' do
         post :add_student, params: { project_id: project.id, user_id: student.id }
-        expect(response).to redirect_to(project_management_hub_team_path(project))
+        expect(response).to redirect_to(project_team_management_path(project)) # Corrected path helper
       end
     end
 
@@ -55,7 +55,7 @@ end
 
       it 'redirects to the team page' do
         post :add_student, params: { project_id: project.id, user_id: student.id }
-        expect(response).to redirect_to(project_management_hub_team_path(project))
+        expect(response).to redirect_to(project_team_management_path(project)) # Corrected path helper
       end
     end
   end
@@ -75,7 +75,7 @@ end
 
       it 'redirects to the team page' do
         delete :remove_student, params: { project_id: project.id, user_id: student.id }
-        expect(response).to redirect_to(project_management_hub_team_path(project))
+        expect(response).to redirect_to(project_team_management_path(project)) # Corrected path helper
       end
     end
 
@@ -91,7 +91,7 @@ end
 
       it 'redirects to the team page' do
         delete :remove_student, params: { project_id: project.id, user_id: student.id }
-        expect(response).to redirect_to(project_management_hub_team_path(project))
+        expect(response).to redirect_to(project_team_management_path(project)) # Corrected path helper
       end
     end
   end
