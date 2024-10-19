@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 # Handles all functions related to the Project management hub page
 class ProjectManagementHubController < ApplicationController
-  before_action :set_project, only: %i[index team add_student remove_student]
+  before_action :set_project, except: ['index']
 
   def index
     @projects = Project.includes(:users, :timeline, milestones: :tasks)
@@ -9,7 +11,7 @@ class ProjectManagementHubController < ApplicationController
   def dashboard
     @project = Project.find(params[:project_id])
   end
-  
+
   def create_project # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     @project = Project.new(project_params)
 
@@ -47,8 +49,6 @@ class ProjectManagementHubController < ApplicationController
     render :index
   end
 
-  private
-
   def project_params
     params.require(:project).permit(:name, :description, :objectives, :status)
   end
@@ -81,11 +81,13 @@ class ProjectManagementHubController < ApplicationController
       end
     end
   end
+
   def team
     @project = Project.find(params[:project_id])
   end
 
   def add_student
+    puts("Params: #{params.inspect}")
     user = User.find(params[:user_id])
     if @project.add_student(user)
       flash[:success] = "#{user.email} was successfully added to the team."
@@ -110,5 +112,4 @@ class ProjectManagementHubController < ApplicationController
   def set_project
     @project = Project.find(params[:project_id])
   end
-
 end
