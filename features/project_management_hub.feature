@@ -19,10 +19,10 @@ Scenario: Accessing the project dashboard page as a logged-in user
   Then I shouldd see "Team Management"
   And I should see "Resource Management"
 
-Scenario: Accessing the Team management page as a logged-in user
+Scenario: Accessing the Team Management page as a logged-in user
   Given I am logged in as 'johndoe@gmail.com'
   And I navigate to the project management page for "Alpha Project"
-  Then I shouldd see "Team Management"
+  Then I should see "Team Management"
   And I click on the Team Management
   Then I should see "Team Members"
 
@@ -46,4 +46,29 @@ Scenario: Remove a student from the project
   When I click on the remove button for "student1@mail.com"
   Then I should see the removal success message "janesmith@gmail.com was successfully removed from the team."
 
+Scenario: Accessing the Resource Management page as a logged-in user
+  Given I am logged in as 'johndoe@gmail.com'
+  And I navigate to the project management page for "Alpha Project"
+  Then I should see "Resource Management"
+  And I click on the Resource Management
+  Then I should see "Resources"
 
+Scenario: Successful creation of a resource
+  Given I am logged in as 'johndoe@gmail.com'
+  And I navigate to the project management page for "Alpha Project"
+  And I click on the Resource Management
+  And I click on the "New Resource" link
+  Given I fill in "Name" with "Sample Resource"
+  And I attach the file "sample.txt" to "File"
+  When I click Create Resource
+  Then I should be redirected to the resources page for "Alpha Project"
+  And I should see "Resource was successfully created."
+  And I should see "Sample"
+
+Scenario: Donot create a resource
+  Given I am logged in as 'johndoe@gmail.com'
+  And I navigate to the project management page for "Alpha Project"
+  And I click on the Resource Management
+  And I click on the "New Resource" link
+  And I click on the "Back to Resources" link
+  Then I should be redirected to the resources page for "Alpha Project"
