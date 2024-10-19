@@ -1,6 +1,6 @@
 <div style="margin-top: 20px;" class="container-fluid">
     <div style="display:flex; flex-direction: row; justify-content: space-between; align-items: center;">
-        <div> 
+        <div>
             <h1>Project Management Hub</h1>
         </div>
         <div>
@@ -13,7 +13,6 @@
     <% @projects.each do |project| %>
       <div class="card mb-3 flex-item" style="min-width:450px">
         <div class="card-header">
-            
             <div style="display:flex; flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 3px;">
                 <div>
                     <h5><%= project.name %></h5>
@@ -22,7 +21,6 @@
                     <a href="/projects/<%= project.id %>/dashboard" class="btn btn-primary">View Project</a>
                 </div>
             </div>
-    
         </div>
         <div class="card-body">
               <div class="row">
@@ -57,11 +55,7 @@
 <% else %>
     <h3 class="mt-5">Get Stated. Create a New Project.</h3>
 <% end %>
-    
-
-
       <%= render 'new' %>
-
 </div>
 <!-- Add Bootstrap JS and its dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -69,11 +63,37 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    
     var openModalButton = document.getElementById('openProjectModal');
     openModalButton.addEventListener('click', function() {
       $('#projectModal').modal('show');
     });
   });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var modal = document.getElementById("projectModal");
+    var btn = document.getElementById("openProjectModal");
+    var span = document.getElementsByClassName("close")[0];
+    var errorMessage = document.getElementById('error-message');
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+        modal.style.display = "none";
+        }
+    }
+
+    if (errorMessage) {
+        var message = errorMessage.getAttribute('data-error');
+        alert(message);
+    }
+    });
 </script>
 </div>
