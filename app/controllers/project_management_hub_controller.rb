@@ -18,15 +18,10 @@ class ProjectManagementHubController < ApplicationController
         rescue ActiveRecord::RecordInvalid => e
           @project.errors.add(:base, "Error in associated data: #{e.message}")
           raise ActiveRecord::Rollback
-        rescue StandardError => e
-          @project.errors.add(:base, "Unexpected error: #{e.message}")
-          raise ActiveRecord::Rollback
         end
         
         if @project.errors.empty?
           redirect_to project_management_hub_path, notice: 'Project was successfully created.' and return
-        else
-          raise ActiveRecord::Rollback
         end
       else
         # Project failed to save due to validation errors

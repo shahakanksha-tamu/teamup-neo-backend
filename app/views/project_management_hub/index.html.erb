@@ -1,104 +1,57 @@
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Divs in One Row</title>
-        <style>
-            .container {
-                display: flex;
-            }
-            .box {
-                width: 100px;
-                height: 20px;
-                background-color: lightblue;
-                margin: 10px;
-            }
-        </style>
-    </head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Management Hub</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-    <body>
-        <h1>Project Management Hub</h1>
-        <h2>email : <%= @user.email %></h2>
-        <h2>user : <%= @role %></h2>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <style>
+      .container {
+        display: flex;
+      }
+      .box {
+        width: 100px;
+        height: 20px;
+        background-color: lightblue;
+        margin: 10px;
+      }
+    </style>
+  </head>
 
-        <button id="openProjectModal">Create New Project</button>
+  <body>
+    <div class="container">
+      <h1>Project Management Hub</h1>
+      <h2>email : <%= @user.email %></h2>
+      <h2>user : <%= @role %></h2>
 
-        <%= button_to "Logout", "/logout", method: :get%>
+      <button id="openProjectModal" class="btn btn-primary">Create New Project</button>
 
-        <div id="projectModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Create New Project</h2>
-            <%= form_with(model: @project,url: create_project_path, method: :post, local: true, class: 'project-form') do |form| %>
-            <div>
-                <%= form.label :name, 'Project Name' %>
-                <%= form.text_field :name, required: true %>
-            </div>
+      <%= button_to "Logout", "/logout", method: :get, class: 'btn btn-secondary' %>
 
-            <div>
-                <%= form.label :description, 'Project Description' %>
-                <%= form.text_area :description %>
-            </div>
+      <%= render 'new' %>
+    </div>
 
-            <div>
-                <%= form.label :objectives, 'Project Objectives' %>
-                <%= form.text_area :objectives %>
-            </div>
-
-                <div>
-                    <%= form.label :start_date, 'Project Start Date' %>
-                    <%= form.date_field :start_date %>
-                </div>
-
-                <div>
-                    <%= form.label :end_date, 'Project End Date' %>
-                    <%= form.date_field :end_date %>
-                </div>
-
-            <div>
-                <%= form.label :status, 'Project Status' %>
-                <%= form.select :status, ['active', 'inactive', 'completed'], { selected: 'active' } %>
-            </div>
-
-            <div>
-                <%= form.label :user_ids, 'Project Members' %>
-                <%= form.select :user_ids, User.all.map { |u| [u.full_name, u.id] }, {}, { multiple: true, class: 'user-select' } %>
-            </div>
-
-            <div class="form-actions">
-                <%= form.submit 'Create Project', class: 'btn btn-primary submit-btn' %>
-            </div>
-            <% end %>
-        </div>
-        </div>
-    </body>
+    <!-- Add Bootstrap JS and its dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    var modal = document.getElementById("projectModal");
-    var btn = document.getElementById("openProjectModal");
-    var span = document.getElementsByClassName("close")[0];
-    var errorMessage = document.getElementById('error-message');
-
-    btn.onclick = function() {
-        modal.style.display = "block";
-    }
-
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-        if (event.target == modal) {
-        modal.style.display = "none";
-        }
-    }
-
-    
-    if (errorMessage) {
-        var message = errorMessage.getAttribute('data-error');
-        alert(message);
-    }
-    });
+      document.addEventListener('DOMContentLoaded', function() {
+        var openModalButton = document.getElementById('openProjectModal');
+        
+        openModalButton.addEventListener('click', function() {
+          $('#projectModal').modal('show');
+        });
+      });
     </script>
+  </body>
 </html>
