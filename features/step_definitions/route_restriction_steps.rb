@@ -31,6 +31,6 @@ Then(/the (.*) should see the 404 page/) do |_user|
   expect(page).to have_content('404')
 end
 
-And(/the (.*) should see "(.*)"/) do |_user, text|
+Then(/the (.*) should see "(.*)"/) do |_user, text|
   expect(page).to have_content(text)
 end

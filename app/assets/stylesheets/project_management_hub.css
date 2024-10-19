@@ -1,38 +1,3 @@
-.project-management-hub {
-    font-family: Arial, sans-serif;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
- .project-management-hub h1 {
-    color: #333;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 10px;
-  }
-  
-  .project-management-hub h2 {
-    color: #666;
-    font-size: 18px;
-    margin-top: 20px;
-  }
-  
-
-  .project-management-hub button,
-  .project-management-hub input[type="submit"] {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
   .modal {
     display: none;
     position: fixed;
@@ -41,16 +6,18 @@
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
+    overflow: scroll;
     background-color: rgba(0,0,0,0.4);
   }
   
   .modal-content {
+    float: right;
     background-color: #fefefe;
-    margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 60%;
+    width: 100%;
+    height: 100vh !important;
+    overflow-y: scroll;
     max-width: 1000px;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -58,10 +25,11 @@
   
   .close {
     color: #aaa;
-    float: right;
+    float: right !important;
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
+    margin-left: 0;
   }
   
   .close:hover,
@@ -71,7 +39,7 @@
     cursor: pointer;
   }
   
-  .project-form label {
+  .project-form label, .form-label {
     display: block;
     margin-top: 10px;
   }

@@ -1,0 +1,31 @@
+<h1>New Resource for <%= @project.name %></h1>
+
+<%= form_with(model: [@project, @resource], local: true) do |form| %>
+  <% if @resource.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@resource.errors.count, "error") %> prohibited this resource from being saved:</h2>
+
+      <ul>
+        <% @resource.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :file %>
+    <%= form.file_field :file %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Create Resource' %>
+  </div>
+<% end %>
+
+<%= link_to 'Back to Resources', project_resources_path(@project) %>

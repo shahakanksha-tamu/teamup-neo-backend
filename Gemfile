@@ -2,6 +2,7 @@
 
 source 'https://rubygems.org'
 
+gem 'aws-sdk-s3', '~> 1.48'
 gem 'bootstrap', '~> 5.0.0'
 gem 'jquery-rails'
 
@@ -85,4 +86,8 @@ end
 
 group :production do
   gem 'pg' # for Heroku deployment
+end
+
+group :development, :test do # rubocop:disable Bundler/DuplicatedGroup
+  gem 'faker'
 end

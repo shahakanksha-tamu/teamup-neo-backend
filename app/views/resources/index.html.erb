@@ -1,0 +1,30 @@
+<h1>Resources for <%= @project.name %></h1>
+
+<%= link_to 'New Resource', new_project_resource_path(@project) %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>File</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @resources.each do |resource| %>
+      <tr>
+        <td><%= resource.name %></td>
+        <td>
+          <% if resource.file.attached? %>
+            <%= link_to 'Download', rails_blob_path(resource.file, disposition: 'attachment'), class: 'link' %>
+          <% else %>
+            <span class="disabled">No file attached</span>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to 'Show', project_resource_path(@project, resource) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
