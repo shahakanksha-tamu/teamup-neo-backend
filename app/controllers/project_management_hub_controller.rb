@@ -16,16 +16,20 @@ class ProjectManagementHubController < ApplicationController
     @project = Project.new(project_params)
 
     ActiveRecord::Base.transaction do
-      raise ActiveRecord::Rollback unless @project.save
-
-      begin
-        create_timeline(@project)
-        create_student_assignments(@project, params[:project][:user_ids])
-      rescue ActiveRecord::RecordInvalid => e
-        @project.errors.add(:base, "Error in associated data: #{e.message}")
-        raise ActiveRecord::Rollback
-      rescue StandardError => e
-        @project.errors.add(:base, "Unexpected error: #{e.message}")
+      if @project.save
+        begin
+          create_timeline(@project)
+          create_student_assignments(@project, params[:project][:user_ids])
+        rescue ActiveRecord::RecordInvalid => e
+          @project.errors.add(:base, "Error in associated data: #{e.message}")
+          raise ActiveRecord::Rollback
+        end
+        
+        if @project.errors.empty?
+          redirect_to project_management_hub_path, notice: 'Project was successfully created.' and return
+        end
+      else
+        # Project failed to save due to validation errors
         raise ActiveRecord::Rollback
       end
 

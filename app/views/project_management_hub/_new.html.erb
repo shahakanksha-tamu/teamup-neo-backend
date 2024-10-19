@@ -1,0 +1,59 @@
+<div id="projectModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">  
+        <h4 class="modal-title w-100 text-center" id="myModalLabel">Create New Project</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <%= form_with(model: @project, url: create_project_path, method: :post, local: true, class: 'project-form') do |form| %>
+          <div class="form-group row">
+            <%= form.label :name, 'Project Name', class: 'col-sm-3 col-form-label' %>
+            <div class="col-sm-9">
+              <%= form.text_field :name, required: true, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :description, 'Project Description' %>
+            <%= form.text_area :description, class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :objectives, 'Project Objectives' %>
+            <%= form.text_area :objectives, class: 'form-control' %>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-6">
+              <%= form.label :start_date, 'Project Start Date' %>
+              <%= form.date_field :start_date, class: 'form-control' %>
+            </div>
+            <div class="col-sm-6">
+              <%= form.label :end_date, 'Project End Date' %>
+              <%= form.date_field :end_date, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :status, 'Project Status' %>
+            <%= form.select :status, ['active', 'inactive', 'completed'], { selected: 'active' }, class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :user_ids, 'Project Members' %>
+            <%= form.select :user_ids, User.all.map { |u| [u.full_name, u.id] }, {}, { multiple: true, class: 'form-control user-select' } %>
+          </div>
+
+          <div class="modal-footer">
+            <%= form.submit 'Create Project', class: 'btn btn-primary' %>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
