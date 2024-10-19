@@ -16,9 +16,9 @@ RSpec.describe DashboardController, type: :controller do
         expect(assigns(:user)).to eq(user)
       end
 
-      it 'renders the index template' do
+      it 'redirects to the project management hub' do
         get :index
-        expect(response).to render_template(:index)
+        expect(response).to redirect_to(project_management_hub_path)
       end
     end
   end
