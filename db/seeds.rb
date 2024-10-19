@@ -8,7 +8,15 @@ users = [
   { first_name: 'Meghana', last_name: 'Pradhan', email: 'meghna.pradhan@tamu.edu', contact: '1234567893', role: 0 },
   { first_name: 'Ramneek', last_name: 'Kaur', email: 'ramneek983@tamu.edu', contact: '1234567894', role: 0 },
   { first_name: 'Hao', last_name: 'Jin', email: 'q389974204@tamu.edu', contact: '1234567895', role: 0 },
-  { first_name: 'Yiyang', last_name: 'Yan', email: 'yyy2000@tamu.edu', contact: '1234567896', role: 0 }
+  { first_name: 'Yiyang', last_name: 'Yan', email: 'yyy2000@tamu.edu', contact: '1234567896', role: 0 },
+  { first_name: 'Phillip', last_name: 'Ritchey', email: 'pcr@tamu.edu', role: 0, contact: '1234567896' },
+  { first_name: 'Anirith', last_name: '', email: 'anirith@tamu.edu', role: 0, contact: '1234567896' },
+  { first_name: 'Florencia', last_name: 'Mangini', email: 'florencia.mangini@teamup.org', role: 'admin', contact: '1234567896' },
+  { first_name: 'David', last_name: 'Kebo', email: 'davidkebo@tamu.edu', role: 'admin', contact: '1234567896' },
+  { first_name: 'Shashankit', last_name: 'Thakur', email: 'shashankit.thakur@gmail.com', role: 'admin', contact: '1234567896' },
+  { first_name: 'Akanksha', last_name: 'Shah', email: 'shahakanksha286@gmail.com', role: 'student', contact: '1234567896' },
+  { first_name: 'Shashankit', last_name: 'Thakur', email: 'shashankit.t@gmail.com', role: 'student', contact: '1234567896' }
+
 ]
 
 users.each do |user|
@@ -50,8 +58,11 @@ end
 student_assignments = [
   { user_id: User.find_by(email: 'rahaang99@tamu.edu').id, project_id: Project.find_by(name: 'Project Alpha').id },
   { user_id: User.find_by(email: 'dhruvak@tamu.edu').id, project_id: Project.find_by(name: 'Project Alpha').id },
+  { user_id: User.find_by(email: 'shahakanksha286@gmail.com').id, project_id: Project.find_by(name: 'Project Alpha').id },
   { user_id: User.find_by(email: 'meghna.pradhan@tamu.edu').id, project_id: Project.find_by(name: 'Project Beta').id },
-  { user_id: User.find_by(email: 'ramneek983@tamu.edu').id, project_id: Project.find_by(name: 'Project Beta').id }
+  { user_id: User.find_by(email: 'ramneek983@tamu.edu').id, project_id: Project.find_by(name: 'Project Beta').id },
+  { user_id: User.find_by(email: 'q389974204@tamu.edu').id, project_id: Project.find_by(name: 'Project Beta').id },
+  { user_id: User.find_by(email: 'yyy2000@tamu.edu').id, project_id: Project.find_by(name: 'Project Alpha').id }
 ]
 
 student_assignments.each do |assignment|

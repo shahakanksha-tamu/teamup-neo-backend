@@ -66,4 +66,50 @@ RSpec.describe ApplicationController, type: :controller do
       end
     end
   end
+
+  describe '#restrict_access_based_on_role' do
+    let(:student_user) do
+      User.create!(first_name: 'First Name', last_name: 'Last Name', contact: '1786839273', role: 'student', email: 'firstname@gmail.com')
+    end
+
+    let(:admin_user) do
+      User.create!(first_name: 'FN', last_name: 'LN', contact: '2143454324', role: 'admin', email: 'test@gmail.com')
+    end
+
+    context 'when user is admin' do
+      before do
+        session[:user_id] = admin_user.id
+      end
+
+      it 'redirects to admin dashboard when admin accesses protected student resources' do
+        allow(controller).to receive(:params).and_return({ controller: 'dashboard', action: 'index' })
+        get :index
+        expect(response).to redirect_to(project_management_hub_path)
+        expect(flash[:alert]).to eq('You are not authorized to access this page.')
+      end
+
+      it 'allows access to admin-specific resources' do
+        get :index
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context 'when user is student' do
+      before do
+        session[:user_id] = student_user.id
+      end
+
+      it 'redirects to student dashboard when student accesses protected admin resources' do
+        allow(controller).to receive(:params).and_return({ controller: 'project_management_hub', action: 'index' })
+        get :index
+        expect(response).to redirect_to(dashboard_path)
+        expect(flash[:alert]).to eq('You are not authorized to access this page.')
+      end
+
+      it 'allows access to student-specific resources' do
+        get :index
+        expect(response).to have_http_status(:ok)
+      end
+    end
+  end
 end

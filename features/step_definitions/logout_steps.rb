@@ -26,6 +26,11 @@ When('I click the {string} button') do |button_text|
   click_button button_text
 end
 
+When('I choose {string} button from profile dropdown') do |option|
+  find('#navbarDropdown').click
+  click_link option
+end
+
 When('I wait for the session to expire') do
   travel 8.weeks
 end
