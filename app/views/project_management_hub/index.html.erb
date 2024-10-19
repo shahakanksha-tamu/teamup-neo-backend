@@ -1,16 +1,144 @@
-<div class="container mt-5">
-  <div class="text-center">
-    <h1 class="display-4 mb-4">Project Hub</h1>
-  </div>
+<div style="margin-top: 20px;" class="container-fluid">
+    <div style="display:flex; flex-direction: row; justify-content: space-between; align-items: center;">
+        <div> 
+            <h1>Project Management Hub</h1>
+        </div>
 
+        <div>
+            <button class="btn btn-success" id="openProjectModal">Create New Project</button>
+        </div>
+    </div>
+  <div class="d-flex justify-content-between align-items-center">
+  <% if @projects.any? %>
+  <div class="d-flex flex-wrap mt-5" style="gap: 20px;">
+    <% @projects.each do |project| %>
+      <div class="card mb-3 flex-item" style="min-width:450px">
+        <div class="card-header">
+            
+            <div style="display:flex; flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+                <div>
+                    <h5><%= project.name %></h5>
+                </div>
 
-  <!-- Buttons for Resource and Team Management -->
-  <div class="text-center">
-    <div class="d-inline-block mx-2">
-      <%= link_to  "Resource Management", project_resources_path(@project), class: "btn btn-primary btn-lg px-4" %>
-    </div>
-    <div class="d-inline-block mx-2">
-      <%= button_to "Team Management", project_team_management_path(@project), method: :get, class: "btn btn-primary btn-lg px-4" %>
-    </div>
-  </div>
+                <div>
+                    <a href="/projects/<%= project.id %>" class="btn btn-primary">View Project</a>
+                </div>
+            </div>
+    
+        </div>
+        <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3 text-secondary">
+                  Description
+                </div>
+                <div class="col-sm-8">
+                  <%= project.description %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3 text-secondary">
+                  Status
+                </div>
+                <div class="col-sm-8">
+                  <span class="<%= project.status.titleize == 'Active' ? 'text-success' : 'text-danger' %>">
+                  <%= project.status.titleize %> </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3 text-secondary">
+                  Objectives
+                </div>
+                <div class="col-sm-8">
+                  <%= project.objectives %>
+                </div>
+              </div>
+        </div>
+      </div>
+    <% end %>
 </div>
+<% else %>
+    <h3 class="mt-5">Get Stated. Create a New Project.</h3>
+<% end %>
+
+<div id="projectModal" class="modal">
+    <div class="modal-content">
+        
+        <h2>Create New Project <span style="display: flex; flex-direction: row; justify-content:end;"class="close">&times;</span></h2>
+        <%= form_with(model: @project,url: create_project_path, method: :post, local: true, class: 'project-form') do |form| %>
+        <div>
+            <%= form.label :name, 'Project Name' %>
+            <%= form.text_field :name, required: true %>
+        </div>
+
+        <div>
+            <%= form.label :description, 'Project Description' %>
+            <%= form.text_area :description %>
+        </div>
+
+        <div>
+            <%= form.label :objectives, 'Project Objectives' %>
+            <%= form.text_area :objectives %>
+        </div>
+
+        <div style="display: flex; flex-direction: row; justify-content: start; margin-bottom: 15px !important;">
+            
+            <div style="margin-right: 5%; ">
+                <span class="form-label"><%= form.label :start_date, 'Project Start Date' %></span>
+                <%= form.date_field :start_date %>
+            </div>
+
+            <div>
+                <span class="form-label"><%= form.label :end_date, 'Project End Date' %></span>
+                <%= form.date_field :end_date %>
+           
+            </div>
+        </div>
+
+        <div>
+            <%= form.label :status, 'Project Status' %>
+            <%= form.select :status, ['Active', 'Inactive', 'Completed'], { selected: 'Active' } %>
+        </div>
+
+        <div>
+            <%= form.label :user_ids, 'Project Members' %>
+            <%= form.select :user_ids, User.where(role: 'student').map { |u| [u.full_name, u.id] }, {}, { multiple: true, class: 'user-select' } %>
+        </div>
+
+        <div class="form-actions">
+            <%= form.submit 'Create Project', class: 'btn btn-primary submit-btn' %>
+        </div>
+        <% end %>
+    </div>
+</div>
+  
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var modal = document.getElementById("projectModal");
+    var btn = document.getElementById("openProjectModal");
+    var span = document.getElementsByClassName("close")[0];
+    var errorMessage = document.getElementById('error-message');
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+        modal.style.display = "none";
+        }
+    }
+
+    if (errorMessage) {
+        var message = errorMessage.getAttribute('data-error');
+        alert(message);
+    }
+    });
+</script>
+
+</div>
+
+

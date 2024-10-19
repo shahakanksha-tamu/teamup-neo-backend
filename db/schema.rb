@@ -115,7 +115,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_18_163509) do
     t.string "email", null: false
     t.string "contact", limit: 10
     t.integer "role", default: 0
-    t.string "photo", limit: 200
+    t.string "photo", limit: 255
     t.string "provider", default: "google_oauth2"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

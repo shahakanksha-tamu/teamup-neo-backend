@@ -50,8 +50,11 @@ end
 student_assignments = [
   { user_id: User.find_by(email: 'rahaang99@tamu.edu').id, project_id: Project.find_by(name: 'Project Alpha').id },
   { user_id: User.find_by(email: 'dhruvak@tamu.edu').id, project_id: Project.find_by(name: 'Project Alpha').id },
+  { user_id: User.find_by(email: 'shahakanksha286@gmail.com').id, project_id: Project.find_by(name: 'Project Alpha').id },
   { user_id: User.find_by(email: 'meghna.pradhan@tamu.edu').id, project_id: Project.find_by(name: 'Project Beta').id },
-  { user_id: User.find_by(email: 'ramneek983@tamu.edu').id, project_id: Project.find_by(name: 'Project Beta').id }
+  { user_id: User.find_by(email: 'ramneek983@tamu.edu').id, project_id: Project.find_by(name: 'Project Beta').id },
+  { user_id: User.find_by(email: 'q389974204@tamu.edu').id, project_id: Project.find_by(name: 'Project Beta').id },
+  { user_id: User.find_by(email: 'yyy2000@tamu.edu').id, project_id: Project.find_by(name: 'Project Alpha').id }
 ]
 
 student_assignments.each do |assignment|

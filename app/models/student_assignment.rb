@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# StudentAssignment maps each user to a specific project
 class StudentAssignment < ApplicationRecord
   belongs_to :user
   belongs_to :project

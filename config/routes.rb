@@ -36,7 +36,9 @@ Rails.application.routes.draw do
   # Settings route
   get '/settings', to: 'settings#index', as: :settings
 
-  # Root path
+  post '/create_project', to: 'project_management_hub#create_project', as: :create_project
+
+  # Defines the root path route ("/")
   root 'landing_page#index'
 
   # Catch-all route for handling 404s

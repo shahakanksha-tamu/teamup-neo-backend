@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Task represents individual student tasks associated to a particular milestone
 class Task < ApplicationRecord
   belongs_to :milestone
   has_one :task_assignment, dependent: :destroy
