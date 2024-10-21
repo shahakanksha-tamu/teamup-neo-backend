@@ -1,36 +1,52 @@
-<h1 class="display-4 mb-4">
-  Project Management Hub: <%= @project.name %>
-</h1>
+<div class="fluid-container p-4">
+  
+  <div class="d-flex justify-content-between align-items-center">
+    <h1>
+      Manage Team Members: <%= @project.name %> 
+    </h1>
+    <%= link_to 'Project Dashboard', project_dashboard_path(@project.id), class: 'btn btn-warning', role: 'button' %>
 
-<h2 class="h5">Team Members</h2>
-<ul class="list-group mb-4 user-list-group">
-  <% @project.users.each do |member| %>
-    <li class="list-group-item d-flex justify-content-between align-items-center list-class">
-      <span>
-        <%= member.email || member.username || member.id %> <!-- Adjust identifier based on your User model -->
-      </span>
-      <%= button_to "Remove", project_remove_student_path(@project, user_id: member.id),
-    method: :delete, 
-    class: "btn btn-danger btn-sm", 
-    data: { confirm: "Are you sure you want to remove #{member.email || member.username || member.id}?" } %>
-    </li>
+  </div>
+
+  <% flash.each do |key, message| %>
+    <div class="alert alert-<%= key %> mt-3">
+      <%= message %>
+    </div>
   <% end %>
-</ul>
 
-<h3 class="h5">Add a Student to the Team</h3>
-<%= form_with url: project_add_student_path(@project), method: :post, local: true do |f| %>
-  <div class="form-group mb-3">
-    <%= label_tag :user_id, "Select Student", class: "form-label" %>
-    <%= select_tag :user_id, options_from_collection_for_select(User.where(role: :student), :id, :email || :username), 
-        class: "form-select student-select", 
-        prompt: "Choose a student" %>
-  </div>
-  <%= f.submit "Add Student", class: "btn btn-primary" %>
-<% end %>
+  <div class="row mt-4">
+    
+    <div style="margin-right:50px;" class="col-md-6">
+      <h3 class="mb-4">Team Members</h3>
+      <ul class="list-group mb-4 user-list-group">
+        <% @project.users.each do |member| %>
+          <li class="list-group-item d-flex justify-content-between align-items-center list-class">
+            <span>
+              <span>
+                <img style="margin-right: 5px; border-radius:50%;" src="<%= asset_path('user icon.png') %>" alt="User Icon" width="30" height="30">
+                </span><%= member.email %>
+            </span>
+            <%= button_to "Remove", project_remove_student_path(@project, user_id: member.id),
+          method: :delete, 
+          class: "btn btn-danger btn-sm", 
+          onclick: "return confirm('Are you sure you want to remove #{member.email}?')" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
 
-<!-- Flash messages -->
-<% flash.each do |key, message| %>
-  <div class="alert alert-<%= key %> mt-3">
-    <%= message %>
+    <div class="col-md-5">
+      <h3 class="mb-4">Add a Student to the Team</h3>
+      <%= form_with url: project_add_student_path(@project), method: :post, local: true do |f| %>
+        <div class="form-group mb-3">
+          <%= label_tag :user_id, "Select Student", class: "form-label" %>
+          <%= select_tag :user_id, options_from_collection_for_select(User.where(role: :student), :id, :email || :username), 
+              class: "form-select student-select", 
+              prompt: "Choose a student" %>
+        </div>
+        <%= f.submit "Add Student", class: "btn btn-primary mt-3" %>
+      <% end %>
+    </div>
+
   </div>
-<% end %>
+</div>
