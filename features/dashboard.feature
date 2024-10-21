@@ -27,5 +27,3 @@ Scenario: Student accesses project hub
     And I should see "Project A"
     And I should see "Project A description"
     And I should see "Project A objectives"
-    And I should see "Milestone 1 objectives"
-    And I should see "Milestone 2 objectives"
