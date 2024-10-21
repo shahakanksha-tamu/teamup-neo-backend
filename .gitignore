@@ -39,3 +39,4 @@
 config/credentials.yml.enc
 coverage/*
 coverage/.resultset.json
+.byebug_history

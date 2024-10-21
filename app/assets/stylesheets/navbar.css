@@ -1,3 +1,14 @@
 .navbar-nav .nav-link, .navbar-brand {
     color: #F8d06D !important; 
 }
+
+.custom-brand {
+  margin-right: auto !important;
+}
+
+@media (max-width: 991px) { 
+  .navbar .navbar-brand {
+    text-align: left !important;
+    padding-left: 15px;
+  }
+}

@@ -88,6 +88,6 @@ group :production do
   gem 'pg' # for Heroku deployment
 end
 
-group :development, :test do
+group :development, :test do # rubocop:disable Bundler/DuplicatedGroup
   gem 'faker'
 end

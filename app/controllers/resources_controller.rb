@@ -13,8 +13,7 @@ class ResourcesController < ApplicationController
     @resource = @project.resources.new
   end
 
-  def show
-  end
+  def show; end
 
   def create
     @resource = @project.resources.new(resource_params)
