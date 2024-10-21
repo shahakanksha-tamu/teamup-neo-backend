@@ -28,25 +28,11 @@ class ProjectManagementHubController < ApplicationController
 
       redirect_to project_management_hub_path, notice: 'Project was successfully created.' and return if @project.errors.empty?
 
-      # Project failed to save due to validation errors
-
-      # if @project.errors.empty?
-      #   redirect_to project_management_hub_path, notice: 'Project was successfully created.' and return
-      # else
-      raise ActiveRecord::Rollback
-      # end
-
-      # Project failed to save due to validation errors
     end
 
     # If we've reached this point, the transaction has been rolled back
-    error_message = if @project.errors.any?
-                      @project.errors.full_messages.join(', ')
-                    else
-                      'Failed to create project due to an unknown error.'
-                    end
+    error_message =  @project.errors.full_messages.join(', ')
 
-    # flash.now[:alert] = error_message
     redirect_to project_management_hub_path, alert: error_message and return
   end
 
@@ -72,10 +58,7 @@ class ProjectManagementHubController < ApplicationController
       user = User.find_by(id: user_id.to_i)
       if user
         assignment = project.student_assignments.build(user:)
-        unless assignment.save
-          project.errors.add(:student_assignments, "Error assigning user #{user.id}: #{assignment.errors.full_messages.join(', ')}")
-          raise ActiveRecord::RecordInvalid, assignment
-        end
+        assignment.save
       else
         project.errors.add(:student_assignments, "User not found for id: #{user_id}")
         raise ActiveRecord::RecordInvalid, project
