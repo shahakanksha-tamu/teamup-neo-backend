@@ -23,9 +23,9 @@ Background: users in database
     Then I should see an error message
 
   Scenario: Failing to create a project due to invalid user
-  Given the admin is logged in with "janedoe@gmail.com"
-  Given I have valid project attributes
-  When I fill in the form
-  Given I delete the selected user
-  When I submit
-  Then I should see an error message
+    Given the admin is logged in with "janedoe@gmail.com"
+    Given I have valid project attributes
+    When I fill in the form
+    Given I delete the selected user
+    When I submit
+    Then I should see an error message
