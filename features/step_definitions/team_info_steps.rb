@@ -53,6 +53,14 @@ When('I visit team information page as admin') do
   visit(dashboard_team_view_path)
 end
 
+When('I visit project hub') do
+  visit(dashboard_team_view_path)
+end
+
+When('I click Know Your Team button') do 
+  find('.view-team').click
+end
+
 Then('I should see mentor information') do
   mentors = User.where(role: 'admin')
   mentors.each do |mentor|

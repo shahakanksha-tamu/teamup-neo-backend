@@ -10,10 +10,10 @@ class ProjectManagementHubController < ApplicationController
 
   def dashboard
     @project = Project.find(params[:project_id])
-    @show_sidebar = true
+    @show_sidebar = !@project.nil?
   end
 
-  def create_project # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+  def create_project
     @project = Project.new(project_params)
 
     ActiveRecord::Base.transaction do
@@ -28,26 +28,11 @@ class ProjectManagementHubController < ApplicationController
       end
 
       redirect_to project_management_hub_path, notice: 'Project was successfully created.' and return if @project.errors.empty?
-
-      # Project failed to save due to validation errors
-
-      # if @project.errors.empty?
-      #   redirect_to project_management_hub_path, notice: 'Project was successfully created.' and return
-      # else
-      raise ActiveRecord::Rollback
-      # end
-
-      # Project failed to save due to validation errors
     end
 
     # If we've reached this point, the transaction has been rolled back
-    error_message = if @project.errors.any?
-                      @project.errors.full_messages.join(', ')
-                    else
-                      'Failed to create project due to an unknown error.'
-                    end
+    error_message = @project.errors.full_messages.join(', ')
 
-    # flash.now[:alert] = error_message
     redirect_to project_management_hub_path, alert: error_message and return
   end
 
@@ -66,17 +51,14 @@ class ProjectManagementHubController < ApplicationController
     raise ActiveRecord::RecordInvalid, timeline
   end
 
-  def create_student_assignments(project, user_ids) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
+  def create_student_assignments(project, user_ids)
     return if user_ids.blank?
 
     user_ids.reject(&:blank?).each do |user_id|
       user = User.find_by(id: user_id.to_i)
       if user
         assignment = project.student_assignments.build(user:)
-        unless assignment.save
-          project.errors.add(:student_assignments, "Error assigning user #{user.id}: #{assignment.errors.full_messages.join(', ')}")
-          raise ActiveRecord::RecordInvalid, assignment
-        end
+        assignment.save
       else
         project.errors.add(:student_assignments, "User not found for id: #{user_id}")
         raise ActiveRecord::RecordInvalid, project
@@ -86,13 +68,15 @@ class ProjectManagementHubController < ApplicationController
 
   def team
     @project = Project.find(params[:project_id])
-    @show_sidebar = true
+    @show_sidebar = !@project.nil?
   end
 
   def add_student
     Rails.logger.debug("Params: #{params.inspect}")
     user = User.find(params[:user_id])
-    if @project.add_student(user)
+    if Project.joins(:student_assignments).where(student_assignments: { user_id: user.id }).exists?
+      flash[:error] = "#{user.email} is already assigned to a project."
+    elsif @project.add_student(user)
       flash[:success] = "#{user.email} was successfully added to the team."
     else
       flash[:error] = 'Failed to add student to the team.'

@@ -6,7 +6,7 @@ Given('I have valid project attributes') do
     description: 'Project description',
     start_date: '2023-01-01',
     end_date: '2023-12-31',
-    user_ids: [1]
+    user_ids: [2]
   }
 end
 
@@ -26,11 +26,11 @@ Given('I have valid project attributes with an invalid date') do
     description: 'Project description',
     start_date: '2023-01-01',
     end_date: '2022-12-31',
-    user_ids: [1]
+    user_ids: [2]
   }
 end
 
-When('I create a new project') do
+When('I fill in the form') do
   visit project_management_hub_path
   click_button 'Create New Project'
   fill_in 'Project Name', with: @valid_attributes[:name]
@@ -38,10 +38,15 @@ When('I create a new project') do
   fill_in 'Project Start Date', with: @valid_attributes[:start_date]
   fill_in 'Project End Date', with: @valid_attributes[:end_date]
 
-  # @valid_attributes[:user_ids].each do |user_id|
-  #   select user_id.to_s, from: 'project_user_ids'
-  # end
+  select_element = find('select#user_ids')
 
+  @valid_attributes[:user_ids].each do |user_id|
+    option = select_element.find("option[value='#{user_id}']")
+    option.select_option
+  end
+end
+
+When('I submit') do
   click_button 'Create Project'
 end
 
@@ -51,4 +56,11 @@ end
 
 Then('I should see an error message') do
   expect(page).to have_content('Error')
+end
+
+Given('I delete the selected user') do
+  @valid_attributes[:user_ids].each do |user_id|
+    user = User.find_by(id: user_id)
+    user&.destroy
+  end
 end
