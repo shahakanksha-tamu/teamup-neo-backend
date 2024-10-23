@@ -17,4 +17,8 @@ class ProjectHubController < ApplicationController
     @show_sidebar = !@project.nil?
     @role = current_user.role
   end
+
+  def view_tasks
+    @show_sidebar = true
+  end
 end

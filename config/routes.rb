@@ -29,6 +29,9 @@ Rails.application.routes.draw do
     post 'add_student', to: 'project_management_hub#add_student', as: 'add_student'
     delete 'remove_student', to: 'project_management_hub#remove_student', as: 'remove_student'
 
+    # Task management for project
+    get 'tasks', to: 'project_hub#view_tasks', as: 'view_tasks'
+
     # Nested resources for resources management
     resources :resources, only: %i[new create index destroy] do
       member do
