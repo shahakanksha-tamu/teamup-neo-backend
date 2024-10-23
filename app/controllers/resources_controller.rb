@@ -7,12 +7,12 @@ class ResourcesController < ApplicationController
 
   def index
     @resources = @project.resources
-    @show_sidebar = true
+    @show_sidebar = !@project.nil?
   end
 
   def new
     @resource = @project.resources.new
-    @show_sidebar = true
+    @show_sidebar = !@project.nil?
   end
 
   def show; end

@@ -16,6 +16,10 @@ class TeamInfoController < ApplicationController
     end
 
     @mentors = fetch_all_mentors
+
+    # sidebar requires the variables here
+    @project = Project.find_by(id: project_id)
+    @show_sidebar = !@project.nil?
   end
 
   private

@@ -24,6 +24,10 @@
         <%= link_to "Hub", project_hub_path(), method: :get, 
           class: "nav-link #{current_page?(project_hub_path()) ? 'active' : 'link-dark'}" %>
       </li>
+        <li>
+            <%= link_to "Team Dashboard", dashboard_team_view_path(), method: :get, 
+                class: "nav-link #{current_page?(dashboard_team_view_path()) ? 'active' : 'link-dark'}" %>
+        </li>
     <% end %>
     </ul>
     <hr>
