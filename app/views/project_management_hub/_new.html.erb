@@ -1,8 +1,10 @@
 <div id="projectModal" class="modal">
     <div class="modal-content">
         
-        <h2>Create New Project <span style="display: flex; flex-direction: row; justify-content:end;"class="close">&times;</span></h2>
+        <h3 style="margin-bottom: 20px;">Create New Project <span style="display: flex; flex-direction: row; justify-content:end;"class="close">&times;</span></h3>
+       
         <%= form_with(model: @project,url: create_project_path, method: :post, local: true, class: 'project-form') do |form| %>
+       
         <div>
             <%= form.label :name, 'Project Name' %>
             <%= form.text_field :name, required: true %>

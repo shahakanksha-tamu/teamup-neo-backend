@@ -1,8 +1,0 @@
-<h1>Resource: <%= @resource.name %></h1>
-
-<p>
-  <strong>File:</strong>
-  <%= link_to 'Download', @resource.file.attached? ? rails_blob_path(@resource.file, disposition: 'attachment') : '#', class: @resource.file.attached? ? 'link' : 'disabled' %>
-</p>
-
-<%= link_to 'Back to Resources', project_resources_path(@project) %>

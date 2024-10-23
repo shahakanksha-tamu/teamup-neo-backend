@@ -31,11 +31,11 @@ When('I click Add Student') do
 end
 
 Then('I click on the Team Management') do
-  click_button('Team Management')
+  click_link('Team Management')
 end
 
 Then('I click on the Resource Management') do
-  find('.resource-management').click
+  click_link('Resource Management')
 end
 
 Then('I should see a success message {string}') do |message|

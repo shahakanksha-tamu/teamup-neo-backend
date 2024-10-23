@@ -22,7 +22,7 @@ class SessionManagerController < ApplicationController
 
   private
 
-  def login(user, photo) # rubocop:disable Metrics/MethodLength
+  def login(user, photo)
     if user.present?
       session[:user_id] = user.id
       unless user.photo?

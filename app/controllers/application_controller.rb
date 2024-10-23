@@ -13,9 +13,6 @@ class ApplicationController < ActionController::Base
     {
       admin: [
         { controller: 'project_management_hub', action: 'index' }
-        # { controller: 'project_management_hub', action: 'dashboard' },
-        # { controller: 'project_management_hub', action: 'create_project' },
-        # { controller: 'project_management_hub', action: 'add_student' }
       ],
       student: [
         { controller: 'dashboard', action: 'index' },
@@ -25,7 +22,7 @@ class ApplicationController < ActionController::Base
     }
   end
 
-  def restrict_access_based_on_role # rubocop:disable Metrics/AbcSize
+  def restrict_access_based_on_role
     return unless current_user
 
     user_role = current_user.role.to_sym

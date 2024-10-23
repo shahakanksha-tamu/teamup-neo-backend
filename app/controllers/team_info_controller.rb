@@ -2,7 +2,7 @@
 
 # TeamInfoController displays team member information and key contacts
 class TeamInfoController < ApplicationController
-  def index # rubocop:disable Metrics/MethodLength
+  def index
     current_user_id = @user.id
     student_assignment = StudentAssignment.find_by(user_id: current_user_id)
     @team_members = []
@@ -16,6 +16,10 @@ class TeamInfoController < ApplicationController
     end
 
     @mentors = fetch_all_mentors
+
+    # sidebar requires the variables here
+    @project = Project.find_by(id: project_id)
+    @show_sidebar = !@project.nil?
   end
 
   private

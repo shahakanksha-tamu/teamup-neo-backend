@@ -57,18 +57,9 @@ Scenario: Successful creation of a resource
   Given I am logged in as 'johndoe@gmail.com'
   And I navigate to the project management page for "Alpha Project"
   And I click on the Resource Management
-  And I click on the "New Resource" link
   Given I fill in "Name" with "Sample Resource"
   And I attach the file "sample.txt" to "File"
   When I click Create Resource
   Then I should be redirected to the resources page for "Alpha Project"
   And I should see "Resource was successfully created."
   And I should see "Sample"
-
-Scenario: Donot create a resource
-  Given I am logged in as 'johndoe@gmail.com'
-  And I navigate to the project management page for "Alpha Project"
-  And I click on the Resource Management
-  And I click on the "New Resource" link
-  And I click on the "Back to Resources" link
-  Then I should be redirected to the resources page for "Alpha Project"
