@@ -75,14 +75,16 @@ class ProjectManagementHubController < ApplicationController
   def add_student
     Rails.logger.debug("Params: #{params.inspect}")
     user = User.find(params[:user_id])
-    if @project.add_student(user)
+    if Project.joins(:student_assignments).where(student_assignments: { user_id: user.id }).exists?
+      flash[:error] = "#{user.email} is already assigned to a project."
+    elsif @project.add_student(user)
       flash[:success] = "#{user.email} was successfully added to the team."
     else
       flash[:error] = 'Failed to add student to the team.'
     end
     redirect_to project_team_management_path(@project)
   end
-
+  
   def remove_student
     user = User.find(params[:user_id])
     if @project.remove_student(user)
