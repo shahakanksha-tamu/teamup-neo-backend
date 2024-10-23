@@ -26,7 +26,8 @@ Background: users in database
  
 Scenario: Access team member information page as student
   Given I am logged in as "johndoe@gmail.com"
-  When  I visit team information page
+  Then I should be on the dashboard page
+  When I click Know Your Team button
   Then  I should see mentor information
   And   I should other team members information for project "Capstone Project" and not contact information for "johndoe@gmail.com"
 
@@ -38,8 +39,7 @@ Scenario: Access team member information page as admin
 
 Scenario: Student has no project assignment
   Given  I am logged in as "denverkane@gmail.com"
-  When   I visit team information page
-  Then   I should see "You have a pending project assignment, no team information is available. Please check again later"
+  Then   I should see "You have a pending project assignment. Please check again later"
 
 
 

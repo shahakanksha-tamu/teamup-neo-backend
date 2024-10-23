@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     }
   end
 
-  def restrict_access_based_on_role # rubocop:disable Metrics/AbcSize
+  def restrict_access_based_on_role
     return unless current_user
 
     user_role = current_user.role.to_sym

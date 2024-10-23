@@ -13,7 +13,7 @@ class ProjectManagementHubController < ApplicationController
     @show_sidebar = !@project.nil?
   end
 
-  def create_project # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+  def create_project
     @project = Project.new(project_params)
 
     ActiveRecord::Base.transaction do
@@ -28,11 +28,10 @@ class ProjectManagementHubController < ApplicationController
       end
 
       redirect_to project_management_hub_path, notice: 'Project was successfully created.' and return if @project.errors.empty?
-
     end
 
     # If we've reached this point, the transaction has been rolled back
-    error_message =  @project.errors.full_messages.join(', ')
+    error_message = @project.errors.full_messages.join(', ')
 
     redirect_to project_management_hub_path, alert: error_message and return
   end
@@ -52,7 +51,7 @@ class ProjectManagementHubController < ApplicationController
     raise ActiveRecord::RecordInvalid, timeline
   end
 
-  def create_student_assignments(project, user_ids) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
+  def create_student_assignments(project, user_ids)
     return if user_ids.blank?
 
     user_ids.reject(&:blank?).each do |user_id|
@@ -84,7 +83,7 @@ class ProjectManagementHubController < ApplicationController
     end
     redirect_to project_team_management_path(@project)
   end
-  
+
   def remove_student
     user = User.find(params[:user_id])
     if @project.remove_student(user)

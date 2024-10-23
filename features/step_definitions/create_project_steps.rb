@@ -38,17 +38,15 @@ When('I fill in the form') do
   fill_in 'Project Start Date', with: @valid_attributes[:start_date]
   fill_in 'Project End Date', with: @valid_attributes[:end_date]
 
-  
   select_element = find('select#user_ids')
 
   @valid_attributes[:user_ids].each do |user_id|
     option = select_element.find("option[value='#{user_id}']")
     option.select_option
   end
-
 end
 
-When ('I submit') do
+When('I submit') do
   click_button 'Create Project'
 end
 
@@ -60,9 +58,9 @@ Then('I should see an error message') do
   expect(page).to have_content('Error')
 end
 
-Given ('I delete the selected user') do
+Given('I delete the selected user') do
   @valid_attributes[:user_ids].each do |user_id|
     user = User.find_by(id: user_id)
-    user.destroy if user
+    user&.destroy
   end
 end
