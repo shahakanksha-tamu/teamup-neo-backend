@@ -1,0 +1,31 @@
+<div class="fluid-container">
+  <div class="d-flex flex-column flex-shrink-0 p-3 shadow-lg" style="width: 280px; height: 90vh;">
+    <a href="/" class="d-flex align-items-center mt-3 link-dark text-decoration-none justify-content-center">
+      <h4>Manage <%= @project.name %></h4>
+    </a>
+    <hr>
+    <ul class="nav flex-column mb-auto">
+    <% if @role == 'admin' %>
+        <li>
+        <%= link_to "Dashboard", project_dashboard_path(@project), method: :get, 
+          class: "nav-link #{current_page?(project_dashboard_path(@project)) ? 'active' : 'link-dark'}" %>
+      </li>
+      <li>
+        <%= link_to "Resources Management", project_resources_path(@project), method: :get, 
+          class: "nav-link #{current_page?(project_resources_path(@project)) ? 'active' : 'link-dark'}" %>
+      </li>
+      <li>
+        <%= link_to "Team Management", project_team_management_path(@project), method: :get, 
+          class: "nav-link #{current_page?(project_team_management_path(@project)) ? 'active' : 'link-dark'}" %>
+      </li>
+    <% end %>
+    <% if @role == 'student' %>
+      <li>
+        <%= link_to "Hub", project_hub_path(), method: :get, 
+          class: "nav-link #{current_page?(project_hub_path()) ? 'active' : 'link-dark'}" %>
+      </li>
+    <% end %>
+    </ul>
+    <hr>
+  </div>
+</div>
