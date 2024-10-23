@@ -9,12 +9,12 @@ class ResourcesController < ApplicationController
     @project = Project.find(params[:project_id])
     @resources = @project.resources.includes(:file_attachment)
     @resource = @project.resources.new
-    @show_sidebar = true
+    @show_sidebar = !@project.nil?
   end
 
   def new
     @resource = @project.resources.new
-    @show_sidebar = true
+    @show_sidebar = !@project.nil?
   end
 
   def download

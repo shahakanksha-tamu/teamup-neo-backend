@@ -10,7 +10,7 @@ class ProjectManagementHubController < ApplicationController
 
   def dashboard
     @project = Project.find(params[:project_id])
-    @show_sidebar = true
+    @show_sidebar = !@project.nil?
   end
 
   def create_project # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
@@ -69,7 +69,7 @@ class ProjectManagementHubController < ApplicationController
 
   def team
     @project = Project.find(params[:project_id])
-    @show_sidebar = true
+    @show_sidebar = !@project.nil?
   end
 
   def add_student
