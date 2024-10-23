@@ -25,6 +25,15 @@
       <%= render 'layouts/navbar' %>
     <% end %>
     <%= render partial: 'shared/display_flash' if not flash.empty? %>
-    <%= yield %>
+    <% if @show_sidebar %>
+      <div class="d-flex flex-row">
+        <%= render 'layouts/sidebar' %>
+        <div class="container-fluid">
+          <%= yield %>
+        </div>
+      </div>
+    <% else %>
+      <%= yield %>
+    <% end %>
   </body>
 </html>
