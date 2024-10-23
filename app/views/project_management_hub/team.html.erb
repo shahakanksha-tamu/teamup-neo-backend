@@ -1,9 +1,9 @@
 <div class="fluid-container p-4">
   
   <div class="d-flex justify-content-between align-items-center">
-    <h1>
-      Manage Team Members: <%= @project.name %> 
-    </h1>
+    <h3>
+      Team Management
+    </h3>
     <%= link_to 'Project Dashboard', project_dashboard_path(@project.id), class: 'btn btn-warning', role: 'button' %>
 
   </div>
@@ -17,7 +17,7 @@
   <div class="row mt-4">
     
     <div style="margin-right:50px;" class="col-md-6">
-      <h3 class="mb-4">Team Members</h3>
+      <h5 class="mb-4">Team Members</h5>
       <ul class="list-group mb-4 user-list-group">
         <% @project.users.each do |member| %>
           <li class="list-group-item d-flex justify-content-between align-items-center list-class">
@@ -36,7 +36,7 @@
     </div>
 
     <div class="col-md-5">
-      <h3 class="mb-4">Add a Student to the Team</h3>
+      <h5 class="mb-4">Add a Student to the Team</h5>
       <%= form_with url: project_add_student_path(@project), method: :post, local: true do |f| %>
         <div class="form-group mb-3">
           <%= label_tag :user_id, "Select Student", class: "form-label" %>

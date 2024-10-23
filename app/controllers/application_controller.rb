@@ -13,9 +13,6 @@ class ApplicationController < ActionController::Base
     {
       admin: [
         { controller: 'project_management_hub', action: 'index' }
-        # { controller: 'project_management_hub', action: 'dashboard' },
-        # { controller: 'project_management_hub', action: 'create_project' },
-        # { controller: 'project_management_hub', action: 'add_student' }
       ],
       student: [
         { controller: 'dashboard', action: 'index' },
