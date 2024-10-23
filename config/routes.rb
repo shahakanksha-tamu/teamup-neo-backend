@@ -30,7 +30,11 @@ Rails.application.routes.draw do
     delete 'remove_student', to: 'project_management_hub#remove_student', as: 'remove_student'
 
     # Nested resources for resources management
-    resources :resources, only: %i[new create index show]
+    resources :resources, only: %i[new create index destroy] do
+      member do
+        get :download # This allows downloading a specific resource
+      end
+    end
   end
 
   # Settings route
