@@ -3,10 +3,12 @@
 # Class to handle resources associated with projects
 class ResourcesController < ApplicationController
   before_action :set_project
-  before_action :set_resource, only: [:show]
+  before_action :set_resource, only: %i[download destroy]
 
   def index
-    @resources = @project.resources
+    @project = Project.find(params[:project_id])
+    @resources = @project.resources.includes(:file_attachment)
+    @resource = @project.resources.new
     @show_sidebar = true
   end
 
@@ -15,7 +17,24 @@ class ResourcesController < ApplicationController
     @show_sidebar = true
   end
 
-  def show; end
+  def download
+    # @resource = Resource.find(params[:id])
+    send_data @resource.file.download, filename: @resource.file.filename.to_s, type: @resource.file.content_type, disposition: 'attachment'
+  end
+
+  def destroy
+    @project = Project.find(params[:project_id]) # Assuming you're using nested resources
+    @resource = @project.resources.find(params[:id]) # Find the resource
+
+    if @resource.file.attached?
+      @resource.file.purge # This removes the attached file from Active Storage
+    end
+
+    @resource.destroy # This removes the resource record from the database
+
+    flash[:success] = 'Resource was successfully removed.'
+    redirect_to project_resources_path(@project)
+  end
 
   def create
     @resource = @project.resources.new(resource_params)
