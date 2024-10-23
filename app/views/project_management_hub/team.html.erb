@@ -9,7 +9,12 @@
   </div>
 
   <% flash.each do |key, message| %>
-    <div class="alert alert-<%= key %> mt-3">
+    <% flash_class = case key.to_sym
+                    when :notice then "success"  
+                    when :alert, :error then "danger"  
+                    else key 
+                    end %>
+    <div class="alert alert-<%= flash_class %> mt-3">
       <%= message %>
     </div>
   <% end %>
