@@ -31,7 +31,7 @@ RSpec.describe TeamInfoController, type: :controller do
       end
 
       it 'assigns the project name and team members' do
-        get :index
+        get :index, params: { id: project.id }
         expect(assigns(:project_name)).to eq(project.name)
         expect(assigns(:team_members)).not_to include(first_user)
         expect(assigns(:team_members)).to include(second_user)
