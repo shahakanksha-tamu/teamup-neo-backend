@@ -1,3 +1,77 @@
-<h1>Project Hub</h1>
-<h2>email : <%= @user.email %></h2>
-<h2>user : <%= @role %></h2>
+<% if !@project.nil? %>
+
+    <div class="container-fluid p-5">
+
+        <div class="row">
+
+            <div class="col-md-5">
+                
+                <div class="row mb-3">
+                    <% if false %>
+                    <% @project.milestones.each do |milestone| %>
+                        <div class="col-md-6">
+                            <div class="card  rounded mb-3 card-hover" style="width :80">
+                                <div class="card-body">
+
+                                    <div class="row mb-3">
+                                        <h5 class="card-title"><%= milestone.title %></h5>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-12 col-md-12">
+                                            <p class="card-text text-secondary">Deadline</p>
+                                        </div>
+
+                                        <div class="col-12 col-md-12">
+                                            <p class="card-text"><%= milestone.deadline %></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-12 col-md-12">
+                                            <p class="card-text text-secondary">Objective</p>
+                                        </div>
+
+                                        <div class="col-12 col-md-12">
+                                            <p class="card-text"><%= milestone.objective %></p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    <% end %>
+                    <% end %>
+
+                </div>
+
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="card  rounded mb-3 card-hover" style="width :80">
+                            <div class="card-body">
+
+                                <div class="row mb-3">
+                                    <h5 class="card-title">Objectives</h5>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-12 col-md-12">
+                                        <p class="card-text"><%= @project.objectives %></p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+<% else %>
+    <p>No projects.</p>
+<% end %>
