@@ -1,3 +1,55 @@
+<!-- dashboard.html.erb -->
+
 <div class="fluid-container p-4">
-    Project Dashboard for Admin
+  <h2>Project Dashboard for Admin</h2>
+  <p><strong>Description:</strong> <%= @project.description %></p>
+  <p><strong>Objectives:</strong> <%= @project.objectives %></p>
+
+  <!-- Edit Button that triggers the modal -->
+  <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#projectModal">
+      Edit Project
+  </button>
 </div>
+
+<!-- Modal Structure -->
+<div id="projectModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content p-4">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Project</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= form_with(model: @project, url: project_update_project_path(@project), method: :patch, local: true, class: 'project-form') do |form| %>
+          <div class="form-group">
+            <%= form.label :name %>
+            <%= form.text_field :name, class: 'form-control', value: @project.name %>
+          </div>
+          <div class="form-group">
+            <%= form.label :description %>
+            <%= form.text_area :description, class: 'form-control', value: @project.description %>
+          </div>
+          <div class="form-group">
+            <%= form.label :objectives %>
+            <%= form.text_area :objectives, class: 'form-control', value: @project.objectives %>
+          </div>
+          <div class="form-group">
+            <%= form.label :status %>
+            <%= form.select :status, options_for_select([['Active', 'active'], ['Inactive', 'inactive']], @project.status), {}, { class: 'form-control', style: 'min-width: 150px; width: 100%; height: 100%' } %>
+            </div>
+          <div class="modal-footer">
+            <%= form.submit 'Update Project', class: 'btn btn-primary' %>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Include Bootstrap CSS and JS if not already in your layout -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>

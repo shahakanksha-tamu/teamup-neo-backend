@@ -36,8 +36,11 @@ class ProjectManagementHubController < ApplicationController
     redirect_to project_management_hub_path, alert: error_message and return
   end
 
+  # def project_params
+  #   params.permit(:name, :description, :objectives, :status)
+  # end
   def project_params
-    params.permit(:name, :description, :objectives, :status)
+    params.require(:project).permit(:name, :description, :objectives, :status)
   end
 
   def create_timeline(project)
@@ -69,6 +72,22 @@ class ProjectManagementHubController < ApplicationController
   def team
     @project = Project.find(params[:project_id])
     @show_sidebar = !@project.nil?
+  end
+
+  def edit
+    @project = Project.find(params[:id])
+  end
+
+  def update
+    Rails.logger.debug "params[:id]: #{params[:project_id]}"
+    @project = Project.find(params[:project_id])
+
+    if @project.update(project_params)
+      redirect_to project_dashboard_path(@project), notice: 'Project was successfully updated.'
+    else
+      flash.now[:alert] = @project.errors.full_messages.to_sentence
+      render :dashboard
+    end
   end
 
   def add_student

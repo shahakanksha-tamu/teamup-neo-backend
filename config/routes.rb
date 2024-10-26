@@ -29,6 +29,9 @@ Rails.application.routes.draw do
     post 'add_student', to: 'project_management_hub#add_student', as: 'add_student'
     delete 'remove_student', to: 'project_management_hub#remove_student', as: 'remove_student'
 
+    # New edit and update routes for project management
+    get 'edit_project', to: 'project_management_hub#edit', as: 'edit_project'
+    patch 'update_project', to: 'project_management_hub#update', as: 'update_project'
     # Task management for project
     get 'tasks', to: 'project_hub#view_tasks', as: 'view_tasks'
 
