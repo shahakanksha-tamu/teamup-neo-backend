@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Rails.application.routes.draw do
+Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   # Calendars route
   resources :resources
   get 'calendars', to: 'calendars#index', as: :calendar_view
@@ -15,15 +15,13 @@ Rails.application.routes.draw do
 
   # Dashboard routes
   get '/dashboard', to: 'dashboard#index', as: :dashboard
-  get '/dashboard/team/view', to: 'team_info#index'
 
   # Project Hub routes
   get '/project_hub', to: 'project_hub#index', as: :project_hub
   get '/project_management_hub', to: 'project_management_hub#index', as: :project_management_hub
+
   # Project Hub routes
   resources :projects do
-    # New route for showing the project detail page
-    # get 'details', to: 'project_management_hub#details', as: 'details'
     get 'dashboard', to: 'project_management_hub#dashboard', as: 'dashboard'
     get 'team_management', to: 'project_management_hub#team', as: 'team_management'
     post 'add_student', to: 'project_management_hub#add_student', as: 'add_student'
