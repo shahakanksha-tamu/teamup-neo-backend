@@ -10,6 +10,22 @@
       Edit Project
   </button>
 </div>
+<!-- Progress Chart Column -->
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title">Project Progress</h5>
+        </div>
+        <div class="card-body">
+        <canvas id="progressChart" data-progress="<%= @progress %>"></canvas>
+        <div class="text-center mt-3">
+            <h4><%= @progress %>% Complete</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Modal Structure -->
 <div id="projectModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -53,3 +69,119 @@
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<!-- Add Chart.js CDN before your closing body tag -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Add this script after including Chart.js -->
+<script>
+let progressChart = null;
+
+function initializeProgressChart() {
+  console.log('Attempting to initialize chart...');
+  
+  // Get the canvas element
+  const ctx = document.getElementById('progressChart');
+  
+  // Early return if canvas not found
+  if (!ctx) {
+    console.log('Canvas element not found - waiting for DOM...');
+    return;
+  }
+
+  // Get progress value from data attribute
+  const progress = parseFloat(ctx.dataset.progress);
+  console.log('Progress value:', progress);
+  
+  // Validate progress value
+  if (isNaN(progress)) {
+    console.error('Invalid progress value:', ctx.dataset.progress);
+    return;
+  }
+
+  // Destroy existing chart if it exists
+  if (progressChart instanceof Chart) {
+    console.log('Destroying existing chart...');
+    progressChart.destroy();
+  }
+
+  console.log('Creating new chart with progress:', progress);
+  
+  // Create new chart
+  progressChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Completed', 'Remaining'],
+      datasets: [{
+        data: [progress, (100 - progress)],
+        backgroundColor: [
+          'rgba(75, 192, 192, 0.8)',  // Teal for completed
+          'rgba(201, 203, 207, 0.8)'   // Grey for remaining
+        ],
+        borderColor: [
+          'rgba(75, 192, 192, 1)',
+          'rgba(201, 203, 207, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      cutout: '70%',
+      plugins: {
+        legend: {
+          position: 'bottom'
+        },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              return `${context.label}: ${context.raw}%`;
+            }
+          }
+        }
+      }
+    }
+  });
+  
+  console.log('Chart initialization complete');
+}
+
+// Function to check if Chart.js is loaded
+function waitForChartJs() {
+  console.log('Checking for Chart.js...');
+  if (window.Chart) {
+    console.log('Chart.js found, initializing chart...');
+    initializeProgressChart();
+  } else {
+    console.log('Chart.js not found, waiting...');
+    setTimeout(waitForChartJs, 100);
+  }
+}
+
+// Set up event listeners
+const setupEventListeners = () => {
+  console.log('Setting up event listeners...');
+  
+  // Modern event listeners
+  document.addEventListener('DOMContentLoaded', waitForChartJs);
+  window.addEventListener('load', waitForChartJs);
+  
+  // Turbolinks/Turbo support
+  document.addEventListener('turbolinks:load', waitForChartJs);
+  document.addEventListener('turbo:load', waitForChartJs);
+  
+  // jQuery support (if available)
+  if (typeof jQuery !== 'undefined') {
+    $(document).ready(waitForChartJs);
+  }
+};
+
+// Initial setup
+setupEventListeners();
+
+// Immediate check in case the DOM is already loaded
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  console.log('Document already loaded, checking Chart.js...');
+  waitForChartJs();
+}
+</script>

@@ -11,6 +11,7 @@ class ProjectManagementHubController < ApplicationController
   def dashboard
     @project = Project.find(params[:project_id])
     @show_sidebar = !@project.nil?
+    @progress = @project.progress 
   end
 
   def create_project

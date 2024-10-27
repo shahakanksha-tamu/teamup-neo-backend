@@ -23,4 +23,11 @@ class Project < ApplicationRecord
   def team_members
     users
   end
+
+    def progress
+      return 0 if milestones.count.zero?
+  
+      completed_milestones = milestones.where(status: 'Completed').count
+      ((completed_milestones.to_f / milestones.count) * 100).round(2)
+    end
 end
