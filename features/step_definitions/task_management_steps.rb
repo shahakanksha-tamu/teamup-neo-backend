@@ -60,47 +60,24 @@ Given(/there are students with tasks assigned/) do |task_assignment_table|
   end
 end
 
-Given('I am logged in as {string}') do |email|
-  visit(root_path)
-  mock_omniauth(:google_oauth2, {
-                  provider: 'google_oauth2',
-                  uid: '123456789',
-                  info: {
-                    email:,
-                    name: 'John Doe',
-                    image: 'https://example.com/testuser.jpg'
-                  },
-                  credentials: {
-                    token: 'mock_token',
-                    refresh_token: 'mock_refresh_token',
-                    expires_at: Time.zone.now + 1.week
-                  }
-                })
-  click_button('Login with Google')
-end
-
 When('I visit the task board page') do
   project = Project.find_by(id: 1)
-  visit project_task_management_path(project)
+  visit(project_task_management_path(project))
 end
 
 Then('I should see a card for each student') do
-  expect(page).to have_content('Alice')
-  expect(page).to have_content('Bob')
+  puts @students.inspect
+
+  expect(page).to have_content('John')
+  expect(page).to have_content('Mariam')
 end
 
 Then('each card should display the student’s tasks with task details') do
-  within('.student-card', text: 'Alice') do
-    expect(page).to have_content('Task 1')
-    expect(page).to have_content('Description 1')
-    expect(page).to have_content('Milestone 1')
-    expect(page).to have_content('Not Completed')
-  end
-
-  within('.student-card', text: 'Bob') do
-    expect(page).to have_content('Task 2')
-    expect(page).to have_content('Description 2')
-    expect(page).to have_content('Completed')
+  page.all('.card').each do |card|
+    within(card) do
+      expect(page).to have_content('Task 1')
+      expect(page).to have_content('Status: Not Completed')
+    end
   end
 end
 

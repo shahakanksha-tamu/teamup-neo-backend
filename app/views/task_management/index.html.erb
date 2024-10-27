@@ -1,1 +1,61 @@
-<h1>Task Management</h1>
+<!-- app/views/tasks/index.html.erb -->
+<div class="container mt-4">
+  <div class="row">
+    <% @students.each do |student| %>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"><%= student.first_name %></h5>
+            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addTaskModal<%= student.id %>">
+              Add Task
+            </button>
+          </div>
+          <div class="card-body">
+            <% student.tasks.each do |task| %>
+              <div class="card mb-2">
+                <div class="card-body">
+                  <h6><%= task.task_name %></h6>
+                  <p>Status: <%= task.status %></p>
+                  <p>Milestone: <%= task.milestone.try(:name) %></p>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- Add Task Modal for each student -->
+<% @students.each do |user| %>
+  <div class="modal fade" id="addTaskModal<%= user.id %>" tabindex="-1" aria-labelledby="addTaskModalLabel<%= user.id %>" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addTaskModalLabel<%= user.id %>">Add Task for <%= user.first_name %></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <%= form_with url: project_user_tasks_path(@project, user), local: true do |form| %>
+            <div class="form-group">
+              <%= form.label :task_name %>
+              <%= form.text_field :task_name, class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= form.label :status %>
+              <%= form.select :status, Task.statuses.keys.map { |status| [status.humanize, status] }, {}, class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= form.label :milestone_id %>
+              <%= form.collection_select :milestone_id, Milestone.all, :id, :title, { prompt: 'Select a milestone' }, class: "form-control" %>
+            </div>
+            <div class="modal-footer">
+              <%= form.submit 'Create Task', class: 'btn btn-primary' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -4,7 +4,7 @@
 class TaskManagementController < ApplicationController
   def index
     @project = Project.find(params[:project_id])
-    @students = User.includes(task_assignments: :task)
+    @students = @project.users.includes(task_assignments: :task)
     @show_sidebar = !@project.nil?
   end
 

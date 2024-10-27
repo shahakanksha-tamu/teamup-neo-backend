@@ -17,6 +17,11 @@ Background: users in database
   | id | name               | description                    | objectives                    | 
   | 1  | "Project Alpha"    | "Main project description"     | "Objective 1, Objective 2"    | 
 
+  And the given student assignments exist
+  | user_email             | project_name       |
+  | johndoe@gmail.com      | "Project Alpha"   |
+  | mariam@gmail.com       | "Project Alpha"   |
+
   
   And the following milestones exist
   | project_id | title           | objective                       | deadline            | 
@@ -37,6 +42,7 @@ Background: users in database
         | user_email             | task_name  |
         | johndoe@gmail.com      | "Task 1"   |
         | mariam@gmail.com       | "Task 1"   |
+    And I am logged in as "davidjones@gmail.com"
     When I visit the task board page
     Then I should see a card for each student
     And each card should display the student’s tasks with task details

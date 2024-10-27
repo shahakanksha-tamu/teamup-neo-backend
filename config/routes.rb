@@ -39,6 +39,10 @@ Rails.application.routes.draw do
         get :download # This allows downloading a specific resource
       end
     end
+
+    resources :users do
+      resources :tasks, only: [:create]
+    end
   end
 
   # Settings route
