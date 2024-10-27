@@ -74,114 +74,93 @@
 
 <!-- Add this script after including Chart.js -->
 <script>
-let progressChart = null;
+window.ProjectDashboard = window.ProjectDashboard || {
+  progressChart: null,
+  isInitialized: false,
 
-function initializeProgressChart() {
-  console.log('Attempting to initialize chart...');
-  
-  // Get the canvas element
-  const ctx = document.getElementById('progressChart');
-  
-  // Early return if canvas not found
-  if (!ctx) {
-    console.log('Canvas element not found - waiting for DOM...');
-    return;
-  }
+  initializeProgressChart: function() {
+    const ctx = document.getElementById('progressChart');
+    if (!ctx) {
+      return;
+    }
 
-  // Get progress value from data attribute
-  const progress = parseFloat(ctx.dataset.progress);
-  console.log('Progress value:', progress);
-  
-  // Validate progress value
-  if (isNaN(progress)) {
-    console.error('Invalid progress value:', ctx.dataset.progress);
-    return;
-  }
+    const progress = parseFloat(ctx.dataset.progress);
+    if (isNaN(progress)) {
+      return;
+    }
 
-  // Destroy existing chart if it exists
-  if (progressChart instanceof Chart) {
-    console.log('Destroying existing chart...');
-    progressChart.destroy();
-  }
+    if (this.progressChart instanceof Chart) {
+      this.progressChart.destroy();
+    }
 
-  console.log('Creating new chart with progress:', progress);
-  
-  // Create new chart
-  progressChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: ['Completed', 'Remaining'],
-      datasets: [{
-        data: [progress, (100 - progress)],
-        backgroundColor: [
-          'rgba(75, 192, 192, 0.8)',  // Teal for completed
-          'rgba(201, 203, 207, 0.8)'   // Grey for remaining
-        ],
-        borderColor: [
-          'rgba(75, 192, 192, 1)',
-          'rgba(201, 203, 207, 1)'
-        ],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: true,
-      cutout: '70%',
-      plugins: {
-        legend: {
-          position: 'bottom'
-        },
-        tooltip: {
-          callbacks: {
-            label: function(context) {
-              return `${context.label}: ${context.raw}%`;
+    this.progressChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Completed', 'Remaining'],
+        datasets: [{
+          data: [progress, (100 - progress)],
+          backgroundColor: [
+            'rgba(75, 192, 192, 0.8)',  // Teal for completed
+            'rgba(201, 203, 207, 0.8)'   // Grey for remaining
+          ],
+          borderColor: [
+            'rgba(75, 192, 192, 1)',
+            'rgba(201, 203, 207, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        cutout: '70%',
+        plugins: {
+          legend: {
+            position: 'bottom'
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return `${context.label}: ${context.raw}%`;
+              }
             }
           }
         }
       }
+    });
+      },
+
+  waitForChartJs: function() {
+    if (window.Chart) {
+      this.initializeProgressChart();
+    } else {
+      setTimeout(() => this.waitForChartJs(), 100);
     }
-  });
-  
-  console.log('Chart initialization complete');
-}
+  },
 
-// Function to check if Chart.js is loaded
-function waitForChartJs() {
-  console.log('Checking for Chart.js...');
-  if (window.Chart) {
-    console.log('Chart.js found, initializing chart...');
-    initializeProgressChart();
-  } else {
-    console.log('Chart.js not found, waiting...');
-    setTimeout(waitForChartJs, 100);
-  }
-}
+  setupEventListeners: function() {
+    if (this.isInitialized) {
+      return;
+    }
 
-// Set up event listeners
-const setupEventListeners = () => {
-  console.log('Setting up event listeners...');
-  
-  // Modern event listeners
-  document.addEventListener('DOMContentLoaded', waitForChartJs);
-  window.addEventListener('load', waitForChartJs);
-  
-  // Turbolinks/Turbo support
-  document.addEventListener('turbolinks:load', waitForChartJs);
-  document.addEventListener('turbo:load', waitForChartJs);
-  
-  // jQuery support (if available)
-  if (typeof jQuery !== 'undefined') {
-    $(document).ready(waitForChartJs);
+    const boundWaitForChartJs = this.waitForChartJs.bind(this);
+    document.addEventListener('DOMContentLoaded', boundWaitForChartJs);
+    window.addEventListener('load', boundWaitForChartJs);
+    
+    document.addEventListener('turbolinks:load', boundWaitForChartJs);
+    document.addEventListener('turbo:load', boundWaitForChartJs);
+    document.addEventListener('turbo:render', boundWaitForChartJs);
+    
+    if (typeof jQuery !== 'undefined') {
+      $(document).ready(boundWaitForChartJs);
+    }
+
+    this.isInitialized = true;
   }
 };
 
-// Initial setup
-setupEventListeners();
-
-// Immediate check in case the DOM is already loaded
+ProjectDashboard.setupEventListeners();
 if (document.readyState === 'complete' || document.readyState === 'interactive') {
-  console.log('Document already loaded, checking Chart.js...');
-  waitForChartJs();
+  ProjectDashboard.waitForChartJs();
 }
 </script>

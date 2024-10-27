@@ -47,11 +47,10 @@ end
 
 # Milestones for Project Delta
 milestones_delta = [
-  { title: 'Delta Milestone 1', objective: 'Delta milestone 1 objective', project_id: Project.find_by(name: 'Project Delta').id, deadline: Time.zone.now + 7.days },
-  { title: 'Delta Milestone 2', objective: 'Delta milestone 2 objective', project_id: Project.find_by(name: 'Project Delta').id, deadline: Time.zone.now + 14.days },
-  { title: 'Delta Milestone 3', objective: 'Delta milestone 3 objective', project_id: Project.find_by(name: 'Project Delta').id, deadline: Time.zone.now + 21.days }
+  { title: 'Delta Milestone 1', objective: 'Delta milestone 1 objective', project_id: Project.find_by(name: 'Project Delta').id, status: 'Completed', deadline: Time.zone.now + 7.days },
+  { title: 'Delta Milestone 2', objective: 'Delta milestone 2 objective', project_id: Project.find_by(name: 'Project Delta').id, status: 'Completed', deadline: Time.zone.now + 14.days },
+  { title: 'Delta Milestone 3', objective: 'Delta milestone 3 objective', project_id: Project.find_by(name: 'Project Delta').id, status: 'Not Started', deadline: Time.zone.now + 21.days }
 ]
-
 milestones_delta.each do |milestone|
   Milestone.find_or_create_by!(milestone)
 end
