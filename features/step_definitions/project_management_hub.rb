@@ -24,9 +24,10 @@ When('I select {string} from the student dropdown') do |student_email|
 end
 
 When('I click Add Student') do
-  user_id = find('.student-select').value # Get the selected user's ID from the dropdown
-  puts "UserId #{user_id}"
-  button = find('#add-student', data: { user_id: }) # Find the button with the specific data attribute
+  # user_id = find('.student-select').value # Get the selected user's ID from the dropdown
+  # puts "UserId #{user_id}"
+  # button = find('#add-student', data: { user_id: }) # Find the button with the specific data attribute
+  button = find('#add-student')
   button.click
 end
 
@@ -81,4 +82,28 @@ Then('I should be redirected to the resources page for {string}') do |project_na
   project = Project.find_by(name: project_name)
   expect(project).not_to be_nil
   expect(current_path).to eq(project_resources_path(project.id))
+end
+
+When("An unknown error would occur when adding the student") do
+  allow_any_instance_of(Project).to receive(:add_student).and_return(false)
+end
+
+When ("an unknown error would occur when removing the student") do
+  allow_any_instance_of(Project).to receive(:remove_student).and_return(false)
+end
+
+Then ("I should not see {string}") do |text|
+  expect(page).not_to have_content(text)
+end
+
+When ("I click on the remove button for file {string}") do |file_name|
+  within('table tbody') do
+    within('tr', text: file_name) do
+      click_button 'Remove'
+    end
+  end
+end
+
+When ('An unknown error would occur when creating the resource') do
+  allow_any_instance_of(Resource).to receive(:save).and_return(false)
 end
