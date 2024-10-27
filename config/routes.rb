@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     # get 'details', to: 'project_management_hub#details', as: 'details'
     get 'dashboard', to: 'project_management_hub#dashboard', as: 'dashboard'
     get 'team_management', to: 'project_management_hub#team', as: 'team_management'
+    get 'task_management', to: 'task_management#index', as: 'task_management'
     post 'add_student', to: 'project_management_hub#add_student', as: 'add_student'
     delete 'remove_student', to: 'project_management_hub#remove_student', as: 'remove_student'
 
