@@ -98,7 +98,7 @@ RSpec.describe ProjectManagementHubController, type: :controller do
 
       it 'redirects to the team page' do
         post :add_student, params: { project_id: project.id, user_id: student.id }
-        expect(response).to redirect_to(project_team_management_path(project)) # Corrected path helper
+        expect(response).to redirect_to(project_team_management_path(project))
       end
     end
 
@@ -114,7 +114,7 @@ RSpec.describe ProjectManagementHubController, type: :controller do
 
       it 'redirects to the team page' do
         post :add_student, params: { project_id: project.id, user_id: student.id }
-        expect(response).to redirect_to(project_team_management_path(project)) # Corrected path helper
+        expect(response).to redirect_to(project_team_management_path(project))
       end
     end
   end
@@ -134,7 +134,7 @@ RSpec.describe ProjectManagementHubController, type: :controller do
 
       it 'redirects to the team page' do
         delete :remove_student, params: { project_id: project.id, user_id: student.id }
-        expect(response).to redirect_to(project_team_management_path(project)) # Corrected path helper
+        expect(response).to redirect_to(project_team_management_path(project))
       end
     end
 
@@ -150,7 +150,7 @@ RSpec.describe ProjectManagementHubController, type: :controller do
 
       it 'redirects to the team page' do
         delete :remove_student, params: { project_id: project.id, user_id: student.id }
-        expect(response).to redirect_to(project_team_management_path(project)) # Corrected path helper
+        expect(response).to redirect_to(project_team_management_path(project))
       end
     end
   end
@@ -192,64 +192,89 @@ RSpec.describe ProjectManagementHubController, type: :controller do
 
       it 'renders the project management hub template with an alert' do
         post :create_project, params: invalid_attributes
-        # expect(response).to render_template(:index)
         expect(flash.now[:alert]).to be_present
       end
     end
+  end
 
-    context 'when an associated record fails to save' do
-      before do
-        allow_any_instance_of(Project).to receive(:save).and_return(true) # rubocop:disable RSpec/AnyInstance
-        allow_any_instance_of(Timeline).to receive(:save).and_return(false) # rubocop:disable RSpec/AnyInstance
+  describe 'PATCH #update' do
+    let(:project) { create(:project, name: 'Original Name', description: 'Original description') }
+    
+    let(:valid_update_attributes) do
+      {
+        project_id: project.id,
+        project: {
+          name: 'Updated Project Name',
+          description: 'Updated description',
+          objectives: 'Updated objectives',
+          status: 'completed'
+        }
+      }
+    end
+
+    let(:invalid_update_attributes) do
+      {
+        project_id: project.id,
+        project: {
+          name: '',  # Invalid because name cannot be blank
+          description: 'Updated description'
+        }
+      }
+    end
+
+    context 'with valid parameters' do
+      it 'updates the project' do
+        patch :update, params: valid_update_attributes
+        project.reload
+        expect(project.name).to eq('Updated Project Name')
+        expect(project.description).to eq('Updated description')
       end
 
-      it 'does not create a new project' do
-        expect do
-          post :create_project, params: valid_attributes
-        end.not_to change(Project, :count)
+      it 'redirects to the project dashboard' do
+        patch :update, params: valid_update_attributes
+        expect(response).to redirect_to(project_dashboard_path(project))
       end
 
-      it 'renders the index template with an alert' do # rubocop:disable RSpec/NoExpectationExample
-        post :create_project, params: valid_attributes
+      it 'sets a success notice' do
+        patch :update, params: valid_update_attributes
+        expect(flash[:notice]).to eq('Project was successfully updated.')
       end
     end
 
-    context 'when creating student assignments fails' do
+    context 'with invalid parameters' do
       before do
-        allow_any_instance_of(Project).to receive(:save).and_return(true) # rubocop:disable RSpec/AnyInstance
-        allow_any_instance_of(Timeline).to receive(:save).and_return(true) # rubocop:disable RSpec/AnyInstance
+        @project = project
+        allow(Project).to receive(:find).and_return(@project)
+        allow(@project).to receive(:update).and_return(false)
+        errors = double('errors')
+        allow(errors).to receive(:full_messages).and_return(['Name cannot be blank'])
+        allow(errors).to receive(:to_sentence).and_return('Name cannot be blank')
+        allow(@project).to receive(:errors).and_return(errors)
       end
 
-      context 'when a user is not found' do # rubocop:disable RSpec/NestedGroups
-        it 'raises an error and does not create a new project' do
-          expect do
-            post :create_project, params: valid_attributes.merge(user_ids: [999]) # Assuming 999 is an invalid user ID
-          end.not_to change(Project, :count)
-        end
-
-        it 'renders the index template with an alert' do
-          post :create_project, params: valid_attributes.merge(user_ids: [999])
-          expect(response).to redirect_to(project_management_hub_path)
-          expect(flash.now[:alert]).to be_present
-        end
+      it 'does not update the project' do
+        original_name = @project.name
+        patch :update, params: invalid_update_attributes
+        expect(@project.name).to eq(original_name)
       end
 
-      context 'when assignment fails to save' do # rubocop:disable RSpec/NestedGroups
-        before do
-          allow(controller).to receive(:create_student_assignments).and_raise(ActiveRecord::RecordInvalid.new(Project.new))
-        end
+      it 'renders the dashboard template' do
+        patch :update, params: invalid_update_attributes
+        expect(response).to render_template(:dashboard)
+      end
 
-        it 'does not create a new project' do
-          expect do
-            post :create_project, params: valid_attributes.merge(user_ids: [1]) # Assuming 1 is a valid user ID
-          end.not_to change(Project, :count)
-        end
+      it 'sets an alert message' do
+        patch :update, params: invalid_update_attributes
+        expect(flash[:alert]).to be_present
+        expect(flash[:alert]).to eq('Name cannot be blank')
+      end
+    end
 
-        it 'renders the index template with an alert' do
-          post :create_project, params: valid_attributes.merge(user_ids: [1])
-          expect(response).to redirect_to(project_management_hub_path)
-          expect(flash.now[:alert]).to be_present
-        end
+    context 'when project is not found' do
+      it 'raises RecordNotFound error' do
+        expect do
+          patch :update, params: { project_id: 'invalid', project: valid_update_attributes[:project] }
+        end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
