@@ -44,7 +44,6 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 
-gem 'chartkick'
 gem 'highcharts-rails'
 
 group :development, :test do
