@@ -8,3 +8,4 @@ import "bootstrap";
 //= require bootstrap
 //= require turbolinks
 //= require_tree .
+//= require highcharts
