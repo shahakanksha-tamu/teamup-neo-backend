@@ -3,7 +3,7 @@
 # Class to handle resources associated with projects
 class ResourcesController < ApplicationController
   before_action :set_project
-  before_action :set_resource, only: %i[download destroy]
+  before_action :set_resource, only: %i[download open destroy]
 
   def index
     @project = Project.find(params[:project_id])
@@ -20,6 +20,10 @@ class ResourcesController < ApplicationController
   def download
     # @resource = Resource.find(params[:id])
     send_data @resource.file.download, filename: @resource.file.filename.to_s, type: @resource.file.content_type, disposition: 'attachment'
+  end
+
+  def open
+    send_data @resource.file.download, filename: @resource.file.filename.to_s, type: @resource.file.content_type, disposition: 'inline'
   end
 
   def destroy

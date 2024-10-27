@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif; 
+    background-color: #f8f9fa; 
+  }
+  
+  .scrollable-container {
+    background-color: #f5f5f5; 
+    border: 1px solid #d6dadd; /* Border for visual clarity */
+    border-radius: 5px;        /* Rounded corners */
+    padding: 15px;             /* Padding inside the container */
+  }
+  
+  /* Styles for the card */
+  .card {
+    border: none;              /* Remove default border */
+    border-radius: 5px;       /* Rounded corners */
+    background-color: #fff;   /* White background for cards */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  /* Styles for card titles */
+  .card-title {
+    font-size: 1.25rem;        /* Increase title size */
+    font-weight: bold;         /* Bold title */
+  }
+  
+  /* Styles for card text */
+  .card-text {
+    color: #495057;            /* Dark grey text color for readability */
+  }
