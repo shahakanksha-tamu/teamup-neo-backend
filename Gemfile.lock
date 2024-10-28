@@ -234,6 +234,8 @@ GEM
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashie (5.0.0)
+    highcharts-rails (6.0.3)
+      railties (>= 3.1)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
@@ -565,6 +567,7 @@ DEPENDENCIES
   debug
   factory_bot_rails
   faker
+  highcharts-rails
   importmap-rails
   jbuilder
   jquery-rails

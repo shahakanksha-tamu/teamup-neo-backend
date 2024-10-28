@@ -1,0 +1,17 @@
+.border-end {
+    border-right: 1px solid #ccc; /* Adjust color and style */
+}
+
+.border-end:last-child {
+    border-right: none; /* Remove border from the last column */
+}
+
+.card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+  
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background-color: #f8f8f8;
+}

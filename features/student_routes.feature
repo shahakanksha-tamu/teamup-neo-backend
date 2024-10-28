@@ -22,10 +22,10 @@ Scenario: Student accesses settings
     Then the student should be directed to the settings
 
 
-Scenario: Student accesses project hub
+Scenario: Student accesses project hub when no project is assigned
     Given the student is logged in with "johndoe@gmail.com"
     When the student navigates to the project_hub
-    Then the student should be directed to the project_hub
+    Then the student should be directed to the dashboard
 
 
 Scenario: Student accesses project management hub
