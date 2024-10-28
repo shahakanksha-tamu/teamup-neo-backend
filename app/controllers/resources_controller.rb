@@ -12,10 +12,12 @@ class ResourcesController < ApplicationController
     @show_sidebar = !@project.nil?
   end
 
-  def new
-    @resource = @project.resources.new
-    @show_sidebar = !@project.nil?
-  end
+
+  # not sure what this does
+  # def new
+  #   @resource = @project.resources.new
+  #   @show_sidebar = !@project.nil?
+  # end
 
   def download
     # @resource = Resource.find(params[:id])
