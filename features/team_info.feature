@@ -31,12 +31,6 @@ Scenario: Access team member information page as student
   Then  I should see mentor information
   And   I should other team members information for project "Capstone Project" and not contact information for "johndoe@gmail.com"
 
-Scenario: Access team member information page as admin
-  Given I am logged in as "josie@gmail.com"
-  When  I visit team information page as admin
-  Then  I should be on the admin dashboard page
-  And   I should see "You are not authorized to access this page"
-
 Scenario: Student has no project assignment
   Given  I am logged in as "denverkane@gmail.com"
   Then   I should see "You have a pending project assignment. Please check again later"

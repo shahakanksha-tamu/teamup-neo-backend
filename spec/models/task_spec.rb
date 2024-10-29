@@ -38,7 +38,7 @@ RSpec.describe Task, type: :model do
 
   describe 'enums' do
     it 'defines status correctly' do
-      expect(described_class.statuses.keys).to include('Not Completed', 'Completed', 'Delayed')
+      expect(described_class.statuses.keys).to include('Not Completed', 'Completed', 'In-Progress', 'Not Started')
     end
   end
 end

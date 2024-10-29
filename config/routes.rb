@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Rails.application.routes.draw do
+Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   # Calendars route
   resources :resources
   get 'calendars', to: 'calendars#index', as: :calendar_view
@@ -15,22 +15,29 @@ Rails.application.routes.draw do
 
   # Dashboard routes
   get '/dashboard', to: 'dashboard#index', as: :dashboard
-  get '/dashboard/team/view', to: 'team_info#index'
 
   # Project Hub routes
   get '/project_hub', to: 'project_hub#index', as: :project_hub
   get '/project_management_hub', to: 'project_management_hub#index', as: :project_management_hub
+
   # Project Hub routes
   resources :projects do
-    # New route for showing the project detail page
-    # get 'details', to: 'project_management_hub#details', as: 'details'
     get 'dashboard', to: 'project_management_hub#dashboard', as: 'dashboard'
     get 'team_management', to: 'project_management_hub#team', as: 'team_management'
     post 'add_student', to: 'project_management_hub#add_student', as: 'add_student'
     delete 'remove_student', to: 'project_management_hub#remove_student', as: 'remove_student'
 
-    # Task management for project
-    get 'tasks', to: 'project_hub#view_tasks', as: 'view_tasks'
+    # Student routes related to project
+    get 'team', to: 'team_info#index', as: 'view_team'
+
+    resources :students, only: %i[show] do
+      get 'tasks', to: 'project_hub#view_tasks', as: 'view_tasks'
+      resources :tasks, only: %i[update] do
+        member do
+          patch 'update_status', to: 'project_hub#update_task_status', as: 'update_task_status'
+        end
+      end
+    end
 
     # Nested resources for resources management
     resources :resources, only: %i[new create index destroy] do
