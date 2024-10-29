@@ -28,3 +28,26 @@ body {
   .card-text {
     color: #495057;            /* Dark grey text color for readability */
   }
+
+  .btn-warning {
+    width: 100%;
+    max-width: 150px; /* Adjust the max-width as needed */
+    font-size: 0.75rem; /* Adjust the font size as needed */
+    padding: 0.25rem 0.5rem; /* Adjust the padding as needed */
+  }
+  
+  @media (max-width: 768px) {
+    .btn-responsive {
+      max-width: 100px; /* Adjust the max-width for smaller screens */
+      font-size: 0.65rem; /* Adjust the font size for smaller screens */
+      padding: 0.2rem 0.4rem; /* Adjust the padding for smaller screens */
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .btn-responsive {
+      max-width: 80px; /* Adjust the max-width for extra small screens */
+      font-size: 0.55rem; /* Adjust the font size for extra small screens */
+      padding: 0.15rem 0.3rem; /* Adjust the padding for extra small screens */
+    }
+  }
