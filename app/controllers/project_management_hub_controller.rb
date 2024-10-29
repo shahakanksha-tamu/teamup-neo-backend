@@ -83,8 +83,8 @@ class ProjectManagementHubController < ApplicationController
     if @project.update(project_params2)
       redirect_to project_dashboard_path(@project), notice: 'Project was successfully updated.'
     else
-      flash[:alert] = @project.errors.to_sentence
-      render :dashboard
+      flash[:alert] = @project.errors.full_messages.to_sentence
+       redirect_to project_dashboard_path(@project), notice: 'Unable to update the project'
     end
   end
 

@@ -32,10 +32,15 @@
               <div class="info-label">Description</div>
               <div class="info-text"><%= @project.description %></div>
             </div>
-            <div>
+            <div class="mb-4">
               <div class="info-label">Objectives</div>
               <div class="info-text"><%= @project.objectives %></div>
             </div>
+
+            <div class="mb-4">
+            <div class="info-label">Status</div>
+            <div class="info-text"><%= @project.status %></div>
+          </div>
           </div>
         </div>
       </div>
@@ -82,7 +87,7 @@
             </div>
             <div class="form-group">
               <%= form.label :status, class: 'info-label' %>
-              <%= form.select :status, options_for_select([['Active', 'active'], ['Inactive', 'inactive']], @project.status), {}, { class: 'form-control' } %>
+              <%= form.select :status, options_for_select([['Active', 'active'], ['Inactive', 'inactive']], @project.status), {}, { class: 'form-control', style: 'height: auto;' } %>
             </div>
             <div class="modal-footer px-0 pb-0">
               <%= form.submit 'Update Project', class: 'btn btn-primary' %>

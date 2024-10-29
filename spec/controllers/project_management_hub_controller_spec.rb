@@ -85,7 +85,27 @@ RSpec.describe ProjectManagementHubController, type: :controller do
 
   describe 'POST #add_student' do
     let(:student) { create(:user) }
+    let(:project) { create(:project) }
 
+    context 'when the student is already assigned to a project' do
+      let(:other_project) { create(:project) }
+  
+      before do
+        # Create a StudentAssignment for the student and another project
+        post :add_student, params: { project_id: other_project.id, user_id: student.id }
+      end
+  
+      it 'sets an error flash message' do
+        post :add_student, params: { project_id: project.id, user_id: student.id }
+        expect(flash[:error]).to include("#{student.email} is already assigned to a project.")
+      end
+  
+      it 'redirects to the team management page' do
+        post :add_student, params: { project_id: project.id, user_id: student.id }
+        expect(response).to redirect_to(project_team_management_path(project))
+      end
+    end
+  
     context 'when successfully adding a student' do
       before do
         allow_any_instance_of(Project).to receive(:add_student).and_return(true) # rubocop:disable RSpec/AnyInstance
@@ -260,7 +280,7 @@ RSpec.describe ProjectManagementHubController, type: :controller do
 
       it 'renders the dashboard template' do
         patch :update, params: invalid_update_attributes
-        expect(response).to render_template(:dashboard)
+        expect(response).to redirect_to(project_dashboard_path(project))
       end
 
       it 'sets an alert message' do
