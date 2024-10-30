@@ -1,3 +1,34 @@
-<h1>Project Hub</h1>
-<h2>email : <%= @user.email %></h2>
-<h2>user : <%= @role %></h2>
+<!-- app/views/project_hub/index.html.erb -->
+<div class="project-hub">
+  <h1>Project Hub</h1>
+
+  <!-- Milestones Section -->
+  <div class="milestones-container">
+    <h2>Milestones</h2>
+
+    <!-- Filter Options -->
+    <div class="filter-options">
+      <%= form_with url: project_hub_path, method: :get, local: true do %>
+        <label for="status">Filter by Status:</label>
+        <%= select_tag :status, options_for_select([['All', ''], 'Completed', 'In-Progress', 'Not Started'], params[:status]), onchange: 'this.form.submit();' %>
+      <% end %>
+    </div>
+
+    <!-- Milestone List -->
+    <div class="milestone-list">
+      <% @milestones.each do |milestone| %>
+        <div class="milestone-item">
+          <div class="milestone-header">
+            <h3><%= milestone.title %></h3>
+            <span class="milestone-status <%= milestone.status.downcase.gsub(" ", "-") %>"><%= milestone.status %></span>
+          </div>
+          <div class="milestone-dates">
+            <p><strong>Start Date:</strong> <%= milestone.updated_at.strftime("%B %d, %Y") %></p>
+            <p><strong>End Date:</strong> <%= milestone.deadline.strftime("%B %d, %Y") %></p>
+          </div>
+          <p><strong>Objective:</strong> <%= milestone.objective %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
