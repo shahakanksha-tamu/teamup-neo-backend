@@ -16,14 +16,6 @@ class ProjectHubController < ApplicationController
                       .where(student_assignments: { user_id: current_user.id })[0]
     @show_sidebar = !@project.nil?
     @role = current_user.role
-
-    # Milestone retrieval and filtering logic
-    if @project
-      @milestones = @project.milestones
-      @milestones = @milestones.where(status: params[:status]) if params[:status].present?
-    else
-      @milestones = []
-    end
   end
 
   def view_tasks
@@ -54,6 +46,21 @@ class ProjectHubController < ApplicationController
     @project = Project.joins(:student_assignments)
                       .where(student_assignments: { user_id: current_user.id })
                       .first
+    if @project
+      @milestones = @project.milestones
+      @milestones = @milestones.where(status: params[:status]) if params[:status].present?
+    else
+      @milestones = []
+    end
+  end
+
+  def show_milestones
+    @project = Project.joins(:student_assignments)
+                      .where(student_assignments: { user_id: current_user.id })[0]
+    @show_sidebar = !@project.nil?
+    @role = current_user.role
+
+    # Milestone retrieval and filtering logic
     if @project
       @milestones = @project.milestones
       @milestones = @milestones.where(status: params[:status]) if params[:status].present?

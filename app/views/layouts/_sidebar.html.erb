@@ -31,6 +31,11 @@
       </li>
 
       <li>
+        <%= link_to "Milestones", project_student_show_milestones_path(@project, @user), method: :get, 
+          class: "nav-link #{current_page?(project_student_show_milestones_path(@project, @user)) ? 'active' : 'link-dark'}" %>
+      </li>
+
+      <li>
         <%= link_to "Timeline", project_student_timeline_path(@project, @user), method: :get, 
           class: "nav-link #{current_page?(project_student_timeline_path(@project, @user)) ? 'active' : 'link-dark'}" %>
       </li>
