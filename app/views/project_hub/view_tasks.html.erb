@@ -1,4 +1,5 @@
-<div class="fluid-container p-4">
+<head><%= csrf_meta_tags %></head>
+<div class="fluid-container outer-container p-4">
     <div class="row">
         <div class="col-md-6">
             <h3 class="mb-4">Tasks Management (<%=  @total_count %>)</h3>
@@ -28,7 +29,7 @@
                      data-milestone-status="<%= task.milestone_status %>"
                      data-status="<%=task.status%>">
                     <div class="card-body">
-                        <small style="color: #0d6efd; text-decoration: underline; cursor:pointer;" class="card-title task-title"><%= task.task_name %></small>
+                        <a style="color: #0d6efd; text-decoration: underline; cursor:pointer;" class="card-title task-title" id="<%= task.task_name.gsub(' ', '-')%>"><small><%= task.task_name %></small></a>
                         <p><small class="card-subtitle mb-2 text-muted"><%= task.milestone.title %></small></p>
                         <p style="margin-bottom: 0px; margin-top:10px;"><small class="card-subtitle mb-2">Due on <%= task.deadline.to_date %></small></p>
                     </div>
@@ -52,7 +53,7 @@
                      data-milestone-status="<%= task.milestone_status %>"
                      data-status="<%=task.status%>">
                     <div class="card-body">
-                        <small style="color: #0d6efd; text-decoration: underline;" class="card-title task-title"><%= task.task_name %></small>
+                        <a style="color: #0d6efd; text-decoration: underline; cursor:pointer;" id="<%= task.task_name.gsub(' ', '-')%>" class="card-title task-title"><small><%= task.task_name %></small></a>
                         <p><small class="card-subtitle mb-2 text-muted"><%= task.milestone.title %></small></p>
                         <p style="margin-bottom: 0px; margin-top:10px;"><small class="card-subtitle mb-2">Due on <%= task.deadline.to_date %></small></p>
                     </div>
@@ -76,7 +77,7 @@
                      data-milestone-status="<%= task.milestone_status %>"
                      data-status="<%=task.status%>">
                     <div class="card-body">
-                        <small style="color: #0d6efd; text-decoration: underline;" class="card-title task-title"><%= task.task_name %></small>
+                        <a style="color: #0d6efd; text-decoration: underline; cursor:pointer;" id="<%= task.task_name.gsub(' ', '-')%>" class="card-title task-title"><small><%= task.task_name %></small></a>
                         <p><small class="card-subtitle mb-2 text-muted"><%= task.milestone.title %></small></p>
                         <p style="margin-bottom: 0px; margin-top:10px;"><small class="card-subtitle mb-2">Due on <%= task.deadline.to_date %></small></p>
                     </div>
@@ -100,7 +101,7 @@
                      data-milestone-status="<%= task.milestone_status %>"
                      data-status="<%=task.status%>">
                     <div class="card-body">
-                        <small style="color: #0d6efd; text-decoration: underline;" class="card-title task-title"><%= task.task_name %></small>
+                        <a style="color: #0d6efd; text-decoration: underline; cursor:pointer;" id="<%= task.task_name.gsub(' ', '-')%>" class="card-title task-title"><small><%= task.task_name %></small></a>
                         <p><small class="card-subtitle mb-2 text-muted"><%= task.milestone.title %></small></p>
                         <p style="margin-bottom: 0px; margin-top:10px;"><small class="card-subtitle mb-2">Due on <%= task.deadline.to_date %></small></p>
                     </div>
@@ -185,7 +186,7 @@
                 <div class="row">
 
                     <label class="mb-3 col-md-4" for="status-select"><strong>Update Task Status</strong></label>
-                    <div class="col-md-8">
+                    <div  style="visibility: visible; pointer-events: auto;"class="col-md-8 select-div">
                         <select  id="status-select" class="form-select">
                             <option value="Not Started">Not Started</option>
                             <option value="In-Progress">In Progress</option>
@@ -193,7 +194,7 @@
                         </select>
                         <small class="text-danger mt-2" id="status-message"></small>
 
-                        <button style="margin-top:20px;" type="button" class="btn btn-primary" id="save-status-btn">Update Status</button>
+                        <button style="margin-top:20px; visibility: visible; pointer-events: auto;" type="button" class="btn btn-primary" id="save-status-btn">Update Status</button>
 
                     </div>
                     
@@ -304,11 +305,13 @@
                 if (milestoneStatus === "In-Progress") {
                     statusSelect.disabled = false;
                     saveStatusBtn.disabled = false; 
+
+                    document.getElementById("status-message").textContent = ""
                 } else {
                     statusSelect.disabled = true; 
                     saveStatusBtn.disabled = true; 
                 
-                    document.getElementById("status-message").textContent = "cannot update task status as the milestone is not in progress."
+                    document.getElementById("status-message").textContent = "cannot update task status as the milestone is not in progress"
                 }
 
                 new bootstrap.Modal(document.getElementById("taskModal")).show();
@@ -352,7 +355,7 @@
                 }
             })
             .catch(error => {
-                console.error('Error updating task status:', error);
+               alert('Error updating task status:', error);
             });         
         });
 

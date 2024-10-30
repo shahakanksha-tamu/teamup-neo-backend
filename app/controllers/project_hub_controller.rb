@@ -45,7 +45,7 @@ class ProjectHubController < ApplicationController
   def load_tasks
     Task.joins(:task_assignment, :milestone)
         .where(task_assignments: { user_id: current_user.id })
-        .select('tasks.*, milestones.title, milestones.deadline, milestones.status as milestone_status')
+        .select('tasks.*, milestones.title, milestones.deadline as milestone_deadline, milestones.status as milestone_status')
         .group_by(&:status)
   end
 
