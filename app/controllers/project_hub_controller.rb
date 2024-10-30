@@ -62,6 +62,17 @@ class ProjectHubController < ApplicationController
   end
 
   def timeline
-    @milestones = @project.milestones.order(:start_date)
+    # Retrieve project for the current user
+    @show_sidebar = true
+    @project = Project.joins(:student_assignments)
+                      .where(student_assignments: { user_id: current_user.id })
+                      .first
+
+    # Initialize @milestones as an empty array if no project or milestones are found
+    @milestones = @project ? @project.milestones : []
+
+    # Debugging: Check the contents of @milestones in the logs
+    Rails.logger.debug "Project: #{@project.inspect}"
+    Rails.logger.debug "Milestones: #{@milestones.inspect}"
   end
 end
