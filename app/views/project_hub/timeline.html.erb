@@ -28,7 +28,7 @@
           <tr>
             <td><%= milestone.title %></td>
             <td><%= milestone.status %></td>
-            <td><%= milestone.updated_at %></td>
+            <td><%= milestone.created_at %></td>
             <td><%= milestone.deadline %></td>
             <td><%= milestone.objective %></td>
           </tr>
@@ -40,37 +40,24 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const ctx = document.getElementById('ganttChart').getContext('2d');
-    const milestones = <%= @milestones.to_json.html_safe %>;
-
-    const labels = milestones.map(m => m.title);
-    const data = milestones.map(m => ({
-      x: [new Date(m.start_date), new Date(m.deadline)],
-      y: m.title
-    }));
-
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: 'Milestone Timeline',
-          data: data,
-          backgroundColor: 'rgba(54, 162, 235, 0.2)',
-          borderColor: 'rgba(54, 162, 235, 1)',
-          borderWidth: 1,
-          barPercentage: 0.5,
-        }]
-      },
-      options: {
-        indexAxis: 'y',
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          x: { type: 'time', time: { unit: 'day' } }
-        }
+  const ctx = document.getElementById('ganttChart').getContext('2d');
+  const ganttChart = new Chart(ctx, {
+    type: 'bar',  // Use a bar chart for a basic Gantt chart
+    data: {
+      labels: ['Milestone 1', 'Milestone 2', 'Milestone 3'],  // Add milestone names
+      datasets: [{
+        label: 'Timeline',
+        data: [5, 10, 7],  // Add durations for each milestone
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        x: { title: { display: true, text: 'Milestones' } },
+        y: { title: { display: true, text: 'Duration (days)' } }
       }
-    });
+    }
   });
 </script>
