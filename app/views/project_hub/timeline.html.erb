@@ -18,28 +18,20 @@
         <tr>
           <th>Name</th>
           <th>Status</th>
-          <th>Start Date</th>
           <th>End Date</th>
           <th>Objective</th>
         </tr>
       </thead>
-        <tbody>
-            <% if @milestones.present? %>
-                <% @milestones.each do |milestone| %>
-                    <tr>
-                        <td><%= milestone.title %></td>
-                        <td><%= milestone.status %></td>
-                        <td><%= milestone.start_date.strftime("%B %d, %Y") %></td>
-                        <td><%= milestone.deadline.strftime("%B %d, %Y") %></td>
-                        <td><%= milestone.objective %></td>
-                    </tr>
-                <% end %>
-            <% else %>
-        <tr>
-            <td colspan="5">No milestones available for this project.</td>
-        </tr>
+      <tbody>
+        <% @milestones.each do |milestone| %>
+          <tr>
+            <td><%= milestone.title %></td>
+            <td><%= milestone.status %></td>
+            <td><%= milestone.deadline %></td>
+            <td><%= milestone.objective %></td>
+          </tr>
         <% end %>
-        </tbody>
+      </tbody>
     </table>
   </div>
 </div>
