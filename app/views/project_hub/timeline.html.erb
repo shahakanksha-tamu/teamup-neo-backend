@@ -6,7 +6,32 @@
   <div class="gantt-chart-container">
     <h3>Gantt Chart</h3>
     <div class="chart-scroll">
-      <canvas id="ganttChart" width="1200" height="400"></canvas>
+      <table class="gantt-table">
+        <thead>
+          <tr>
+            <th>Milestone</th>
+            <% (0..52).each do |week| %>
+              <th>Week <%= week + 1 %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% @milestones.each do |milestone| %>
+            <% start_week = ((milestone.created_at.to_date.cweek - 1) % 52) %> <!-- Calculate start week -->
+            <% end_week = ((milestone.deadline.to_date.cweek - 1) % 52) %> <!-- Calculate end week -->
+            <tr>
+              <td><%= milestone.title %></td>
+              <% (0..52).each do |week| %>
+                <% if week >= start_week && week <= end_week %>
+                  <td class="gantt-bar" title="<%= milestone.title %>"></td>
+                <% else %>
+                  <td></td>
+                <% end %>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 
@@ -38,26 +63,21 @@
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-  const ctx = document.getElementById('ganttChart').getContext('2d');
-  const ganttChart = new Chart(ctx, {
-    type: 'bar',  // Use a bar chart for a basic Gantt chart
-    data: {
-      labels: ['Milestone 1', 'Milestone 2', 'Milestone 3'],  // Add milestone names
-      datasets: [{
-        label: 'Timeline',
-        data: [5, 10, 7],  // Add durations for each milestone
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        x: { title: { display: true, text: 'Milestones' } },
-        y: { title: { display: true, text: 'Duration (days)' } }
-      }
-    }
-  });
-</script>
+<style>
+  .gantt-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .gantt-table th, .gantt-table td {
+    border: 1px solid #ddd;
+    padding: 5px;
+    text-align: center;
+  }
+  .gantt-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+  .gantt-bar {
+    background-color: #76c7c0;
+  }
+</style>
