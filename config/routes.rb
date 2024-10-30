@@ -18,8 +18,6 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
 
   # Project Hub routes
   get '/project_hub', to: 'project_hub#index', as: :project_hub
-  get '/project_hub/milestones', to: 'project_hub#show_milestones', as: :project_hub_milestones
-  get '/project_hub/timeline', to: 'project_hub#timeline', as: :project_hub_timeline
   get '/project_management_hub', to: 'project_management_hub#index', as: :project_management_hub
 
   # Project Hub routes
@@ -34,6 +32,8 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
 
     resources :students, only: %i[show] do
       get 'tasks', to: 'project_hub#view_tasks', as: 'view_tasks'
+      get 'show_milestones', to: 'project_hub#show_milestones', as: :show_milestones
+      get 'timeline', to: 'project_hub#timeline', as: 'timeline'
       resources :tasks, only: %i[update] do
         member do
           patch 'update_status', to: 'project_hub#update_task_status', as: 'update_task_status'

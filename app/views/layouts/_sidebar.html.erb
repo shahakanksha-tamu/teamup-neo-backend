@@ -31,8 +31,8 @@
       </li>
 
       <li>
-        <%= link_to "Timeline", project_hub_timeline_path, method: :get, 
-          class: "nav-link #{current_page?(project_hub_timeline_path) ? 'active' : 'link-dark'}" %>
+        <%= link_to "Timeline", project_student_timeline_path(@project, @user), method: :get, 
+          class: "nav-link #{current_page?(project_student_timeline_path(@project, @user)) ? 'active' : 'link-dark'}" %>
       </li>
 
       <li>

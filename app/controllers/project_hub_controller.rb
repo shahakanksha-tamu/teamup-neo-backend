@@ -48,6 +48,20 @@ class ProjectHubController < ApplicationController
     end
   end
 
+  def timeline
+    # Retrieve project for the current user
+    @show_sidebar = true
+    @project = Project.joins(:student_assignments)
+                      .where(student_assignments: { user_id: current_user.id })
+                      .first
+    if @project
+      @milestones = @project.milestones
+      @milestones = @milestones.where(status: params[:status]) if params[:status].present?
+    else
+      @milestones = []
+    end
+  end
+
   private
 
   def load_tasks
@@ -59,20 +73,5 @@ class ProjectHubController < ApplicationController
 
   def sorted_tasks(status)
     (@current_user_tasks[status] || []).sort_by(&:milestone_id)
-  end
-
-  def timeline
-    # Retrieve project for the current user
-    @show_sidebar = true
-    @project = Project.joins(:student_assignments)
-                      .where(student_assignments: { user_id: current_user.id })
-                      .first
-
-    # Initialize @milestones as an empty array if no project or milestones are found
-    @milestones = @project ? @project.milestones : []
-
-    # Debugging: Check the contents of @milestones in the logs
-    Rails.logger.debug "Project: #{@project.inspect}"
-    Rails.logger.debug "Milestones: #{@milestones.inspect}"
   end
 end
