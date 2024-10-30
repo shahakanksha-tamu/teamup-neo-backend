@@ -31,7 +31,7 @@
                     <div class="card-body">
                         <a style="color: #0d6efd; text-decoration: underline; cursor:pointer;" class="card-title task-title" id="<%= task.task_name.gsub(' ', '-')%>"><small><%= task.task_name %></small></a>
                         <p><small class="card-subtitle mb-2 text-muted"><%= task.milestone.title %></small></p>
-                        <p style="margin-bottom: 0px; margin-top:10px;"><small class="card-subtitle mb-2">Due on <%= task.deadline.to_date %></small></p>
+                        <p style="margin-bottom: 0px; margin-top:10px;"><small class="card-subtitle mb-2">Due on <%= task.deadline.strftime("%B %d, %Y") %></small></p>
                     </div>
                 </div>
             <% end %>
@@ -55,7 +55,7 @@
                     <div class="card-body">
                         <a style="color: #0d6efd; text-decoration: underline; cursor:pointer;" id="<%= task.task_name.gsub(' ', '-')%>" class="card-title task-title"><small><%= task.task_name %></small></a>
                         <p><small class="card-subtitle mb-2 text-muted"><%= task.milestone.title %></small></p>
-                        <p style="margin-bottom: 0px; margin-top:10px;"><small class="card-subtitle mb-2">Due on <%= task.deadline.to_date %></small></p>
+                        <p style="margin-bottom: 0px; margin-top:10px;"><small class="card-subtitle mb-2">Due on <%= task.deadline.strftime("%B %d, %Y") %></small></p>
                     </div>
                 </div>
             <% end %>
@@ -79,7 +79,7 @@
                     <div class="card-body">
                         <a style="color: #0d6efd; text-decoration: underline; cursor:pointer;" id="<%= task.task_name.gsub(' ', '-')%>" class="card-title task-title"><small><%= task.task_name %></small></a>
                         <p><small class="card-subtitle mb-2 text-muted"><%= task.milestone.title %></small></p>
-                        <p style="margin-bottom: 0px; margin-top:10px;"><small class="card-subtitle mb-2">Due on <%= task.deadline.to_date %></small></p>
+                        <p style="margin-bottom: 0px; margin-top:10px;"><small class="card-subtitle mb-2">Due on <%= task.deadline.strftime("%B %d, %Y") %></small></p>
                     </div>
                 </div>
             <% end %>
@@ -103,7 +103,7 @@
                     <div class="card-body">
                         <a style="color: #0d6efd; text-decoration: underline; cursor:pointer;" id="<%= task.task_name.gsub(' ', '-')%>" class="card-title task-title"><small><%= task.task_name %></small></a>
                         <p><small class="card-subtitle mb-2 text-muted"><%= task.milestone.title %></small></p>
-                        <p style="margin-bottom: 0px; margin-top:10px;"><small class="card-subtitle mb-2">Due on <%= task.deadline.to_date %></small></p>
+                        <p style="margin-bottom: 0px; margin-top:10px;"><small class="card-subtitle mb-2">Due on <%= task.deadline.strftime("%B %d, %Y") %></small></p>
                     </div>
                 </div>
             <% end %>
@@ -139,16 +139,6 @@
 
                     <div class="col-md-8">
                         <p><span id="modal-task-description"></span></p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <p><strong>Task Deadline</strong></p>
-                    </div>
-
-                    <div class="col-md-8">
-                        <p><span id="modal-task-deadline"></span></p>
                     </div>
                 </div>
 
@@ -289,9 +279,9 @@
                 const status = taskCard.getAttribute("data-status");
                 const taskId = taskCard.getAttribute("data-task-id");
 
+                var options = { year: 'numeric', month: 'long', day: 'numeric' };
                 document.getElementById("modal-task-name").textContent = taskName;
                 document.getElementById("modal-task-description").textContent = taskDescription;
-                document.getElementById("modal-task-deadline").textContent = taskDeadline;
                 document.getElementById("modal-milestone-title").textContent = milestoneTitle;
                 document.getElementById("modal-milestone-status").textContent = milestoneStatus;
                 document.getElementById("modal-status").textContent = status;

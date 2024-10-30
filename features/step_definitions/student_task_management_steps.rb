@@ -53,12 +53,10 @@ Then('I should see the details of task {string}') do |task_name|
   task = Task.find_by(task_name:)
   task_description = task.description
   task_status = task.status
-  task_deadline = task.deadline
 
   expect(page).to have_content(task_name)
   expect(page).to have_content(task_status)
   expect(page).to have_content(task_description)
-  expect(page).to have_content(task_deadline)
 end
 
 Then('I change the status of the {string} to {string}') do |task_name, new_status|
