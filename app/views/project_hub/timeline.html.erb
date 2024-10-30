@@ -1,0 +1,76 @@
+<!-- app/views/project_hub/timeline.html.erb -->
+<div class="timeline-container">
+  <h2>Project Timeline</h2>
+
+  <!-- Gantt Chart Section -->
+  <div class="gantt-chart-container">
+    <h3>Gantt Chart</h3>
+    <div class="chart-scroll">
+      <canvas id="ganttChart" width="1200" height="400"></canvas>
+    </div>
+  </div>
+
+  <!-- Milestone Table Section -->
+  <div class="milestone-table-container">
+    <h3>Milestone Details</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Objective</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @milestones.each do |milestone| %>
+          <tr>
+            <td><%= milestone.title %></td>
+            <td><%= milestone.status %></td>
+            <td><%= milestone.updated_at.strftime("%B %d, %Y") %></td>
+            <td><%= milestone.deadline.strftime("%B %d, %Y") %></td>
+            <td><%= milestone.objective %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const ctx = document.getElementById('ganttChart').getContext('2d');
+    const milestones = <%= @milestones.to_json.html_safe %>;
+
+    const labels = milestones.map(m => m.title);
+    const data = milestones.map(m => ({
+      x: [new Date(m.start_date), new Date(m.deadline)],
+      y: m.title
+    }));
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Milestone Timeline',
+          data: data,
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1,
+          barPercentage: 0.5,
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: { type: 'time', time: { unit: 'day' } }
+        }
+      }
+    });
+  });
+</script>

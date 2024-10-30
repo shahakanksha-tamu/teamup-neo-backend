@@ -60,4 +60,8 @@ class ProjectHubController < ApplicationController
   def sorted_tasks(status)
     (@current_user_tasks[status] || []).sort_by(&:milestone_id)
   end
+
+  def timeline
+    @milestones = @project.milestones.order(:start_date)
+  end
 end

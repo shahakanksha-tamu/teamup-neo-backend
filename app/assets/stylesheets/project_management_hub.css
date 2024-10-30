@@ -160,3 +160,34 @@
 .milestone-dates p {
   margin: 4px 0;
 }
+
+.timeline-container {
+  width: 90%;
+  margin: 20px auto;
+}
+
+.gantt-chart-container, .milestone-table-container {
+  margin-top: 20px;
+}
+
+.chart-scroll {
+  overflow-x: auto;
+  padding-bottom: 10px;
+  width: 100%;
+}
+
+.milestone-table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.milestone-table-container th, .milestone-table-container td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.milestone-table-container th {
+  background-color: #f2f2f2;
+}
