@@ -10,3 +10,5 @@ Feature: Viewing Milestones
 
   Scenario: Filtering Milestones by Status
     Given I am on the milestones page
+    When I select "In-Progress" from the status filter
+    Then I should see only milestones that are in-progress
