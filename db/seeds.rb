@@ -36,9 +36,11 @@ end
 
 # Milestones for Project Gamma
 milestones_gamma = [
-  { title: 'Gamma Milestone 1', objective: 'Gamma milestone 1 objective', project_id: Project.find_by(name: 'Project Gamma').id, deadline: Time.zone.now + 7.days, status: 'In-Progress' },
-  { title: 'Gamma Milestone 2', objective: 'Gamma milestone 2 objective', project_id: Project.find_by(name: 'Project Gamma').id, deadline: Time.zone.now + 14.days },
-  { title: 'Gamma Milestone 3', objective: 'Gamma milestone 3 objective', project_id: Project.find_by(name: 'Project Gamma').id, deadline: Time.zone.now + 21.days }
+  { title: 'Gamma Milestone 1', objective: 'Gamma milestone 1 objective', project_id: Project.find_by(name: 'Project Gamma').id, created_at: Date.new(2024, 9, 21), deadline: Date.new(2024, 9, 27), status: 'Completed' },
+  { title: 'Gamma Milestone 2', objective: 'Gamma milestone 2 objective', project_id: Project.find_by(name: 'Project Gamma').id, created_at: Date.new(2024, 9, 27), deadline: Date.new(2024, 10, 3), status: 'In-Progress' },
+  { title: 'Gamma Milestone 3', objective: 'Gamma milestone 3 objective', project_id: Project.find_by(name: 'Project Gamma').id, created_at: Date.new(2024, 10, 3), deadline: Date.new(2024, 10, 8) },
+  { title: 'Gamma Milestone 4', objective: 'Gamma milestone 4 objective', project_id: Project.find_by(name: 'Project Gamma').id, created_at: Date.new(2024, 10, 9), deadline: Date.new(2024, 10, 22) },
+  { title: 'Gamma Milestone 5', objective: 'Gamma milestone 5 objective', project_id: Project.find_by(name: 'Project Gamma').id, created_at: Date.new(2024, 10, 15), deadline: Date.new(2024, 11, 4) }
 ]
 
 milestones_gamma.each do |milestone|

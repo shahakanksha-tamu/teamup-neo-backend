@@ -10,19 +10,23 @@
         <thead>
           <tr>
             <th>Milestone</th>
-            <% (0..52).each do |week| %>
-              <th>Week <%= week + 1 %></th>
+            <% # Find the minimum start date and maximum end date across all milestones %>
+            <% min_start = @milestones.min_by(&:created_at).created_at.to_date %>
+            <% max_end = @milestones.max_by(&:deadline).deadline.to_date %>
+            <% # Generate a range of weeks between min_start and max_end %>
+            <% (min_start..max_end).step(7).each do |date| %>
+              <th><%= date.strftime("%b %d") %></th>
             <% end %>
           </tr>
         </thead>
         <tbody>
           <% @milestones.each do |milestone| %>
-            <% start_week = ((milestone.created_at.to_date.cweek - 1) % 52) %> <!-- Calculate start week -->
-            <% end_week = ((milestone.deadline.to_date.cweek - 1) % 52) %> <!-- Calculate end week -->
+            <% start_date = milestone.created_at.to_date %>
+            <% end_date = milestone.deadline.to_date %>
             <tr>
               <td><%= milestone.title %></td>
-              <% (0..52).each do |week| %>
-                <% if week >= start_week && week <= end_week %>
+              <% (min_start..max_end).step(7).each do |date| %>
+                <% if date >= start_date && date <= end_date %>
                   <td class="gantt-bar" title="<%= milestone.title %>"></td>
                 <% else %>
                   <td></td>
@@ -76,8 +80,20 @@
   .gantt-table th {
     background-color: #f4f4f4;
     font-weight: bold;
+    white-space: nowrap;
   }
   .gantt-bar {
     background-color: #76c7c0;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  .gantt-bar:hover {
+    background-color: #4e9b8e;
+  }
+  .milestone-table-container h3, .gantt-chart-container h3 {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
   }
 </style>
