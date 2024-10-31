@@ -40,6 +40,11 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
         end
       end
     end
+    # New edit and update routes for project management
+    get 'edit_project', to: 'project_management_hub#edit', as: 'edit_project'
+    patch 'update_project', to: 'project_management_hub#update', as: 'update_project'
+    # Task management for project
+    get 'tasks', to: 'project_hub#view_tasks', as: 'view_tasks'
 
     # Nested resources for resources management
     resources :resources, only: %i[new create index destroy] do
