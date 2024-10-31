@@ -11,7 +11,7 @@
           <tr>
             <th>Milestone</th>
             <% # Find the minimum start date and maximum end date across all milestones %>
-            <% min_start = @milestones.min_by(&:created_at).created_at.to_date %>
+            <% min_start = @milestones.min_by(&:start_date).start_date.to_date %>
             <% max_end = @milestones.max_by(&:deadline).deadline.to_date %>
             <% # Generate a range of weeks between min_start and max_end %>
             <% (min_start..max_end).step(7).each do |date| %>
@@ -21,7 +21,7 @@
         </thead>
         <tbody>
           <% @milestones.each do |milestone| %>
-            <% start_date = milestone.created_at.to_date %>
+            <% start_date = milestone.start_date.to_date %>
             <% end_date = milestone.deadline.to_date %>
             <tr>
               <td><%= milestone.title %></td>
@@ -57,7 +57,7 @@
           <tr>
             <td><%= milestone.title %></td>
             <td><%= milestone.status %></td>
-            <td><%= milestone.created_at %></td>
+            <td><%= milestone.start_date %></td>
             <td><%= milestone.deadline %></td>
             <td><%= milestone.objective %></td>
           </tr>

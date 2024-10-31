@@ -20,7 +20,7 @@
             <span class="milestone-status <%= milestone.status.downcase.gsub(" ", "-") %>"><%= milestone.status %></span>
           </div>
           <div class="milestone-dates">
-            <p><strong>Start Date:</strong> <%= milestone.created_at.strftime("%B %d, %Y") %></p>
+            <p><strong>Start Date:</strong> <%= milestone.start_date.strftime("%B %d, %Y") %></p>
             <p><strong>End Date:</strong> <%= milestone.deadline.strftime("%B %d, %Y") %></p>
           </div>
           <p><strong>Objective:</strong> <%= milestone.objective %></p>
