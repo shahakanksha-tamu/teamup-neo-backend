@@ -11,14 +11,15 @@ class ProjectManagementHubController < ApplicationController
   def dashboard
     @project = Project.find(params[:project_id])
     @show_sidebar = !@project.nil?
+    @progress = @project.progress 
   end
 
   def create_project
     @project = Project.new(project_params)
-
+  
     ActiveRecord::Base.transaction do
       raise ActiveRecord::Rollback unless @project.save
-
+  
       begin
         create_timeline(@project)
         create_student_assignments(@project, params[:user_ids])
@@ -26,18 +27,23 @@ class ProjectManagementHubController < ApplicationController
         @project.errors.add(:base, "Error in associated data: #{e.message}")
         raise ActiveRecord::Rollback
       end
-
-      redirect_to project_management_hub_path, notice: 'Project was successfully created.' and return if @project.errors.empty?
+  
+      if @project.errors.empty?
+        redirect_to project_management_hub_path, notice: 'Project was successfully created.' and return
+      end
     end
-
-    # If we've reached this point, the transaction has been rolled back
+  
+    # Transaction was rolled back
     error_message = @project.errors.full_messages.join(', ')
-
     redirect_to project_management_hub_path, alert: error_message and return
   end
+  
 
   def project_params
     params.permit(:name, :description, :objectives, :status)
+  end
+  def project_params2
+    params.require(:project).permit(:name, :description, :objectives, :status)
   end
 
   def create_timeline(project)
@@ -69,6 +75,17 @@ class ProjectManagementHubController < ApplicationController
   def team
     @project = Project.find(params[:project_id])
     @show_sidebar = !@project.nil?
+  end
+
+  def update
+    @project = Project.find(params[:project_id])
+    
+    if @project.update(project_params2)
+      redirect_to project_dashboard_path(@project), notice: 'Project was successfully updated.'
+    else
+      flash[:alert] = @project.errors.full_messages.to_sentence
+       redirect_to project_dashboard_path(@project), notice: 'Unable to update the project'
+    end
   end
 
   def add_student

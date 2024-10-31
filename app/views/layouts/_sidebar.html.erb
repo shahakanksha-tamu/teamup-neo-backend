@@ -26,13 +26,13 @@
       </li>
 
        <li>
-        <%= link_to "Team Members", dashboard_team_view_path(), method: :get, 
-          class: "nav-link #{current_page?(dashboard_team_view_path()) ? 'active' : 'link-dark'}" %>
+        <%= link_to "Team Members", project_view_team_path(@project), method: :get, 
+          class: "nav-link #{current_page?(project_view_team_path(@project)) ? 'active' : 'link-dark'}" %>
       </li>
 
       <li>
-        <%= link_to "Task Management", (project_view_tasks_path(@project)), method: :get, 
-          class: "nav-link #{current_page?(project_view_tasks_path(@project)) ? 'active' : 'link-dark'}" %>
+        <%= link_to "Task Management", project_student_view_tasks_path(@project, @user), method: :get, 
+          class: "nav-link #{current_page?(project_student_view_tasks_path(@project, @user)) ? 'active' : 'link-dark'}" %>
       </li>
 
     <% end %>

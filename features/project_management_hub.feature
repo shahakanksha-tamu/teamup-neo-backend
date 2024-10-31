@@ -63,3 +63,30 @@ Scenario: Successful creation of a resource
   Then I should be redirected to the resources page for "Alpha Project"
   And I should see "Resource was successfully created."
   And I should see "Sample"
+
+  Scenario: Successfully updating a project from the dashboard
+  Given I am logged in as 'johndoe@gmail.com'
+  And I navigate to the project management page for "Alpha Project"
+  When I click on the Edit Project button
+  Then I should see the Edit Project modal
+  When I fill in the Edit Project form with the following:
+    | Name        | Updated Alpha Project |
+    | Description | Updated description   |
+    | Objectives  | Updated objectives    |
+    | Status      | Active                |
+  And I click Update Project
+  Then the project should be updated successfully
+  Then the progress chart should show 0% complete
+
+  Scenario: Project update failure due to invalid data
+  Given I am logged in as 'johndoe@gmail.com'
+  And I navigate to the project management page for "Alpha Project"
+  When I click on the Edit Project button
+  Then I should see the Edit Project modal
+  When I fill in the Edit Project form with the following invalid:
+    | Name        |            |  # Intentionally leave the name blank to trigger an error
+    | Description | Updated description   |
+    | Objectives  | Updated objectives    |
+    | Status      | Active                |
+  And I click Update Projectt
+  Then I should see an error message "Name can't be blank"
