@@ -36,9 +36,11 @@ end
 
 # Milestones for Project Gamma
 milestones_gamma = [
-  { title: 'Gamma Milestone 1', objective: 'Gamma milestone 1 objective', project_id: Project.find_by(name: 'Project Gamma').id, deadline: Time.zone.now + 7.days },
-  { title: 'Gamma Milestone 2', objective: 'Gamma milestone 2 objective', project_id: Project.find_by(name: 'Project Gamma').id, deadline: Time.zone.now + 14.days },
-  { title: 'Gamma Milestone 3', objective: 'Gamma milestone 3 objective', project_id: Project.find_by(name: 'Project Gamma').id, deadline: Time.zone.now + 21.days }
+  { title: 'Gamma Milestone 1', objective: 'Gamma milestone 1 objective', project_id: Project.find_by(name: 'Project Gamma').id, start_date: Date.new(2024, 9, 21), deadline: Date.new(2024, 9, 27), status: 'Completed' },
+  { title: 'Gamma Milestone 2', objective: 'Gamma milestone 2 objective', project_id: Project.find_by(name: 'Project Gamma').id, start_date: Date.new(2024, 9, 27), deadline: Date.new(2024, 10, 3), status: 'In-Progress' },
+  { title: 'Gamma Milestone 3', objective: 'Gamma milestone 3 objective', project_id: Project.find_by(name: 'Project Gamma').id, start_date: Date.new(2024, 10, 3), deadline: Date.new(2024, 10, 8) },
+  { title: 'Gamma Milestone 4', objective: 'Gamma milestone 4 objective', project_id: Project.find_by(name: 'Project Gamma').id, start_date: Date.new(2024, 10, 9), deadline: Date.new(2024, 10, 22) },
+  { title: 'Gamma Milestone 5', objective: 'Gamma milestone 5 objective', project_id: Project.find_by(name: 'Project Gamma').id, start_date: Date.new(2024, 10, 15), deadline: Date.new(2024, 11, 4) }
 ]
 
 milestones_gamma.each do |milestone|
@@ -47,24 +49,25 @@ end
 
 # Milestones for Project Delta
 milestones_delta = [
-  { title: 'Delta Milestone 1', objective: 'Delta milestone 1 objective', project_id: Project.find_by(name: 'Project Delta').id, status: 'Completed', deadline: Time.zone.now + 7.days },
-  { title: 'Delta Milestone 2', objective: 'Delta milestone 2 objective', project_id: Project.find_by(name: 'Project Delta').id, status: 'Completed', deadline: Time.zone.now + 14.days },
-  { title: 'Delta Milestone 3', objective: 'Delta milestone 3 objective', project_id: Project.find_by(name: 'Project Delta').id, status: 'Not Started', deadline: Time.zone.now + 21.days }
+  { title: 'Delta Milestone 1', objective: 'Delta milestone 1 objective', project_id: Project.find_by(name: 'Project Delta').id, start_date: Date.new(2024, 9, 21), deadline: Date.new(2024, 9, 27), status: 'Completed' },
+  { title: 'Delta Milestone 2', objective: 'Delta milestone 2 objective', project_id: Project.find_by(name: 'Project Delta').id, start_date: Date.new(2024, 9, 27), deadline: Date.new(2024, 10, 3), status: 'In-Progress' },
+  { title: 'Delta Milestone 3', objective: 'Delta milestone 3 objective', project_id: Project.find_by(name: 'Project Delta').id, start_date: Date.new(2024, 10, 3), deadline: Date.new(2024, 10, 8) }
 ]
+
 milestones_delta.each do |milestone|
   Milestone.find_or_create_by!(milestone)
 end
 
 # Milestones for Project Epsilon
 milestones_epsilon = [
-  { title: 'Epsilon Milestone 1', objective: 'Epsilon milestone 1 objective', project_id: Project.find_by(name: 'Project Epsilon').id, deadline: Time.zone.now + 7.days },
-  { title: 'Epsilon Milestone 2', objective: 'Epsilon milestone 2 objective', project_id: Project.find_by(name: 'Project Epsilon').id, deadline: Time.zone.now + 14.days },
-  { title: 'Epsilon Milestone 3', objective: 'Epsilon milestone 3 objective', project_id: Project.find_by(name: 'Project Epsilon').id, deadline: Time.zone.now + 21.days }]
+  { title: 'Epsilon Milestone 1', objective: 'Epsilon milestone 1 objective', project_id: Project.find_by(name: 'Project Epsilon').id, start_date: Date.new(2024, 9, 21), deadline: Date.new(2024, 9, 27), status: 'Completed' },
+  { title: 'Epsilon Milestone 2', objective: 'Epsilon milestone 2 objective', project_id: Project.find_by(name: 'Project Epsilon').id, start_date: Date.new(2024, 9, 27), deadline: Date.new(2024, 10, 3), status: 'In-Progress' },
+  { title: 'Epsilon Milestone 3', objective: 'Epsilon milestone 3 objective', project_id: Project.find_by(name: 'Project Epsilon').id, start_date: Date.new(2024, 10, 3), deadline: Date.new(2024, 10, 8) }
+]
 
 milestones_epsilon.each do |milestone|
   Milestone.find_or_create_by!(milestone)
 end
-
 
 # Tasks for Gamma Milestones
 tasks_gamma = [
@@ -83,7 +86,7 @@ tasks_gamma = [
   { task_name: 'Gamma Milestone 3 Task 3', description: 'Description for Gamma Milestone 3 Task 3', status: 'Not Started', milestone_id: Milestone.find_by(title: 'Gamma Milestone 3').id, deadline: Time.zone.now + 3.days },
   { task_name: 'Gamma Milestone 3 Task 4', description: 'Description for Gamma Milestone 3 Task 4', status: 'Not Started', milestone_id: Milestone.find_by(title: 'Gamma Milestone 3').id, deadline: Time.zone.now + 4.days },
   { task_name: 'Gamma Milestone 3 Task 5', description: 'Description for Gamma Milestone 3 Task 5', status: 'Not Started', milestone_id: Milestone.find_by(title: 'Gamma Milestone 3').id, deadline: Time.zone.now + 5.days }
-  ]
+]
 
 tasks_gamma.each do |task|
   Task.find_or_create_by!(task)
@@ -106,7 +109,7 @@ tasks_delta = [
   { task_name: 'Delta Milestone 3 Task 3', description: 'Description for Delta Milestone 3 Task 3', status: 'Not Started', milestone_id: Milestone.find_by(title: 'Delta Milestone 3').id, deadline: Time.zone.now + 3.days },
   { task_name: 'Delta Milestone 3 Task 4', description: 'Description for Delta Milestone 3 Task 4', status: 'Not Started', milestone_id: Milestone.find_by(title: 'Delta Milestone 3').id, deadline: Time.zone.now + 4.days },
   { task_name: 'Delta Milestone 3 Task 5', description: 'Description for Delta Milestone 3 Task 5', status: 'Not Started', milestone_id: Milestone.find_by(title: 'Delta Milestone 3').id, deadline: Time.zone.now + 5.days }
- ]
+]
 
 tasks_delta.each do |task|
   Task.find_or_create_by!(task)
@@ -207,7 +210,7 @@ task_assignments = [
   { user_id: User.find_by(email: 'ramneek983@tamu.edu').id, task_id: Task.find_by(task_name: 'Epsilon Milestone 2 Task 3').id },
   { user_id: User.find_by(email: 'ramneek983@tamu.edu').id, task_id: Task.find_by(task_name: 'Epsilon Milestone 3 Task 3').id },
   { user_id: User.find_by(email: 'q389974204@tamu.edu').id, task_id: Task.find_by(task_name: 'Epsilon Milestone 3 Task 4').id },
-  { user_id: User.find_by(email: 'q389974204@tamu.edu').id, task_id: Task.find_by(task_name: 'Epsilon Milestone 3 Task 5').id },
+  { user_id: User.find_by(email: 'q389974204@tamu.edu').id, task_id: Task.find_by(task_name: 'Epsilon Milestone 3 Task 5').id }
 ]
 
 task_assignments.each do |assignment|

@@ -27,6 +27,19 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
     post 'add_student', to: 'project_management_hub#add_student', as: 'add_student'
     delete 'remove_student', to: 'project_management_hub#remove_student', as: 'remove_student'
 
+    # Student routes related to project
+    get 'team', to: 'team_info#index', as: 'view_team'
+
+    resources :students, only: %i[show] do
+      get 'tasks', to: 'project_hub#view_tasks', as: 'view_tasks'
+      get 'show_milestones', to: 'project_hub#show_milestones', as: :show_milestones
+      get 'timeline', to: 'project_hub#timeline', as: 'timeline'
+      resources :tasks, only: %i[update] do
+        member do
+          patch 'update_status', to: 'project_hub#update_task_status', as: 'update_task_status'
+        end
+      end
+    end
     # New edit and update routes for project management
     get 'edit_project', to: 'project_management_hub#edit', as: 'edit_project'
     patch 'update_project', to: 'project_management_hub#update', as: 'update_project'

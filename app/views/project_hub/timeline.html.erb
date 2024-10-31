@@ -1,0 +1,99 @@
+<!-- app/views/project_hub/timeline.html.erb -->
+<div class="timeline-container">
+  <h2>Project Timeline</h2>
+
+  <!-- Gantt Chart Section -->
+  <div class="gantt-chart-container">
+    <h3>Gantt Chart</h3>
+    <div class="chart-scroll">
+      <table class="gantt-table">
+        <thead>
+          <tr>
+            <th>Milestone</th>
+            <% # Find the minimum start date and maximum end date across all milestones %>
+            <% min_start = @milestones.min_by(&:start_date).start_date.to_date %>
+            <% max_end = @milestones.max_by(&:deadline).deadline.to_date %>
+            <% # Generate a range of weeks between min_start and max_end %>
+            <% (min_start..max_end).step(7).each do |date| %>
+              <th><%= date.strftime("%b %d") %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% @milestones.each do |milestone| %>
+            <% start_date = milestone.start_date.to_date %>
+            <% end_date = milestone.deadline.to_date %>
+            <tr>
+              <td><%= milestone.title %></td>
+              <% (min_start..max_end).step(7).each do |date| %>
+                <% if date >= start_date && date <= end_date %>
+                  <td class="gantt-bar" title="<%= milestone.title %>"></td>
+                <% else %>
+                  <td></td>
+                <% end %>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Milestone Table Section -->
+  <div class="milestone-table-container">
+    <h3>Milestone Details</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Objective</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @milestones.each do |milestone| %>
+          <tr>
+            <td><%= milestone.title %></td>
+            <td><%= milestone.status %></td>
+            <td><%= milestone.start_date %></td>
+            <td><%= milestone.deadline %></td>
+            <td><%= milestone.objective %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+  .gantt-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .gantt-table th, .gantt-table td {
+    border: 1px solid #ddd;
+    padding: 5px;
+    text-align: center;
+  }
+  .gantt-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  .gantt-bar {
+    background-color: #76c7c0;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  .gantt-bar:hover {
+    background-color: #4e9b8e;
+  }
+  .milestone-table-container h3, .gantt-chart-container h3 {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+  }
+</style>
