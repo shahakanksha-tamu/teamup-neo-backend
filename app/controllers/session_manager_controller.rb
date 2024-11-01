@@ -22,54 +22,21 @@ class SessionManagerController < ApplicationController
 
   private
 
-
-  # original method with high cognitive complexity
-  # def login(user, photo)
-  #   if user.present?
-  #     session[:user_id] = user.id
-  #     unless user.photo?
-  #       user.photo = photo
-  #       user.save
-  #     end
-
-  #     if user.role == 'student'
-  #       redirect_to dashboard_path, notice: 'You are logged in.'
-  #     else
-  #       redirect_to project_management_hub_path, notice: 'You are logged in.'
-  #     end
-  #   else
-  #     redirect_to root_path, alert: 'Login failed.'
-  #   end
-  # end
-
   def login(user, photo)
     if user.present?
-      set_session(user)
-      update_user_photo(user, photo)
-      redirect_user(user)
+      session[:user_id] = user.id
+      unless user.photo?
+        user.photo = photo
+        user.save
+      end
+
+      if user.role == 'student'
+        redirect_to dashboard_path, notice: 'You are logged in.'
+      else
+        redirect_to project_management_hub_path, notice: 'You are logged in.'
+      end
     else
       redirect_to root_path, alert: 'Login failed.'
     end
   end
-
-
-  def set_session(user)
-    session[:user_id] = user.id
-  end
-
-  def update_user_photo(user, photo)
-    return if user.photo?
-  
-    user.photo = photo
-    user.save
-  end
-
-  def redirect_user(user)
-    if user.role == 'student'
-      redirect_to dashboard_path, notice: 'You are logged in.'
-    else
-      redirect_to project_management_hub_path, notice: 'You are logged in.'
-    end
-  end
-
 end

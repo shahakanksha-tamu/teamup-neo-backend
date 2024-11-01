@@ -14,7 +14,6 @@ class ProjectHubController < ApplicationController
     # sidebar requires the variables here
     @project = Project.joins(:student_assignments)
                       .where(student_assignments: { user_id: current_user.id })[0]
-    @resources = @project.resources.includes(:file_attachment)
     @show_sidebar = !@project.nil?
     @role = current_user.role
   end

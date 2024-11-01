@@ -50,7 +50,6 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
     resources :resources, only: %i[new create index destroy] do
       member do
         get :download # This allows downloading a specific resource
-        get :open # This allows opening a specific resource
       end
     end
   end
