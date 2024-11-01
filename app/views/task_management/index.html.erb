@@ -1,4 +1,5 @@
-<div class="container mt-3" style="height: 100vh;">
+<div class="d-flex flex-column" style="min-height: 100vh;">
+<div class="container mt-3" >
   <h2 class="text-center mb-4">Manage Tasks</h2>
   <div class="row flex-nowrap">
     <% @students.each do |student| %>
@@ -21,7 +22,7 @@
                 <div class="d-flex justify-content-between align-items-center mt-1">
                   <div>
                     <i class="fas fa-flag"></i>
-                    <small class="text-muted"><%= task.milestone.try(:name) || "No milestone" %></small>
+                    <small class="text-muted"><%= task.milestone.try(:title) || "No milestone" %></small>
                   </div>
                    <%= link_to project_user_task_path(@project, student, task),
                         method: :delete,
@@ -45,6 +46,7 @@
     <% end %>
   </div>
 </div>
+</div>
 
 <!-- Add Task Modal for each student -->
 <% @students.each do |user| %>
@@ -67,7 +69,7 @@
             </div>
             <div class="form-group">
               <%= form.label :milestone_id %>
-              <%= form.collection_select :milestone_id, Milestone.all, :id, :title, { prompt: 'Select a milestone' }, class: "form-control" %>
+              <%= form.collection_select :milestone_id, @project.milestones, :id, :title, { prompt: 'Select a milestone' }, class: "form-control" %>
             </div>
             <div class="form-group">
               <%= form.label :deadline, "Deadline" %>
@@ -105,7 +107,7 @@
               </div>
               <div class="form-group">
                 <%= form.label :milestone_id %>
-                <%= form.collection_select :milestone_id, Milestone.all, :id, :title, { prompt: 'Select a milestone' }, class: "form-control" %>
+                <%= form.collection_select :milestone_id, @project.milestones, :id, :title, { prompt: 'Select a milestone' }, class: "form-control" %>
               </div>
               <div class="form-group">
                 <%= form.label :deadline, "Deadline" %>
