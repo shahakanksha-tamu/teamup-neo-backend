@@ -41,7 +41,7 @@ Rails.application.routes.draw do
     end
 
     resources :users do
-      resources :tasks, only: [:create]
+      resources :tasks, only: %i[create update destroy], controller: 'task_management'
     end
   end
 
