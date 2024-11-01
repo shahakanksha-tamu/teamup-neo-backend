@@ -6,6 +6,7 @@ class CreateMilestones < ActiveRecord::Migration[7.2]
       t.text :objective
       t.string :status, limit: 20, default: 'Not Started'
       t.datetime :deadline
+      t.datetime :start_date
       t.timestamps
     end
   end

@@ -32,6 +32,8 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
 
     resources :students, only: %i[show] do
       get 'tasks', to: 'project_hub#view_tasks', as: 'view_tasks'
+      get 'show_milestones', to: 'project_hub#show_milestones', as: :show_milestones
+      get 'timeline', to: 'project_hub#timeline', as: 'timeline'
       resources :tasks, only: %i[update] do
         member do
           patch 'update_status', to: 'project_hub#update_task_status', as: 'update_task_status'
