@@ -11,16 +11,16 @@
           class: "nav-link #{current_page?(project_dashboard_path(@project)) ? 'active' : 'link-dark'}" %>
       </li>
       <li>
+        <%= link_to "Milestone Management", project_milestones_path(@project), method: :get, 
+          class: "nav-link #{current_page?(project_milestones_path(@project)) ? 'active' : 'link-dark'}" %>
+      </li>
+      <li>
         <%= link_to "Resource Management", project_resources_path(@project), method: :get, 
           class: "nav-link #{current_page?(project_resources_path(@project)) ? 'active' : 'link-dark'}" %>
       </li>
       <li>
         <%= link_to "Team Management", project_team_management_path(@project), method: :get, 
           class: "nav-link #{current_page?(project_team_management_path(@project)) ? 'active' : 'link-dark'}" %>
-      </li>
-      <li>
-        <%= link_to "Milestone Management", project_milestones_path(@project), method: :get, 
-          class: "nav-link #{current_page?(project_milestones_path(@project)) ? 'active' : 'link-dark'}" %>
       </li>
     <% end %>
     <% if @role == 'student' %>
@@ -29,24 +29,24 @@
           class: "nav-link #{current_page?(project_hub_path()) ? 'active' : 'link-dark'}" %>
       </li>
 
-       <li>
-        <%= link_to "Team Members", project_view_team_path(@project), method: :get, 
-          class: "nav-link #{current_page?(project_view_team_path(@project)) ? 'active' : 'link-dark'}" %>
-      </li>
-
       <li>
-        <%= link_to "Milestones", project_student_show_milestones_path(@project, @user), method: :get, 
+        <%= link_to "Project Milestones", project_student_show_milestones_path(@project, @user), method: :get, 
           class: "nav-link #{current_page?(project_student_show_milestones_path(@project, @user)) ? 'active' : 'link-dark'}" %>
       </li>
 
       <li>
-        <%= link_to "Timeline", project_student_timeline_path(@project, @user), method: :get, 
+        <%= link_to "Project Timeline", project_student_timeline_path(@project, @user), method: :get, 
           class: "nav-link #{current_page?(project_student_timeline_path(@project, @user)) ? 'active' : 'link-dark'}" %>
       </li>
 
       <li>
         <%= link_to "Task Management", project_student_view_tasks_path(@project, @user), method: :get, 
           class: "nav-link #{current_page?(project_student_view_tasks_path(@project, @user)) ? 'active' : 'link-dark'}" %>
+      </li>
+
+       <li>
+        <%= link_to "Team Members", project_view_team_path(@project), method: :get, 
+          class: "nav-link #{current_page?(project_view_team_path(@project)) ? 'active' : 'link-dark'}" %>
       </li>
 
     <% end %>
