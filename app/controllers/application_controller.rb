@@ -12,7 +12,9 @@ class ApplicationController < ActionController::Base
   def role_based_routes
     {
       admin: [
-        { controller: 'project_management_hub', action: 'index' }
+        { controller: 'project_management_hub', action: 'index' },
+        { controller: 'score', action: 'edit' },
+        { controller: 'score', action: 'update' }
       ],
       student: [
         { controller: 'dashboard', action: 'index' },
