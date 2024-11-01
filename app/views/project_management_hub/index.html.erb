@@ -1,4 +1,4 @@
-<div style="margin-top: 20px;" class="container-fluid">
+<div style="margin-top: 90px;" class="container-fluid">
   <div style="display:flex; flex-direction: row; justify-content: space-between; align-items: center;">
     <div>
       <h1>Project Management Hub</h1>
@@ -47,7 +47,7 @@
                   Objectives
                 </div>
                 <div class="col-sm-8">
-                  <%= project.objectives %>
+                <%= truncate(project.objectives, length: 20) %>
                 </div>
               </div>
             </div>

@@ -1,5 +1,5 @@
 <div class="fluid-container">
-  <div class="d-flex flex-column flex-shrink-0 p-3 shadow-lg" style="width: 280px; height: 92vh;">
+  <div class="d-flex flex-column flex-shrink-0 p-3 shadow-lg" style="top:60px; width: 280px; height: 92vh; position:fixed;">
     <a href="/" class="d-flex align-items-center mt-3 link-dark text-decoration-none">
       <h4><%= @project.name %></h4>
     </a>
@@ -26,13 +26,23 @@
       </li>
 
        <li>
-        <%= link_to "Team Members", dashboard_team_view_path(), method: :get, 
-          class: "nav-link #{current_page?(dashboard_team_view_path()) ? 'active' : 'link-dark'}" %>
+        <%= link_to "Team Members", project_view_team_path(@project), method: :get, 
+          class: "nav-link #{current_page?(project_view_team_path(@project)) ? 'active' : 'link-dark'}" %>
       </li>
 
       <li>
-        <%= link_to "Task Management", (project_view_tasks_path(@project)), method: :get, 
-          class: "nav-link #{current_page?(project_view_tasks_path(@project)) ? 'active' : 'link-dark'}" %>
+        <%= link_to "Milestones", project_student_show_milestones_path(@project, @user), method: :get, 
+          class: "nav-link #{current_page?(project_student_show_milestones_path(@project, @user)) ? 'active' : 'link-dark'}" %>
+      </li>
+
+      <li>
+        <%= link_to "Timeline", project_student_timeline_path(@project, @user), method: :get, 
+          class: "nav-link #{current_page?(project_student_timeline_path(@project, @user)) ? 'active' : 'link-dark'}" %>
+      </li>
+
+      <li>
+        <%= link_to "Task Management", project_student_view_tasks_path(@project, @user), method: :get, 
+          class: "nav-link #{current_page?(project_student_view_tasks_path(@project, @user)) ? 'active' : 'link-dark'}" %>
       </li>
 
     <% end %>
