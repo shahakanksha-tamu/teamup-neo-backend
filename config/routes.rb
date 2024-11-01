@@ -24,6 +24,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   resources :projects do
     get 'dashboard', to: 'project_management_hub#dashboard', as: 'dashboard'
     get 'team_management', to: 'project_management_hub#team', as: 'team_management'
+    get 'task_management', to: 'task_management#index', as: 'task_management'
     post 'add_student', to: 'project_management_hub#add_student', as: 'add_student'
     delete 'remove_student', to: 'project_management_hub#remove_student', as: 'remove_student'
 
@@ -60,6 +61,10 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
       end
     end
 
+    
+    resources :users do
+      resources :tasks, only: %i[create update destroy], controller: 'task_management'
+    end
   end
 
   # Settings route

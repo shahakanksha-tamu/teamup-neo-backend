@@ -22,6 +22,10 @@
         <%= link_to "Team Management", project_team_management_path(@project), method: :get, 
           class: "nav-link #{current_page?(project_team_management_path(@project)) ? 'active' : 'link-dark'}" %>
       </li>
+      <li>
+        <%= link_to "Task Management", project_task_management_path(@project), method: :get, 
+          class: "nav-link #{current_page?(project_task_management_path(@project)) ? 'active' : 'link-dark'}" %>
+      </li>
     <% end %>
     <% if @role == 'student' %>
       <li>
