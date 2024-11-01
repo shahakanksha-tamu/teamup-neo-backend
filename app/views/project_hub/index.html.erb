@@ -1,3 +1,79 @@
-<h1>Project Hub</h1>
-<h2>email : <%= @user.email %></h2>
-<h2>user : <%= @role %></h2>
+
+<div class="container-fluid">
+  <div class="row">
+    <!-- Left 70% column for other content -->
+    <div class="col-md-8" style="width: 70%;">
+    <!-- Add content here for the left side -->
+        <h1>Project Hub</h1>
+        <h2>email : <%= @user.email %></h2>
+        <h2>user : <%= @role %></h2>
+    </div>
+
+    <!-- Right 30% column for the resources section -->
+ <div class="col-md-4" style="width: 30%;">
+      <br>
+      <h2 class="text-center mb-4 custom-margin-top">Project Resources</h2>
+      <div class="scrollable-container" style="height: 1000px; overflow-y: auto; overflow-x: hidden;"> <!-- Fixed height and scroll -->
+        <div class="row">
+          <% @resources.each do |resource| %>
+            <% if resource.present? %>
+              <div class="col-12 col-md-6 mb-4"> <!-- Two cards per row -->
+                <div class="card" style="width: 100%;">
+                  <div class="card-body">
+                    <h5 class="card-title text-center"><%= resource.name %></h5>
+                    <p class="card-text  text-center"><%= resource.file.filename.to_s %></p>
+                    <p class="card-text  text-center"><%= resource.created_at.strftime("%B %d, %Y %H:%M") %></p>
+                    <div class="d-flex justify-content-center mt-3">
+                        <% if resource.file.attached? %>
+                              <%= link_to 'Download', download_project_resource_path(project_id: @project.id, id: resource.id), target: '_blank', class: 'btn btn-warning btn-sm mx-2' %>
+                            <%if resource.file.representable?%>
+                              <%= link_to 'Preview', open_project_resource_path(project_id: @project.id, id: resource.id), target: '_blank', class: 'btn btn-warning btn-sm mx-2' %>
+                            <%end%>
+                    </div>
+                    <% else %>
+                        <span class="disabled">No file attached</span>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div> 
+ <%
+=begin%>
+ <div class="col-md-4" style="width: 20%;">
+      <br>
+      <h2 class="text-center mb-4 custom-margin-top">Project Resources</h2>
+      <div class="scrollable-container" style="height: 1000px; overflow-y: auto; overflow-x: hidden;"> <!-- Fixed height and scroll -->
+        <div class="row">
+          <% @resources.each do |resource| %>
+            <% if resource.present? %>
+              <div class="col-12 mb-4"> <!-- Two cards per row -->
+                <div class="card" style="width: 100%;">
+                  <div class="card-body">
+                    <h5 class="card-title text-center"><%= resource.name %></h5>
+                    <p class="card-text  text-center"><%= resource.file.filename.to_s %></p>
+                    <p class="card-text  text-center"><%= resource.created_at.strftime("%B %d, %Y %H:%M") %></p>
+                    <div class="d-flex justify-content-center mt-3">
+                        <% if resource.file.attached? %>
+                              <%= link_to 'Download', download_project_resource_path(project_id: @project.id, id: resource.id), target: '_blank', class: 'btn btn-warning btn-sm mx-2' %>
+                            <%if resource.file.representable?%>
+                              <%= link_to 'Preview', open_project_resource_path(project_id: @project.id, id: resource.id), target: '_blank', class: 'btn btn-warning btn-sm mx-2' %>
+                            <%end%>
+                    </div>
+                    <% else %>
+                        <span class="disabled">No file attached</span>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>  
+<%
+=end%>
+</div>

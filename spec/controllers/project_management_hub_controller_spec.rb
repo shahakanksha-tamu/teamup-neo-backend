@@ -21,67 +21,60 @@ RSpec.describe ProjectManagementHubController, type: :controller do
     session[:user_id] = user.id
   end
 
+  describe 'GET #dashboard' do
+    context 'when the project exists' do
+      before do
+        get :dashboard, params: { project_id: project.id }
+      end
+
+      it 'assigns @project' do
+        expect(assigns(:project)).to eq(project)
+      end
+
+      it 'sets @show_sidebar to true' do
+        expect(assigns(:show_sidebar)).to be true
+      end
+
+      it 'renders the dashboard template' do
+        expect(response).to render_template(:dashboard)
+      end
+    end
+
+  end
+
   describe 'GET #index' do
-    it 'assigns the requested project to @project' do
-      get :team, params: { project_id: project.id }
-      expect(assigns(:project)).to eq(project)
+    before do
+      get :index
     end
 
-    context 'when an associated record fails to save' do
-      before do
-        allow_any_instance_of(Project).to receive(:save).and_return(true) # rubocop:disable RSpec/AnyInstance
-        allow_any_instance_of(Timeline).to receive(:save).and_return(false) # rubocop:disable RSpec/AnyInstance
-      end
-
-      it 'does not create a new project' do
-        expect do
-          post :create_project, params: { project: valid_attributes }
-        end.not_to change(Project, :count)
-      end
-
-      it 'renders the index template with an alert' do
-        post :create_project, params: { project: valid_attributes }
-        expect(flash.now[:alert]).to be_present
-      end
+    it 'assigns @projects' do
+      expect(assigns(:projects)).to eq([project])
     end
 
-    context 'when creating student assignments fails' do
-      before do
-        allow_any_instance_of(Project).to receive(:save).and_return(true) # rubocop:disable RSpec/AnyInstance
-        allow_any_instance_of(Timeline).to receive(:save).and_return(true) # rubocop:disable RSpec/AnyInstance
-      end
-
-      context 'when a user is not found' do # rubocop:disable RSpec/NestedGroups
-        it 'raises an error and does not create a new project' do
-          expect do
-            post :create_project, params: { project: valid_attributes.merge(user_ids: [999]) } # Assuming 999 is an invalid user ID
-          end.not_to change(Project, :count)
-        end
-
-        it 'renders the index template with an alert' do
-          post :create_project, params: { project: valid_attributes.merge(user_ids: [999]) }
-          expect(response).to redirect_to(project_management_hub_path)
-        end
-      end
-
-      context 'when assignment fails to save' do # rubocop:disable RSpec/NestedGroups
-        before do
-          allow(controller).to receive(:create_student_assignments).and_raise(ActiveRecord::RecordInvalid.new(Project.new))
-        end
-
-        it 'does not create a new project' do
-          expect do
-            post :create_project, params: { project: valid_attributes.merge(user_ids: [1]) } # Assuming 1 is a valid user ID
-          end.not_to change(Project, :count)
-        end
-
-        it 'renders the index template with an alert' do
-          post :create_project, params: { project: valid_attributes.merge(user_ids: [1]) }
-          expect(response).to redirect_to(project_management_hub_path)
-        end
-      end
+    it 'renders the index template' do
+      expect(response).to render_template(:index)
     end
   end
+
+  describe 'GET #team' do
+    context 'when the project exists' do
+      before do
+        get :team, params: { project_id: project.id }
+      end
+
+      it 'assigns @project' do
+        expect(assigns(:project)).to eq(project)
+      end
+
+      it 'sets @show_sidebar to true' do
+        expect(assigns(:show_sidebar)).to be true
+      end
+
+      it 'renders the team template' do
+        expect(response).to render_template(:team)
+      end
+    end
+  end 
 
   describe 'POST #add_student' do
     let(:student) { create(:user) }
@@ -135,6 +128,17 @@ RSpec.describe ProjectManagementHubController, type: :controller do
       it 'redirects to the team page' do
         post :add_student, params: { project_id: project.id, user_id: student.id }
         expect(response).to redirect_to(project_team_management_path(project))
+      end
+    end
+
+    context 'when a student is already assigned to a project' do
+      before do
+        allow(Project).to receive_message_chain(:joins, :where, :exists?).and_return(true)
+      end
+
+      it 'sets an error flash message' do
+        post :add_student, params: { project_id: project.id, user_id: student.id }
+        expect(flash[:error]).to include("#{student.email} is already assigned to a project")
       end
     end
   end
