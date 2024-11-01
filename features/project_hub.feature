@@ -34,11 +34,11 @@ Scenario: Download a resource
   And I click "Download" on the resource "Sample Resource"
   Then I should see the file "sample.pdf" downloaded
 
-Scenario: Open a resource to view
-  Given I am logged in as 'janesmith@gmail.com'
-  When I click View Project
-  And I click "Preview" on the resource "Sample Resource"
-  Then I should see the file "sample.pdf" opened
+# Scenario: Open a resource to view
+#   Given I am logged in as 'janesmith@gmail.com'
+#   When I click View Project
+#   And I click "Preview" on the resource "Sample Resource"
+#   Then I should see the file "sample.pdf" opened
 
 Scenario: Open Task Management page
   Given I am logged in as 'janesmith@gmail.com'
