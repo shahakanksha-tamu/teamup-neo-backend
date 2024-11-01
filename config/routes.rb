@@ -52,6 +52,14 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
         get :download # This allows downloading a specific resource
       end
     end
+
+    # Nested resources for milestones management
+    resources :milestones, only: [:index, :create, :edit, :update, :destroy] do
+      member do
+        patch 'update_status', to: 'milestones#update_milestone_status', as: 'update_milestone_status'
+      end
+    end
+
   end
 
   # Settings route
