@@ -30,6 +30,11 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
     # Student routes related to project
     get 'team', to: 'team_info#index', as: 'view_team'
 
+    # Project
+    get 'edit_project', to: 'project_management_hub#edit', as: 'edit_project'
+    patch 'update_project', to: 'project_management_hub#update', as: 'update_project'
+
+    # Students
     resources :students, only: %i[show] do
       get 'tasks', to: 'project_hub#view_tasks', as: 'view_tasks'
       get 'show_milestones', to: 'project_hub#show_milestones', as: :show_milestones

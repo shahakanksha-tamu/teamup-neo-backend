@@ -29,7 +29,7 @@
                   Description
                 </div>
                 <div class="col-sm-8">
-                  <%= project.description %>
+                  <%= truncate(project.description, length: 50) %>
                 </div>
               </div>
               <div class="row">
@@ -47,7 +47,7 @@
                   Objectives
                 </div>
                 <div class="col-sm-8">
-                  <%= project.objectives %>
+                <%= truncate(project.objectives, length: 50) %>
                 </div>
               </div>
             </div>

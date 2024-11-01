@@ -26,7 +26,7 @@ end
 # Projects
 projects = [
   { name: 'Project Gamma', description: 'Third test project', objectives: 'Complete the gamma phase', status: 'active' },
-  { name: 'Project Delta', description: 'Fourth test project', objectives: 'Complete the delta phase', status: 'inactive' },
+  { name: 'Project Delta', description: 'Fourth test project', objectives: 'Complete the delta phase', status: 'active' },
   { name: 'Project Epsilon', description: 'Fifth test project', objectives: 'Complete the epsilon phase', status: 'active' }
 ]
 
@@ -53,7 +53,6 @@ milestones_delta = [
   { title: 'Delta Milestone 2', objective: 'Delta milestone 2 objective', project_id: Project.find_by(name: 'Project Delta').id, start_date: Date.new(2024, 9, 27), deadline: Date.new(2024, 10, 3), status: 'Not Started' },
   { title: 'Delta Milestone 3', objective: 'Delta milestone 3 objective', project_id: Project.find_by(name: 'Project Delta').id, start_date: Date.new(2024, 10, 3), deadline: Date.new(2024, 10, 8) }
 ]
-
 milestones_delta.each do |milestone|
   Milestone.find_or_create_by!(milestone)
 end
