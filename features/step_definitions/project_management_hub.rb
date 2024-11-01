@@ -137,3 +137,27 @@ end
 Then('I should see an error message {string}') do |error_message|
   expect(page).to have_content(error_message)
 end
+
+When("An unknown error would occur when adding the student") do
+  allow_any_instance_of(Project).to receive(:add_student).and_return(false)
+end
+
+When ("an unknown error would occur when removing the student") do
+  allow_any_instance_of(Project).to receive(:remove_student).and_return(false)
+end
+
+Then ("I should not see {string}") do |text|
+  expect(page).not_to have_content(text)
+end
+
+When ("I click on the remove button for file {string}") do |file_name|
+  within('table tbody') do
+    within('tr', text: file_name) do
+      click_button 'Remove'
+    end
+  end
+end
+
+When ('An unknown error would occur when creating the resource') do
+  allow_any_instance_of(Resource).to receive(:save).and_return(false)
+end
