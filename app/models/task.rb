@@ -6,9 +6,10 @@ class Task < ApplicationRecord
   has_one :task_assignment, dependent: :destroy
   has_one :user, through: :task_assignment
   enum status: {
-    'Not Completed' => 'Not Completed',
+    'Not Started' => 'Not Started',
     'Completed' => 'Completed',
-    'Delayed' => 'Delayed'
+    'In-Progress' => 'In-Progress',
+    'Not Completed' => 'Not Completed'
   }
 
   # Validations
@@ -19,8 +20,8 @@ class Task < ApplicationRecord
     case status
     when 'Not Completed'
       '#B22222'  # Light red for pending
-    when 'Delayed'
-      '#fff3cd'  # Light yellow for in-progress
+    when 'In-Progress'
+      '#BDAA00'  # Light yellow for in-progress
     when 'Completed'
       '#006400'  # Light green for completed
     else
