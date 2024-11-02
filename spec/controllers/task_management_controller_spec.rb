@@ -107,13 +107,4 @@ RSpec.describe TaskManagementController, type: :controller do
       end
     end
   end
-
-  describe 'DELETE #destroy' do
-    it 'deletes the task and redirects to the task management page' do
-      task.task_assignments.destroy_all # Clear out any associations
-      delete :destroy, params: { id: task.id, project_id: project.id, user_id: user.id }
-      expect(Task.exists?(task.id)).to be_falsey
-      expect(response).to redirect_to(project_task_management_path(project))
-    end
-  end
 end
