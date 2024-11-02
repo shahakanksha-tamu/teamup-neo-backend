@@ -95,6 +95,8 @@ class ProjectManagementHubController < ApplicationController
       flash[:error] = "#{user.email} is already assigned to a project."
     elsif @project.add_student(user)
       flash[:success] = "#{user.email} was successfully added to the team."
+    else
+      flash[:error] = 'Failed to add student to the team.'
     end
     redirect_to project_team_management_path(@project)
   end
@@ -103,6 +105,8 @@ class ProjectManagementHubController < ApplicationController
     user = User.find(params[:user_id])
     if @project.remove_student(user)
       flash[:success] = "#{user.email} was successfully removed from the team."
+    else
+      flash[:error] = "Failed to remove #{user.email} from the team."
     end
     redirect_to project_team_management_path(@project)
   end
