@@ -22,6 +22,11 @@ RSpec.describe ProjectManagementHubController, type: :controller do
   end
 
   describe 'GET #index' do
+  it 'assigns all projects to @projects' do
+    get :index
+    expect(assigns(:projects)).to include(project)
+  end
+
     it 'assigns the requested project to @project' do
       get :team, params: { project_id: project.id }
       expect(assigns(:project)).to eq(project)
@@ -79,6 +84,36 @@ RSpec.describe ProjectManagementHubController, type: :controller do
           post :create_project, params: { project: valid_attributes.merge(user_ids: [1]) }
           expect(response).to redirect_to(project_management_hub_path)
         end
+      end
+    end
+  end
+
+  describe 'GET #dashboard' do
+    context 'when project exists' do
+      before do
+        allow(Project).to receive(:find).with(project.id.to_s).and_return(project)
+        allow(project).to receive(:progress).and_return(50) # Assuming progress is a percentage
+        get :dashboard, params: { project_id: project.id }
+      end
+
+      it 'assigns the requested project to @project' do
+        expect(assigns(:project)).to eq(project)
+      end
+
+      it 'sets @show_sidebar to true' do
+        expect(assigns(:show_sidebar)).to be true
+      end
+
+      it 'calculates and assigns project progress' do
+        expect(assigns(:progress)).to eq(50)
+      end
+    end
+
+    context 'when project does not exist' do
+      it 'raises an ActiveRecord::RecordNotFound error' do
+        expect {
+          get :dashboard, params: { project_id: -1 } # Invalid project ID
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
