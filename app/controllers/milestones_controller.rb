@@ -20,7 +20,7 @@ class MilestonesController < ApplicationController # rubocop:disable Style/Docum
     elsif @milestone.save
       redirect_to project_milestones_path(@project), notice: 'Milestone was successfully created.'
     else
-      @milestones = @project.milestones
+      @milestones = @project.milestones.select(&:persisted?) # Only include saved milestones
       render :index
     end
   end
