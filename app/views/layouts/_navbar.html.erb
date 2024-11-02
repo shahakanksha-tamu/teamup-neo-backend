@@ -16,6 +16,11 @@
             <%= link_to "Manage Projects", project_management_hub_path, class: "nav-link" %>
           <% end %>
         </li>
+         <li class="nav-item">
+          <% if @role == 'admin' %>
+            <%= link_to "Manage Students Score", edit_score_path, class: "nav-link" %>
+          <% end %>
+        </li>
         <li class="nav-item">
           <%= link_to "Calendar", calendar_view_path, class: "nav-link" %>
         </li>

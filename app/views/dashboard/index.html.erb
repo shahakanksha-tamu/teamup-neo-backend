@@ -106,10 +106,24 @@
       <% end %>
     </div>
     
-    <aside class="col-md-5">
-      <div>
- 
-      </div>
-    </aside>
+
+      <div class="row">
+        <div class="col-md-7">
+            <div class="card rounded mb-3 card-hover" style="width :80%;">
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <h4 class="card-title">Student Score</h4>
+                        </div>
+                    </div>
+
+                    <%= @user.score ? @user.score : "No Score Assgined. Please check again later." %>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
   </div>
 </div>
