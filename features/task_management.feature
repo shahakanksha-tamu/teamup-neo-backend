@@ -10,6 +10,7 @@ Background: users in database
   | Denver           | Kane             | denverkane@gmail.com      |  student      |  123645778 |  google_oauth2  |
   | David            | Jones            | davidjones@gmail.com      |  admin        |  567323423 |  google_oauth2  |
   | Josie            | Mathew           | josie@gmail.com           |  admin        |  214435356 |  google_oauth2  |
+  
   And the following project exists in the database
   | id | name               | description                    | objectives                    | 
   | 1  | "Project Alpha"    | "Main project description"     | "Objective 1, Objective 2"    | 
@@ -19,16 +20,20 @@ Background: users in database
   | 1          | "Milestone 1"   | "Complete initial setup"        | 2024-12-01 10:00:00 | 
   | 1          | "Milestone 2"   | "Develop core features"         | 2025-01-15 12:00:00 | 
   | 1          | "Milestone 3"   | "Conduct testing and review"    | 2025-02-20 15:00:00 | 
+
   And the following tasks exist in the database
   | milestone_id | task_name         | description           | status        | deadline            |
   | 1            | "Task 1"          | "First task example"  | Not Completed | 2024-10-30 12:00:00 | 
   | 1            | "Task 2"          | "Second task example" | Completed     | 2024-11-05 12:00:00 | 
   | 1            | "Task 3"          | "Third task example"  | Not Started   | 2024-11-10 12:00:00 | 
+  
+  Given there are students with tasks assigned
+    | user_email             | task_name  |
+    | johndoe@gmail.com      | "Task 1"   |
+    | mariam@gmail.com       | "Task 2"   |
+
+  @javascript
   Scenario: Viewing the task board
-    Given there are students with tasks assigned
-        | user_email             | task_name  |
-        | johndoe@gmail.com      | "Task 1"   |
-        | mariam@gmail.com       | "Task 2"   |
     And I am logged in as "josie@gmail.com"
     When I visit the task board page
     Then I should see a card for each student

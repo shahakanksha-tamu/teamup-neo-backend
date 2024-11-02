@@ -18,11 +18,10 @@ end
 When('I visit the task board page') do
   project = Project.find_by(id: 1)
   visit(project_task_management_path(project))
+
 end
 
 Then('I should see a card for each student') do
-  puts @students.inspect
-
   expect(page).to have_content('John')
   expect(page).to have_content('Mariam')
 end
@@ -131,6 +130,7 @@ end
 Given('the following milestones exist in the database') do |milestones|
   milestones.hashes.each do |row|
     Milestone.create!(
+      milest
       project_id: row['project_id'],
       title: row['title'],
       objective: row['objective'],
