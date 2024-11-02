@@ -35,30 +35,18 @@ Scenario: Adding a student to the project
   And I click the "Add Student" button
   Then I should see a success message "janesmith@gmail.com was successfully added to the team."
 
-# Scenario: Adding a student to the project but saving fails
-#   Given I am logged in as 'johndoe@gmail.com'
-#   And I navigate to the project management page for "Alpha Project"
-#   And I click on the Team Management
-#   When I click on the student dropdown
-#   And I select "janesmith@gmail.com" from the student dropdown
-#   And An unknown error would occur when adding the student
-#   And I click the "Add Student" button
-#   Then I should see "Failed to add student to the team."
-
-Scenario: Adding a student already in the project
+Scenario: Trying to add a student already assigned to a project
   Given I am logged in as 'johndoe@gmail.com'
   And I navigate to the project management page for "Alpha Project"
   And I click on the Team Management
-  When I click on the student dropdown
+  And I click on the student dropdown
   And I select "janesmith@gmail.com" from the student dropdown
-  And I click the "Add Student" button
-  And I navigate to the project management page for "Alpha Project"
-  And I click on the Team Management
-  When I click on the student dropdown
+  When I click the "Add Student" button
+  Then I should see a success message "janesmith@gmail.com was successfully added to the team."
+  And I click on the student dropdown
   And I select "janesmith@gmail.com" from the student dropdown
-  And I click the "Add Student" button
-  Then I should see "janesmith@gmail.com is already assigned to a project."
-
+  When I click the "Add Student" button
+  Then I should see the error message "janesmith@gmail.com is already assigned to a project."
 Scenario: Remove a student from the project
   Given I am logged in as 'johndoe@gmail.com'
   And I navigate to the project management page for "Alpha Project"
