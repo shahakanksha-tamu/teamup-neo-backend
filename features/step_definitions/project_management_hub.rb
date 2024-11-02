@@ -43,6 +43,10 @@ Then('I should see a success message {string}') do |message|
   expect(page).to have_content(message)
 end
 
+Then('I should see the error message {string}') do |error_message|
+  expect(page).to have_content(error_message)
+end
+
 When('I click on the remove button for {string}') do |_student_email|
   # Find the list of students within the user-list-group class
   within('.user-list-group') do

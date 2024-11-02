@@ -21,8 +21,18 @@ RSpec.describe ProjectManagementHubController, type: :controller do
     session[:user_id] = user.id
   end
 
-  describe 'GET #dashboard' do
-    context 'when the project exists' do
+  describe 'GET #index' do
+  it 'assigns all projects to @projects' do
+    get :index
+    expect(assigns(:projects)).to include(project)
+  end
+
+    it 'assigns the requested project to @project' do
+      get :team, params: { project_id: project.id }
+      expect(assigns(:project)).to eq(project)
+    end
+
+    context 'when an associated record fails to save' do
       before do
         get :dashboard, params: { project_id: project.id }
       end
@@ -74,7 +84,37 @@ RSpec.describe ProjectManagementHubController, type: :controller do
         expect(response).to render_template(:team)
       end
     end
-  end 
+  end
+
+  describe 'GET #dashboard' do
+    context 'when project exists' do
+      before do
+        allow(Project).to receive(:find).with(project.id.to_s).and_return(project)
+        allow(project).to receive(:progress).and_return(50) # Assuming progress is a percentage
+        get :dashboard, params: { project_id: project.id }
+      end
+
+      it 'assigns the requested project to @project' do
+        expect(assigns(:project)).to eq(project)
+      end
+
+      it 'sets @show_sidebar to true' do
+        expect(assigns(:show_sidebar)).to be true
+      end
+
+      it 'calculates and assigns project progress' do
+        expect(assigns(:progress)).to eq(50)
+      end
+    end
+
+    context 'when project does not exist' do
+      it 'raises an ActiveRecord::RecordNotFound error' do
+        expect {
+          get :dashboard, params: { project_id: -1 } # Invalid project ID
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
 
   describe 'POST #add_student' do
     let(:student) { create(:user) }
