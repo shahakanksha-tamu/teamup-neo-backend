@@ -13,7 +13,7 @@ Feature: Milestones Management
     | David            | Jones            | davidjones@gmail.com      |  admin        |  567323423 |  google_oauth2  |
     | Josie            | Mathew           | josie@gmail.com           |  admin        |  214435356 |  google_oauth2  |
 
-    And the following project exists
+    And the following project exists in the database
     | id | name               | description                    | objectives                    | 
     | 1  | "Project Alpha"    | "Main project description"     | "Objective 1, Objective 2"    | 
 
@@ -23,14 +23,14 @@ Feature: Milestones Management
     | mariam@gmail.com       | "Project Alpha"   |
 
     
-    And the following milestones exist
+    And the following milestones exist in the database
     | project_id | title           | objective                       | deadline            | 
     | 1          | "Milestone 1"   | "Complete initial setup"        | 2024-12-01 10:00:00 | 
     | 1          | "Milestone 3"   | "Develop core features"         | 2025-01-15 12:00:00 | 
     | 1          | "Milestone 3"   | "Conduct testing and review"    | 2025-02-20 15:00:00 | 
 
 
-    And the following tasks exist
+    And the following tasks exist in the database
     | milestone_id | task_name         | description           | status        | deadline            |
     | 1            | "Task 1"          | "First task example"  | Not Completed | 2024-10-30 12:00:00 | 
     | 1            | "Task 2"          | "Second task example" | Completed     | 2024-11-05 12:00:00 | 

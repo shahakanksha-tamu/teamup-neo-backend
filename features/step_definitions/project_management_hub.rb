@@ -88,8 +88,6 @@ Then('I should be redirected to the resources page for {string}') do |project_na
   expect(current_path).to eq(project_resources_path(project.id))
 end
 
-# frozen_string_literal: true
-
 When('I click on the Edit Project button') do
   # Find and click the Edit Project button in the dashboard
   find('.editButton').click
