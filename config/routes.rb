@@ -21,7 +21,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   get '/project_management_hub', to: 'project_management_hub#index', as: :project_management_hub
 
   # Project Hub routes
-  resources :projects do
+  resources :projects do # rubocop:disable Metrics/BlockLength
     get 'dashboard', to: 'project_management_hub#dashboard', as: 'dashboard'
     get 'team_management', to: 'project_management_hub#team', as: 'team_management'
     get 'task_management', to: 'task_management#index', as: 'task_management'
@@ -51,17 +51,17 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
     resources :resources, only: %i[new create index destroy] do
       member do
         get :download # This allows downloading a specific resource
+        get :open
       end
     end
 
     # Nested resources for milestones management
-    resources :milestones, only: [:index, :create, :edit, :update, :destroy] do
+    resources :milestones, only: %i[index create edit update destroy] do
       member do
         patch 'update_status', to: 'milestones#update_milestone_status', as: 'update_milestone_status'
       end
     end
 
-    
     resources :users do
       resources :tasks, only: %i[create update destroy], controller: 'task_management'
     end
@@ -74,6 +74,10 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
 
   # Defines the root path route ("/")
   root 'landing_page#index'
+
+  # Score routes
+  get '/score/edit', to: 'score#edit', as: :edit_score
+  patch '/score/update', to: 'score#update', as: :update_score
 
   # Catch-all route for handling 404s
   match '*path', to: 'application#not_found', via: :all

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MilestonesController < ApplicationController # rubocop:disable Style/Documentation
   before_action :set_project
   before_action :set_milestone, only: %i[edit update destroy]
@@ -20,7 +22,7 @@ class MilestonesController < ApplicationController # rubocop:disable Style/Docum
     elsif @milestone.save
       redirect_to project_milestones_path(@project), notice: 'Milestone was successfully created.'
     else
-      @milestones = @project.milestones
+      @milestones = @project.milestones.select(&:persisted?) # Only include saved milestones
       render :index
     end
   end

@@ -38,3 +38,6 @@ Metrics/AbcSize:
 
 Metrics/ExampleLength:
   Enabled: false
+
+RSpec/AnyInstance:
+  Enabled: false

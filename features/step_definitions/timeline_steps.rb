@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # features/step_definitions/timeline_steps.rb
 When('I navigate to the project timeline page') do
   visit project_student_timeline_path(@project, @user)
