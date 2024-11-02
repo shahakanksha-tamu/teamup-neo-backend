@@ -32,9 +32,9 @@ Background: users in database
 
   And the following tasks exist
   | milestone_id | task_name         | description           | status        | deadline            |
-  | 1            | "Task 1"          | "First task example"  | Not Completed | 2024-10-30 12:00:00 | 
+  | 1            | "Task 1"          | "First task example"  | Not Started | 2024-10-30 12:00:00 | 
   | 1            | "Task 2"          | "Second task example" | Completed     | 2024-11-05 12:00:00 | 
-  | 1            | "Task 3"          | "Third task example"  | Delayed       | 2024-11-10 12:00:00 | 
+  | 1            | "Task 3"          | "Third task example"  | In-Progress       | 2024-11-10 12:00:00 | 
 
 
   Scenario: Viewing the task board
@@ -47,14 +47,18 @@ Background: users in database
     Then I should see a card for each student
     And each card should display the student’s tasks with task details
 
-  Scenario: Adding a new task to a student
-    Given I am logged in as "johndoe@gmail.com"
-    When I open the "Add Task" form for "John"
-    And I fill in the task details
-      | task_name    | description          | milestone     | deadline    | status       |
-      | New Task     | New Description      | Milestone 1   |2024-11-01   | Not Completed|
-    And I submit the form
-    Then I should see the task "New Task" under "John" on the task board
+  Scenario: Adding a new task
+  Given I am logged in as "davidjones@gmail.com"
+  When I visit the task board page
+  And I click on "Add Task" for "John Doe"
+  And I fill in "task_name" with "New Task"
+  And I select "In-Progress" from "status"
+  And I select "Milestone 1" from "milestone_id"
+  And I fill in "deadline" with "2024-11-15"
+  And I press "Create Task"
+  Then I should see "New Task" in John's tasks
+  And the status should be "In-Progress"
+
 
   Scenario: Viewing task details on the task board
     Given I am logged in as "mariam@gmail.com"

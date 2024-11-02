@@ -43,8 +43,6 @@ class TaskManagementController < ApplicationController
     redirect_to project_task_management_path(@project)
   end
 
-  private
-
   def set_project
     @project = Project.find(params[:project_id])
   end
