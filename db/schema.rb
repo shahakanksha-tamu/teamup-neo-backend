@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_18_163509) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_25_180323) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -43,7 +43,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_18_163509) do
     t.integer "project_id"
     t.string "title"
     t.text "objective"
+    t.string "status", limit: 20, default: "Not Started"
     t.datetime "deadline"
+    t.datetime "start_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_milestones_on_project_id"
@@ -90,7 +92,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_18_163509) do
     t.integer "milestone_id"
     t.string "task_name", limit: 255
     t.text "description"
-    t.string "status", limit: 20, default: "Not Completed"
+    t.string "status", limit: 20, default: "Not Started"
     t.datetime "deadline"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -119,6 +121,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_18_163509) do
     t.string "provider", default: "google_oauth2"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "score"
     t.index ["email"], name: "index_users_on_email_unique", unique: true
   end
 

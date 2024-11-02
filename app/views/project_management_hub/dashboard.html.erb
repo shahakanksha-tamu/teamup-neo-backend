@@ -1,3 +1,190 @@
-<div class="fluid-container p-4">
-    Project Dashboard for Admin
-</div>
+
+  <div class="dashboard-container">
+    <div class="project-header">
+      <div class="d-flex justify-content-between align-items-center">
+        <h3 class="mb-0">Project Dashboard</h3>
+        <button type="button" class="btn btn-edit editButton" data-toggle="modal" data-target="#projectModal" 
+        style="background: rgb(255, 193, 7);">
+        <i class="fas fa-edit mr-2"></i>Edit Project</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card dashboard-card">
+          <div class="card-header dashboard-card-header">
+            <h5 class="card-title dashboard-card-title mb-0">Project Details</h5>
+          </div>
+          <div class="card-body dashboard-card-body">
+            <div class="mb-4">
+              <div class="info-label">Description</div>
+              <div class="info-text"><%= @project.description %></div>
+            </div>
+            <div class="mb-4">
+              <div class="info-label">Objectives</div>
+              <div class="info-text"><%= @project.objectives %></div>
+            </div>
+
+            <div class="mb-4">
+            <div class="info-label">Status</div>
+            <div class="info-text"><%= @project.status %></div>
+          </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card progress-card">
+          <div class="card-header dashboard-card-header">
+            <h5 class="card-title dashboard-card-title mb-0">Project Progress</h5>
+          </div>
+          <div class="card-body dashboard-card-body">
+            <canvas id="progressChart" data-progress="<%= @progress %>"></canvas>
+            <div class="mt-4">
+              <h4 class="mb-0"><%= @progress %>% Complete</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Structure -->
+  <div id="projectModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog dashboard-modal-dialog">
+      <div class="modal-content dashboard-modal-content">
+        <div class="modal-header dashboard-modal-header">
+          <h3 class="modal-title dashboard-modal-title">Edit Project</h3>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body dashboard-modal-body p-4">
+          <%= form_with(model: @project, url: project_update_project_path(@project), method: :patch, local: true, class: 'project-form') do |form| %>
+            <div class="form-group">
+              <%= form.label :name, class: 'info-label' %>
+              <%= form.text_field :name, class: 'form-control', value: @project.name %>
+            </div>
+            <div class="form-group">
+              <%= form.label :description, class: 'info-label' %>
+              <%= form.text_area :description, class: 'form-control', rows: 4, value: @project.description %>
+            </div>
+            <div class="form-group">
+              <%= form.label :objectives, class: 'info-label' %>
+              <%= form.text_area :objectives, class: 'form-control', rows: 4, value: @project.objectives %>
+            </div>
+            <div class="form-group">
+              <%= form.label :status, class: 'info-label' %>
+              <%= form.select :status, options_for_select([['Active', 'active'], ['Inactive', 'inactive']], @project.status), {}, { class: 'form-control', style: 'height: auto;' } %>
+            </div>
+            <div class="modal-footer px-0 pb-0">
+              <%= form.submit 'Update Project', class: 'btn btn-primary' %>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Progress Chart Script -->
+  <script>
+    window.ProjectDashboard = window.ProjectDashboard || {
+      progressChart: null,
+      isInitialized: false,
+
+      initializeProgressChart: function() {
+        const ctx = document.getElementById('progressChart');
+        if (!ctx) {
+          return;
+        }
+
+        const progress = parseFloat(ctx.dataset.progress);
+        if (isNaN(progress)) {
+          return;
+        }
+
+        if (this.progressChart instanceof Chart) {
+          this.progressChart.destroy();
+        }
+
+        this.progressChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Completed', 'Remaining'],
+            datasets: [{
+              data: [progress, (100 - progress)],
+              backgroundColor: [
+                'rgba(75, 139, 244, 0.8)',  // Primary color
+                'rgba(236, 238, 241, 0.8)'   // Light grey
+              ],
+              borderColor: [
+                'rgba(75, 139, 244, 1)',
+                'rgba(236, 238, 241, 1)'
+              ],
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            cutout: '75%',
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: {
+                  padding: 20,
+                  font: {
+                    size: 12
+                  }
+                }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return `${context.label}: ${context.raw}%`;
+                  }
+                }
+              }
+            }
+          }
+        });
+      },
+
+      waitForChartJs: function() {
+        if (window.Chart) {
+          this.initializeProgressChart();
+        } else {
+          setTimeout(() => this.waitForChartJs(), 100);
+        }
+      },
+
+      setupEventListeners: function() {
+        if (this.isInitialized) {
+          return;
+        }
+
+        const boundWaitForChartJs = this.waitForChartJs.bind(this);
+        document.addEventListener('DOMContentLoaded', boundWaitForChartJs);
+        window.addEventListener('load', boundWaitForChartJs);
+        
+        document.addEventListener('turbolinks:load', boundWaitForChartJs);
+        document.addEventListener('turbo:load', boundWaitForChartJs);
+        document.addEventListener('turbo:render', boundWaitForChartJs);
+        
+        if (typeof jQuery !== 'undefined') {
+          $(document).ready(boundWaitForChartJs);
+        }
+
+        this.isInitialized = true;
+      }
+    };
+
+    ProjectDashboard.setupEventListeners();
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      ProjectDashboard.waitForChartJs();
+    }
+  </script>

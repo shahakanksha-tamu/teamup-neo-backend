@@ -73,7 +73,7 @@ Then('I should see a card for each student') do
 end
 
 Then('each card should display the student’s tasks with task details') do
-  page.all('.card').each do |card|
+  page.all('.card').find_each do |card|
     within(card) do
       expect(page).to have_content('Task 1')
       expect(page).to have_content('Not started')

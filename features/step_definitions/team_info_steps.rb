@@ -49,15 +49,11 @@ When('I visit team information page') do
   click_link('Team Members')
 end
 
-When('I visit team information page as admin') do
-  visit(dashboard_team_view_path)
-end
-
 When('I visit project hub') do
   visit(dashboard_team_view_path)
 end
 
-When('I click Know Your Team button') do 
+When('I click Know Your Team button') do
   find('.view-team').click
 end
 
@@ -85,8 +81,4 @@ Then('I should other team members information for project {string} and not conta
     expect(page).to have_content(member.email)
     expect(page).to have_content(member.contact)
   end
-end
-
-Then('I should be on the admin dashboard page') do
-  expect(current_path).to eq(project_management_hub_path)
 end

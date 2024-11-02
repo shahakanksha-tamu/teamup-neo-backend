@@ -9,6 +9,11 @@
 require 'cucumber/rails'
 require 'rspec/expectations'
 require 'rspec/mocks'
+require 'selenium-webdriver'
+require 'capybara/cucumber'
+
+Capybara.default_driver = :rack_test
+Capybara.javascript_driver = :selenium_chrome # Or :selenium_firefox
 
 World(RSpec::Mocks::ExampleMethods)
 
@@ -67,3 +72,4 @@ end
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
+Capybara.javascript_driver = :selenium_headless

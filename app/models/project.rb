@@ -2,6 +2,7 @@
 
 # Project class contains all the details of the project, including timeline and list of milestones
 class Project < ApplicationRecord
+  validates :name, presence: true
   has_many :student_assignments, dependent: :destroy
   has_many :users, through: :student_assignments
   has_many :milestones, dependent: :destroy
@@ -22,5 +23,12 @@ class Project < ApplicationRecord
   # Get all students in the project (team members)
   def team_members
     users
+  end
+
+  def progress
+    return 0 if milestones.count.zero?
+
+    completed_milestones = milestones.where(status: 'Completed').count
+    ((completed_milestones.to_f / milestones.count) * 100).round(2)
   end
 end

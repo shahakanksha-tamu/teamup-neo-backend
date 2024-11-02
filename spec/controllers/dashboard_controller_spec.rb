@@ -3,22 +3,45 @@
 require 'rails_helper'
 
 RSpec.describe DashboardController, type: :controller do
+  let(:user) do
+    User.create!(first_name: 'First', last_name: 'Last', email: 'user@example.com', role: 'student')
+  end
+
+  before do
+    session[:user_id] = user.id
+  end
+
   describe 'GET #index' do
-    let(:user) { create(:user) }
+    context 'when the user has project assignments' do
+      let(:project) do
+        Project.create!(name: 'Project 1', description: 'Project description', status: 'active')
+      end
 
-    context 'when the user is logged in' do
       before do
-        session[:user_id] = user.id
+        StudentAssignment.create!(user:, project:)
+        get :index
       end
 
-      it 'assigns the current user to @user' do
-        get :index
-        expect(assigns(:user)).to eq(user)
+      it 'assigns @projects' do
+        expect(assigns(:projects)).to eq([project])
       end
 
-      it 'redirects to the project management hub' do
+      it 'renders the index template' do
+        expect(response).to render_template(:index)
+      end
+    end
+
+    context 'when the user has no project assignments' do
+      before do
         get :index
-        expect(response).to redirect_to(project_management_hub_path)
+      end
+
+      it 'assigns @projects as an empty array' do
+        expect(assigns(:projects)).to eq([])
+      end
+
+      it 'renders the index template' do
+        expect(response).to render_template(:index)
       end
     end
   end

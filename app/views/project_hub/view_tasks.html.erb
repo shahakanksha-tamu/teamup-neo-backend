@@ -1,1 +1,353 @@
-Task Management
+<head><%= csrf_meta_tags %></head>
+<div class="fluid-container outer-container p-4">
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="mb-4">Tasks Management (<%=  @total_count %>)</h3>
+        </div>
+
+        <div class="col-md-6 ">
+            <button id="progress-btn" style= "float: right;" class="btn btn-warning" data-toggle="modal" data-target="#progressModal">View Progress</button>
+        </div>
+
+
+    </div>
+    <div style="background-color: #F4F5F7;" class="row d-flex">
+    
+        <div class="col-12 col-md-3 border-end" id="not-started-tasks">
+            <div style="margin-bottom: 20px; margin-top:20px; border: 1px solid #ccc;">
+                <h6 class="text-muted" style="text-align: center; margin-top:10px; margin-bottom: 10px;">Not Started</h6>
+            </div>
+           
+            <% @not_started_tasks.each do |task| %>
+                <div class="card task-card mb-3"
+                     data-toggle="modal" data-target="#taskModal"    
+                     data-task-id="<%= task.id %>"
+                     data-task-name="<%= task.task_name %>"
+                     data-task-description="<%= task.description %>"
+                     data-task-deadline="<%= task.deadline %>"
+                     data-milestone-title="<%= task.milestone.title %>"
+                     data-milestone-status="<%= task.milestone_status %>"
+                     data-status="<%=task.status%>">
+                    <div class="card-body">
+                        <a style="color: #0d6efd; text-decoration: underline; cursor:pointer;" class="card-title task-title" id="<%= task.task_name.gsub(' ', '-')%>"><small><%= task.task_name %></small></a>
+                        <p><small class="card-subtitle mb-2 text-muted"><%= task.milestone.title %></small></p>
+                        <p style="margin-bottom: 0px; margin-top:10px;"><small class="card-subtitle mb-2">Due on <%= task.deadline.strftime("%B %d, %Y") %></small></p>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+
+
+        <div class="col-12 col-md-3 border-end" id="in-progress-tasks">
+             <div style="margin-bottom: 20px; margin-top:20px; border: 1px solid #ccc;">
+                <h6 class="text-muted" style="text-align: center; margin-top:10px; margin-bottom: 10px;">In-Progress</h6>
+            </div>
+            <% @in_progress_tasks.each do |task| %>
+                <div class="card task-card mb-3"
+                     data-toggle="modal" data-target="#taskModal"    
+                     data-task-id="<%= task.id %>"
+                     data-task-name="<%= task.task_name %>"
+                     data-task-description="<%= task.description %>"
+                     data-task-deadline="<%= task.deadline %>"
+                     data-milestone-title="<%= task.milestone.title %>"
+                     data-milestone-status="<%= task.milestone_status %>"
+                     data-status="<%=task.status%>">
+                    <div class="card-body">
+                        <a style="color: #0d6efd; text-decoration: underline; cursor:pointer;" id="<%= task.task_name.gsub(' ', '-')%>" class="card-title task-title"><small><%= task.task_name %></small></a>
+                        <p><small class="card-subtitle mb-2 text-muted"><%= task.milestone.title %></small></p>
+                        <p style="margin-bottom: 0px; margin-top:10px;"><small class="card-subtitle mb-2">Due on <%= task.deadline.strftime("%B %d, %Y") %></small></p>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+
+
+        <div class="col-12 col-md-3 border-end" id="completed-tasks">
+              <div style="margin-bottom: 20px; margin-top:20px; border: 1px solid #ccc;">
+                <h6 class="text-muted" style="text-align: center; margin-top:10px; margin-bottom: 10px;">Completed</h6>
+            </div>
+            <% @completed_tasks.each do |task| %>
+                <div class="card task-card mb-3"
+                     data-toggle="modal" data-target="#taskModal"    
+                     data-task-id="<%= task.id %>"
+                     data-task-name="<%= task.task_name %>"
+                     data-task-description="<%= task.description %>"
+                     data-task-deadline="<%= task.deadline %>"
+                     data-milestone-title="<%= task.milestone.title %>"
+                     data-milestone-status="<%= task.milestone_status %>"
+                     data-status="<%=task.status%>">
+                    <div class="card-body">
+                        <a style="color: #0d6efd; text-decoration: underline; cursor:pointer;" id="<%= task.task_name.gsub(' ', '-')%>" class="card-title task-title"><small><%= task.task_name %></small></a>
+                        <p><small class="card-subtitle mb-2 text-muted"><%= task.milestone.title %></small></p>
+                        <p style="margin-bottom: 0px; margin-top:10px;"><small class="card-subtitle mb-2">Due on <%= task.deadline.strftime("%B %d, %Y") %></small></p>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+
+
+        <div class="col-12 col-md-3 border-end" id="not-completed-tasks">
+              <div style="margin-bottom: 20px; margin-top:20px; border: 1px solid #ccc;">
+                <h6 class="text-muted" style="text-align: center; margin-top:10px; margin-bottom: 10px;">Not Completed</h6>
+            </div>
+            <% @not_completed_tasks.each do |task| %>
+                <div class="card task-card mb-3"
+                     data-toggle="modal" data-target="#taskModal"    
+                     data-task-id="<%= task.id %>"
+                     data-task-name="<%= task.task_name %>"
+                     data-task-description="<%= task.description %>"
+                     data-task-deadline="<%= task.deadline %>"
+                     data-milestone-title="<%= task.milestone.title %>"
+                     data-milestone-status="<%= task.milestone_status %>"
+                     data-status="<%=task.status%>">
+                    <div class="card-body">
+                        <a style="color: #0d6efd; text-decoration: underline; cursor:pointer;" id="<%= task.task_name.gsub(' ', '-')%>" class="card-title task-title"><small><%= task.task_name %></small></a>
+                        <p><small class="card-subtitle mb-2 text-muted"><%= task.milestone.title %></small></p>
+                        <p style="margin-bottom: 0px; margin-top:10px;"><small class="card-subtitle mb-2">Due on <%= task.deadline.strftime("%B %d, %Y") %></small></p>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+
+        
+    </div>
+</div>
+
+<div class="mt-5 modal fade" id="taskModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 800px; max-height: 550px !important;">
+        <div class="modal-content" style="max-width: 800px; max-height: 550px !important;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="taskModalLabel">Task Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <p><strong>Task Name</strong></p>
+                    </div>
+
+                    <div class="col-md-8">
+                        <p><span id="modal-task-name"></span></p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <p><strong>Description</strong></p>
+                    </div>
+
+                    <div class="col-md-8">
+                        <p><span id="modal-task-description"></span></p>
+                    </div>
+                </div>
+
+                 <div class="row">
+                    <div class="col-md-4">
+                        <p><strong>Task Status</strong></p>
+                    </div>
+
+                    <div class="col-md-8">
+                        <p> <span id="modal-status"></span></p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <p><strong>Milestone</strong></p>
+                    </div>
+
+                    <div class="col-md-8">
+                        <p><span id="modal-milestone-title"></span> </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <p><strong>Milestone Status</strong></p>
+                    </div>
+
+                    <div class="col-md-8">
+                        <p><span id="modal-milestone-status"></span></p>
+                    </div>
+                </div>
+
+
+                <div class="row">
+
+                    <label class="mb-3 col-md-4" for="status-select"><strong>Update Task Status</strong></label>
+                    <div  style="visibility: visible; pointer-events: auto;"class="col-md-8 select-div">
+                        <select  id="status-select" class="form-select">
+                            <option value="Not Started">Not Started</option>
+                            <option value="In-Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                        <small class="text-danger mt-2" id="status-message"></small>
+
+                        <button style="margin-top:20px; visibility: visible; pointer-events: auto;" type="button" class="btn btn-primary" id="save-status-btn">Update Status</button>
+
+                    </div>
+                    
+                    
+                </div>         
+               
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-5 modal fade" id="progressModal" tabindex="-1" aria-labelledby="progressModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 800px; max-height: 700px !important;">
+        <div class="modal-content" style="max-width: 800px; max-height: 700px !important;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="taskModalLabel">Task Progress Overview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <div id="progressChartContainer" style="width:100%; height:500px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+        
+        document.getElementById("progress-btn").addEventListener("click", () => {
+            const progressModal = new bootstrap.Modal(document.getElementById("progressModal"));
+            progressModal.show();
+
+            const statuses = ['Not Started', 'In Progress', 'Completed', 'Not Completed'];
+
+            const taskData = {};
+
+            statuses.forEach(status => {
+
+                const targetElementId = `${status.toLowerCase().replace(' ', '-')}-tasks`;
+                const targetElement = document.getElementById(targetElementId);
+
+                if (targetElement) {
+                    const taskCards = targetElement.getElementsByClassName('task-card');
+                    const taskCardCount = taskCards.length;
+
+                    taskData[status] = taskCardCount;
+
+                } else {
+                    taskData[status] = 0;
+                }
+            });
+
+
+            Highcharts.chart('progressChartContainer', {
+                chart: {
+                    type: 'pie'
+                },
+                title: {
+                    text: ''
+                },
+                plotOptions: {
+                    pie: {
+                        innerSize: '50%',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.y} ({point.percentage:.1f}%)'
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Tasks',
+                    colorByPoint: true,
+                    data: [
+                        { name: 'Not Started', y: taskData['Not Started'], color: '#EC7A08' },
+                        { name: 'In Progress', y: taskData['In Progress'], color: '#009596' },
+                        { name: 'Completed', y: taskData['Completed'], color: '#4CB140' },
+                        { name: 'Not Completed', y: taskData['Not Completed'], color: '#f45b5b' }
+                    ]
+                }]
+            });
+        });
+
+        document.querySelectorAll(".task-title").forEach(taskTitle => {
+            taskTitle.addEventListener("click", function () {
+                const taskCard = this.closest(".task-card");
+
+                const taskName = taskCard.getAttribute("data-task-name");
+                const taskDescription = taskCard.getAttribute("data-task-description");
+                const taskDeadline = taskCard.getAttribute("data-task-deadline");
+                const milestoneTitle = taskCard.getAttribute("data-milestone-title");
+                const milestoneStatus = taskCard.getAttribute("data-milestone-status");
+                const status = taskCard.getAttribute("data-status");
+                const taskId = taskCard.getAttribute("data-task-id");
+
+                var options = { year: 'numeric', month: 'long', day: 'numeric' };
+                document.getElementById("modal-task-name").textContent = taskName;
+                document.getElementById("modal-task-description").textContent = taskDescription;
+                document.getElementById("modal-milestone-title").textContent = milestoneTitle;
+                document.getElementById("modal-milestone-status").textContent = milestoneStatus;
+                document.getElementById("modal-status").textContent = status;
+                document.getElementById("status-select").value = status;
+                document.getElementById("taskModal").setAttribute("data-task-id", taskId);
+
+
+                const statusSelect = document.getElementById("status-select");
+                const saveStatusBtn = document.getElementById("save-status-btn");
+
+                if (milestoneStatus === "In-Progress") {
+                    statusSelect.disabled = false;
+                    saveStatusBtn.disabled = false; 
+
+                    document.getElementById("status-message").textContent = ""
+                } else {
+                    statusSelect.disabled = true; 
+                    saveStatusBtn.disabled = true; 
+                
+                    document.getElementById("status-message").textContent = "cannot update task status as the milestone is not in progress"
+                }
+
+                new bootstrap.Modal(document.getElementById("taskModal")).show();
+            });
+        });
+
+    
+        document.getElementById("save-status-btn").addEventListener("click", function () {
+            const modal = document.getElementById("taskModal");
+            const taskId = modal.getAttribute("data-task-id");
+            const currentStatus = modal.getAttribute("data-task-status");
+            const newStatus = document.getElementById("status-select").value;
+
+
+            const projectId = <%= @project.id %>;
+            const studentId = <%= @user.id %>;
+
+            
+            fetch(`/projects/${projectId}/students/${studentId}/tasks/${taskId}/update_status`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ status: newStatus, id: taskId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    
+                    const taskCard = document.querySelector(`.task-card[data-task-id="${taskId}"]`);
+                    taskCard.setAttribute("data-status", newStatus);
+
+                    
+                    const targetColumn = `${newStatus.toLowerCase().replace(' ', '-')}-tasks`;
+                    document.getElementById(targetColumn).appendChild(taskCard);
+                    
+                    bootstrap.Modal.getInstance(modal).hide();
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+               alert('Error updating task status:', error);
+            });         
+        });
+
+    
+</script>
