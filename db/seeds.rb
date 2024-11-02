@@ -38,8 +38,8 @@ end
 milestones_gamma = [
   { title: 'Gamma Milestone 1', objective: 'Gamma milestone 1 objective', project_id: Project.find_by(name: 'Project Gamma').id, start_date: Date.new(2024, 9, 21), deadline: Date.new(2024, 9, 27), status: 'In-Progress' },
   { title: 'Gamma Milestone 2', objective: 'Gamma milestone 2 objective', project_id: Project.find_by(name: 'Project Gamma').id, start_date: Date.new(2024, 9, 27), deadline: Date.new(2024, 10, 3), status: 'Not Started' },
-  { title: 'Gamma Milestone 3', objective: 'Gamma milestone 3 objective', project_id: Project.find_by(name: 'Project Gamma').id, start_date: Date.new(2024, 10, 3), deadline: Date.new(2024, 10, 8) },
- ]
+  { title: 'Gamma Milestone 3', objective: 'Gamma milestone 3 objective', project_id: Project.find_by(name: 'Project Gamma').id, start_date: Date.new(2024, 10, 3), deadline: Date.new(2024, 10, 8) }
+]
 
 milestones_gamma.each do |milestone|
   Milestone.find_or_create_by!(milestone)
@@ -107,7 +107,6 @@ tasks_delta = [
   { task_name: 'Delta Milestone 3 Task 3', description: 'Description for Delta Milestone 3 Task 3', status: 'Not Started', milestone_id: Milestone.find_by(title: 'Delta Milestone 3').id, deadline: Time.zone.now + 3.days },
   { task_name: 'Delta Milestone 3 Task 4', description: 'Description for Delta Milestone 3 Task 4', status: 'Not Started', milestone_id: Milestone.find_by(title: 'Delta Milestone 3').id, deadline: Time.zone.now + 4.days },
   { task_name: 'Delta Milestone 3 Task 5', description: 'Description for Delta Milestone 3 Task 5', status: 'Not Started', milestone_id: Milestone.find_by(title: 'Delta Milestone 3').id, deadline: Time.zone.now + 5.days }
-]
 ]
 
 tasks_delta.each do |task|

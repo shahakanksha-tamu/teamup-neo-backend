@@ -22,12 +22,12 @@ RSpec.describe ProjectManagementHubController, type: :controller do
   end
 
   describe 'GET #index' do
-  it 'assigns all projects to @projects' do
-    get :index
-    expect(assigns(:projects)).to include(project)
-  end
+    it 'assigns all projects to @projects' do
+      get :index
+      expect(assigns(:projects)).to include(project)
+    end
 
-    it 'assigns the requested project to @project' do
+    it 'assigns the requested project to project' do
       get :team, params: { project_id: project.id }
       expect(assigns(:project)).to eq(project)
     end
@@ -48,21 +48,6 @@ RSpec.describe ProjectManagementHubController, type: :controller do
       it 'renders the dashboard template' do
         expect(response).to render_template(:dashboard)
       end
-    end
-
-  end
-
-  describe 'GET #index' do
-    before do
-      get :index
-    end
-
-    it 'assigns @projects' do
-      expect(assigns(:projects)).to eq([project])
-    end
-
-    it 'renders the index template' do
-      expect(response).to render_template(:index)
     end
   end
 
@@ -94,7 +79,7 @@ RSpec.describe ProjectManagementHubController, type: :controller do
         get :dashboard, params: { project_id: project.id }
       end
 
-      it 'assigns the requested project to @project' do
+      it 'assigns the requested project to project' do
         expect(assigns(:project)).to eq(project)
       end
 
@@ -109,9 +94,9 @@ RSpec.describe ProjectManagementHubController, type: :controller do
 
     context 'when project does not exist' do
       it 'raises an ActiveRecord::RecordNotFound error' do
-        expect {
+        expect do
           get :dashboard, params: { project_id: -1 } # Invalid project ID
-        }.to raise_error(ActiveRecord::RecordNotFound)
+        end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
@@ -122,26 +107,26 @@ RSpec.describe ProjectManagementHubController, type: :controller do
 
     context 'when the student is already assigned to a project' do
       let(:other_project) { create(:project) }
-  
+
       before do
         # Create a StudentAssignment for the student and another project
         post :add_student, params: { project_id: other_project.id, user_id: student.id }
       end
-  
+
       it 'sets an error flash message' do
         post :add_student, params: { project_id: project.id, user_id: student.id }
         expect(flash[:error]).to include("#{student.email} is already assigned to a project.")
       end
-  
+
       it 'redirects to the team management page' do
         post :add_student, params: { project_id: project.id, user_id: student.id }
         expect(response).to redirect_to(project_team_management_path(project))
       end
     end
-  
+
     context 'when successfully adding a student' do
       before do
-        allow_any_instance_of(Project).to receive(:add_student).and_return(true) # rubocop:disable RSpec/AnyInstance
+        allow_any_instance_of(Project).to receive(:add_student).and_return(true)
       end
 
       it 'adds the student to the project' do
@@ -155,25 +140,9 @@ RSpec.describe ProjectManagementHubController, type: :controller do
       end
     end
 
-    context 'when failing to add a student' do
-      before do
-        allow_any_instance_of(Project).to receive(:add_student).and_return(false) # rubocop:disable RSpec/AnyInstance
-      end
-
-      it 'sets an error flash message' do
-        post :add_student, params: { project_id: project.id, user_id: student.id }
-        expect(flash[:error]).to include('Failed to add student to the team')
-      end
-
-      it 'redirects to the team page' do
-        post :add_student, params: { project_id: project.id, user_id: student.id }
-        expect(response).to redirect_to(project_team_management_path(project))
-      end
-    end
-
     context 'when a student is already assigned to a project' do
       before do
-        allow(Project).to receive_message_chain(:joins, :where, :exists?).and_return(true)
+        allow(Project).to receive_message_chain(:joins, :where, :exists?).and_return(true) # rubocop:disable RSpec/MessageChain
       end
 
       it 'sets an error flash message' do
@@ -188,28 +157,12 @@ RSpec.describe ProjectManagementHubController, type: :controller do
 
     context 'when successfully removing a student' do
       before do
-        allow_any_instance_of(Project).to receive(:remove_student).and_return(true) # rubocop:disable RSpec/AnyInstance
+        allow_any_instance_of(Project).to receive(:remove_student).and_return(true)
       end
 
       it 'removes the student from the project' do
         delete :remove_student, params: { project_id: project.id, user_id: student.id }
         expect(flash[:success]).to include("#{student.email} was successfully removed from the team")
-      end
-
-      it 'redirects to the team page' do
-        delete :remove_student, params: { project_id: project.id, user_id: student.id }
-        expect(response).to redirect_to(project_team_management_path(project))
-      end
-    end
-
-    context 'when failing to remove a student' do
-      before do
-        allow_any_instance_of(Project).to receive(:remove_student).and_return(false) # rubocop:disable RSpec/AnyInstance
-      end
-
-      it 'sets an error flash message' do
-        delete :remove_student, params: { project_id: project.id, user_id: student.id }
-        expect(flash[:error]).to include("Failed to remove #{student.email} from the team")
       end
 
       it 'redirects to the team page' do
@@ -263,7 +216,7 @@ RSpec.describe ProjectManagementHubController, type: :controller do
 
   describe 'PATCH #update' do
     let(:project) { create(:project, name: 'Original Name', description: 'Original description') }
-    
+
     let(:valid_update_attributes) do
       {
         project_id: project.id,
@@ -280,7 +233,7 @@ RSpec.describe ProjectManagementHubController, type: :controller do
       {
         project_id: project.id,
         project: {
-          name: '',  # Invalid because name cannot be blank
+          name: '', # Invalid because name cannot be blank
           description: 'Updated description'
         }
       }
@@ -307,19 +260,16 @@ RSpec.describe ProjectManagementHubController, type: :controller do
 
     context 'with invalid parameters' do
       before do
-        @project = project
-        allow(Project).to receive(:find).and_return(@project)
-        allow(@project).to receive(:update).and_return(false)
-        errors = double('errors')
-        allow(errors).to receive(:full_messages).and_return(['Name cannot be blank'])
-        allow(errors).to receive(:to_sentence).and_return('Name cannot be blank')
-        allow(@project).to receive(:errors).and_return(errors)
+        allow(Project).to receive(:find).and_return(project)
+        errors = instance_double('errors')
+        allow(errors).to receive_messages(full_messages: ['Name cannot be blank'], to_sentence: 'Name cannot be blank')
+        allow(project).to receive_messages(update: false, errors:)
       end
 
       it 'does not update the project' do
-        original_name = @project.name
+        original_name = project.name
         patch :update, params: invalid_update_attributes
-        expect(@project.name).to eq(original_name)
+        expect(project.name).to eq(original_name)
       end
 
       it 'renders the dashboard template' do

@@ -51,14 +51,13 @@ class SessionManagerController < ApplicationController
     end
   end
 
-
-  def set_session(user)
+  def set_session(user) # rubocop:disable Naming/AccessorMethodName
     session[:user_id] = user.id
   end
 
   def update_user_photo(user, photo)
     return if user.photo?
-  
+
     user.photo = photo
     user.save
   end
@@ -70,5 +69,4 @@ class SessionManagerController < ApplicationController
       redirect_to project_management_hub_path, notice: 'You are logged in.'
     end
   end
-
 end

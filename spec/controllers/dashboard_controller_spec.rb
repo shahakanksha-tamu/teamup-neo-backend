@@ -3,24 +3,27 @@
 require 'rails_helper'
 
 RSpec.describe DashboardController, type: :controller do
-  # let(:user) { create(:user) }
-  # let(:project) { create(:project) }
+  let(:user) do
+    User.create!(first_name: 'First', last_name: 'Last', email: 'user@example.com', role: 'student')
+  end
 
   before do
-    @user = User.create!(first_name: "First", last_name: "Last", email: "user@example.com",role: 'student')
-    session[:user_id] = @user.id
+    session[:user_id] = user.id
   end
 
   describe 'GET #index' do
     context 'when the user has project assignments' do
+      let(:project) do
+        Project.create!(name: 'Project 1', description: 'Project description', status: 'active')
+      end
+
       before do
-        @project = Project.create!(name: "Project 1", description: "Project description", status: "active")
-        StudentAssignment.create!(user: @user, project: @project)
+        StudentAssignment.create!(user:, project:)
         get :index
       end
 
       it 'assigns @projects' do
-        expect(assigns(:projects)).to eq([@project])
+        expect(assigns(:projects)).to eq([project])
       end
 
       it 'renders the index template' do

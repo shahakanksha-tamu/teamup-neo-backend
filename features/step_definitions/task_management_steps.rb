@@ -73,7 +73,7 @@ Then('I should see a card for each student') do
 end
 
 Then('each card should display the student’s tasks with task details') do
-  page.all('.card').each do |card|
+  page.all('.card').find_each do |card|
     within(card) do
       expect(page).to have_content('Task 1')
       expect(page).to have_content('Status: Not Completed')
@@ -86,7 +86,7 @@ Given('a student named {string} exists') do |name|
 end
 
 When('I open the {string} form for {string}') do |form_name, student_name|
-  student = User.find_by(first_name: student_name)
+  User.find_by(first_name: student_name)
   find('.student-card', text: student_name).click_button form_name
 end
 

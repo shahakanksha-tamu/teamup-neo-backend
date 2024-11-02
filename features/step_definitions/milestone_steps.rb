@@ -1,16 +1,17 @@
+# frozen_string_literal: true
 
-When 'I visit the Milestone Management Page' do 
+When 'I visit the Milestone Management Page' do
   project = Project.find_by(id: 1)
   visit(project_milestones_path(project))
 end
 
-Then "I should see a card for each milestone" do
+Then 'I should see a card for each milestone' do
   expect(page).to have_content('Complete initial setup')
   expect(page).to have_content('Develop core features')
   expect(page).to have_content('Conduct testing and review')
 end
 
-Given "I am on the Milestone Management page" do
+Given 'I am on the Milestone Management page' do
   project = Project.find_by(id: 1)
   visit(project_milestones_path(project))
 end
@@ -20,10 +21,9 @@ end
 # end
 
 When 'I create a new milestone with the title {string}, objective {string}, and deadline {string}' do |title, objective, deadline|
-
   fill_in 'milestone_title', with: title
   fill_in 'milestone_objective', with: objective
-  
+
   # Split the deadline into year, month, and day components
   year, month, day = deadline.split('-')
   select year, from: 'milestone_deadline_1i'
@@ -58,13 +58,12 @@ end
 
 Then 'the deadline field should be set to {string}' do |deadline|
   year, month, day = deadline.split('-')
-  
+
   # Check each part of the deadline separately
   expect(find_field('milestone_deadline_1i').value).to eq year
   expect(find_field('milestone_deadline_2i').value).to eq month.to_i.to_s  # Converting month to integer to avoid leading zero issues
   expect(find_field('milestone_deadline_3i').value).to eq day.to_i.to_s    # Same for the day
 end
-
 
 When 'I update the objective to {string}' do |new_objective|
   fill_in 'milestone_objective', with: new_objective
@@ -96,7 +95,7 @@ When 'I click the delete button for the milestone {string}' do |title|
     accept_confirm do
       click_button 'Delete'
     end
-  end 
+  end
 end
 
 # When 'I confirm the deletion' do
@@ -107,7 +106,6 @@ end
 Then 'I should not see {string} in the list of milestones' do |title|
   expect(page).not_to have_content(title)
 end
-
 
 # When 'I click the update status button for the milestone {string}' do |title|
 #   within(:xpath, "//li[contains(.,'#{title}')]") do
@@ -120,12 +118,12 @@ end
 #     select status, from: 'milestone_status'
 #   end
 # end
-# 
+#
 When 'I click the update status button for the milestone {string}' do |title|
   within(:xpath, "//li[contains(.,'#{title}')]") do
     click_button 'Update Status'
   end
-  @current_modal_id = "statusModal-#{1}"
+  @current_modal_id = 'statusModal-1'
 end
 
 When 'I select {string} from the status dropdown' do |status|
@@ -160,8 +158,8 @@ When 'I click the show tasks button for the milestone {string}' do |title|
   within(:xpath, "//li[contains(.,'#{title}')]") do
     click_button 'Show Tasks'
   end
-  
-  @current_tasks_modal = "tasksModal-#{1}"
+
+  @current_tasks_modal = 'tasksModal-1'
   # Capture the specific modal ID or class if needed
 end
 

@@ -15,7 +15,6 @@ require 'capybara/cucumber'
 Capybara.default_driver = :rack_test
 Capybara.javascript_driver = :selenium_chrome # Or :selenium_firefox
 
-
 World(RSpec::Mocks::ExampleMethods)
 
 Before do
