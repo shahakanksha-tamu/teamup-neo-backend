@@ -48,7 +48,7 @@ RSpec.describe MilestonesController, type: :controller do
     context 'when the milestone fails to save' do
       it 'renders the index template with errors' do
         # Provide invalid attributes to trigger the `else` branch
-        allow_any_instance_of(Milestone).to receive(:save).and_return(false)
+        allow_any_instance_of(Milestone).to receive(:save).and_return(false) # rubocop:disable RSpec/AnyInstance
 
         post :create, params: { project_id: project.id, milestone: { title: '', objective: '', deadline: 1.week.from_now + 1.day } }
 
@@ -68,7 +68,7 @@ RSpec.describe MilestonesController, type: :controller do
       milestone = Milestone.find_by(title: 'milestone 1 title')
 
       # Stub `update` to return false, simulating a failure
-      allow_any_instance_of(Milestone).to receive(:update).and_return(false)
+      allow_any_instance_of(Milestone).to receive(:update).and_return(false) # rubocop:disable RSpec/AnyInstance
 
       patch :update_milestone_status, params: { project_id: project.id, id: milestone.id, milestone: { status: 'Completed' } }
 
