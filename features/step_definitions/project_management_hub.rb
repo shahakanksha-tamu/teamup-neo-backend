@@ -82,3 +82,58 @@ Then('I should be redirected to the resources page for {string}') do |project_na
   expect(project).not_to be_nil
   expect(current_path).to eq(project_resources_path(project.id))
 end
+
+# frozen_string_literal: true
+
+When('I click on the Edit Project button') do
+  # Find and click the Edit Project button in the dashboard
+  find('.editButton').click
+end
+
+Then('I should see the Edit Project modal') do
+  # Ensure the modal is visible after clicking the Edit button
+  expect(page).to have_selector('#projectModal', visible: true)
+end
+
+When('I fill in the Edit Project form with the following:') do |table|
+  # Fill in the modal form with the provided values
+  data = table.rows_hash
+  fill_in 'Name', with: data['Name']
+  fill_in 'Description', with: data['Description']
+  fill_in 'Objectives', with: data['Objectives']
+  select data['Status'], from: 'Status'
+end
+
+When('I click Update Project') do
+  # Submit the modal form
+  find('input[name="commit"]').click
+end
+
+Then('the project should be updated successfully') do
+  # Check for success message after form submission
+  expect(page).to have_content('Project was successfully updated.')
+end
+
+Then('the progress chart should show {int}% complete') do |progress|
+  # Check the progress percentage on the chart
+  chart_canvas = find('#progressChart')
+  actual_progress = chart_canvas['data-progress'].to_i
+  expect(actual_progress).to eq(progress)
+end
+
+When('I fill in the Edit Project form with the following invalid:') do |table|
+  data = table.rows_hash
+  fill_in 'Name', with: data['Name']
+  fill_in 'Description', with: data['Description']
+  fill_in 'Objectives', with: data['Objectives']
+  select data['Status'], from: 'Status'
+end
+When('I click Update Projectt') do
+  # Submit the modal form
+  find('input[name="commit"]').click
+end
+
+Then('I should see an error message {string}') do |error_message|
+  expect(page).to have_content(error_message)
+end
+

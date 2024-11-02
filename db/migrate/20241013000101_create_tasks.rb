@@ -4,7 +4,7 @@ class CreateTasks < ActiveRecord::Migration[7.2]
       t.references :milestone, foreign_key: true
       t.string :task_name, limit: 255
       t.text :description
-      t.string :status, limit: 20, default: 'Not Completed'  # Default value for enum
+      t.string :status, limit: 20, default: 'Not Started'
       t.datetime :deadline
       t.timestamps
     end
