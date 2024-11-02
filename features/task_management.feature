@@ -34,7 +34,7 @@ Background: users in database
   | milestone_id | task_name         | description           | status        | deadline            |
   | 1            | "Task 1"          | "First task example"  | Not Completed | 2024-10-30 12:00:00 | 
   | 1            | "Task 2"          | "Second task example" | Completed     | 2024-11-05 12:00:00 | 
-  | 1            | "Task 3"          | "Third task example"  | Delayed       | 2024-11-10 12:00:00 | 
+  | 1            | "Task 3"          | "Third task example"  | Not Started       | 2024-11-10 12:00:00 | 
 
 
   Scenario: Viewing the task board

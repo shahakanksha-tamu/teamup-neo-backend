@@ -51,6 +51,7 @@ milestones_delta = [
   { title: 'Delta Milestone 2', objective: 'Delta milestone 2 objective', project_id: Project.find_by(name: 'Project Delta').id, start_date: Date.new(2024, 9, 27), deadline: Date.new(2024, 10, 3), status: 'Not Started' },
   { title: 'Delta Milestone 3', objective: 'Delta milestone 3 objective', project_id: Project.find_by(name: 'Project Delta').id, start_date: Date.new(2024, 10, 3), deadline: Date.new(2024, 10, 8) }
 ]
+
 milestones_delta.each do |milestone|
   Milestone.find_or_create_by!(milestone)
 end
@@ -106,6 +107,7 @@ tasks_delta = [
   { task_name: 'Delta Milestone 3 Task 3', description: 'Description for Delta Milestone 3 Task 3', status: 'Not Started', milestone_id: Milestone.find_by(title: 'Delta Milestone 3').id, deadline: Time.zone.now + 3.days },
   { task_name: 'Delta Milestone 3 Task 4', description: 'Description for Delta Milestone 3 Task 4', status: 'Not Started', milestone_id: Milestone.find_by(title: 'Delta Milestone 3').id, deadline: Time.zone.now + 4.days },
   { task_name: 'Delta Milestone 3 Task 5', description: 'Description for Delta Milestone 3 Task 5', status: 'Not Started', milestone_id: Milestone.find_by(title: 'Delta Milestone 3').id, deadline: Time.zone.now + 5.days }
+]
 ]
 
 tasks_delta.each do |task|
