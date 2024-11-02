@@ -25,9 +25,9 @@
   <div class="row mt-4">
     <div class="col-md-7"> 
       <h5 class="mb-4">Milestones</h5>
-      <ul class="list-group mb-4 user-list-group">
+      <ul class="list-group mb-4 user-list-group" id="milestones_list">
         <% @milestones.each do |milestone| %>         
-            <li class="card text-bg-light mb-3" style="width: 650px" data-controller="milestone-chart"
+            <li class="card text-bg-light mb-3" style="width: 600px" data-controller="milestone-chart"
        data-milestone-chart-tasks="<%= milestone.tasks.to_json %>"
        data-milestone-chart-id="<%= milestone.id %>">
                 <div class="card-header"><%= milestone.title %></div>
@@ -80,7 +80,7 @@
                       <div class="modal-body">
                           <div class="mb-3">
                               <%= f.label :status, "Select Status" %>
-                              <%= f.select :status, options_for_select(['Not Started', 'In-Progress', 'Completed'], milestone.status), {}, class: "form-select" %>
+                              <%= f.select :status, options_for_select(['Not Started', 'In-Progress', 'Completed'], milestone.status), {}, class: "form-select", id: "milestone_status" %>
                           </div>
                           <div class="mb-3 d-flex justify-content-end">
                               <%= f.submit "Update Status", class: "btn btn-success" %>
@@ -124,16 +124,16 @@
       <h5 class="mb-4"><%= @milestone.persisted? ? "Edit Milestone" : "Create a New Milestone" %></h5>
       <%= form_with(model: [@project, @milestone], local: true) do |form| %>
         <div class="form-group mb-3">
-            <%= form.label :title, class: "form-label" %>
-            <%= form.text_field :title, required: true, class: "form-control"%>
+          <label for="milestone_title">Title</label>
+            <%= form.text_field :title, required: true, class: "form-control", id: "milestone_title"%>
         </div>
         <div class="form-group mb-3">
-            <%= form.label :objective, class: "form-label" %>
-            <%= form.text_area :objective, class: "form-control"%>
+            <label for="milestone_objective">Objective</label>
+            <%= form.text_area :objective, class: "form-control", id: "milestone_objective"%>
         </div>
         <div class="form-group mb-3">
-            <%= form.label :deadline, class: "form-label" %>
-            <%= form.date_select :deadline, class: "form-control, required: true"%>
+           <label for="milestone_deadline">Deadline</label>
+            <%= form.date_select :deadline, class: "form-control, required: true", id: "milestone_deadline"%>
         </div>
         <div>
             <%= form.submit @milestone.persisted? ? "Update Milestone" : "Create Milestone", class: "btn btn-primary mt-3" %>
