@@ -24,9 +24,10 @@ When('I select {string} from the student dropdown') do |student_email|
 end
 
 When('I click Add Student') do
-  user_id = find('.student-select').value # Get the selected user's ID from the dropdown
-  puts "UserId #{user_id}"
-  button = find('#add-student', data: { user_id: }) # Find the button with the specific data attribute
+  # user_id = find('.student-select').value # Get the selected user's ID from the dropdown
+  # puts "UserId #{user_id}"
+  # button = find('#add-student', data: { user_id: }) # Find the button with the specific data attribute
+  button = find('#add-student')
   button.click
 end
 
@@ -40,6 +41,10 @@ end
 
 Then('I should see a success message {string}') do |message|
   expect(page).to have_content(message)
+end
+
+Then('I should see the error message {string}') do |error_message|
+  expect(page).to have_content(error_message)
 end
 
 When('I click on the remove button for {string}') do |_student_email|
@@ -81,4 +86,80 @@ Then('I should be redirected to the resources page for {string}') do |project_na
   project = Project.find_by(name: project_name)
   expect(project).not_to be_nil
   expect(current_path).to eq(project_resources_path(project.id))
+end
+
+When('I click on the Edit Project button') do
+  # Find and click the Edit Project button in the dashboard
+  find('.editButton').click
+end
+
+Then('I should see the Edit Project modal') do
+  # Ensure the modal is visible after clicking the Edit button
+  expect(page).to have_selector('#projectModal', visible: true)
+end
+
+When('I fill in the Edit Project form with the following:') do |table|
+  # Fill in the modal form with the provided values
+  data = table.rows_hash
+  fill_in 'Name', with: data['Name']
+  fill_in 'Description', with: data['Description']
+  fill_in 'Objectives', with: data['Objectives']
+  select data['Status'], from: 'Status'
+end
+
+When('I click Update Project') do
+  # Submit the modal form
+  find('input[name="commit"]').click
+end
+
+Then('the project should be updated successfully') do
+  # Check for success message after form submission
+  expect(page).to have_content('Project was successfully updated.')
+end
+
+Then('the progress chart should show {int}% complete') do |progress|
+  # Check the progress percentage on the chart
+  chart_canvas = find('#progressChart')
+  actual_progress = chart_canvas['data-progress'].to_i
+  expect(actual_progress).to eq(progress)
+end
+
+When('I fill in the Edit Project form with the following invalid:') do |table|
+  data = table.rows_hash
+  fill_in 'Name', with: data['Name']
+  fill_in 'Description', with: data['Description']
+  fill_in 'Objectives', with: data['Objectives']
+  select data['Status'], from: 'Status'
+end
+When('I click Update Projectt') do
+  # Submit the modal form
+  find('input[name="commit"]').click
+end
+
+Then('I should see an error message {string}') do |error_message|
+  expect(page).to have_content(error_message)
+end
+
+When('An unknown error would occur when adding the student') do
+  allow_any_instance_of(Project).to receive(:add_student).and_return(false)
+end
+
+When('an unknown error would occur when removing the student') do
+  allow_any_instance_of(Project).to receive(:remove_student).and_return(false)
+end
+
+Then('I should not see {string}') do |text|
+  expect(page).not_to have_content(text)
+end
+
+When('I click on the remove button for file {string}') do |file_name|
+  within('table tbody') do
+    within('tr', text: file_name) do
+      click_button 'Remove'
+    end
+  end
+end
+
+When('An unknown error would occur when creating the resource') do
+  allow_any_instance_of(Resource).to receive(:save).and_return(false)
 end

@@ -1,0 +1,144 @@
+<div class="fluid-container p-4">
+  <div class="d-flex justify-content-between align-items-center">
+    <h3>
+      Milestone Management
+    </h3>
+  </div>
+  <div class="row mt-1">
+    <div class="col">
+      <% flash.each do |key, message| %>
+      <% flash_class = case key.to_sym
+                      when :notice then "success"  
+                      when :alert, :error then "danger"  
+                      else key 
+                      end %>
+      <% if message.present? %>
+        <div class="alert alert-<%= flash_class %>">
+        <%= message %>
+        </div>
+      <% else %>
+        <div class="pt-3">&nbsp;</div>
+      <% end %>
+    <% end %>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-md-7"> 
+      <h5 class="mb-4">Milestones</h5>
+      <ul class="list-group mb-4 user-list-group" id="milestones_list">
+        <% @milestones.each do |milestone| %>         
+            <li class="card text-bg-light mb-3" style="width: 600px" data-controller="milestone-chart"
+       data-milestone-chart-tasks="<%= milestone.tasks.to_json %>"
+       data-milestone-chart-id="<%= milestone.id %>">
+                <div class="card-header"><%= milestone.title %></div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                          <span class="card-text text-secondary">Description</span>
+                          <p class="card-text"><%= milestone.objective %></p>
+                          <span class = "card-text text-secondary">Deadline</span>
+                          <p class="card-text"><%= milestone.deadline %></p>
+                          <span class = "card-text text-secondary">Status</span>
+                          <% status_color = case milestone.status
+                                            when 'Not Started' then 'text-danger'
+                                            when 'In-Progress' then 'text-warning'
+                                            when 'Completed' then 'text-success'
+                                            else 'text-secondary'
+                                            end %>
+                          <p class="card-text <%= status_color %>"><%= milestone.status %></p>
+                      </div>
+                      <div>
+                          <div id="milestone-chart-<%= milestone.id %>" style="width: 300px; height: 300px;"></div>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-end mt-3">
+                        <button type="button" class="btn btn-success btn-sm me-1" data-bs-toggle="modal" data-bs-target="#statusModal-<%= milestone.id %>">
+                            Update Status
+                        </button>
+                        <%= link_to 'Edit', edit_project_milestone_path(@project, milestone), class: "btn btn-primary btn-sm me-1" %>
+                        <%= form_with(url: project_milestone_path(@project, milestone), method: :delete,local: true, class: 'd-inline') do %>
+                        <%= button_to 'Delete', project_milestone_path(@project, milestone), 
+                            method: :delete,  
+                            onclick: "return confirm('Are you sure you want to delete #{milestone.title}?')",
+                            class: 'btn btn-danger btn-sm me-1' %>
+                        <% end %>
+                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#tasksModal-<%= milestone.id %>">
+                            Show Tasks
+                        </button>
+                    </div>
+                </div>
+            </li>
+            <!-- Modal for Status Update -->
+            <div class="modal fade" id="statusModal-<%= milestone.id %>" tabindex="-1" aria-labelledby="statusModalLabel-<%= milestone.id %>" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content h-50">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="statusModalLabel-<%= milestone.id %>">Update Status for <%= milestone.title %></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                        <%= form_with model: milestone, url: update_milestone_status_project_milestone_path(@project, milestone), method: :patch, local: true do |f| %>
+                      <div class="modal-body">
+                          <div class="mb-3">
+                              <%= f.label :status, "Select Status" %>
+                              <%= f.select :status, options_for_select(['Not Started', 'In-Progress', 'Completed'], milestone.status), {}, class: "form-select", id: "milestone_status" %>
+                          </div>
+                          <div class="mb-3 d-flex justify-content-end">
+                              <%= f.submit "Update Status", class: "btn btn-success" %>
+                          </div>
+                      </div>
+                      <% end %>
+                  </div>
+                </div>
+            </div>
+            <!-- Modal for Tasks Display -->
+            <div class="modal fade" id="tasksModal-<%= milestone.id %>" tabindex="-1" aria-labelledby="tasksModalLabel-<%= milestone.id %>" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content h-50">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="statusModalLabel-<%= milestone.id %>">Tasks for <%= milestone.title %></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <% if milestone.tasks.any? %>
+                        <ul class="list-group mb-3">
+                          <% milestone.tasks.each do |task| %>
+                            <li class="list-group-item d-flex flex-row justify-content-between">
+                              <span><%= task.task_name %></span>
+                              <% status_color = case task.status
+                                      when 'Not Started' then 'text-danger'
+                                      when 'In-Progress' then 'text-warning'
+                                      when 'Completed' then 'text-success'
+                                      else 'text-secondary'
+                                      end %>
+                              <span class="<%= status_color %>"><%= task.status %></span>
+                            </li>
+                          <% end %>
+                        </ul>
+                      <% end %>
+                  </div>
+                </div>
+            </div>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col-md-5">
+      <h5 class="mb-4"><%= @milestone.persisted? ? "Edit Milestone" : "Create a New Milestone" %></h5>
+      <%= form_with(model: [@project, @milestone], local: true) do |form| %>
+        <div class="form-group mb-3">
+          <label for="milestone_title">Title</label>
+            <%= form.text_field :title, required: true, class: "form-control", id: "milestone_title"%>
+        </div>
+        <div class="form-group mb-3">
+            <label for="milestone_objective">Objective</label>
+            <%= form.text_area :objective, class: "form-control", id: "milestone_objective"%>
+        </div>
+        <div class="form-group mb-3">
+           <label for="milestone_deadline">Deadline</label>
+            <%= form.date_select :deadline, class: "form-control, required: true", id: "milestone_deadline"%>
+        </div>
+        <div>
+            <%= form.submit @milestone.persisted? ? "Update Milestone" : "Create Milestone", class: "btn btn-primary mt-3" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -16,19 +16,30 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <%# <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %> 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
 
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script> <!-- Optional for exporting feature -->    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+
+      <%# Include project_hub.css only for the project_hub pages %>
+    <% if controller_name == 'project_hub' %>
+      <%= stylesheet_link_tag 'project_hub', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <% end %>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script> <!-- Optional for exporting feature -->
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
     <% if @user %>
-      <%= render 'layouts/navbar' %>
+      <div><%= render 'layouts/navbar' %></div>
     <% end %>
     <%= render partial: 'shared/display_flash' if not flash.empty? %>
     <% if @show_sidebar %>
       <div class="d-flex flex-row">
         <%= render 'layouts/sidebar' %>
-        <div class="container-fluid">
+        <div style="margin-left: 280px; margin-top:70px;" class="container-fluid">
           <%= yield %>
         </div>
       </div>

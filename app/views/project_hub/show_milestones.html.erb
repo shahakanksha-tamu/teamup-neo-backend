@@ -1,0 +1,29 @@
+<div class="fluid-container p-5">
+  <h3>Milestones</h3>
+  <div class="milestones-container">
+    <!-- Filter Options -->
+    <div class="filter-options">
+      <%= form_with url: project_student_show_milestones_path, method: :get, local: true do %>
+        <label for="status">Filter by Status:</label>
+        <%= select_tag :status, options_for_select([['All', ''], 'Completed', 'In-Progress', 'Not Started'], params[:status]), onchange: 'this.form.submit();' %>
+      <% end %>
+    </div>
+
+    <!-- Milestone List -->
+    <div class="milestone-list">
+      <% @milestones.each do |milestone| %>
+        <div class="milestone-item">
+          <div class="milestone-header">
+            <h5><%= milestone.title %></h5>
+            <span class="milestone-status <%= milestone.status.downcase.gsub(" ", "-") %>"><%= milestone.status %></span>
+          </div>
+          <div class="milestone-dates">
+            <p><strong>Start Date:</strong> <%= milestone.start_date.strftime("%B %d, %Y") %></p>
+            <p><strong>End Date:</strong> <%= milestone.deadline.strftime("%B %d, %Y") %></p>
+          </div>
+          <p><strong>Objective:</strong> <%= milestone.objective %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

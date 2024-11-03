@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    overflow-x: auto;
+    /* Horizontal scroll for the student cards */
+}
+
+.row.flex-nowrap {
+    flex-wrap: nowrap;
+    /* Prevents cards from stacking vertically */
+}
+
+.card-body.overflow-auto {
+    max-height: 400px;
+    /* Fixed height to enable vertical scrolling */
+    overflow-y: auto;
+    /* Enables vertical scrolling within each card */
+}
+
+.card {
+    min-width: 300px;
+    /* Ensures cards have a consistent width */
+    margin-right: 1rem;
+    /* Adds space between cards */
+}
+
+.task-card {
+    cursor: pointer;
+    /* Change cursor to pointer when hovering over the task card */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    /* Smooth transition for effects */
+}
+
+.task-card:hover {
+    transform: scale(1.03);
+    /* Slightly enlarge the card on hover */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    /* Enhance shadow on hover */
+}
