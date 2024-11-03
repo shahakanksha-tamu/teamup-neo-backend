@@ -25,9 +25,9 @@ end
 
 # Projects
 projects = [
-  { name: 'Project Gamma', description: 'Third test project', objectives: 'Complete the gamma phase', status: 'active' },
-  { name: 'Project Delta', description: 'Fourth test project', objectives: 'Complete the delta phase', status: 'active' },
-  { name: 'Project Epsilon', description: 'Fifth test project', objectives: 'Complete the epsilon phase', status: 'active' }
+  { name: 'Project Gamma', description: 'Third test project', objectives: 'Complete the gamma phase', status: 'active', start_date: Date.new(2024, 11, 1), end_date: Date.new(2025, 1, 1) },
+  { name: 'Project Delta', description: 'Fourth test project', objectives: 'Complete the delta phase', status: 'active', start_date: Date.new(2024, 11, 1), end_date: Date.new(2025, 1, 1) },
+  { name: 'Project Epsilon', description: 'Fifth test project', objectives: 'Complete the epsilon phase', status: 'active', start_date: Date.new(2024, 11, 1), end_date: Date.new(2025, 1, 1) }
 ]
 
 projects.each do |project|

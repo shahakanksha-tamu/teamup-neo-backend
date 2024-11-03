@@ -20,7 +20,6 @@ end
 When('I visit the task board page') do
   project = Project.find_by(id: 1)
   visit(project_task_management_path(project))
-
 end
 
 # Then I should see a card for each student
@@ -123,7 +122,6 @@ Given('the following project exists in the database') do |projects|
       objectives: row['objectives']
     )
   end
-  puts Project.all.inspect
 end
 
 # Given the following tasks exist in the database
@@ -137,7 +135,6 @@ Given('the following tasks exist in the database') do |tasks|
       deadline: DateTime.parse(row['deadline'])
     )
   end
-  puts Task.all.inspect
 end
 
 # Given the following milestones exist in the database
@@ -151,5 +148,4 @@ Given('the following milestones exist in the database') do |milestones|
       deadline: row['deadline'] ? DateTime.parse(row['deadline']) : nil
     )
   end
-  puts Milestone.all.inspect
 end

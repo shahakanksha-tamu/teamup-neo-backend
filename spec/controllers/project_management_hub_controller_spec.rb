@@ -109,7 +109,6 @@ RSpec.describe ProjectManagementHubController, type: :controller do
       let(:other_project) { create(:project) }
 
       before do
-        # Create a StudentAssignment for the student and another project
         post :add_student, params: { project_id: other_project.id, user_id: student.id }
       end
 
