@@ -18,20 +18,50 @@ The primary objectives of Neo are to:
 
 ## MVP-I Features
 1. **User Authentication and Authorization**
-   - Implemented secure login system for users using Google OAuth.
+   - Implemented a secure login system for users using Google OAuth.
    - Implement role-based access control (RBAC):
      - **Students**: Access to student-specific data and features.
      - **Mentors**: Restricted access to mentor-related features.
    - Logout feature
-   - Implemented route protection to prevent access to protected resources like dashboard without login.
+   - Route protection was implemented to prevent access to protected resources like the dashboard without login.
 
 2. **Basic Dashboard Layout and Navigation**
    - Designed a unified dashboard layout for all user roles.
    - Ensure role-based redirection to the appropriate dashboard sections after login.
    - Set up basic navigation between multiple views like dashboard, project hub, calendar, etc.
+  
+
+## MVP-II
+- **Team and Mentor Information Display**  
+  Displays information about team members and key contacts (mentors) on the student dashboard.
+
+- **Student Project Overview**  
+  Provides students with a project summary and overview for easy reference.
+
+- **Resource Management**  
+  Allows admins and mentors to upload and manage project resources.
+
+- **Team Management for Mentors**  
+  Enables mentors to create project teams and manage student memberships within those teams.
+
+## MVP-III
+- **Project Timeline Visualization**  
+  Introduces a Gantt chart or visual timeline for tracking project milestones and deadlines.
+
+- **Task Management for Students**  
+  Allows students to view assigned tasks, mark them as complete, and track their progress with a donut chart.
+
+- **Milestone Management for Admins**  
+  Enables admins to perform CRUD operations on milestones, track task progress with a donut chart, and mark milestones as complete.
+
+- **Task Assignment by Admins**  
+  Allows admins to assign tasks to students and view task assignments by students.
+
+- **Admin Project Overview**  
+  Provides a project overview on the admin dashboard with CRUD capabilities for projects and milestone completion tracking.
 
 **NOTE:**
-The deployed version will only allow those users to login successfully who are registered as users in the database.
+The deployed version will only allow users who are registered as users in the database to log in successfully.
  
 ## Project Set Up
 
