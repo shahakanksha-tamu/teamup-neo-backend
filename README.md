@@ -31,7 +31,7 @@ The primary objectives of Neo are to:
    - Set up basic navigation between multiple views like dashboard, project hub, calendar, etc.
   
 
-## MVP-II
+## MVP-II Features
 - **Team and Mentor Information Display**  
   Displays information about team members and key contacts (mentors) on the student dashboard.
 
@@ -44,7 +44,7 @@ The primary objectives of Neo are to:
 - **Team Management for Mentors**  
   Enables mentors to create project teams and manage student memberships within those teams.
 
-## MVP-III
+## MVP-III Features
 - **Project Timeline Visualization**  
   Introduces a Gantt chart or visual timeline for tracking project milestones and deadlines.
 
@@ -59,6 +59,8 @@ The primary objectives of Neo are to:
 
 - **Admin Project Overview**  
   Provides a project overview on the admin dashboard with CRUD capabilities for projects and milestone completion tracking.
+
+
 
 **NOTE:**
 The deployed version will only allow users who are registered as users in the database to log in successfully.
