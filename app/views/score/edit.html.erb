@@ -1,3 +1,4 @@
+<div class="container-fluid p-5 mt-5">
 <h1>Edit Student Score</h1>
 <%= form_with(url: update_score_path, method: :patch) do %>
   <% @students.each do |s| %>
@@ -8,3 +9,4 @@
   <% end %>
   <%= submit_tag 'Update Scores' %>
 <% end %>
+</div>
