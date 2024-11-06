@@ -1,5 +1,43 @@
 # features/step_definitions/task_steps.rb
 
+# Given the following project exists in the database
+Given('the following project exists in the database') do |projects|
+  projects.hashes.each do |row|
+    Project.create!(
+      id: row['id'],
+      name: row['name'],
+      description: row['description'],
+      objectives: row['objectives']
+    )
+  end
+end
+
+# Given the following tasks exist in the database
+Given('the following tasks exist in the database') do |tasks|
+  tasks.hashes.each do |row|
+    Task.create!(
+      milestone_id: row['milestone_id'],
+      task_name: row['task_name'],
+      description: row['description'],
+      status: row['status'],
+      deadline: DateTime.parse(row['deadline'])
+    )
+  end
+end
+
+# Given the following milestones exist in the database
+Given('the following milestones exist in the database') do |milestones|
+  milestones.hashes.each do |row|
+    Milestone.create!(
+      project_id: row['project_id'],
+      id: row['id'],
+      title: row['title'],
+      objective: row['objective'],
+      deadline: row['deadline'] ? DateTime.parse(row['deadline']) : nil
+    )
+  end
+end
+
 # Given there are students with tasks assigned
 Given(/there are students with tasks assigned/) do |task_assignment_table|
   task_assignment_table.hashes.each do |row|
@@ -34,20 +72,11 @@ When('I change the task details') do |table|
   @updated_deadline = task_details['deadline']
   @updated_status = task_details['status']
 
-  # # Click on the task to open the modal
-  # task_card_selector = ".task-card[data-task-id='#{@task.id}']"
-  # find(task_card_selector).click
-  # # Fill in the task details in the modal
-  # fill_in 'task_task_name', with: @updated_task_name
-  # fill_in 'task_description', with: @updated_description
-  # select @updated_milestone, from: 'task[milestone_id]'
-  # fill_in 'task_deadline', with: @updated_deadline
-  # select @updated_status, from: 'task_task_status'
   within("#editTaskModal#{@task.id}") do
-    fill_in 'task_task_name', with: 'Updated Task'
-    fill_in 'task_description', with: 'New Description'
-    select 'Milestone 1', from: 'task[milestone_id]'
-    fill_in 'task_deadline', with: '2024-11-06'
+    fill_in 'task_task_name', with: @updated_task_name
+    fill_in 'task_description', with: @updated_description
+    select @updated_milestone, from: 'task[milestone_id]'
+    fill_in 'task_deadline', with: @updated_deadline
     select  @updated_status, from: 'task_status'
   end
 end
@@ -58,15 +87,6 @@ When('I click on "Update Task"') do
   end
 end
 
-# Then('I should see the task {string} under {string} on the task board') do |updated_task_name, student_name|
-#   visit(project_task_management_path(Project.find(1)))
-
-#   # Check that the updated task appears under the correct student
-#   within('.student-card') do
-#     expect(page).to have_content(student_name)
-#     expect(page).to have_content(updated_task_name)
-#   end
-# end
 # When I visit the task board page
 When('I visit the task board page') do
   project = Project.find_by(id: 1)
@@ -178,40 +198,24 @@ Then('I should see {string} under {string} with the correct details') do |task_n
   end
 end
 
-# Given the following project exists in the database
-Given('the following project exists in the database') do |projects|
-  projects.hashes.each do |row|
-    Project.create!(
-      id: row['id'],
-      name: row['name'],
-      description: row['description'],
-      objectives: row['objectives']
-    )
-  end
+When(/^I delete the task "(.*?)"$/) do |task_name|
+  # Find the task by name
+  task = Task.find_by(task_name:)
+  project = Project.find_by(id: 1)
+  visit(project_task_management_path(project))
+
+  find(".delete-icon[data-task-id='#{task.id}']").click
 end
 
-# Given the following tasks exist in the database
-Given('the following tasks exist in the database') do |tasks|
-  tasks.hashes.each do |row|
-    Task.create!(
-      milestone_id: row['milestone_id'],
-      task_name: row['task_name'],
-      description: row['description'],
-      status: row['status'],
-      deadline: DateTime.parse(row['deadline'])
-    )
-  end
+Then(/^I should not see the task "(.*?)" on the task management page$/) do |task_name|
+  # Check that the task is no longer visible on the page
+  expect(page).not_to have_content(task_name)
 end
 
-# Given the following milestones exist in the database
-Given('the following milestones exist in the database') do |milestones|
-  milestones.hashes.each do |row|
-    Milestone.create!(
-      project_id: row['project_id'],
-      id: row['id'],
-      title: row['title'],
-      objective: row['objective'],
-      deadline: row['deadline'] ? DateTime.parse(row['deadline']) : nil
-    )
-  end
+Then('the task should be deleted from the database') do
+  # Find the task in the database after the delete action
+  task = Task.find_by(id: @task.id)
+
+  # Assert that the task is no longer in the database
+  expect(task).to be_nil
 end

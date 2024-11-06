@@ -61,3 +61,10 @@ Background: users in database
       | Updated Task     | New Description      | Milestone 1   |2024-11-06   | Not Completed |
     And I click on "Update Task"
     Then I should see the task "Updated Task" under "John" on the task board  
+
+  Scenario: Deleting a task
+    Given I am logged in as "davidjones@gmail.com"
+    And there exists a task named "Task 1"
+    When I delete the task "Task 1"
+    Then I should not see the task "Task 1" on the task management page
+    And the task should be deleted from the database
