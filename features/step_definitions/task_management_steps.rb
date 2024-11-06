@@ -13,9 +13,60 @@ Given(/there are students with tasks assigned/) do |task_assignment_table|
       user_id:,
       task_id:
     )
+    User.all.each do |user|
+      puts user.tasks
+    end
   end
 end
 
+Given('there exists a task named {string}') do |task_name|
+  project = Project.find_by(id: 1)
+  visit(project_task_management_path(project))
+  @task = Task.find_by(task_name:)
+  expect(@task).not_to be_nil
+end
+
+When('I change the task details') do |table|
+  task_details = table.hashes.first
+  @updated_task_name = task_details['task_name']
+  @updated_description = task_details['description']
+  @updated_milestone = task_details['milestone']
+  @updated_deadline = task_details['deadline']
+  @updated_status = task_details['status']
+
+  # # Click on the task to open the modal
+  # task_card_selector = ".task-card[data-task-id='#{@task.id}']"
+  # find(task_card_selector).click
+  # # Fill in the task details in the modal
+  # fill_in 'task_task_name', with: @updated_task_name
+  # fill_in 'task_description', with: @updated_description
+  # select @updated_milestone, from: 'task[milestone_id]'
+  # fill_in 'task_deadline', with: @updated_deadline
+  # select @updated_status, from: 'task_task_status'
+  within("#editTaskModal#{@task.id}") do
+    fill_in 'task_task_name', with: 'Updated Task'
+    fill_in 'task_description', with: 'New Description'
+    select 'Milestone 1', from: 'task[milestone_id]'
+    fill_in 'task_deadline', with: '2024-11-06'
+    select  @updated_status, from: 'task_status'
+  end
+end
+
+When('I click on "Update Task"') do
+  within("#editTaskModal#{@task.id}") do
+    click_button 'Update Task'
+  end
+end
+
+# Then('I should see the task {string} under {string} on the task board') do |updated_task_name, student_name|
+#   visit(project_task_management_path(Project.find(1)))
+
+#   # Check that the updated task appears under the correct student
+#   within('.student-card') do
+#     expect(page).to have_content(student_name)
+#     expect(page).to have_content(updated_task_name)
+#   end
+# end
 # When I visit the task board page
 When('I visit the task board page') do
   project = Project.find_by(id: 1)
@@ -85,6 +136,21 @@ end
 When('I submit the form') do
   within('#addTaskModal1') do
     click_button 'Create Task'
+  end
+end
+
+When('I click on the name of {string} for {string}') do |task_name, student_name|
+  id = User.find_by(first_name: student_name).id
+  puts page.html
+  within("##{id}") do
+    # Scope to the card body
+    within('.card-body') do
+      # Scope to the specific task card
+      within('.task-card') do
+        # Find the h6 link with the specific task name and click it
+        find('h6', text: task_name, visible: true).click
+      end
+    end
   end
 end
 

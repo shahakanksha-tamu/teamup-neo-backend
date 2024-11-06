@@ -15,27 +15,18 @@ class TaskManagementController < ApplicationController
     @student = User.find(params[:user_id])
     @task = Task.new(task_params)
 
-    if @task.save
-      # Create the task assignment to associate the task with the student
-      TaskAssignment.create(user_id: @student.id, task_id: @task.id)
+    return unless @task.save
 
-      redirect_to project_task_management_path(@project)
-    else
-      # Debugging output to inspect errors and parameters
-      Rails.logger.error "Task creation failed: #{@task.errors.full_messages.join(', ')}"
-      Rails.logger.error "Parameters passed: #{task_params.inspect}"
-      render :index
-    end
+    # Create the task assignment to associate the task with the student
+    TaskAssignment.create(user_id: @student.id, task_id: @task.id)
+
+    redirect_to project_task_management_path(@project)
   end
 
   def update
-    if @task.update(task_params)
-      redirect_to project_task_management_path(@project)
-    else
-      # Debugging output to inspect errors
-      Rails.logger.error "Task update failed: #{@task.errors.full_messages.join(', ')}"
-      render :index
-    end
+    return unless @task.update(task_params)
+
+    redirect_to project_task_management_path(@project)
   end
 
   def destroy

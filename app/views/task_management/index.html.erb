@@ -1,7 +1,7 @@
 <div class="d-flex flex-column" style="min-height: 100vh;">
-<div class="container mt-3 align-items-start " >
+<div class="container mt-3 " >
   <h2 class="text-center mb-4">Manage Tasks</h2>
-  <div class="row flex-nowrap">
+  <div class="row flex-nowrap align-items-start ">
     <% @students.each do |student| %>
       <div class="col-md-4 mb-4">
         <div id="<%= student.id %>" class="card h-100 shadow-sm student-card" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
@@ -13,9 +13,9 @@
           </div>
           <div class="card-body p-2" style="max-height: 100vh; overflow-y: auto;">
             <% student.tasks.each do |task| %>
-              <div class="card mb-2 p-2 task-card" data-bs-toggle="modal" data-bs-target="#editTaskModal<%= task.id %>"  style="border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); cursor: pointer;">
+              <div class="card mb-2 p-2 task-card" data-task-id="<%= task.id %>"  style="border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); cursor: pointer;">
                 <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="mb-1" ><%= task.task_name %></h6>
+                  <h6 class="mb-1 text-wrap text-start " data-bs-toggle="modal" data-bs-target="#editTaskModal<%= task.id %>" style="max-width: 60%; text-decoration: underline"><%= task.task_name %></h6>
                   <span class="badge" style="background-color: <%= task.status_color %>;"><%= task.status.capitalize %></span>
                  
                 </div>
@@ -34,7 +34,6 @@
                     <i class="fas fa-trash-alt" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Task"></i>
                   <% end %>
                   <div>
-                    <i class="fas fa-calendar-alt"></i>
                     <small class="text-muted"><%= task.deadline.present? ? task.deadline.strftime("%d %b %Y") : "No deadline" %></small>
                   </div>
                 </div>
