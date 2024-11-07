@@ -62,6 +62,10 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   # Defines the root path route ("/")
   root 'landing_page#index'
 
+  # Score routes
+  get '/score/edit', to: 'score#edit', as: :edit_score
+  patch '/score/update', to: 'score#update', as: :update_score
+
   # Catch-all route for handling 404s
   match '*path', to: 'application#not_found', via: :all
 end
