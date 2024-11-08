@@ -1,4 +1,4 @@
-.container {
+.task-container {
     display: flex;
     overflow-x: auto;
     /* Horizontal scroll for the student cards */
