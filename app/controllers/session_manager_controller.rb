@@ -64,7 +64,7 @@ class SessionManagerController < ApplicationController
 
   def redirect_user(user)
     if user.role == 'student'
-      redirect_to dashboard_path, notice: 'You are logged in.'
+      redirect_to project_hub_path, notice: 'You are logged in.'
     else
       redirect_to project_management_hub_path, notice: 'You are logged in.'
     end

@@ -7,7 +7,7 @@ class ProjectHubController < ApplicationController
   def redirect_if_no_project
     @project = Project.joins(:student_assignments)
                       .where(student_assignments: { user_id: current_user.id })[0]
-    redirect_to dashboard_path if @project.nil?
+    render('shared/project_not_found') if @project.nil?
   end
 
   def index

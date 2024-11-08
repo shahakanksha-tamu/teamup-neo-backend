@@ -17,7 +17,6 @@ class ApplicationController < ActionController::Base
         { controller: 'score', action: 'update' }
       ],
       student: [
-        { controller: 'dashboard', action: 'index' },
         { controller: 'project_hub', action: 'index' },
         { controller: 'team_info', action: 'index' }
       ]
@@ -59,7 +58,7 @@ class ApplicationController < ActionController::Base
 
   def redirect_user_based_on_role(user_role)
     if user_role == :student
-      redirect_to dashboard_path, alert: 'You are not authorized to access this page.'
+      redirect_to project_hub_path, alert: 'You are not authorized to access this page.'
     else
       redirect_to project_management_hub_path, alert: 'You are not authorized to access this page.'
     end
