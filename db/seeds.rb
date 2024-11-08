@@ -214,3 +214,15 @@ task_assignments = [
 task_assignments.each do |assignment|
   TaskAssignment.find_or_create_by!(assignment)
 end
+
+# Events seed data
+events = [
+  { title: 'Complete User Registration', description: 'All students must complete their registration on Canvas', show: true },
+  { title: 'Complete Project Selection', description: 'All students must select their project by the deadline', show: false },
+  { title: 'Complete Milestone 1', description: 'All students must complete milestone 1 by the deadline', show: false },
+  { title: 'Complete Milestone 2', description: 'All students must complete milestone 2 by the deadline', show: false },    
+]
+
+events.each do |event|
+  Event.find_or_create_by!(event)
+end

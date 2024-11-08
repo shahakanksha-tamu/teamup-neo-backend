@@ -76,6 +76,9 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   get '/score/edit', to: 'score#edit', as: :edit_score
   patch '/score/update', to: 'score#update', as: :update_score
 
+  # Event routes
+  
+
   # Catch-all route for handling 404s
   match '*path', to: 'application#not_found', via: :all
 end
