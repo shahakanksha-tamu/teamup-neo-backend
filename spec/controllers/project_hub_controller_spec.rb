@@ -19,7 +19,7 @@ RSpec.describe ProjectHubController, type: :controller do
 
       it 'sees project hub dashboard' do
         get :index
-        expect(response).to redirect_to(dashboard_path)
+        expect(response).to render_template('shared/project_not_found')
       end
     end
 
