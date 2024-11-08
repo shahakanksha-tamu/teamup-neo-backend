@@ -15,7 +15,7 @@ Scenario: Access dashboard without login
   Given I visit landing page
   And   I am already registered to Neo application with email "johndoe@gmail.com"
   And   I am not logged in
-  When  I visit dashboard page
+  When  I visit project hub page
   Then  I should be on the landing page
   And   I should see "You must be logged in to access the resource."
 

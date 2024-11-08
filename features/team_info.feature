@@ -26,7 +26,7 @@ Background: users in database
  
 Scenario: Access team member information page as student
   Given I am logged in as "johndoe@gmail.com"
-  Then I should be on the dashboard page
+  Then I should be on the project hub page
   When I click Know Your Team button
   Then  I should see mentor information
   And   I should other team members information for project "Capstone Project" and not contact information for "johndoe@gmail.com"
