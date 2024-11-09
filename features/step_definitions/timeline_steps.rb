@@ -11,8 +11,8 @@ Then('I should see a Gantt chart displaying project milestones') do
   # Verify that each milestone's name and dates are displayed in the Gantt chart
   @project.milestones.each do |milestone|
     expect(page).to have_content(milestone.title)
-    expect(page).to have_content(milestone.start_date.strftime('%Y-%m-%d'))
-    expect(page).to have_content(milestone.deadline.strftime('%Y-%m-%d'))
+    expect(page).to have_content(milestone.start_date.strftime('%B %d, %Y'))
+    expect(page).to have_content(milestone.deadline.strftime('%B %d, %Y'))
   end
 end
 
