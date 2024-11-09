@@ -260,7 +260,7 @@ RSpec.describe ProjectManagementHubController, type: :controller do
     context 'with invalid parameters' do
       before do
         allow(Project).to receive(:find).and_return(project)
-        errors = instance_double('errors')
+        errors = instance_double(errors)
         allow(errors).to receive_messages(full_messages: ['Name cannot be blank'], to_sentence: 'Name cannot be blank')
         allow(project).to receive_messages(update: false, errors:)
       end

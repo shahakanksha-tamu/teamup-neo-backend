@@ -6,9 +6,8 @@ When('I navigate to the project timeline page') do
 end
 
 Then('I should see a Gantt chart displaying project milestones') do
-  expect(page).to have_css('.gantt-chart-container') # Verifies Gantt chart section is present
+  expect(page).to have_css('.gantt-chart-container')
 
-  # Verify that each milestone's name and dates are displayed in the Gantt chart
   @project.milestones.each do |milestone|
     expect(page).to have_content(milestone.title)
     expect(page).to have_content(milestone.start_date.strftime('%B %d, %Y'))
@@ -22,7 +21,7 @@ Given('I am on the project timeline page') do
 end
 
 When('I expand a milestone on the Gantt chart') do
-  @project.milestones.first # Expand the first milestone for simplicity
+  @project.milestones.first
 end
 
 Then('I should see detailed information for that milestone') do

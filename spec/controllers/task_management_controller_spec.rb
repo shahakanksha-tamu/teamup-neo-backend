@@ -40,7 +40,7 @@ RSpec.describe TaskManagementController, type: :controller do
     end
 
     it 'sets @show_sidebar to true when project is present' do
-      expect(assigns(:show_sidebar)).to eq(true)
+      expect(assigns(:show_sidebar)).to be(true)
     end
   end
 

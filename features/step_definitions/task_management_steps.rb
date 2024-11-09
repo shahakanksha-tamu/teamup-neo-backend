@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # features/step_definitions/task_steps.rb
 
 # Given the following project exists in the database
@@ -53,7 +55,7 @@ Given(/there are students with tasks assigned/) do |task_assignment_table|
       user_id:,
       task_id:
     )
-    User.all.each do |user|
+    User.all.find_each do |user|
       puts user.tasks
     end
   end
@@ -103,7 +105,7 @@ end
 
 # Then each card should display the student’s tasks with task details
 Then('each card should display the student’s tasks with task details') do
-  page.all('.card').each do |card|
+  page.all('.card').find_each do |card|
     within(card) do
       expect(page).to have_content('Not started')
     end
