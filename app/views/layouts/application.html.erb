@@ -45,6 +45,7 @@
         </div>
       </div>
     <% else %>
+      <%= render partial: 'shared/display_flash' if not flash.empty? %>
       <%= yield %>
     <% end %>
   </body>

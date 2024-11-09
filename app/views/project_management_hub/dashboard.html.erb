@@ -24,11 +24,14 @@
               <div class="info-label">Objectives</div>
               <div class="info-text"><%= @project.objectives %></div>
             </div>
-
             <div class="mb-4">
-            <div class="info-label">Status</div>
-            <div class="info-text"><%= @project.status %></div>
-          </div>
+              <div class="info-label">Start Date</div>
+              <div class="info-text"><%= @project.start_date.strftime("%B %d, %Y") %></div>
+            </div>
+            <div class="mb-4">
+              <div class="info-label">End Date</div>
+              <div class="info-text"><%= @project.end_date.strftime("%B %d, %Y") %></div>
+            </div>
           </div>
         </div>
       </div>

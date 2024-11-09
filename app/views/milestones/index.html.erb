@@ -36,8 +36,19 @@
                       <div>
                           <span class="card-text text-secondary">Description</span>
                           <p class="card-text"><%= milestone.objective %></p>
-                          <span class = "card-text text-secondary">Deadline</span>
-                          <p class="card-text"><%= milestone.deadline %></p>
+                          
+                          <%if milestone.start_date%>
+                            <span class = "card-text text-secondary">Start Date</span>
+                            <p class="card-text"><%= milestone.start_date.strftime("%B %d, %Y") %></p>
+                          <% end %>
+
+                           <%if milestone.deadline%>
+                            <span class = "card-text text-secondary">Deadline</span>
+                            <p class="card-text">
+                              <%= milestone.deadline.strftime("%B %d, %Y") %>
+                            </p>
+                          <% end %>
+                          
                           <span class = "card-text text-secondary">Status</span>
                           <% status_color = case milestone.status
                                             when 'Not Started' then 'text-danger'

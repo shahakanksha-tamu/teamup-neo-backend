@@ -7,7 +7,9 @@ Given('the following project exists in the database') do |projects|
       id: row['id'],
       name: row['name'],
       description: row['description'],
-      objectives: row['objectives']
+      objectives: row['objectives'],
+      start_date: Time.zone.now,
+      end_date: Time.zone.now + 30.days
     )
   end
 end
