@@ -30,8 +30,8 @@
                      data-status="<%=task.status%>">
                     <div class="card-body">
                         <a style="color: #0d6efd; text-decoration: underline; cursor:pointer;" class="card-title task-title" id="<%= task.task_name.gsub(' ', '-')%>"><small><%= task.task_name %></small></a>
-                        <p><small class="card-subtitle mb-2 text-muted"><%= task.milestone.title %></small></p>
-                        <p style="margin-bottom: 0px; margin-top:10px;"><small class="card-subtitle mb-2">Due on <%= task.deadline.strftime("%B %d, %Y") %></small></p>
+                        <p><i style="font-size: 12px; margin-right:5px;"class="fas fa-flag"></i><small class="card-subtitle mb-2"><%= task.milestone.title.truncate(25) %></small></p>
+                        <p style="margin-bottom: 0px; margin-top:10px;"><small class="text-muted card-subtitle mb-2"><i style="font-size: 12px; margin-right:5px;"class="fas fa-clock"></i>Due on <%= task.deadline.strftime("%B %d, %Y") %></small></p>
                     </div>
                 </div>
             <% end %>
@@ -54,9 +54,9 @@
                      data-status="<%=task.status%>">
                     <div class="card-body">
                         <a style="color: #0d6efd; text-decoration: underline; cursor:pointer;" id="<%= task.task_name.gsub(' ', '-')%>" class="card-title task-title"><small><%= task.task_name %></small></a>
-                        <p><small class="card-subtitle mb-2 text-muted"><%= task.milestone.title %></small></p>
-                        <p style="margin-bottom: 0px; margin-top:10px;"><small class="card-subtitle mb-2">Due on <%= task.deadline.strftime("%B %d, %Y") %></small></p>
-                    </div>
+                        <p><i style="font-size: 12px; margin-right:5px;"class="fas fa-flag"></i><small class="card-subtitle mb-2"><%= task.milestone.title.truncate(25) %></small></p>
+                        <p style="margin-bottom: 0px; margin-top:10px;"><small class="text-muted card-subtitle mb-2"><i style="font-size: 12px; margin-right:5px;"class="fas fa-clock"></i>Due on <%= task.deadline.strftime("%B %d, %Y") %></small></p>
+                 </div>
                 </div>
             <% end %>
         </div>
@@ -78,8 +78,8 @@
                      data-status="<%=task.status%>">
                     <div class="card-body">
                         <a style="color: #0d6efd; text-decoration: underline; cursor:pointer;" id="<%= task.task_name.gsub(' ', '-')%>" class="card-title task-title"><small><%= task.task_name %></small></a>
-                        <p><small class="card-subtitle mb-2 text-muted"><%= task.milestone.title %></small></p>
-                        <p style="margin-bottom: 0px; margin-top:10px;"><small class="card-subtitle mb-2">Due on <%= task.deadline.strftime("%B %d, %Y") %></small></p>
+                        <p><i style="font-size: 12px; margin-right:5px;"class="fas fa-flag"></i><small class="card-subtitle mb-2"><%= task.milestone.title.truncate(25) %></small></p>
+                        <p style="margin-bottom: 0px; margin-top:10px;"><small class="text-muted card-subtitle mb-2"><i style="font-size: 12px; margin-right:5px;"class="fas fa-clock"></i>Due on <%= task.deadline.strftime("%B %d, %Y") %></small></p>
                     </div>
                 </div>
             <% end %>
@@ -102,8 +102,8 @@
                      data-status="<%=task.status%>">
                     <div class="card-body">
                         <a style="color: #0d6efd; text-decoration: underline; cursor:pointer;" id="<%= task.task_name.gsub(' ', '-')%>" class="card-title task-title"><small><%= task.task_name %></small></a>
-                        <p><small class="card-subtitle mb-2 text-muted"><%= task.milestone.title %></small></p>
-                        <p style="margin-bottom: 0px; margin-top:10px;"><small class="card-subtitle mb-2">Due on <%= task.deadline.strftime("%B %d, %Y") %></small></p>
+                        <p><i style="font-size: 12px; margin-right:5px;"class="fas fa-flag"></i><small class="card-subtitle mb-2"><%= task.milestone.title.truncate(25) %></small></p>
+                        <p style="margin-bottom: 0px; margin-top:10px;"><small class="text-muted card-subtitle mb-2"><i style="font-size: 12px; margin-right:5px;"class="fas fa-clock"></i>Due on <%= task.deadline.strftime("%B %d, %Y") %></small></p>
                     </div>
                 </div>
             <% end %>
