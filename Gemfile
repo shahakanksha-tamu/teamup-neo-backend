@@ -2,6 +2,8 @@
 
 source 'https://rubygems.org'
 
+gem 'google-apis-calendar_v3'
+
 gem 'aws-sdk-s3', '~> 1.48'
 gem 'bootstrap', '~> 5.0.0'
 gem 'jquery-rails'
