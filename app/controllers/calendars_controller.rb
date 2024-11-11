@@ -5,7 +5,6 @@ class CalendarsController < ApplicationController
   def index; end
 
   def calendars
-    puts "Ramneek Ramneek Ramneek"
 
     client = Signet::OAuth2::Client.new(client_options)
 
@@ -15,19 +14,8 @@ class CalendarsController < ApplicationController
     service.authorization = client
 
     @calendar_list = service.list_calendar_lists
-       # Debugging: Print the response to the console
-       puts "DEBUG: Calendar List Response: #{@calendar_list.inspect}"
-
-       # Debugging: Check if the calendar list is nil or empty
-       if @calendar_list.nil?
-         puts "DEBUG: Calendar list is nil"
-       elsif @calendar_list.items.nil? || @calendar_list.items.empty?
-         puts "DEBUG: No calendars found"
-       else
-         puts "DEBUG: Found #{@calendar_list.items.count} calendars"
-       end
-    @user = User.find_by(id: current_user.id)  # Example to get user details
-    @role = current_user.role  # Assuming role is part of your user model
+    @user = User.find_by(id: current_user.id)  
+    @role = current_user.role  
   end
   def redirect
     # Initialize @client with the client setup
@@ -49,17 +37,17 @@ class CalendarsController < ApplicationController
   private
 
   def client
-    Signet::OAuth2::Client.new(client_options)  # Using `Signet::OAuth2::Client` to create the OAuth2 client
+    Signet::OAuth2::Client.new(client_options)  
   end
 
   def client_options
     {
-      client_id: "",
-      client_secret:"",
+      client_id:  ENV["GOOGLE_CLIENT_ID"],
+      client_secret:ENV["GOOGLE_CLIENT_SECRET"],
       authorization_uri: "https://accounts.google.com/o/oauth2/auth",
       token_credential_uri: "https://oauth2.googleapis.com/token",
       scope: Google::Apis::CalendarV3::AUTH_CALENDAR_READONLY,
-      redirect_uri:   "http://localhost:3000/callback" # Ensure `callback_url` is defined in your routes
+      redirect_uri:   "http://localhost:3000/callback" 
     }
   end
 end

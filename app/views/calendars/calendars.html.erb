@@ -1,34 +1,18 @@
 <!-- app/views/calendars/calendars.html.erb -->
 
-<h1>My Google Calendars</h1>
-
-<p>User Email: <%= @user.email %></p>
-<p>User Role: <%= @role %></p>
+<h1>My Google Calendar</h1>
 
 <% if @calendar_list && @calendar_list.items.any? %>
-  <table>
-    <thead>
-      <tr>
-        <th>Calendar Name</th>
-        <th>Calendar ID</th>
-        <th>Time Zone</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @calendar_list.items.each do |calendar| %>
-        <tr>
-          <td><%= calendar.summary %></td>
-          <td><%= calendar.id %></td>
-          <td><%= calendar.time_zone %></td>
-          <td>
-            <%= link_to 'View Events', "https://www.google.com/calendar/embed?src=#{calendar.id}", target: "_blank" %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <% first_calendar = @calendar_list.items.first %>
+  
+  <iframe src="https://www.google.com/calendar/embed?src=<%= first_calendar.id %>&ctz=<%= first_calendar.time_zone %>" 
+  style="border: 0; margin-top: 53px;" 
+  width="800" 
+  height="600" 
+  frameborder="0" 
+  scrolling="no">
+</iframe>
+  </iframe>
 <% else %>
   <p>No calendars found.</p>
 <% end %>
-
