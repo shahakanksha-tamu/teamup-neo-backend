@@ -20,23 +20,33 @@ Scenario: upload file with incorrect headers
     Then I click upload button
     Then I should see "File has missing required columns"
 
-# Scenario: upload csv file with missing data
-#     Given I am logged in as "johndoeadmn@gmail.com"
-#     Then I visit import data page
-#     Then I upload csv file with missing data
-#     Then I should see "missing required data"
+Scenario: upload csv file with missing data
+    Given I am logged in as "johndoeadmn@gmail.com"
+    Then I visit import data page
+    And I attach "./spec/fixtures/files/missing_data.csv" to "fileUpload"
+    Then I click upload button
+    Then I should see "missing required data"
 
-# Scenario: upload excel file with missing data
-#     Given I am logged in as "johndoeadmn@gmail.com"
-#     Then I visit import data page
-#     Then I upload excel file with missing data
-#     Then I should see "missing required data"
+Scenario: upload excel file with missing data
+    Given I am logged in as "johndoeadmn@gmail.com"
+    Then I visit import data page
+    And I attach "./spec/fixtures/files/missing_data.xlsx" to "fileUpload"
+    Then I click upload button
+    Then I should see "missing required data"
 
-# Scenario: upload file with sample data
-#     Given I am logged in as "johndoeadmn@gmail.com"
-#     Then I visit import data page
-#     Then I upload file with correct data
-#     Then I should see "File uploaded and data imported successfully!"
+Scenario: upload file with sample data
+    Given I am logged in as "johndoeadmn@gmail.com"
+    Then I visit import data page
+    And I attach "./spec/fixtures/files/sample_data.xlsx" to "fileUpload"
+    Then I click upload button
+    Then I should see "File uploaded and data imported successfully!"
+
+Scenario: upload corrupted file
+    Given I am logged in as "johndoeadmn@gmail.com"
+    Then I visit import data page
+    And I attach "./spec/fixtures/files/sample.xlsx" to "fileUpload"
+    Then I click upload button
+    Then I should see "An error occurred while processing the file"
 
 Scenario: delete the data
     Given I am logged in as "johndoeadmn@gmail.com"
