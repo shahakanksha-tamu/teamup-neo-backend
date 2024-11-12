@@ -1,9 +1,16 @@
-When('the admin visits the edit score page') do
-  visit edit_score_path
+When('the admin visits the score page of {string}') do |project_name|
+  # visit view_score_path
+  project = Project.find_by(name: project_name)
+  visit project_view_score_path(project.id)
 end
 
-When('I change score for {string}') do |student_fname|
-  student = User.find_by(first_name: student_fname)
-  field_id = "students[#{student.id}][score]"
-  fill_in field_id, with: 100
+When('the admin changes score for {string}') do |student_name|
+  first_name, last_name = student_name.split(' ', 2)
+  student = User.find_by(first_name:, last_name:)
+  student_card = find('h4.card-title', text: student_name).ancestor('.card')
+
+  within(student_card) do
+    fill_in "students[#{student.id}][score]", with: 85
+    click_button 'Update Score'
+  end
 end
