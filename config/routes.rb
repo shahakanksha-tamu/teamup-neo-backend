@@ -13,6 +13,11 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   get '/auth/google_oauth2/callback', to: 'session_manager#google_oauth_callback_handler'
   get '/auth/failure', to: 'session_manager#google_oauth_failure_handler'
 
+  # Import Data route
+  get '/import/data/', to: 'import_data#index', as: :import
+  delete '/import/data/delete', to: 'import_data#delete_data', as: :import_delete
+  post '/import/data/upload', to: 'import_data#upload_data', as: :import_upload
+
   # Project Hub routes
   get '/project_hub', to: 'project_hub#index', as: :project_hub
   get '/project_management_hub', to: 'project_management_hub#index', as: :project_management_hub
