@@ -27,6 +27,9 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
     post 'add_student', to: 'project_management_hub#add_student', as: 'add_student'
     delete 'remove_student', to: 'project_management_hub#remove_student', as: 'remove_student'
 
+    get 'view_score', to: 'score#index', as: :view_score
+    patch 'update_score', to: 'score#update', as: :update_score
+
     # Student routes related to project
     get 'team', to: 'team_info#index', as: 'view_team'
 
@@ -63,8 +66,8 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   root 'landing_page#index'
 
   # Score routes
-  get '/score/edit', to: 'score#edit', as: :edit_score
-  patch '/score/update', to: 'score#update', as: :update_score
+  # get '/score/index', to: 'score#index', as: :view_score
+  # patch '/score/update', to: 'score#update', as: :update_score
 
   # Catch-all route for handling 404s
   match '*path', to: 'application#not_found', via: :all
