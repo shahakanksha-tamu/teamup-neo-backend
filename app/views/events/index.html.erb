@@ -25,7 +25,7 @@
   <div class="row mt-4">
     <div class="col-md-7"> 
       <h5 class="mb-4">Events</h5>
-      <ul class="list-group mb-4 user-list-group" id="milestones_list">
+      <ul class="list-group mb-4 user-list-group" id="events_list">
         <% @events.order(updated_at: :desc).each do |event| %>         
             <li class="card text-bg-light mb-3" style="width: 600px">
             <div class="card-header d-flex justify-content-between">
@@ -42,7 +42,6 @@
             </div>
             <div class="card-body">
             <p><%= event.description %></p>
-            <p><%= event.show %></p>
             <%= form_with url: update_show_event_path(event), method: :patch, local: true do |form| %>
               <div class="form-check form-switch">
                 <input type="hidden" name="show" value="0">

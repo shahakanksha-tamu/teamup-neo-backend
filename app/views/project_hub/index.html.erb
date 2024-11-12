@@ -58,7 +58,7 @@
                     </div>
 
                     <div class="col-12 col-md-12">
-                      <p class="card-text"><%= @project.start_date.strftime("%d %b %Y") %> </p>
+                      <p class="card-text"><%= @project.start_date&.strftime("%d %b %Y") %> </p>
                     </div>
                   </div>
                 </div>
@@ -70,7 +70,7 @@
                     </div>
 
                     <div class="col-12 col-md-12">
-                      <p class="card-text"><%= @project.end_date.strftime("%d %b %Y") %></p>
+                      <p class="card-text"><%= @project.end_date&.strftime("%d %b %Y") %></p>
                     </div>
                   </div>
                 </div>
@@ -125,7 +125,7 @@
                   <div class="d-flex flex-column px-3 event-notfication-card-text">
                       <h5 class="card-title" style="margin-top: 0.3rem;"><%= @event.title %></h5>
                       <p class="card-text mt-2"><%= @event.description %></p>
-                      <p class="card-text"><small class="text-muted">Date: <%= @event.updated_at.strftime("%d %b %Y") %></small></p>
+                      <p class="card-text"><small class="text-muted">Date: <%= @event.updated_at&.strftime("%d %b %Y") %></small></p>
                   </div>
                   <div class="ml-auto event-notification-close">
                     <button type="button" class="btn-close" aria-label="Close"onclick="this.closest('.event-notification-card').style.display='none';"></button>
@@ -144,7 +144,7 @@
                   <div class="card-body">
                     <h5 class="card-title text-center"><%= resource.name %></h5>
                     <p class="card-text  text-center"><%= resource.file.filename.to_s %></p>
-                    <p class="card-text  text-center"><%= resource.created_at.strftime("%B %d, %Y %H:%M") %></p>
+                    <p class="card-text  text-center"><%= resource.created_at&.strftime("%B %d, %Y %H:%M") %></p>
                     <div class="d-flex justify-content-center mt-3">
                         <% if resource.file.attached? %>
                               <%= link_to 'Download', download_project_resource_path(project_id: @project.id, id: resource.id), target: '_blank', class: 'btn btn-warning btn-sm mx-2' %>

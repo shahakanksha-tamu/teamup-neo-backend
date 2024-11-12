@@ -46,7 +46,7 @@ Feature: Milestones Management
         Given I am logged in as "davidjones@gmail.com"
         When I visit the Milestone Management Page
         Then I should see "Create a New Milestone"
-        When I create a new milestone with the title "Project Kickoff", objective "Initial meeting and setup", and deadline "2024-12-01 10:00:00"
+        When I create a new milestone with the title "Project Kickoff", objective "Initial meeting and setup", and deadline "2025-12-01 10:00:00"
         Then I should see the milestone "Project Kickoff" in the list of milestones
 
     Scenario: Edit an existing milestone
@@ -95,3 +95,21 @@ Feature: Milestones Management
         Then I should see the task "Task 1" with status "Not Completed"
         And I should see the task "Task 2" with status "Completed"
         And I should see the task "Task 3" with status "Not Completed"
+    
+    Scenario: Admin fails to create a milestone with a deadline less than a week from now
+        Given I am logged in as "davidjones@gmail.com"
+        When I visit the Milestone Management Page
+        Then I should see "Create a New Milestone"
+        When I set the milestone deadline to less than a week from now with the rest of the valid inputs
+        And I click "Create Milestone"
+        Then I should see "Deadline must be at least one week from now."
+        And I should not see "Test Milestone" in the list of milestones
+
+    Scenario: Admin fails to create a milestone due to a save failure
+        Given I am logged in as "davidjones@gmail.com"
+        When I visit the Milestone Management Page
+        Then I should see "Create a New Milestone"
+        When I attempt to create a new milestone with the title "Failing Milestone", objective "This milestone will fail to save", and deadline "2025-12-01"
+        Then I should see "Failed to create milestone."
+        And I should not see "Failing Milestone" in the list of milestones
+
