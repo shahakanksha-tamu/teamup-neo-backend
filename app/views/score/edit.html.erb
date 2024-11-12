@@ -1,10 +1,25 @@
-<h1>Edit Student Score</h1>
-<%= form_with(url: update_score_path, method: :patch) do %>
-  <% @students.each do |s| %>
-    <div>
-      <%= label_tag "students[#{s.id}][score]", "#{s.full_name}:" %>
-      <%= number_field_tag "students[#{s.id}][score]", s.score, step: 0.01 %>
+<div class="container d-flex justify-content-center mt-3">
+
+    <div class="w-50">
+
+        <%= form_with(url: update_score_path, method: :patch, class: 'form-horizontal') do %>
+
+            <% @students.each do |s| %>
+                <div class="form-group row mb-3">
+                    <%= label_tag "students[#{s.id}][score]", "#{s.full_name}:", class: 'col-sm-3 col-form-label text-start' %>
+                    <div class="col-sm-3">
+                        <%= number_field_tag "students[#{s.id}][score]", s.score, step: 0.01, class: 'form-control' %>
+                    </div>
+                </div>
+            <% end %>
+
+            <div class="form-group row">
+                <div class="col-sm-12 text-start">
+                    <%= submit_tag 'Update Scores', class: 'btn btn-primary' %>
+                </div>
+            </div>
+        <% end %>
+
     </div>
-  <% end %>
-  <%= submit_tag 'Update Scores' %>
-<% end %>
+
+</div>
