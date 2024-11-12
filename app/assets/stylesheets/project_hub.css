@@ -4,3 +4,33 @@
     border-radius: 5px;        /* Rounded corners */
     padding: 15px;             /* Padding inside the container */
   }
+
+  .event-notification-card{
+    border: 2px solid #ffc108; 
+    background: #fcf2d4; 
+    width:500px; 
+    top: 120px;
+    left: 40%;
+    margin: 0 auto;  
+    animation: fadeIn 0.8s ease-in-out;
+  }
+
+  .event-notification-card:hover{
+    background: #fcf2d4;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .event-notification-close{
+    width: 10%;
+  }
+
+  .event-notfication-card-text{
+    width: 400px;
+  }
