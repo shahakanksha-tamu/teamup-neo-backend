@@ -5,6 +5,7 @@ class Milestone < ApplicationRecord
   belongs_to :project
 
   validate :start_and_end_dates_within_project_dates
+  validate :status_cannot_be_in_progress_before_start_date, on: :update
 
   has_many :tasks, dependent: :destroy
   has_many :task_assignments, through: :tasks, dependent: :destroy
@@ -17,7 +18,7 @@ class Milestone < ApplicationRecord
   }
 
   validates :status, presence: true
-
+  validates :title, presence: true, uniqueness: { message: 'must be unique' }
 
   private
 
@@ -38,5 +39,4 @@ class Milestone < ApplicationRecord
       errors.add(:status, "cannot be 'In-Progress' before the start date")
     end
   end
-
 end

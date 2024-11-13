@@ -26,7 +26,7 @@ Feature: Milestones Management
     And the following milestones exist in the database
     | project_id | title           | objective                       | deadline            | start_date          |
     | 1          | "Milestone 1"   | "Complete initial setup"        | 2024-12-01 10:00:00 | 2024-10-01 12:00:00 |
-    | 1          | "Milestone 3"   | "Develop core features"         | 2025-01-15 12:00:00 | 2024-11-01 12:00:00 |
+    | 1          | "Milestone 2"   | "Develop core features"         | 2025-01-15 12:00:00 | 2024-11-01 12:00:00 |
     | 1          | "Milestone 3"   | "Conduct testing and review"    | 2025-02-20 15:00:00 | 2025-01-15 12:00:00 |
 
 

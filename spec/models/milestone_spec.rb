@@ -22,6 +22,7 @@ RSpec.describe Milestone, type: :model do
     context 'when start_date and deadline are within project dates' do
       it 'is valid' do
         milestone = Milestone.new(
+          title: 'Milestone 1',
           project: project,
           start_date: Date.today + 1.month,
           deadline: Date.today + 6.months,

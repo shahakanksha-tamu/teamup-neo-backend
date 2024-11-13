@@ -12,7 +12,7 @@ RSpec.describe MilestonesController, type: :controller do
   before do
     session[:user_id] = logged_in_user.id
     StudentAssignment.create(user_id: logged_in_user.id, project_id: project.id)
-    Milestone.create(project_id: project.id, title: 'milestone 1 title', objective: 'milestone 1 objective', status: 'In-Progress',start_date:'2024-11-30', deadline: '2024-12-12')
+    Milestone.create(project_id: project.id, title: 'milestone 1 title', objective: 'milestone 1 objective', status: 'Not Started',start_date:'2024-11-30', deadline: '2024-12-12')
     Task.create(task_name: 'milestone 1 task 1', status: 'Not Started', deadline: '2024-12-10', milestone_id: Milestone.find_by(title: 'milestone 1 title').id, description: 'milestone 1 task 1 description')
     TaskAssignment.create(user_id: logged_in_user.id, task_id: Task.find_by(task_name: 'milestone 1 task 1').id)
     allow(controller).to receive(:current_user).and_return(logged_in_user)
