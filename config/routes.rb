@@ -13,23 +13,31 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   get '/auth/google_oauth2/callback', to: 'session_manager#google_oauth_callback_handler'
   get '/auth/failure', to: 'session_manager#google_oauth_failure_handler'
 
-  # Dashboard routes
-  get '/dashboard', to: 'dashboard#index', as: :dashboard
+  # Import Data route
+  get '/import/data/', to: 'import_data#index', as: :import
+  delete '/import/data/delete', to: 'import_data#delete_data', as: :import_delete
+  post '/import/data/upload', to: 'import_data#upload_data', as: :import_upload
 
   # Project Hub routes
   get '/project_hub', to: 'project_hub#index', as: :project_hub
   get '/project_management_hub', to: 'project_management_hub#index', as: :project_management_hub
 
   # Project Hub routes
-  resources :projects do
+  resources :projects do # rubocop:disable Metrics/BlockLength
     get 'dashboard', to: 'project_management_hub#dashboard', as: 'dashboard'
     get 'team_management', to: 'project_management_hub#team', as: 'team_management'
+    get 'task_management', to: 'task_management#index', as: 'task_management'
     post 'add_student', to: 'project_management_hub#add_student', as: 'add_student'
     delete 'remove_student', to: 'project_management_hub#remove_student', as: 'remove_student'
 
     # Student routes related to project
     get 'team', to: 'team_info#index', as: 'view_team'
 
+    # Project
+    get 'edit_project', to: 'project_management_hub#edit', as: 'edit_project'
+    patch 'update_project', to: 'project_management_hub#update', as: 'update_project'
+
+    # Students
     resources :students, only: %i[show] do
       get 'tasks', to: 'project_hub#view_tasks', as: 'view_tasks'
       get 'show_milestones', to: 'project_hub#show_milestones', as: :show_milestones
@@ -40,18 +48,24 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
         end
       end
     end
-    # New edit and update routes for project management
-    get 'edit_project', to: 'project_management_hub#edit', as: 'edit_project'
-    patch 'update_project', to: 'project_management_hub#update', as: 'update_project'
-    # Task management for project
-    get 'tasks', to: 'project_hub#view_tasks', as: 'view_tasks'
 
     # Nested resources for resources management
     resources :resources, only: %i[new create index destroy] do
       member do
         get :download # This allows downloading a specific resource
-        get :open # This allows opening a specific resource
+        get :open
       end
+    end
+
+    # Nested resources for milestones management
+    resources :milestones, only: %i[index create edit update destroy] do
+      member do
+        patch 'update_status', to: 'milestones#update_milestone_status', as: 'update_milestone_status'
+      end
+    end
+
+    resources :users do
+      resources :tasks, only: %i[create update destroy], controller: 'task_management'
     end
   end
 
@@ -62,6 +76,10 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
 
   # Defines the root path route ("/")
   root 'landing_page#index'
+
+  # Score routes
+  get '/score/edit', to: 'score#edit', as: :edit_score
+  patch '/score/update', to: 'score#update', as: :update_score
 
   # Catch-all route for handling 404s
   match '*path', to: 'application#not_found', via: :all

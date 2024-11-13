@@ -12,7 +12,6 @@ class ResourcesController < ApplicationController
     @show_sidebar = !@project.nil?
   end
 
-
   # not sure what this does
   # def new
   #   @resource = @project.resources.new

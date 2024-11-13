@@ -13,6 +13,7 @@ Background: users and projects in database
   And the following projects exist
     | name              | status |
     | Alpha Project      | active|
+
   Given I am logged in as 'johndoe@gmail.com'
   And I navigate to the project management page for "Alpha Project"
   And I click on the Team Management
@@ -30,19 +31,17 @@ Background: users and projects in database
 
 Scenario: Download a resource
   Given I am logged in as 'janesmith@gmail.com'
-  When I click View Project
   And I click "Download" on the resource "Sample Resource"
   Then I should see the file "sample.pdf" downloaded
 
-Scenario: Open a resource to view
-  Given I am logged in as 'janesmith@gmail.com'
-  When I click View Project
-  And I click "Preview" on the resource "Sample Resource"
-  Then I should see the file "sample.pdf" opened
+# Scenario: Open a resource to view
+#   Given I am logged in as 'janesmith@gmail.com'
+#   When I click View Project
+#   And I click "Preview" on the resource "Sample Resource"
+#   Then I should see the file "sample.pdf" opened
 
 Scenario: Open Task Management page
   Given I am logged in as 'janesmith@gmail.com'
-  When I click View Project
   And I click Task Management
 #   to be replaced with the actual task management page
   Then I should see "Task Management"

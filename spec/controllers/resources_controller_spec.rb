@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 # spec/controllers/resources_controller_spec.rb
 require 'rails_helper'
 
 RSpec.describe ResourcesController, type: :controller do
   let(:user) { create(:user) }
   let(:project) { create(:project) }
-  let(:resource) { create(:resource, project: project) }
+  let(:resource) { create(:resource, project:) }
   let(:file) { fixture_file_upload(Rails.root.join('sample.pdf'), 'application/pdf') }
 
   before do
@@ -48,32 +50,31 @@ RSpec.describe ResourcesController, type: :controller do
       delete :destroy, params: { project_id: project.id, id: resource.id }
       expect(response).to redirect_to(project_resources_path(project))
       expect(flash[:success]).to eq('Resource was successfully removed.')
-      expect(Resource.exists?(resource.id)).to be_falsey
+      expect(Resource).not_to exist(resource.id)
     end
   end
 
   describe 'POST #create' do
     context 'with valid attributes' do
       it 'creates a new resource and redirects to the index' do
-        expect {
-          post :create, params: { project_id: project.id, resource: { name: 'New Resource', file: file } }
-        }.to change(Resource, :count).by(1)
+        expect do
+          post :create, params: { project_id: project.id, resource: { name: 'New Resource', file: } }
+        end.to change(Resource, :count).by(1)
         expect(response).to redirect_to(project_resources_path(project))
         expect(flash[:notice]).to eq('Resource was successfully created.')
       end
     end
-    
-    context 'saving fails' do
+
+    context 'when saving fails' do
       it 'does not create a new resource and renders the new template' do
         allow_any_instance_of(Resource).to receive(:save).and_return(false) # Mock save to return false
 
-        expect {
-          post :create, params: { project_id: project.id, resource: { name: 'New Resource', file: file } }
-        }.not_to change(Resource, :count)
+        expect do
+          post :create, params: { project_id: project.id, resource: { name: 'New Resource', file: } }
+        end.not_to change(Resource, :count)
 
         expect(response).to render_template(:new)
       end
     end
-
   end
 end

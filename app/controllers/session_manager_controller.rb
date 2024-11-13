@@ -22,7 +22,6 @@ class SessionManagerController < ApplicationController
 
   private
 
-
   # original method with high cognitive complexity
   # def login(user, photo)
   #   if user.present?
@@ -52,24 +51,22 @@ class SessionManagerController < ApplicationController
     end
   end
 
-
-  def set_session(user)
+  def set_session(user) # rubocop:disable Naming/AccessorMethodName
     session[:user_id] = user.id
   end
 
   def update_user_photo(user, photo)
     return if user.photo?
-  
+
     user.photo = photo
     user.save
   end
 
   def redirect_user(user)
     if user.role == 'student'
-      redirect_to dashboard_path, notice: 'You are logged in.'
+      redirect_to project_hub_path, notice: 'You are logged in.'
     else
       redirect_to project_management_hub_path, notice: 'You are logged in.'
     end
   end
-
 end

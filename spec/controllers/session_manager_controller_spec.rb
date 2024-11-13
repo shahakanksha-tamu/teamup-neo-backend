@@ -59,10 +59,10 @@ RSpec.describe SessionManagerController, type: :controller do
         }
       end
 
-      it 'logs in the student and redirects to the dashboard' do
+      it 'logs in the student and redirects to the project_hub' do
         post :google_oauth_callback_handler
         expect(session[:user_id]).to eq(user.id)
-        expect(response).to redirect_to(dashboard_path)
+        expect(response).to redirect_to(project_hub_path)
         expect(flash[:notice]).to eq('You are logged in.')
       end
     end
