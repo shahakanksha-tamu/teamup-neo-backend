@@ -12,8 +12,8 @@ Background: users in database
   | Josie            | Mathew           | josie@gmail.com           |  admin        |  214435356 |  google_oauth2  |
   
   And the following project exists in the database
-  | id | name               | description                    | objectives                    | 
-  | 1  | Project Alpha    | Main project description     | Objective 1, Objective 2    | 
+  | id | name               | description                    | objectives                    |  end_date            | start_date            |
+  | 1  | Project Alpha    | Main project description     | Objective 1, Objective 2    | 2025-02-21 15:00:00 | 2024-10-01 10:00:00 |
 
   And the given student assignments exist
   | user_email             | project_name       |
@@ -21,10 +21,10 @@ Background: users in database
   | mariam@gmail.com       | Project Alpha   |
   
   And the following milestones exist in the database
-  |id | project_id |  title           | objective                      | deadline            | 
-  | 1 |  1         | Milestone 1  | Complete initial setup        | 2024-12-01 10:00:00 | 
-  | 2 |  1        | Milestone 2   | Develop core features         | 2025-01-15 12:00:00 | 
-  | 3 |   1       | Milestone 3   | Conduct testing and review    | 2025-02-20 15:00:00 | 
+  |id | project_id |  title           | objective                      | deadline            |  start_date           |
+  | 1 |  1         | Milestone 1  | Complete initial setup        | 2024-12-01 10:00:00 | 2024-11-01 10:00:00 |
+  | 2 |  1        | Milestone 2   | Develop core features         | 2025-01-15 12:00:00 | 2024-12-01 10:00:00 |
+  | 3 |   1       | Milestone 3   | Conduct testing and review    | 2025-02-20 15:00:00 | 2025-01-15 12:00:00 |
   And the following tasks exist in the database
   | milestone_id | task_name         | description           | status        | deadline            |
   | 1            | Task 1         | First task example  | Not Started | 2024-10-30 12:00:00 | 

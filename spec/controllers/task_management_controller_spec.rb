@@ -7,8 +7,8 @@ require 'rails_helper'
 RSpec.describe TaskManagementController, type: :controller do
   let(:user) { create(:user) }
 
-  let!(:project) { Project.create(name: 'Test Project') }
-  let!(:milestone) { Milestone.create(title: 'Test Milestone', project:) }
+  let!(:project) { Project.create(name: 'Test Project',start_date: Date.today, end_date: Date.today + 1.year) }
+  let!(:milestone) { Milestone.create(title: 'Test Milestone', project:, start_date: Date.today + 1.week , deadline: Date.today + 11.month) }
   let!(:student) { User.create(first_name: 'John', last_name: 'Doe', role: 'student', email: 'john.doe@example.com') }
   let!(:task) { Task.create(task_name: 'Sample Task', milestone_id: milestone.id, description: 'Sample description') }
 
