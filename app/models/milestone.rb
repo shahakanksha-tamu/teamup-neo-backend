@@ -7,6 +7,8 @@ class Milestone < ApplicationRecord
   validate :start_and_end_dates_within_project_dates
 
   has_many :tasks, dependent: :destroy
+  has_many :task_assignments, through: :tasks, dependent: :destroy
+  has_many :timelines, dependent: :destroy
 
   enum status: {
     'Not Started' => 'Not Started',
