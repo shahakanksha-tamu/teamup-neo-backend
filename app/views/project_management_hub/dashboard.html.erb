@@ -1,33 +1,21 @@
-<!-- dashboard.html.erb -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Font Awesome for icons -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-</head>
-<body>
+
   <div class="dashboard-container">
     <div class="project-header">
       <div class="d-flex justify-content-between align-items-center">
-        <h2 class="mb-0">Project Dashboard: <%= @project.name %></h2>
+        <h3 class="mb-0">Project Dashboard</h3>
         <button type="button" class="btn btn-edit editButton" data-toggle="modal" data-target="#projectModal" 
-        style="border-radius: 9px; background: #4B8BF4;">
-  <i class="fas fa-edit mr-2"></i>Edit Project
-</button>
+        style="background: rgb(255, 193, 7);">
+        <i class="fas fa-edit mr-2"></i>Edit Project</button>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-8">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="card-title mb-0">Project Details</h5>
+        <div class="card dashboard-card">
+          <div class="card-header dashboard-card-header">
+            <h5 class="card-title dashboard-card-title mb-0">Project Details</h5>
           </div>
-          <div class="card-body">
+          <div class="card-body dashboard-card-body">
             <div class="mb-4">
               <div class="info-label">Description</div>
               <div class="info-text"><%= @project.description %></div>
@@ -36,21 +24,24 @@
               <div class="info-label">Objectives</div>
               <div class="info-text"><%= @project.objectives %></div>
             </div>
-
             <div class="mb-4">
-            <div class="info-label">Status</div>
-            <div class="info-text"><%= @project.status %></div>
-          </div>
+              <div class="info-label">Start Date</div>
+              <div class="info-text"><%= @project.start_date.strftime("%B %d, %Y") %></div>
+            </div>
+            <div class="mb-4">
+              <div class="info-label">End Date</div>
+              <div class="info-text"><%= @project.end_date.strftime("%B %d, %Y") %></div>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="col-md-4">
         <div class="card progress-card">
-          <div class="card-header">
-            <h5 class="card-title mb-0">Project Progress</h5>
+          <div class="card-header dashboard-card-header">
+            <h5 class="card-title dashboard-card-title mb-0">Project Progress</h5>
           </div>
-          <div class="card-body">
+          <div class="card-body dashboard-card-body">
             <canvas id="progressChart" data-progress="<%= @progress %>"></canvas>
             <div class="mt-4">
               <h4 class="mb-0"><%= @progress %>% Complete</h4>
@@ -63,15 +54,13 @@
 
   <!-- Modal Structure -->
   <div id="projectModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 class="modal-title">Edit Project</h3>
-          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+    <div class="modal-dialog dashboard-modal-dialog">
+      <div class="modal-content dashboard-modal-content">
+        <div class="modal-header dashboard-modal-header">
+          <h3 class="modal-title dashboard-modal-title">Edit Project</h3>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body p-4">
+        <div class="modal-body dashboard-modal-body p-4">
           <%= form_with(model: @project, url: project_update_project_path(@project), method: :patch, local: true, class: 'project-form') do |form| %>
             <div class="form-group">
               <%= form.label :name, class: 'info-label' %>
@@ -202,5 +191,3 @@
       ProjectDashboard.waitForChartJs();
     }
   </script>
-</body>
-</html>

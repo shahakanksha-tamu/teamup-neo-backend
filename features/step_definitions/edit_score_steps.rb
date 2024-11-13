@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 When('the admin visits the edit score page') do
   visit edit_score_path
 end

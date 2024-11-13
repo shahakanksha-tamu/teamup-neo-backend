@@ -11,8 +11,8 @@ Background: users in database
 
 Scenario: Student accesses dashboard
     Given the student is logged in with "johndoe@gmail.com"
-    When the student navigates to the dashboard
-    Then the student should be directed to the dashboard
+    When the student navigates to the project_hub
+    Then the student should be directed to the project_hub
     And the student should see "You have a pending project assignment. Please check again later." 
 
 
@@ -25,13 +25,13 @@ Scenario: Student accesses settings
 Scenario: Student accesses project hub when no project is assigned
     Given the student is logged in with "johndoe@gmail.com"
     When the student navigates to the project_hub
-    Then the student should be directed to the dashboard
+    Then the student should see "You have a pending project assignment. Please check again later." 
 
 
 Scenario: Student accesses project management hub
     Given the student is logged in with "johndoe@gmail.com"
     When the student navigates to the project_management_hub
-    Then the student should be directed to the dashboard
+    Then the student should be directed to the project_hub
 
 
 Scenario: Student accesses an unknown route

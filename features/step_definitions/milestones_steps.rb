@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # features/step_definitions/milestones_steps.rb
 
 Given('I am a logged-in user with an assigned project') do
@@ -6,8 +8,8 @@ Given('I am a logged-in user with an assigned project') do
   @project = FactoryBot.create(:project)
   @project.student_assignments.create(user: @user)
   # Create mock milestone data for the project
-  FactoryBot.create(:milestone, project: @project, title: 'Milestone 1', start_date: Date.today, deadline: Date.today + 10.days, status: 'In-Progress', objective: 'Initial phase')
-  FactoryBot.create(:milestone, project: @project, title: 'Milestone 2', start_date: Date.today + 11.days, deadline: Date.today + 20.days, status: 'Not Started', objective: 'Secondary phase')
+  FactoryBot.create(:milestone, project: @project, title: 'Milestone 1', start_date: Time.zone.today, deadline: Time.zone.today + 10.days, status: 'In-Progress', objective: 'Initial phase')
+  FactoryBot.create(:milestone, project: @project, title: 'Milestone 2', start_date: Time.zone.today + 11.days, deadline: Time.zone.today + 20.days, status: 'Not Started', objective: 'Secondary phase')
 
   # Mock login and navigate to dashboard to establish session
   step 'I visit landing page'
@@ -35,7 +37,7 @@ When('I select {string} from the status filter') do |status|
 end
 
 Then('I should see only milestones that are in-progress') do
-  @project.milestones.where(status: 'In-Progress').each do |milestone|
+  @project.milestones.where(status: 'In-Progress').find_each do |milestone|
     expect(page).to have_content(milestone.title)
   end
 end

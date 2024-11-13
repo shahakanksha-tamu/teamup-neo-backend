@@ -1,7 +1,7 @@
 <div style="margin-top: 90px;" class="container-fluid">
   <div style="display:flex; flex-direction: row; justify-content: space-between; align-items: center;">
     <div>
-      <h1>Project Management Hub</h1>
+      <h3>Manage Projects</h3>
     </div>
     <div>
       <button class="btn btn-success" id="openProjectModal">Create New Project</button>
@@ -29,7 +29,7 @@
                   Description
                 </div>
                 <div class="col-sm-8">
-                  <%= project.description %>
+                  <%= truncate(project.description, length: 50) %>
                 </div>
               </div>
               <div class="row">
@@ -47,7 +47,7 @@
                   Objectives
                 </div>
                 <div class="col-sm-8">
-                <%= truncate(project.objectives, length: 20) %>
+                <%= truncate(project.objectives, length: 50) %>
                 </div>
               </div>
             </div>

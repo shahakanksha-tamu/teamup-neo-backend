@@ -6,7 +6,9 @@ Given('the given projects exists in the database') do |projects|
       name: row['name'],
       description: 'Default project description',
       objectives: 'Default project objectives',
-      status: 'active'
+      status: 'active',
+      start_date: Date.new(2024, 11, 1),
+      end_date: Date.new(2025, 9, 27)
     )
   end
 end

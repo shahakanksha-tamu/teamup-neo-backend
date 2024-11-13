@@ -25,9 +25,9 @@ Scenario: Access landing page after successful login
   Given I visit landing page
   Given I am already registered to Neo application with email "johndoe@gmail.com"
   When  I press Login with Google and choose "johndoe@gmail.com" as my google account for authentication
-  Then  I should be on the dashboard page
+  Then  I should be on the project hub page
   When  I visit landing page
-  Then  I should be on the dashboard page
+  Then  I should be on the project hub page
 
 Scenario: User does not accept the Google OAuth authentication consent
   Given I visit landing page

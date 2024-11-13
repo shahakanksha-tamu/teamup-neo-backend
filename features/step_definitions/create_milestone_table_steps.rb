@@ -7,7 +7,8 @@ Given('the following milestones exist for {string}') do |project_name, milestone
       project:,
       title: milestone['title'],
       objective: milestone['objective'],
-      deadline: milestone['deadline']
+      deadline: milestone['deadline'],
+      status: milestone['status'] || 'Not Started'
     )
   end
 end
