@@ -4,7 +4,7 @@
 class Milestone < ApplicationRecord
   belongs_to :project
 
-  validate :start_and_end_dates_within_project_dates
+  validate :start_and_end_dates_within_project_dates, on: :update
   validate :status_cannot_be_in_progress_before_start_date, on: :update
 
   has_many :tasks, dependent: :destroy
