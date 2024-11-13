@@ -45,6 +45,9 @@ gem 'bootsnap', require: false
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
+group :test do
+  gem 'webmock'
+end
 
 gem 'highcharts-rails'
 
