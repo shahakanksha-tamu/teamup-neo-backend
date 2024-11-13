@@ -9,41 +9,30 @@ class SessionManagerController < ApplicationController
     redirect_to root_path, notice: 'You are logged out.'
   end
 
-  # def google_oauth_callback_handler
-  #   auth = request.env['omniauth.auth']
-  #   @user = User.find_by(email: auth['info']['email'], provider: auth['provider'])
-  #   login(@user, auth['info']['image'])
-  # end
   def google_oauth_callback_handler
     auth = request.env['omniauth.auth']
     
-    # Find or create the user based on email and provider
     @user = User.find_by(email: auth['info']['email'], provider: auth['provider'])
     
-    # If user is found, log in the user and store tokens in the session
     if @user.present?
       session[:user_id] = @user.id
       
-      # Store OAuth tokens in the session for later use with Google APIs
       session[:authorization] = {
         token: auth['credentials']['token'],
         refresh_token: auth['credentials']['refresh_token'],
         expires_at: auth['credentials']['expires_at']
       }
       
-      # Update user profile picture if necessary
       unless @user.photo?
         @user.update(photo: auth['info']['image'])
       end
       
-      # Redirect user based on their role
       if @user.role == 'student'
         redirect_to dashboard_path, notice: 'You are logged in.'
       else
         redirect_to project_management_hub_path, notice: 'You are logged in.'
       end
     else
-      # Handle case where user is not found
       redirect_to root_path, alert: 'Login failed.'
     end
   end
