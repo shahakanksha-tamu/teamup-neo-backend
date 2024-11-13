@@ -33,4 +33,10 @@ class Milestone < ApplicationRecord
     end
   end
 
+  def status_cannot_be_in_progress_before_start_date
+    if status == 'In-Progress' && start_date.present? && start_date > Date.today
+      errors.add(:status, "cannot be 'In-Progress' before the start date")
+    end
+  end
+
 end
