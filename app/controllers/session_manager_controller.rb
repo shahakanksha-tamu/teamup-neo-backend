@@ -11,30 +11,8 @@ class SessionManagerController < ApplicationController
 
   def google_oauth_callback_handler
     auth = request.env['omniauth.auth']
-    
     @user = User.find_by(email: auth['info']['email'], provider: auth['provider'])
-    
-    if @user.present?
-      session[:user_id] = @user.id
-      
-      session[:authorization] = {
-        token: auth['credentials']['token'],
-        refresh_token: auth['credentials']['refresh_token'],
-        expires_at: auth['credentials']['expires_at']
-      }
-      
-      unless @user.photo?
-        @user.update(photo: auth['info']['image'])
-      end
-      
-      if @user.role == 'student'
-        redirect_to dashboard_path, notice: 'You are logged in.'
-      else
-        redirect_to project_management_hub_path, notice: 'You are logged in.'
-      end
-    else
-      redirect_to root_path, alert: 'Login failed.'
-    end
+    login(@user,auth )
   end
   
   def google_oauth_failure_handler
@@ -63,9 +41,10 @@ class SessionManagerController < ApplicationController
   #   end
   # end
 
-  def login(user, photo)
+  def login(user, auth)
+    photo =auth['info']['image']
     if user.present?
-      set_session(user)
+      set_session(user , auth)
       update_user_photo(user, photo)
       redirect_user(user)
     else
@@ -73,8 +52,14 @@ class SessionManagerController < ApplicationController
     end
   end
 
-  def set_session(user) # rubocop:disable Naming/AccessorMethodName
-    session[:user_id] = user.id
+  def set_session(user , auth) # rubocop:disable Naming/AccessorMethodName
+    session[:user_id] = user.id      
+    session[:authorization] = {
+      token: auth['credentials']['token'],
+      refresh_token: auth['credentials']['refresh_token'],
+      expires_at: auth['credentials']['expires_at']
+    }
+    
   end
 
   def update_user_photo(user, photo)
