@@ -51,6 +51,11 @@
           labels: {
             formatter: function() {
               return Highcharts.dateFormat('%e %b %Y', this.value);
+            },
+            rotation: -45,
+            style: {
+              fontSize: '10px',
+              whiteSpace: 'nowrap'
             }
           },
           grid: {
@@ -68,7 +73,7 @@
           series: {
             dataLabels: {
               enabled: true,
-              format: '{point.name}', // Show the milestone name on the bar
+              format: '{point.name}',
               align: 'center',
               verticalAlign: 'middle'
             }
