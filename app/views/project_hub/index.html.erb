@@ -1,77 +1,143 @@
-<% if !@project.nil? %>
+<div class="container-fluid p-4">
+  <div class="row">
+    <div class="col-12 col-lg-7">
+      
+      <div class="mb-3 p-2">
+          <div class="card rounded mb-3 card-hover">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12 mb-3">
+                    <h4 class="card-title"><%=@project.name%></h4>
+                </div>
+              </div>
 
-    <div class="container-fluid p-5">
-
-        <div class="row">
-
-            <div class="col-md-5">
+              <div class="row mb-3">
                 
-                <div class="row mb-3">
-                    <% if false %>
-                    <% @project.milestones.each do |milestone| %>
-                        <div class="col-md-6">
-                            <div class="card  rounded mb-3 card-hover" style="width :80">
-                                <div class="card-body">
-
-                                    <div class="row mb-3">
-                                        <h5 class="card-title"><%= milestone.title %></h5>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <div class="col-12 col-md-12">
-                                            <p class="card-text text-secondary">Deadline</p>
-                                        </div>
-
-                                        <div class="col-12 col-md-12">
-                                            <p class="card-text"><%= milestone.deadline %></p>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <div class="col-12 col-md-12">
-                                            <p class="card-text text-secondary">Objective</p>
-                                        </div>
-
-                                        <div class="col-12 col-md-12">
-                                            <p class="card-text"><%= milestone.objective %></p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    <% end %>
-                    <% end %>
-
-                </div>
-
-
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <div class="card  rounded mb-3 card-hover" style="width :80">
-                            <div class="card-body">
-
-                                <div class="row mb-3">
-                                    <h5 class="card-title">Objectives</h5>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-12 col-md-12">
-                                        <p class="card-text"><%= @project.objectives %></p>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+                <div class="col-12 col-md-9">
+                  <div class="row mb-3">
+                    <div class="col-12 col-md-12">
+                      <p class="card-text text-secondary">Description</p>
                     </div>
+
+                    <div class="col-12 col-md-12">
+                      <p class="card-text"><%= @project.description %></p>
+                    </div>
+                  </div>
                 </div>
+                
+                <div class="col-12 col-md-3">
+                  <div class="row mb-3">
+                    <div class="col-12 col-md-12">
+                      <p class="card-text text-secondary">Status</p>
+                    </div>
+
+                    <div class="col-12 col-md-12">
+                      <p class="card-text <%=@project.status.titleize == 'Active' ? 'text-success' : 'text-warning'%>"><%= @project.status.titleize %></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row mb-4">
+                <div class="col-12 col-md-12">
+                  <p class="card-text text-secondary">Objective</p>
+                </div>
+
+                <div class="col-12 col-md-12">
+                  <p class="card-text"><%= @project.objectives %></p>
+                </div>
+              </div>
+            
+              <div class="row mb-3">
+
+                <div class="col-12 col-md-4">
+                  <div class="row mb-3">
+                    <div class="col-12 col-md-12">
+                      <p class="card-text text-secondary">Start Date</p>
+                    </div>
+
+                    <div class="col-12 col-md-12">
+                      <p class="card-text"><%= @project.start_date.strftime("%d %b %Y") %> </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-4">
+                  <div class="row mb-3">
+                    <div class="col-12 col-md-12">
+                      <p class="card-text text-secondary">End Date</p>
+                    </div>
+
+                    <div class="col-12 col-md-12">
+                      <p class="card-text"><%= @project.end_date.strftime("%d %b %Y") %></p>
+                    </div>
+                  </div>
+                </div>
+             </div>
+
+              <div class="row mb-3">
+                <div class="col-12 col-md-4">
+                  <span style="width: 100%;">
+                      <%= link_to "Know Your Team", project_view_team_path(@project), class: "btn btn-warning btn-md view-team" %>
+                  </span>
+                </div>
+              </div>
 
             </div>
-
+          </div>
         </div>
-
+        <div class="mb-3 p-2">
+            <h4 class="mb-4">Certificate Completion Score</h4>
+            <h6 class="mb-3">Score : <%= @user.score%>/100</h6>
+               <div style="height: 25px;" class="progress">
+              <div 
+                id="progressBar" 
+                class="progress-bar bg-success progress-bar-striped progress-bar-animated" 
+                role="progressbar" 
+                style="width: <%= @user.score %>%;" 
+                aria-valuenow="<%= @user.score %>" 
+                aria-valuemin="0" 
+                aria-valuemax="100">
+                <span style="font-size: 14px;"><strong><%= @user.score %></strong></span>
+              </div>
+             </div>
+        </div>
+    </div>
+    
+    <!-- project resources -->
+    <div style="height: 90vh; overflow-y: auto; overflow-x: hidden;" class="col-12 col-lg-5">
+      <div class="p-2">
+          <div class="rounded mb-3">
+             <h3>Project Resources</h3>
+             <div> 
+        <div class="row">
+          <% @resources.each do |resource| %>
+            <% if resource.present? %>
+              <div class="col-12 col-md-6 mb-4"> <!-- Two cards per row -->
+                <div class="card" style="width: 100%;">
+                  <div class="card-body">
+                    <h5 class="card-title text-center"><%= resource.name %></h5>
+                    <p class="card-text  text-center"><%= resource.file.filename.to_s %></p>
+                    <p class="card-text  text-center"><%= resource.created_at.strftime("%B %d, %Y %H:%M") %></p>
+                    <div class="d-flex justify-content-center mt-3">
+                        <% if resource.file.attached? %>
+                              <%= link_to 'Download', download_project_resource_path(project_id: @project.id, id: resource.id), target: '_blank', class: 'btn btn-warning btn-sm mx-2' %>
+                            <%if resource.file.representable?%>
+                              <%= link_to 'Preview', open_project_resource_path(project_id: @project.id, id: resource.id), target: '_blank', class: 'btn btn-warning btn-sm mx-2' %>
+                            <%end%>
+                    </div>
+                    <% else %>
+                        <span class="disabled">No file attached</span>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+          </div>
+      </div>
     </div>
 
-<% else %>
-    <p>No projects.</p>
-<% end %>
+  </div>
+</div>

@@ -36,7 +36,7 @@ end
 Then('I should be signed in as {string}') do |email|
   user = User.find_by(email:)
   expect(user).not_to be_nil
-  expect(current_path).to eq(dashboard_path)
+  expect(current_path).to eq(project_hub_path)
 end
 
 Then('I should see {string} button') do |button_string|
@@ -51,8 +51,8 @@ Then('I should be on the landing page') do
   expect(current_path).to eq(root_path)
 end
 
-Then('I should be on the dashboard page') do
-  expect(current_path).to eq(dashboard_path)
+Then('I should be on the project hub page') do
+  expect(current_path).to eq(project_hub_path)
 end
 
 Then('I press {string}') do |button_string|

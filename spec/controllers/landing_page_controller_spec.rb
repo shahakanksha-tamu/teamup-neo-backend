@@ -13,7 +13,7 @@ RSpec.describe LandingPageController, type: :controller do
       end
 
       it 'redirects to the dashboard' do
-        expect(response).to redirect_to(dashboard_path)
+        expect(response).to redirect_to(project_management_hub_path)
       end
     end
 

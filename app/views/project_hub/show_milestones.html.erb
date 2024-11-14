@@ -1,7 +1,5 @@
-<!-- app/views/project_hub/index.html.erb -->
-<div class="project-hub">
-  <h1>Milestones</h1>
-  <!-- Milestones Section -->
+<div class="fluid-container p-5">
+  <h3>Milestones</h3>
   <div class="milestones-container">
     <!-- Filter Options -->
     <div class="filter-options">
@@ -16,7 +14,7 @@
       <% @milestones.each do |milestone| %>
         <div class="milestone-item">
           <div class="milestone-header">
-            <h3><%= milestone.title %></h3>
+            <h5><%= milestone.title %></h5>
             <span class="milestone-status <%= milestone.status.downcase.gsub(" ", "-") %>"><%= milestone.status %></span>
           </div>
           <div class="milestone-dates">
