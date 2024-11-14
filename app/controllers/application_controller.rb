@@ -14,7 +14,10 @@ class ApplicationController < ActionController::Base
       admin: [
         { controller: 'project_management_hub', action: 'index' },
         { controller: 'score', action: 'edit' },
-        { controller: 'score', action: 'update' }
+        { controller: 'score', action: 'update' },
+        { controller: 'import_data', action: 'index' },
+        { controller: 'import_data', action: 'upload_data' },
+        { controller: 'import_data', action: 'delete_data' }
       ],
       student: [
         { controller: 'project_hub', action: 'index' },

@@ -3,8 +3,9 @@
 Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   # Calendars route
   resources :resources
-  get 'calendars', to: 'calendars#index', as: :calendar_view
-
+  get 'calendars', to: 'calendars#calendars', as: :calendar_view
+  get "/redirect", to: "calendars#redirect" , as: :calendar_redirect
+  get "/callback", to: "calendars#callback"
   # Health check route
   get 'up' => 'rails/health#show', as: :rails_health_check
 
@@ -12,6 +13,11 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   get 'logout', to: 'session_manager#logout', as: :logout
   get '/auth/google_oauth2/callback', to: 'session_manager#google_oauth_callback_handler'
   get '/auth/failure', to: 'session_manager#google_oauth_failure_handler'
+
+  # Import Data route
+  get '/import/data/', to: 'import_data#index', as: :import
+  delete '/import/data/delete', to: 'import_data#delete_data', as: :import_delete
+  post '/import/data/upload', to: 'import_data#upload_data', as: :import_upload
 
   # Project Hub routes
   get '/project_hub', to: 'project_hub#index', as: :project_hub
