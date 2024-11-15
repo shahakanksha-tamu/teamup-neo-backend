@@ -40,7 +40,7 @@
 
       <li>
         <%= link_to "Project Timeline", project_student_timeline_path(@project, @user), method: :get, 
-          class: "nav-link #{current_page?(project_student_timeline_path(@project, @user)) ? 'active' : 'link-dark'}" %>
+          class: "nav-link #{current_page?(project_student_timeline_path(@project, @user)) ? 'active' : 'link-dark'}", data: { turbo: false }  %>
       </li>
 
       <li>

@@ -75,6 +75,14 @@
               <%= form.text_area :objectives, class: 'form-control', rows: 4, value: @project.objectives %>
             </div>
             <div class="form-group">
+              <%= form.label :start_date, 'Project Start Date', class: 'info-label' %>
+              <%= form.date_field :start_date, class: 'form-control', value: @project.start_date %>
+            </div>
+            <div class="form-group">
+              <%= form.label :end_date, 'Project End Date', class: 'info-label' %>
+              <%= form.date_field :end_date, class: 'form-control', value: @project.end_date %>
+            </div>
+            <div class="form-group">
               <%= form.label :status, class: 'info-label' %>
               <%= form.select :status, options_for_select([['Active', 'active'], ['Inactive', 'inactive']], @project.status), {}, { class: 'form-control', style: 'height: auto;' } %>
             </div>

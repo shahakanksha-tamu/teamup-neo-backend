@@ -1,65 +1,27 @@
-<!-- app/views/project_hub/timeline.html.erb -->
 <div class="timeline-container">
   <h3>Project Timeline</h3>
 
-  <!-- Gantt Chart Section -->
-  <div class="gantt-chart-container">
-    <h3>Gantt Chart</h3>
-    <div class="chart-scroll">
-      <table class="gantt-table">
-        <thead>
-          <tr>
-            <th>Milestone</th>
-            <% # Find the minimum start date and maximum end date across all milestones %>
-            <% min_start = @milestones.min_by(&:start_date).start_date.to_date %>
-            <% max_end = @milestones.max_by(&:deadline).deadline.to_date %>
-            <% # Generate a range of weeks between min_start and max_end %>
-            <% (min_start..max_end).step(7).each do |date| %>
-              <th><%= date.strftime("%b %d") %></th>
-            <% end %>
-          </tr>
-        </thead>
-        <tbody>
-          <% @milestones.each do |milestone| %>
-            <% start_date = milestone.start_date.to_date %>
-            <% end_date = milestone.deadline.to_date %>
-            <tr>
-              <td><%= milestone.title %></td>
-              <% (min_start..max_end).step(7).each do |date| %>
-                <% if date >= start_date && date <= end_date %>
-                  <td class="gantt-bar" title="<%= milestone.title %>"></td>
-                <% else %>
-                  <td></td>
-                <% end %>
-              <% end %>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  <div id="gantt-container" style="height: dynamic;"></div>
 
-  <!-- Milestone Table Section -->
-  <div class="milestone-table-container">
-    <h3>Milestone Details</h3>
-    <table>
+
+  <div class="milestones-container">
+    <h3>Milestones Table</h3>
+    <table class="milestone-table">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Status</th>
+          <th>ID</th>
+          <th>Title</th>
           <th>Start Date</th>
-          <th>End Date</th>
-          <th>Objective</th>
+          <th>Deadline</th>
         </tr>
       </thead>
       <tbody>
         <% @milestones.each do |milestone| %>
           <tr>
-            <td><%= milestone.title %></td>
-            <td><%= milestone.status %></td>
-            <td><%= milestone.start_date.strftime("%B %d, %Y") %></td>
-            <td><%= milestone.deadline.strftime("%B %d, %Y") %></td>
-            <td><%= milestone.objective %></td>
+            <td><%= milestone[:id] %></td>
+            <td><%= milestone[:name] %></td>
+            <td><%= milestone[:start_date].strftime('%e %b %Y') %></td>
+            <td><%= milestone[:end_date].strftime('%e %b %Y') %></td>
           </tr>
         <% end %>
       </tbody>
@@ -67,33 +29,87 @@
   </div>
 </div>
 
-<style>
-  .gantt-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  .gantt-table th, .gantt-table td {
-    border: 1px solid #ddd;
-    padding: 5px;
-    text-align: center;
-  }
-  .gantt-table th {
-    background-color: #f4f4f4;
-    font-weight: bold;
-    white-space: nowrap;
-  }
-  .gantt-bar {
-    background-color: #76c7c0;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-  }
-  .gantt-bar:hover {
-    background-color: #4e9b8e;
-  }
-  .milestone-table-container h3, .gantt-chart-container h3 {
-    margin-top: 20px;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #333;
-  }
-</style>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/gantt/modules/gantt.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', initializeChart);
+    document.addEventListener('turbo:load', initializeChart);
+
+    function initializeChart() {
+      const container = document.getElementById('gantt-container');
+      if (container) {
+        Highcharts.ganttChart('gantt-container', {
+          title: {
+            text: 'Project Milestones Timeline'
+          },
+          series: [{
+            name: 'Milestones',
+            data: <%= raw @milestones.map.with_index { |m, i| {
+              id: m[:id],
+              name: m[:name],
+              start: m[:start],
+              end: m[:end],
+              y: i,
+              color: m[:color]
+            } }.to_json %>
+          }],
+          yAxis: {
+            type: 'category',
+            uniqueNames: true,
+            grid: {
+              enabled: true,
+              borderColor: '#e0e0e0',
+              lineWidth: 1
+            },
+            categories: <%= raw @milestones.map { |m| m[:name] }.to_json %>,
+            title: {
+              text: 'Milestones'
+            },
+            min: 0,
+            max: <%= @milestones.length - 1 %>,
+            labels: {
+              style: {
+                fontSize: '12px',
+                padding: 5
+              }
+            }
+          },
+          xAxis: {
+            labels: {
+              formatter: function () {
+                return Highcharts.dateFormat('%e %b %Y', this.value);
+              },
+              rotation: -45,
+              style: {
+                fontSize: '10px',
+                whiteSpace: 'nowrap'
+              }
+            },
+            grid: {
+              borderColor: '#e0e0e0',
+              lineWidth: 1
+            }
+          },
+          chart: {
+            scrollablePlotArea: {
+              minWidth: 1500,
+              scrollPositionX: 1
+            }
+          },
+          plotOptions: {
+            series: {
+              dataLabels: {
+                enabled: true,
+                format: '{point.name}',
+                align: 'center',
+                verticalAlign: 'middle'
+              }
+            }
+          }
+        });
+      }
+    }
+
+  </script>
+
