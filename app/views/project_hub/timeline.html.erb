@@ -1,89 +1,10 @@
-<!-- app/views/project_hub/timeline.html.erb -->
+
 <div class="timeline-container">
   <h3>Project Timeline</h3>
 
-  <!-- Gantt Chart Section -->
   <div id="gantt-container" style="height: dynamic;"></div>
 
-  <!-- Include Highcharts Gantt -->
-  <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script src="https://code.highcharts.com/gantt/modules/gantt.js"></script>
 
-  <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function () {
-      Highcharts.ganttChart('gantt-container', {
-        title: {
-          text: 'Project Milestones Timeline'
-        },
-        series: [{
-          name: 'Milestones',
-          data: <%= raw @milestones.map.with_index { |m, i| {
-            id: m[:id],
-            name: m[:name],
-            start: m[:start],
-            end: m[:end],
-            y: i,
-            color: m[:color]
-          } }.to_json %>
-        }],
-        yAxis: {
-          type: 'category',
-          uniqueNames: true,
-          grid: {
-            enabled: true, 
-            borderColor: '#e0e0e0',
-            lineWidth: 1
-          },
-          categories: <%= raw @milestones.map { |m| m[:name] }.to_json %>, 
-          title: {
-            text: 'Milestones'
-          },
-          min: 0,
-          max: <%= @milestones.length - 1 %>, 
-          labels: {
-            style: {
-              fontSize: '12px', 
-              padding: 5 
-            }
-          }
-        },
-        xAxis: {
-          labels: {
-            formatter: function() {
-              return Highcharts.dateFormat('%e %b %Y', this.value);
-            },
-            rotation: -45,
-            style: {
-              fontSize: '10px',
-              whiteSpace: 'nowrap'
-            }
-          },
-          grid: {
-            borderColor: '#e0e0e0',
-            lineWidth: 1
-          }
-        },
-        chart: {
-          scrollablePlotArea: {
-            minWidth: 1500,
-            scrollPositionX: 1
-          }
-        },
-        plotOptions: {
-          series: {
-            dataLabels: {
-              enabled: true,
-              format: '{point.name}',
-              align: 'center',
-              verticalAlign: 'middle'
-            }
-          }
-        }
-      });
-    });
-  </script>
-
-  <!-- Milestones Table Section -->
   <div class="milestones-container">
     <h3>Milestones Table</h3>
     <table class="milestone-table">
@@ -108,3 +29,88 @@
     </table>
   </div>
 </div>
+
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/gantt/modules/gantt.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', initializeChart);
+    document.addEventListener('turbo:load', initializeChart);
+
+    function initializeChart() {
+      const container = document.getElementById('gantt-container');
+      if (container) {
+        Highcharts.ganttChart('gantt-container', {
+          title: {
+            text: 'Project Milestones Timeline'
+          },
+          series: [{
+            name: 'Milestones',
+            data: <%= raw @milestones.map.with_index { |m, i| {
+              id: m[:id],
+              name: m[:name],
+              start: m[:start],
+              end: m[:end],
+              y: i,
+              color: m[:color]
+            } }.to_json %>
+          }],
+          yAxis: {
+            type: 'category',
+            uniqueNames: true,
+            grid: {
+              enabled: true,
+              borderColor: '#e0e0e0',
+              lineWidth: 1
+            },
+            categories: <%= raw @milestones.map { |m| m[:name] }.to_json %>,
+            title: {
+              text: 'Milestones'
+            },
+            min: 0,
+            max: <%= @milestones.length - 1 %>,
+            labels: {
+              style: {
+                fontSize: '12px',
+                padding: 5
+              }
+            }
+          },
+          xAxis: {
+            labels: {
+              formatter: function () {
+                return Highcharts.dateFormat('%e %b %Y', this.value);
+              },
+              rotation: -45,
+              style: {
+                fontSize: '10px',
+                whiteSpace: 'nowrap'
+              }
+            },
+            grid: {
+              borderColor: '#e0e0e0',
+              lineWidth: 1
+            }
+          },
+          chart: {
+            scrollablePlotArea: {
+              minWidth: 1500,
+              scrollPositionX: 1
+            }
+          },
+          plotOptions: {
+            series: {
+              dataLabels: {
+                enabled: true,
+                format: '{point.name}',
+                align: 'center',
+                verticalAlign: 'middle'
+              }
+            }
+          }
+        });
+      }
+    }
+
+  </script>
+
