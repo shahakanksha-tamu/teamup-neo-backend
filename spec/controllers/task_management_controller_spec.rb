@@ -8,7 +8,7 @@ RSpec.describe TaskManagementController, type: :controller do
   let(:user) { create(:user) }
 
   let!(:project) { Project.create(name: 'Test Project') }
-  let!(:milestone) { Milestone.create(title: 'Test Milestone', project:) }
+  let!(:milestone) { Milestone.create(title: 'Test Milestone', project:, deadline: 5.days.from_now) }
   let!(:student) { User.create(first_name: 'John', last_name: 'Doe', role: 'student', email: 'john.doe@example.com') }
   let!(:task) { Task.create(task_name: 'Sample Task', milestone_id: milestone.id, description: 'Sample description') }
 
@@ -44,14 +44,14 @@ RSpec.describe TaskManagementController, type: :controller do
     end
   end
 
-  describe 'POST #create' do
+  describe 'POST #create' do # rubocop:disable RSpec/MultipleMemoizedHelpers
     let(:task_params) do
       {
         task: {
           task_name: 'New Task',
           status: 'Not Started',
           milestone_id: milestone.id,
-          deadline: '2024-12-01 12:00:00',
+          deadline: '2024-05-05 12:00:00',
           description: 'A sample description'
         },
         user_id: student.id,
@@ -69,12 +69,14 @@ RSpec.describe TaskManagementController, type: :controller do
       end
     end
 
-    context 'with invalid parameters' do
-      it 'renders the index template and logs errors' do
-        invalid_params = task_params.deep_merge(task: { task_name: '' })
-        post :create, params: invalid_params
-        expect(response).to render_template(:index)
-        expect(assigns(:task).errors[:task_name]).to include("can't be blank")
+    context 'when task deadline exceeds milestone deadline' do
+      it 'sets a flash alert and redirects to the task management page' do
+        task_params[:task][:deadline] = (milestone.deadline + 1.day).strftime('%Y-%m-%d %H:%M:%S')
+
+        post :create, params: task_params
+
+        expect(flash[:alert]).to eq("Deadline cannot be greater than the milestone's deadline.")
+        expect(response).to redirect_to(project_task_management_path(project))
       end
     end
   end
@@ -96,14 +98,16 @@ RSpec.describe TaskManagementController, type: :controller do
       end
     end
 
-    context 'with invalid parameters' do
-      it 'renders the index template and logs errors' do
-        invalid_update_params = { project_id: project.id, user_id: user.id, id: task.id, task: { task_name: '' } }
-
-        patch :update, params: invalid_update_params
-
-        expect(response).to render_template(:index) # Expect to render index on failure
-        expect(assigns(:task).errors[:task_name]).to include("can't be blank")
+    context 'when task deadline exceeds milestone deadline' do
+      it 'sets a flash alert and redirects to the task management page' do
+        patch :update, params: {
+          project_id: project.id,
+          user_id: user.id,
+          id: task.id,
+          task: { deadline: (milestone.deadline + 1.day).strftime('%Y-%m-%d %H:%M:%S') }
+        }
+        expect(flash[:alert]).to eq("Deadline cannot be greater than the milestone's deadline.")
+        expect(response).to redirect_to(project_task_management_path(project))
       end
     end
   end

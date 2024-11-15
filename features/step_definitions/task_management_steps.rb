@@ -198,6 +198,18 @@ Then('I should see {string} under {string} with the correct details') do |task_n
   end
 end
 
+Then('I should see a flash alert {string}') do |message|
+  expect(page).to have_selector('.alert', text: message)
+end
+
+# Then('I should see the task {string} with the original deadline {string} on the task board') do |task_name, deadline|
+#   task = Task.find_by(task_name:)
+#   within("#task-#{task.id}") do
+#     expect(page).to have_content(task_name)
+#     expect(page).to have_content(deadline)
+#   end
+# end
+
 When(/^I delete the task "(.*?)"$/) do |task_name|
   # Find the task by name
   task = Task.find_by(task_name:)
