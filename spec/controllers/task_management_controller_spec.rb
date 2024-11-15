@@ -10,11 +10,13 @@ RSpec.describe TaskManagementController, type: :controller do
   let!(:project) { Project.create(name: 'Test Project') }
   let!(:milestone) { Milestone.create(title: 'Test Milestone', project:, deadline: 5.days.from_now) }
   let!(:student) { User.create(first_name: 'John', last_name: 'Doe', role: 'student', email: 'john.doe@example.com') }
-  let!(:task) { Task.create(task_name: 'Sample Task', milestone_id: milestone.id, description: 'Sample description') }
+  let!(:task) { Task.create(task_name: 'Sample Task', milestone_id: milestone.id, description: 'Sample description', status: 'Completed') }
+  let!(:task1) { Task.create(task_name: 'Sample Task 1 ', milestone_id: milestone.id, description: 'Sample description 1', status: 'Not Completed') }
 
   before do
     session[:user_id] = user.id
     TaskAssignment.create(user: student, task:)
+    TaskAssignment.create(user: student, task: task1)
     project.users << student
     user.tasks << task
   end
@@ -41,6 +43,14 @@ RSpec.describe TaskManagementController, type: :controller do
 
     it 'sets @show_sidebar to true when project is present' do
       expect(assigns(:show_sidebar)).to eq(true)
+    end
+
+    it 'calculates the correct completion percentage for John' do
+      # Triggering the controller action
+      get :index, params: { project_id: project.id }
+
+      # John should have 50% completion since one task is completed and one is not
+      expect(assigns(:completion_percentages)[student.id]).to eq(50.0)
     end
   end
 

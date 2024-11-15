@@ -202,14 +202,6 @@ Then('I should see a flash alert {string}') do |message|
   expect(page).to have_selector('.alert', text: message)
 end
 
-# Then('I should see the task {string} with the original deadline {string} on the task board') do |task_name, deadline|
-#   task = Task.find_by(task_name:)
-#   within("#task-#{task.id}") do
-#     expect(page).to have_content(task_name)
-#     expect(page).to have_content(deadline)
-#   end
-# end
-
 When(/^I delete the task "(.*?)"$/) do |task_name|
   # Find the task by name
   task = Task.find_by(task_name:)
@@ -230,4 +222,25 @@ Then('the task should be deleted from the database') do
 
   # Assert that the task is no longer in the database
   expect(task).to be_nil
+end
+
+Given('{string} has completed {int} out of {int} tasks') do |student_name, completed_tasks, total_tasks|
+  @student = User.find_by(email: "#{student_name.downcase.delete(' ').concat('@gmail.com')}")
+
+  completed_tasks.times do |i|
+    status = 'Completed'
+    task = Task.create(task_name: "Completed Task #{i + 1}", milestone_id: 1, status:, description: 'Completed task description', deadline: Date.parse('2023-10-25'))
+    TaskAssignment.create(user: @student, task:)
+  end
+end
+
+Then('I should see {string} with a completion percentage of {string}') do |student_name, expected_percentage|
+  student = User.find_by(email: "#{student_name.downcase.delete(' ').concat('@gmail.com')}")
+  completed_tasks = student.tasks.where(status: 'Completed').count
+  total_tasks = student.tasks.count
+  completion_percentage = total_tasks.zero? ? 0 : (completed_tasks.to_f / total_tasks * 100)
+
+  formatted_percentage = format('%.0f', completion_percentage)
+
+  expect(formatted_percentage).to eq(expected_percentage)
 end

@@ -13,7 +13,7 @@ class TaskManagementController < ApplicationController
     @students.each do |student|
       completed_tasks = student.tasks.where(status: 'Completed').count
       total_tasks = student.tasks.count
-      @completion_percentages[student.id] = total_tasks.zero? ? 0 : (completed_tasks.to_f / total_tasks * 100)
+      @completion_percentages[student.id] = total_tasks.zero? ? 0 : (completed_tasks.to_f / total_tasks * 100).round(3)
     end
   end
 

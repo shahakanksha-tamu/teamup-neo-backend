@@ -87,3 +87,9 @@ Background: users in database
     When I delete the task "Task 1"
     Then I should not see the task "Task 1" on the task management page
     And the task should be deleted from the database
+
+  Scenario: Viewing task completion percentages for students
+    Given I am logged in as "davidjones@gmail.com"
+    And "John Doe" has completed 1 out of 2 tasks
+    When I visit the task board page
+    Then I should see "John Doe" with a completion percentage of "50"
