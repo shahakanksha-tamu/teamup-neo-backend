@@ -22,6 +22,7 @@ class MilestonesController < ApplicationController # rubocop:disable Style/Docum
     elsif @milestone.save
       redirect_to project_milestones_path(@project), notice: 'Milestone was successfully created.'
     else
+      flash[:alert] = 'Failed to create milestone.'
       @milestones = @project.milestones.select(&:persisted?) # Only include saved milestones
       render :index
     end

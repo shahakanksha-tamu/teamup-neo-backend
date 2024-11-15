@@ -3,6 +3,12 @@
 Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   # Calendars route
   resources :resources
+  resources :events do
+    member do
+      patch 'update_show', to: 'events#update_show'
+    end
+  end
+
   get 'calendars', to: 'calendars#index', as: :calendar_view
 
   # Health check route
@@ -69,6 +75,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
     end
   end
 
+
   # Settings route
   get '/settings', to: 'settings#index', as: :settings
 
@@ -80,6 +87,16 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   # Score routes
   get '/score/edit', to: 'score#edit', as: :edit_score
   patch '/score/update', to: 'score#update', as: :update_score
+
+  # Event routes
+  # resources :events
+  # get '/events', to: 'event#index', as: :events
+  # post '/events', to: 'event#create', as: :create_event
+  # get '/events/:id/edit', to: 'event#edit', as: :edit_event
+  # patch '/events/:id', to: 'event#update', as: :update_event
+  # delete '/events/:id', to: 'event#destroy', as: :destroy_event
+
+  # patch 'update_event', to: 'event#update', as: 'update_event'
 
   # Catch-all route for handling 404s
   match '*path', to: 'application#not_found', via: :all

@@ -21,6 +21,11 @@
           <%= link_to "Calendar", calendar_view_path, class: "nav-link" %>
         </li>
         <li class="nav-item">
+          <% if @role == 'admin' %>
+            <%= link_to "Events", events_path, class: "nav-link" %>
+          <% end %>
+        </li>
+        <li class="nav-item">
           <% if @role == 'student' %>
             <%= link_to "Project Hub", project_hub_path, class: "nav-link" %>
           <% end %>

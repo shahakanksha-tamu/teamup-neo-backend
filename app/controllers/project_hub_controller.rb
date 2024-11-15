@@ -15,6 +15,7 @@ class ProjectHubController < ApplicationController
     @project = Project.joins(:student_assignments)
                       .where(student_assignments: { user_id: current_user.id })[0]
     @resources = @project.resources.includes(:file_attachment)
+    @event = Event.where(show: true).first
     @show_sidebar = !@project.nil?
     @role = current_user.role
   end
