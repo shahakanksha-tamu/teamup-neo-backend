@@ -89,6 +89,18 @@ RSpec.describe TaskManagementController, type: :controller do
         expect(response).to redirect_to(project_task_management_path(project))
       end
     end
+
+    context 'when task name is duplicated' do
+      it 'sets a flash alert and redirects to the task management page' do
+        Task.create!(task_name: 'Duplicate Task', milestone_id: milestone.id, description: 'Duplicate description')
+        task_params[:task][:task_name] = 'Duplicate Task'
+
+        post :create, params: task_params
+
+        expect(flash[:error]).to eq('Task name must be unique within the same milestone')
+        expect(response).to redirect_to(project_task_management_path(project))
+      end
+    end
   end
 
   describe 'PATCH #update' do
