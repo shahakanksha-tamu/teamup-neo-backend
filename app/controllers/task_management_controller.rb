@@ -8,6 +8,13 @@ class TaskManagementController < ApplicationController
   def index
     @students = @project.users.includes(task_assignments: :task)
     @show_sidebar = !@project.nil?
+    @completion_percentages = {}
+
+    @students.each do |student|
+      completed_tasks = student.tasks.where(status: 'Completed').count
+      total_tasks = student.tasks.count
+      @completion_percentages[student.id] = total_tasks.zero? ? 0 : (completed_tasks.to_f / total_tasks * 100)
+    end
   end
 
   def create
