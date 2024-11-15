@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 When('I navigate to the calendar page') do
-  mock_google_calendar_api
   visit calendar_view_path
 end
 

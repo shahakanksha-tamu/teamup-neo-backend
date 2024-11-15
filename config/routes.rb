@@ -3,9 +3,8 @@
 Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   # Calendars route
   resources :resources
-  get 'calendars', to: 'calendars#calendars', as: :calendar_view
-  get "/redirect", to: "calendars#redirect" , as: :calendar_redirect
-  get "/callback", to: "calendars#callback"
+  get 'calendars', to: 'calendars#index', as: :calendar_view
+
   # Health check route
   get 'up' => 'rails/health#show', as: :rails_health_check
 
