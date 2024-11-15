@@ -37,7 +37,7 @@ class ProjectManagementHubController < ApplicationController
   end
 
   def project_params
-    params.permit(:name, :description, :objectives, :status)
+    params.permit(:name, :description, :objectives, :status, :start_date, :end_date)
   end
 
   def project_params2
