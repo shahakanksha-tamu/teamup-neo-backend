@@ -53,6 +53,16 @@ Background: users in database
     And I submit the form
     Then I should see the task "New Task" under "John" on the task board
 
+  Scenario: Adding a new task with an existing name 
+    Given I am logged in as "davidjones@gmail.com"
+    When I visit the task board page
+    And I click on "Add Task" for "John"
+    And I fill in the task details
+      | task_name    | description          | milestone     | deadline    | status       |
+      | Task 1     | New Description      | Milestone 1   |2024-11-01   | Not Started|
+    And I submit the form
+    Then I should see a flash alert "Task name must be unique within the same milestone"
+
   Scenario: Task deadline exceeds milestone deadline for update
     Given I am logged in as "davidjones@gmail.com"
       When I visit the task board page

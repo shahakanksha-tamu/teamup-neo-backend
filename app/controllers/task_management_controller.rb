@@ -27,10 +27,14 @@ class TaskManagementController < ApplicationController
       redirect_to project_task_management_path(@project) and return
     end
 
-    return unless @task.save
+    if @task.save
 
-    # Create the task assignment to associate the task with the student
-    TaskAssignment.create(user_id: @student.id, task_id: @task.id)
+      # Create the task assignment to associate the task with the student
+      TaskAssignment.create(user_id: @student.id, task_id: @task.id)
+    else
+      flash[:error] = @task.errors.full_messages.to_sentence
+
+    end
     redirect_to project_task_management_path(@project)
   end
 

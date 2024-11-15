@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_03_023322) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_15_225212) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -98,6 +98,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_03_023322) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["milestone_id"], name: "index_tasks_on_milestone_id"
+    t.index ["task_name", "milestone_id"], name: "index_tasks_on_task_name_and_milestone_id", unique: true
   end
 
   create_table "timelines", force: :cascade do |t|
