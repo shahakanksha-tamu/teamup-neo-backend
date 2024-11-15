@@ -15,15 +15,23 @@ class TaskManagementController < ApplicationController
     @student = User.find(params[:user_id])
     @task = Task.new(task_params)
 
+    if @task.deadline && @task.milestone && @task.deadline > @task.milestone.deadline
+      flash[:alert] = "Deadline cannot be greater than the milestone's deadline."
+      redirect_to project_task_management_path(@project) and return
+    end
+
     return unless @task.save
 
     # Create the task assignment to associate the task with the student
     TaskAssignment.create(user_id: @student.id, task_id: @task.id)
-
     redirect_to project_task_management_path(@project)
   end
 
   def update
+    if task_params[:deadline] && @task.milestone && task_params[:deadline].to_date > @task.milestone.deadline
+      flash[:alert] = "Deadline cannot be greater than the milestone's deadline."
+      redirect_to project_task_management_path(@project) and return
+    end
     return unless @task.update(task_params)
 
     redirect_to project_task_management_path(@project)

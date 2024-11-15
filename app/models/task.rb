@@ -11,7 +11,6 @@ class Task < ApplicationRecord
     'In-Progress' => 'In-Progress',
     'Not Completed' => 'Not Completed'
   }
-
   # Validations
   validates :task_name, presence: true
   validates :status, presence: true
