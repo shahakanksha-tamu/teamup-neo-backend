@@ -149,22 +149,51 @@ RSpec.describe ProjectHubController, type: :controller do
     context 'when the user has an assigned project' do
       before do
         # Creating milestones with different statuses
-        create(:milestone, project:, title: 'Milestone 1', status: 'In-Progress')
-        create(:milestone, project:, title: 'Milestone 2', status: 'Completed')
+        create(:milestone, project:, title: 'Milestone 1', status: 'In-Progress', start_date: '2024-11-16', deadline: '2024-11-26')
+        create(:milestone, project:, title: 'Milestone 2', status: 'Completed', start_date: '2024-11-16', deadline: '2024-11-26')
       end
 
       it 'assigns @milestones for the user’s project' do
         get :timeline, params: { project_id: project.id, student_id: logged_in_user.id }
-        expect(assigns(:milestones)).to match_array(project.milestones)
+
+        # Convert the milestones to the expected hash format
+        expected_milestones = project.milestones.select(:id, :title, :start_date, :deadline).map do |milestone|
+          {
+            id: milestone.id,
+            name: milestone.title,
+            start_date: milestone.start_date,
+            end_date: milestone.deadline,
+            start: milestone.start_date.to_time.to_i * 1000,
+            end: milestone.deadline.to_time.to_i * 1000,
+            color: be_a(String) # Match any string to ensure color is generated
+          }
+        end
+
+        expect(assigns(:milestones)).to match_array(expected_milestones)
         expect(assigns(:show_sidebar)).to be true
       end
 
       it 'filters milestones by status if status parameter is present' do
         get :timeline, params: { project_id: project.id, student_id: logged_in_user.id, status: 'In-Progress' }
-        expect(assigns(:milestones)).to contain_exactly(project.milestones.find_by(status: 'In-Progress'))
+
+        # Filter milestones based on status
+        filtered_milestones = project.milestones.where(status: 'In-Progress').select(:id, :title, :start_date, :deadline).map do |milestone|
+          {
+            id: milestone.id,
+            name: milestone.title,
+            start_date: milestone.start_date,
+            end_date: milestone.deadline,
+            start: milestone.start_date.to_time.to_i * 1000,
+            end: milestone.deadline.to_time.to_i * 1000,
+            color: be_a(String) # Match any string to ensure color is generated
+          }
+        end
+
+        expect(assigns(:milestones)).to match_array(filtered_milestones)
       end
     end
   end
+
 
   describe 'project_hub#show_milestones' do
     let(:logged_in_user) do
