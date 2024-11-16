@@ -1,9 +1,6 @@
 <div class="timeline-container">
   <h3>Project Timeline</h3>
-
-  <div class="gantt-chart-container" id="gantt-container" style="height: dynamic;"></div>
-
-
+  <div id="gantt-container" style="height: dynamic;"></div>
   <div class="milestones-container">
     <h3>Milestones Table</h3>
     <table class="milestone-table">
@@ -31,11 +28,9 @@
 
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/gantt/modules/gantt.js"></script>
-
   <script>
     document.addEventListener('DOMContentLoaded', initializeChart);
     document.addEventListener('turbo:load', initializeChart);
-
     function initializeChart() {
       const container = document.getElementById('gantt-container');
       if (container) {
