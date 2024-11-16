@@ -1,25 +1,6 @@
 <div style="margin-top: 90px;" class="container-fluid p-4">
     
-    <div style="margin:auto; margin-top: 70px;" class="row mt-1">
-            <div class="col">
-                <% flash.each do |key, message| %>
-                <% flash_class = case key.to_sym
-                                when :notice then "success"  
-                                when :alert, :error then "danger"  
-                                else key 
-                                end %>
-                <% if message.present? %>
-                    <div class="alert alert-<%= flash_class %>">
-                    <%= message %>
-                    </div>
-                <% else %>
-                    <div class="pt-3">&nbsp;</div>
-                <% end %>
-                <% end %>
-            </div>
-    </div>
-
-    <div style="margin:auto; margin-top: 70px;" class="card w-50">
+    <div style="margin:auto;" class="card w-50">
         <div class="card-body">
             <div class="row">
                 <div class="col-12 col-md-9">

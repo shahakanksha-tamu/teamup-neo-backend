@@ -4,24 +4,6 @@
       Event Management
     </h3>
   </div>
-  <div class="row mt-1">
-    <div class="col">
-      <% flash.each do |key, message| %>
-      <% flash_class = case key.to_sym
-                      when :notice then "success"  
-                      when :alert, :error then "danger"  
-                      else key 
-                      end %>
-      <% if message.present? %>
-        <div class="alert alert-<%= flash_class %>">
-        <%= message %>
-        </div>
-      <% else %>
-        <div class="pt-3">&nbsp;</div>
-      <% end %>
-    <% end %>
-    </div>
-  </div>
   <div class="row mt-4">
     <div class="col-md-7"> 
       <h5 class="mb-4">Events</h5>
