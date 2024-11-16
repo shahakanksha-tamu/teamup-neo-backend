@@ -36,3 +36,11 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     /* Enhance shadow on hover */
 }
+
+.fixed-column {
+    width: 400px;
+    /* Adjust to your preferred width */
+    flex: 0 0 400px;
+    /* Prevent columns from resizing */
+    max-width: 400px;
+}
