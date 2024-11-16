@@ -14,7 +14,7 @@ class MilestonesController < ApplicationController # rubocop:disable Style/Docum
   end
 
   def create
-    @milestone = @project.milestones.build(milestone_params)
+    @milestone = @project.milestones.build(milestone_params.merge(start_date: Time.current))
     if @milestone.deadline < 1.week.from_now
       flash[:alert] = 'Deadline must be at least one week from now.'
       @milestones = Milestone.where(project_id: @project.id)
@@ -22,6 +22,7 @@ class MilestonesController < ApplicationController # rubocop:disable Style/Docum
     elsif @milestone.save
       redirect_to project_milestones_path(@project), notice: 'Milestone was successfully created.'
     else
+      flash[:alert] = 'Failed to create milestone.'
       @milestones = @project.milestones.select(&:persisted?) # Only include saved milestones
       render :index
     end

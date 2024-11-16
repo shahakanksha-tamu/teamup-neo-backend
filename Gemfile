@@ -4,6 +4,8 @@ source 'https://rubygems.org'
 
 gem 'aws-sdk-s3', '~> 1.48'
 gem 'bootstrap', '~> 5.0.0'
+gem 'dotenv-rails'
+gem 'google-apis-calendar_v3'
 gem 'jquery-rails'
 
 gem 'sassc'
@@ -40,11 +42,11 @@ gem 'bootsnap', require: false
 # gem "image_processing", "~> 1.2"
 
 # omniauth gems for google login
+gem 'highcharts-rails'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
-
-gem 'highcharts-rails'
+gem 'roo'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -83,6 +85,7 @@ group :test do
   gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'simplecov', require: false
+  gem 'webmock'
   gem 'ZenTest'
 end
 

@@ -1,0 +1,65 @@
+<div class="container-fluid p-5">
+
+    <div class="row">
+
+        <% @students.each do |s| %>
+
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center"><%=s.full_name%></h4>
+
+                        <div style="height: 200px">
+                            <canvas id="scoreChart-<%= s.id %>"></canvas>
+                        </div>
+                        <script>
+                            document.addEventListener("turbo:load", function() {
+                                createPieChart("scoreChart-<%= s.id %>", <%= s.score %>);
+                            });
+                        </script>
+
+                        <%= form_with(url: update_score_path, method: :patch, class: 'form-horizontal', data: { turbo: false }) do %>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <%= number_field_tag "students[#{s.id}][score]", s.score, step: 0.01, class: 'form-control' %>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <%= submit_tag 'Update Score', class: 'btn btn-primary' %>
+                                </div>
+                            </div>
+                        <% end %>
+                        
+                    </div>
+                </div>
+            </div>
+
+        <% end %>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    function createPieChart(canvasId, score) {
+        var ctx = document.getElementById(canvasId).getContext("2d");
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                // labels: ['Score', 'Remaining'],
+                datasets: [{
+                    data: [score, 100 - score],
+                    backgroundColor: ['#4caf50', '#e0e0e0']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                // plugins: {
+                //     legend: {
+                //         position: 'bottom',
+                //     },
+                // },
+            }
+        });
+    }
+</script>

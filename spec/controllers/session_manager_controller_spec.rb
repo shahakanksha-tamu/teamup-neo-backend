@@ -55,14 +55,24 @@ RSpec.describe SessionManagerController, type: :controller do
       before do
         request.env['omniauth.auth'] = {
           'info' => { 'email' => user.email },
-          'provider' => user.provider
+          'provider' => user.provider,
+          'credentials' => {
+            'token' => 'sample_token',
+            'refresh_token' => 'sample_refresh_token',
+            'expires_at' => Time.now.to_i + 1.hour
+          }
         }
       end
 
-      it 'logs in the student and redirects to the dashboard' do
+      it 'logs in the student and redirects to the project_hub' do
         post :google_oauth_callback_handler
         expect(session[:user_id]).to eq(user.id)
-        expect(response).to redirect_to(dashboard_path)
+        expect(session[:authorization]).to include(
+          token: 'sample_token',
+          refresh_token: 'sample_refresh_token',
+          expires_at: a_kind_of(Integer)
+        )
+        expect(response).to redirect_to(project_hub_path)
         expect(flash[:notice]).to eq('You are logged in.')
       end
     end
@@ -71,13 +81,23 @@ RSpec.describe SessionManagerController, type: :controller do
       before do
         request.env['omniauth.auth'] = {
           'info' => { 'email' => admin_user.email },
-          'provider' => user.provider
+          'provider' => admin_user.provider,
+          'credentials' => {
+            'token' => 'sample_token',
+            'refresh_token' => 'sample_refresh_token',
+            'expires_at' => Time.now.to_i + 1.hour
+          }
         }
       end
 
       it 'logs in the admin and redirects to the project management hub' do
         post :google_oauth_callback_handler
         expect(session[:user_id]).to eq(admin_user.id)
+        expect(session[:authorization]).to include(
+          token: 'sample_token',
+          refresh_token: 'sample_refresh_token',
+          expires_at: a_kind_of(Integer)
+        )
         expect(response).to redirect_to(project_management_hub_path)
         expect(flash[:notice]).to eq('You are logged in.')
       end
@@ -87,7 +107,12 @@ RSpec.describe SessionManagerController, type: :controller do
       before do
         request.env['omniauth.auth'] = {
           'info' => { 'email' => 'nonexistent@gmail.com' },
-          'provider' => 'google_oauth2'
+          'provider' => 'google_oauth2',
+          'credentials' => {
+            'token' => 'sample_token',
+            'refresh_token' => 'sample_refresh_token',
+            'expires_at' => Time.now.to_i + 1.hour
+          }
         }
       end
 

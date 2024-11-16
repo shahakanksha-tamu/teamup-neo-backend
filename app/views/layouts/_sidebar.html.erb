@@ -1,6 +1,6 @@
 <div class="fluid-container">
   <div class="d-flex flex-column flex-shrink-0 p-3 shadow-lg" style="top:60px; width: 280px; height: 92vh; position:fixed;">
-    <a href="/" class="d-flex align-items-center mt-3 link-dark text-decoration-none">
+    <a href="/project_hub" class="d-flex align-items-center mt-3 link-dark text-decoration-none">
       <h4><%= @project.name %></h4>
     </a>
     <hr>
@@ -26,6 +26,7 @@
         <%= link_to "Team Management", project_team_management_path(@project), method: :get, 
           class: "nav-link #{current_page?(project_team_management_path(@project)) ? 'active' : 'link-dark'}" %>
       </li>
+
     <% end %>
     <% if @role == 'student' %>
       <li>
@@ -40,7 +41,7 @@
 
       <li>
         <%= link_to "Project Timeline", project_student_timeline_path(@project, @user), method: :get, 
-          class: "nav-link #{current_page?(project_student_timeline_path(@project, @user)) ? 'active' : 'link-dark'}" %>
+          class: "nav-link #{current_page?(project_student_timeline_path(@project, @user)) ? 'active' : 'link-dark'}", data: { turbo: false }  %>
       </li>
 
       <li>

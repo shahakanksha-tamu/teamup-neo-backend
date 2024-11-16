@@ -6,6 +6,10 @@ class LandingPageController < ApplicationController
   def index
     return unless logged_in?
 
-    redirect_to dashboard_path
+    if @role == 'student'
+      redirect_to project_hub_path
+    else
+      redirect_to project_management_hub_path
+    end
   end
 end

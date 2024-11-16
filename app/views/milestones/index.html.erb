@@ -4,25 +4,7 @@
       Milestone Management
     </h3>
   </div>
-  <div class="row mt-1">
-    <div class="col">
-      <% flash.each do |key, message| %>
-      <% flash_class = case key.to_sym
-                      when :notice then "success"  
-                      when :alert, :error then "danger"  
-                      else key 
-                      end %>
-      <% if message.present? %>
-        <div class="alert alert-<%= flash_class %>">
-        <%= message %>
-        </div>
-      <% else %>
-        <div class="pt-3">&nbsp;</div>
-      <% end %>
-    <% end %>
-    </div>
-  </div>
-  <div class="row mt-4">
+    <div class="row mt-4">
     <div class="col-md-7"> 
       <h5 class="mb-4">Milestones</h5>
       <ul class="list-group mb-4 user-list-group" id="milestones_list">
@@ -36,8 +18,19 @@
                       <div>
                           <span class="card-text text-secondary">Description</span>
                           <p class="card-text"><%= milestone.objective %></p>
-                          <span class = "card-text text-secondary">Deadline</span>
-                          <p class="card-text"><%= milestone.deadline %></p>
+                          
+                          <%if milestone.start_date%>
+                            <span class = "card-text text-secondary">Start Date</span>
+                            <p class="card-text"><%= milestone.start_date.strftime("%B %d, %Y") %></p>
+                          <% end %>
+
+                           <%if milestone.deadline%>
+                            <span class = "card-text text-secondary">Deadline</span>
+                            <p class="card-text">
+                              <%= milestone.deadline.strftime("%B %d, %Y") %>
+                            </p>
+                          <% end %>
+                          
                           <span class = "card-text text-secondary">Status</span>
                           <% status_color = case milestone.status
                                             when 'Not Started' then 'text-danger'

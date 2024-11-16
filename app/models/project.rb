@@ -2,7 +2,7 @@
 
 # Project class contains all the details of the project, including timeline and list of milestones
 class Project < ApplicationRecord
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false, message: 'Title must be unique' }
   has_many :student_assignments, dependent: :destroy
   has_many :users, through: :student_assignments
   has_many :milestones, dependent: :destroy

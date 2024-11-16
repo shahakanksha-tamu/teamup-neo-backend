@@ -12,8 +12,8 @@ Background: users in database
   | Josie            | Mathew           | josie@gmail.com           |  admin        |  214435356 |  google_oauth2  |
   
   And the following project exists in the database
-  | id | name               | description                    | objectives                    | 
-  | 1  | Project Alpha    | Main project description     | Objective 1, Objective 2    | 
+  | id | name               | description                    | objectives                    |  end_date            | start_date            |
+  | 1  | Project Alpha    | Main project description     | Objective 1, Objective 2    | 2025-02-21 15:00:00 | 2024-10-01 10:00:00 |
 
   And the given student assignments exist
   | user_email             | project_name       |
@@ -21,10 +21,10 @@ Background: users in database
   | mariam@gmail.com       | Project Alpha   |
   
   And the following milestones exist in the database
-  |id | project_id |  title           | objective                      | deadline            | 
-  | 1 |  1         | Milestone 1  | Complete initial setup        | 2024-12-01 10:00:00 | 
-  | 2 |  1        | Milestone 2   | Develop core features         | 2025-01-15 12:00:00 | 
-  | 3 |   1       | Milestone 3   | Conduct testing and review    | 2025-02-20 15:00:00 | 
+  |id | project_id |  title           | objective                      | deadline            |  start_date           |
+  | 1 |  1         | Milestone 1  | Complete initial setup        | 2024-12-01 10:00:00 | 2024-11-01 10:00:00 |
+  | 2 |  1        | Milestone 2   | Develop core features         | 2025-01-15 12:00:00 | 2024-12-01 10:00:00 |
+  | 3 |   1       | Milestone 3   | Conduct testing and review    | 2025-02-20 15:00:00 | 2025-01-15 12:00:00 |
   And the following tasks exist in the database
   | milestone_id | task_name         | description           | status        | deadline            |
   | 1            | Task 1         | First task example  | Not Started | 2024-10-30 12:00:00 | 
@@ -53,6 +53,26 @@ Background: users in database
     And I submit the form
     Then I should see the task "New Task" under "John" on the task board
 
+  Scenario: Adding a new task with an existing name 
+    Given I am logged in as "davidjones@gmail.com"
+    When I visit the task board page
+    And I click on "Add Task" for "John"
+    And I fill in the task details
+      | task_name    | description          | milestone     | deadline    | status       |
+      | Task 1     | New Description      | Milestone 1   |2024-11-01   | Not Started|
+    And I submit the form
+    Then I should see a flash alert "Task name must be unique within the same milestone"
+
+  Scenario: Task deadline exceeds milestone deadline for update
+    Given I am logged in as "davidjones@gmail.com"
+      When I visit the task board page
+      And I click on "Add Task" for "John"
+      And I fill in the task details
+        | task_name    | description          | milestone     | deadline    | status       |
+        | New Task     | New Description      | Milestone 1   |2024-12-25   | Not Started|
+      And I submit the form
+      Then I should see a flash alert "Deadline cannot be greater than the milestone's deadline."
+
   Scenario: Updating details of a task
     Given I am logged in as "davidjones@gmail.com"
     And there exists a task named "Task 1"
@@ -62,9 +82,24 @@ Background: users in database
     And I click on "Update Task"
     Then I should see the task "Updated Task" under "John" on the task board  
 
+  Scenario: Task deadline exceeds milestone deadline for update
+    Given I am logged in as "davidjones@gmail.com"
+    And there exists a task named "Task 1"
+    When I change the task details
+      | task_name  | description          | milestone     | deadline            | status       |
+      | Task 1     | Updated Description  | Milestone 1   | 2024-12-03         | Not Completed  |
+    And I click on "Update Task"
+    Then I should see a flash alert "Deadline cannot be greater than the milestone's deadline."
+
   Scenario: Deleting a task
     Given I am logged in as "davidjones@gmail.com"
     And there exists a task named "Task 1"
     When I delete the task "Task 1"
     Then I should not see the task "Task 1" on the task management page
     And the task should be deleted from the database
+
+  Scenario: Viewing task completion percentages for students
+    Given I am logged in as "davidjones@gmail.com"
+    And "John Doe" has completed 1 out of 2 tasks
+    When I visit the task board page
+    Then I should see "John Doe" with a completion percentage of "50"

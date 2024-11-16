@@ -11,9 +11,9 @@ class Task < ApplicationRecord
     'In-Progress' => 'In-Progress',
     'Not Completed' => 'Not Completed'
   }
-
   # Validations
   validates :task_name, presence: true
+  validates :task_name, uniqueness: { scope: :milestone_id, message: 'must be unique within the same milestone' }
   validates :status, presence: true
 
   def status_color

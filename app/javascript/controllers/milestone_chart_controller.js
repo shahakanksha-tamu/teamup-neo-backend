@@ -15,15 +15,11 @@ export default class extends Controller {
   }
 
 prepareChartData(tasks) {
-    // Define possible statuses and corresponding colors
-    const statuses = [
-        { name: 'Not Started', color: '#EC7A08' },
-        { name: 'In-Progress', color: '#009596' },
-        { name: 'Completed', color: '#4CB140' },
-        { name: 'Not Completed', color: '#f45b5b' }
-    ];
+    const statusCounts = this.countTaskStatuses(tasks);
+    return this.convertCountsToChartData(statusCounts, tasks.length);
+}
 
-    // Initialize a count object for each status
+countTaskStatuses(tasks) {
     const statusCounts = {
         'Not Started': 0,
         'In-Progress': 0,
@@ -31,64 +27,36 @@ prepareChartData(tasks) {
         'Not Completed': 0
     };
 
-    // Count each task's status
     tasks.forEach(task => {
         if (statusCounts.hasOwnProperty(task.status)) {
             statusCounts[task.status]++;
         }
     });
 
-    // Calculate the total number of tasks
-    const totalTasks = tasks.length;
+    console.log("STATUS COUNTS ", statusCounts);
+    return statusCounts;
+}
 
-    // Convert counts to percentage data for the pie chart
-    const chartData = statuses.map(status => {
+convertCountsToChartData(statusCounts, totalTasks) {
+    const statuses = [
+        { name: 'Not Started', color: '#EC7A08' },
+        { name: 'In-Progress', color: '#009596' },
+        { name: 'Completed', color: '#4CB140' },
+        { name: 'Not Completed', color: '#f45b5b' }
+    ];
+
+    return statuses.map(status => {
         return {
             name: status.name,
             y: (statusCounts[status.name] / totalTasks) * 100,
             color: status.color
         };
     });
-    console.log("STATUS COUNTS ", statusCounts);
-    return chartData;
 }
 
 
   renderChart(milestoneId, chartData) {
     const Highcharts = window.Highcharts;
-    //   chart: {
-    //     type: "pie",
-    //   },
-    //   title: {
-    //     text: "Task Status Distribution",
-    //   },
-    //   tooltip: {
-    //     pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
-    //   },
-    //   accessibility: {
-    //     point: {
-    //       valueSuffix: '%'
-    //     }
-    //   },
-    //   plotOptions: {
-    //     pie: {
-    //       allowPointSelect: true,
-    //       cursor: 'pointer',
-    //       dataLabels: {
-    //         enabled: true,
-    //         format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-    //       }
-    //     }
-    //   },
-    //   series: [
-    //     {
-    //       name: "Tasks",
-    //       colorByPoint: true,
-    //       data: chartData,
-    //     },
-    //   ],
-    // });
-
     Highcharts.chart(`milestone-chart-${milestoneId}`, {
         chart: {
             type: 'pie'

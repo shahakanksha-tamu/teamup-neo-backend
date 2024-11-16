@@ -73,28 +73,38 @@
   margin: 20px auto;
 }
 
-.gantt-chart-container, .milestone-table-container {
+.gantt-chart-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  border: 1px solid #ccc;
   margin-top: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
 }
 
 .chart-scroll {
-  overflow-x: auto;
-  padding-bottom: 10px;
+  display: block;
   width: 100%;
+  height: auto;
 }
 
-.milestone-table-container table {
+.milestones-table-container {
+  margin-top: 40px;
+}
+
+.milestone-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
 
-.milestone-table-container th, .milestone-table-container td {
-  padding: 10px;
-  border: 1px solid #ccc;
-  text-align: left;
+.milestone-table th, .milestone-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
 }
 
-.milestone-table-container th {
-  background-color: #f2f2f2;
+.milestone-table th {
+  background-color: #f4f4f4;
+  text-align: left;
 }

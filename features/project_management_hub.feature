@@ -55,7 +55,7 @@ Scenario: Remove a student from the project
   And I select "janesmith@gmail.com" from the student dropdown
   And I click the "Add Student" button
   Then I should see a success message "janesmith@gmail.com was successfully added to the team."
-  When I click on the remove button for "student1@mail.com"
+  When I click on the remove button for "first_student@mail.com"
   Then I should see the removal success message "janesmith@gmail.com was successfully removed from the team."
 
 Scenario: Trying to add a student already assigned to a project

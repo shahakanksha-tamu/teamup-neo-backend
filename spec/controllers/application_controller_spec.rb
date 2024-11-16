@@ -82,7 +82,7 @@ RSpec.describe ApplicationController, type: :controller do
       end
 
       it 'redirects to admin dashboard when admin accesses protected student resources' do
-        allow(controller).to receive(:params).and_return({ controller: 'dashboard', action: 'index' })
+        allow(controller).to receive(:params).and_return({ controller: 'project_hub', action: 'index' })
         get :index
         expect(response).to redirect_to(project_management_hub_path)
         expect(flash[:alert]).to eq('You are not authorized to access this page.')
@@ -102,7 +102,7 @@ RSpec.describe ApplicationController, type: :controller do
       it 'redirects to student dashboard when student accesses protected admin resources' do
         allow(controller).to receive(:params).and_return({ controller: 'project_management_hub', action: 'index' })
         get :index
-        expect(response).to redirect_to(dashboard_path)
+        expect(response).to redirect_to(project_hub_path)
         expect(flash[:alert]).to eq('You are not authorized to access this page.')
       end
 

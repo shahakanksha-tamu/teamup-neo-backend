@@ -24,11 +24,22 @@
               <div class="info-label">Objectives</div>
               <div class="info-text"><%= @project.objectives %></div>
             </div>
-
             <div class="mb-4">
-            <div class="info-label">Status</div>
-            <div class="info-text"><%= @project.status %></div>
-          </div>
+              <div class="info-label">Start Date</div>
+              <% if @project.end_date.present? %>
+                <%= @project.end_date.strftime("%B %d, %Y") %>
+              <% else %>
+                <span>No end date</span>
+              <% end %>
+            </div>
+            <div class="mb-4">
+              <div class="info-label">End Date</div>
+              <% if @project.end_date.present? %>
+                <%= @project.end_date.strftime("%B %d, %Y") %>
+              <% else %>
+                <span>No end date</span>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
@@ -70,6 +81,14 @@
             <div class="form-group">
               <%= form.label :objectives, class: 'info-label' %>
               <%= form.text_area :objectives, class: 'form-control', rows: 4, value: @project.objectives %>
+            </div>
+            <div class="form-group">
+              <%= form.label :start_date, 'Project Start Date', class: 'info-label' %>
+              <%= form.date_field :start_date, class: 'form-control', value: @project.start_date %>
+            </div>
+            <div class="form-group">
+              <%= form.label :end_date, 'Project End Date', class: 'info-label' %>
+              <%= form.date_field :end_date, class: 'form-control', value: @project.end_date %>
             </div>
             <div class="form-group">
               <%= form.label :status, class: 'info-label' %>
