@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# A controller for events banner
 class EventsController < ApplicationController
   before_action :set_event, only: %i[edit update destroy]
 

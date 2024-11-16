@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# A controller for google calendar
 class CalendarsController < ApplicationController
   def calendars
     return unless session[:authorization]

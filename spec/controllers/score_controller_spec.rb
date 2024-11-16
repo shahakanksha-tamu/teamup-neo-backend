@@ -4,8 +4,8 @@ require 'rails_helper'
 
 # RSpec.describe ScoreController, type: :controller do
 #   let!(:admin_user) { create(:user, role: :admin) }
-#   let!(:student1) { create(:user, role: :student, score: 0) }
-#   let!(:student2) { create(:user, role: :student, score: 0) }
+#   let!(:first_student) { create(:user, role: :student, score: 0) }
+#   let!(:second_student) { create(:user, role: :student, score: 0) }
 
 #   before do
 #     session[:user_id] = admin_user.id
@@ -21,13 +21,13 @@ require 'rails_helper'
 #   describe 'PATCH #update' do
 #     context 'when updating scores' do
 #       it 'updates the scores for the students' do
-#         patch :update, params: { students: { student1.id.to_s => { score: 95 }, student2.id.to_s => { score: 88 } } }
+#         patch :update, params: { students: { first_student.id.to_s => { score: 95 }, second_student.id.to_s => { score: 88 } } }
 
-#         student1.reload
-#         student2.reload
+#         first_student.reload
+#         second_student.reload
 
-#         expect(student1.score).to eq(95)
-#         expect(student2.score).to eq(88)
+#         expect(first_student.score).to eq(95)
+#         expect(second_student.score).to eq(88)
 #         expect(flash[:notice]).to eq('Score updated successfully!')
 #       end
 #     end
@@ -37,12 +37,12 @@ require 'rails_helper'
 RSpec.describe ScoreController, type: :controller do
   let!(:admin_user) { create(:user, role: :admin) }
   let!(:project) { create(:project) }
-  let!(:student1) { create(:user, role: :student, score: 0) }
-  let!(:student2) { create(:user, role: :student, score: 0) }
+  let!(:first_student) { create(:user, role: :student, score: 0) }
+  let!(:second_student) { create(:user, role: :student, score: 0) }
 
   before do
-    project.users << student1
-    project.users << student2
+    project.users << first_student
+    project.users << second_student
     session[:user_id] = admin_user.id
   end
 
@@ -50,20 +50,20 @@ RSpec.describe ScoreController, type: :controller do
     it 'renders the index template and assigns project and students' do
       get :index, params: { project_id: project.id }
       expect(response).to render_template(:index)
-      expect(assigns(:students)).to include(student1, student2)
+      expect(assigns(:students)).to include(first_student, second_student)
     end
   end
 
   describe 'PATCH #update' do
     context 'when updating scores' do
       it 'updates the scores for the students' do
-        patch :update, params: { project_id: project.id, students: { student1.id.to_s => { score: 95 }, student2.id.to_s => { score: 88 } } }
+        patch :update, params: { project_id: project.id, students: { first_student.id.to_s => { score: 95 }, second_student.id.to_s => { score: 88 } } }
 
-        student1.reload
-        student2.reload
+        first_student.reload
+        second_student.reload
 
-        expect(student1.score).to eq(95)
-        expect(student2.score).to eq(88)
+        expect(first_student.score).to eq(95)
+        expect(second_student.score).to eq(88)
         expect(response).to redirect_to(view_score_path)
         expect(flash[:notice]).to eq('Score updated successfully!')
       end

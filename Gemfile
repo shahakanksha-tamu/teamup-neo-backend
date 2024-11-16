@@ -42,14 +42,10 @@ gem 'bootsnap', require: false
 # gem "image_processing", "~> 1.2"
 
 # omniauth gems for google login
+gem 'highcharts-rails'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
-group :test do
-  gem 'webmock'
-end
-
-gem 'highcharts-rails'
 gem 'roo'
 
 group :development, :test do
@@ -89,6 +85,7 @@ group :test do
   gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'simplecov', require: false
+  gem 'webmock'
   gem 'ZenTest'
 end
 
