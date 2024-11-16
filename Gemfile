@@ -2,6 +2,8 @@
 
 source 'https://rubygems.org'
 
+gem 'google-apis-calendar_v3'
+gem 'dotenv-rails'
 gem 'aws-sdk-s3', '~> 1.48'
 gem 'bootstrap', '~> 5.0.0'
 gem 'jquery-rails'
@@ -43,6 +45,9 @@ gem 'bootsnap', require: false
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
+group :test do
+  gem 'webmock'
+end
 
 gem 'highcharts-rails'
 gem 'roo'
