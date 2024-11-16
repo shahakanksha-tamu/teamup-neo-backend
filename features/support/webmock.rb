@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'webmock/cucumber'
 WebMock.disable_net_connect!(allow_localhost: true)
 
@@ -21,9 +23,9 @@ def mock_google_token_refresh
   stub_request(:post, 'https://oauth2.googleapis.com/token')
     .with(
       body: hash_including({
-        'grant_type' => 'refresh_token',
-        'refresh_token' => 'mock_refresh_token'
-      })
+                             'grant_type' => 'refresh_token',
+                             'refresh_token' => 'mock_refresh_token'
+                           })
     )
     .to_return(
       status: 200,

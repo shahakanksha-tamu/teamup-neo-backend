@@ -3,11 +3,11 @@
 Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   # Calendars route
   resources :resources
-  
-    get 'calendars', to: 'calendars#calendars', as: :calendar_view
-    get "/redirect", to: "calendars#redirect" , as: :calendar_redirect
-    get "/callback", to: "calendars#callback"
-    
+
+  get 'calendars', to: 'calendars#calendars', as: :calendar_view
+  get '/redirect', to: 'calendars#redirect', as: :calendar_redirect
+  get '/callback', to: 'calendars#callback'
+
   resources :events do
     member do
       patch 'update_show', to: 'events#update_show'
@@ -34,7 +34,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   # Project Hub routes
   get 'view_score', to: 'score#index', as: :view_score
   patch 'update_score', to: 'score#update', as: :update_score
-  
+
   resources :projects do # rubocop:disable Metrics/BlockLength
     get 'dashboard', to: 'project_management_hub#dashboard', as: 'dashboard'
     get 'team_management', to: 'project_management_hub#team', as: 'team_management'
@@ -81,7 +81,6 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
     end
   end
 
-
   # Settings route
   get '/settings', to: 'settings#index', as: :settings
 
@@ -106,5 +105,4 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
 
   # Catch-all route for handling 404s
   match '*path', to: 'application#not_found', via: :all
-  
 end

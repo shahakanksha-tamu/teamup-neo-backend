@@ -8,7 +8,6 @@ Then('I visit import data page') do
   visit import_path
 end
 
-
 Then('I click on the delete button') do
   click_button('Delete All Data')
 end
@@ -18,5 +17,5 @@ Then('I click upload button') do
 end
 
 Then('I attach {string} to {string}') do |file_path, field_name|
-  attach_file(field_name,Rails.root.join(file_path))
+  attach_file(field_name, Rails.root.join(file_path))
 end

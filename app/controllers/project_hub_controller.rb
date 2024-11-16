@@ -48,21 +48,21 @@ class ProjectHubController < ApplicationController
     @project = Project.joins(:student_assignments)
                       .where(student_assignments: { user_id: current_user.id })
                       .first
-    if @project
-      @milestones = @project.milestones.select(:id, :title, :start_date, :deadline).map do |milestone|
-        {
-          id: milestone.id,
-          name: milestone.title,
-          start_date: milestone.start_date,
-          end_date: milestone.deadline,
-          start: milestone.start_date.to_time.to_i * 1000, # Convert to milliseconds
-          end: milestone.deadline.to_time.to_i * 1000,     # Convert to milliseconds
-          color: "##{SecureRandom.hex(3)}" # Random color for Gantt chart
-        }
-      end
-    else
-      @milestones = []
-    end
+    @milestones = if @project
+                    @project.milestones.select(:id, :title, :start_date, :deadline).map do |milestone|
+                      {
+                        id: milestone.id,
+                        name: milestone.title,
+                        start_date: milestone.start_date,
+                        end_date: milestone.deadline,
+                        start: milestone.start_date.to_time.to_i * 1000, # Convert to milliseconds
+                        end: milestone.deadline.to_time.to_i * 1000,     # Convert to milliseconds
+                        color: "##{SecureRandom.hex(3)}" # Random color for Gantt chart
+                      }
+                    end
+                  else
+                    []
+                  end
   end
 
   def show_milestones

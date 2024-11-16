@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Given the following events exist in the database
 Given('the following events exist in the database') do |events|
   events.hashes.each do |row|
@@ -112,7 +114,7 @@ end
 
 When('I attempt to update the event with invalid data') do
   # Find the event instance
-  event = Event.find_by(title: 'Kickoff Meeting')
+  Event.find_by(title: 'Kickoff Meeting')
 
   # Stub the update method to simulate a failure
   allow_any_instance_of(Event).to receive(:update).and_return(false)

@@ -2,10 +2,10 @@
 
 source 'https://rubygems.org'
 
-gem 'google-apis-calendar_v3'
-gem 'dotenv-rails'
 gem 'aws-sdk-s3', '~> 1.48'
 gem 'bootstrap', '~> 5.0.0'
+gem 'dotenv-rails'
+gem 'google-apis-calendar_v3'
 gem 'jquery-rails'
 
 gem 'sassc'

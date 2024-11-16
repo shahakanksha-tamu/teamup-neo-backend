@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 When('the admin visits the score page of {string}') do |project_name|
   # visit view_score_path
   project = Project.find_by(name: project_name)

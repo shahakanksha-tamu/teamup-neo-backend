@@ -172,8 +172,8 @@ end
 
 When('I set the milestone deadline to less than a week from now with the rest of the valid inputs') do
   # Calculate a date that is 2 days from now
-  fill_in 'milestone_title', with: "Test Milestone"
-  fill_in 'milestone_objective', with: "Test Objective"
+  fill_in 'milestone_title', with: 'Test Milestone'
+  fill_in 'milestone_objective', with: 'Test Objective'
   deadline = 2.days.from_now
 
   # Split the calculated date into year, month, and day
