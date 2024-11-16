@@ -5,13 +5,23 @@
 # Given the following project exists in the database
 Given('the following project exists in the database') do |projects|
   projects.hashes.each do |row|
+    if row['start_date'].nil?
+      start_date = Time.zone.now
+    else
+      start_date = DateTime.parse(row['start_date'])
+    end
+    if row['end_date'].nil?
+      end_date = Time.zone.now + 30.days
+    else
+      end_date = DateTime.parse(row['end_date'])
+    end
     Project.create!(
       id: row['id'],
       name: row['name'],
       description: row['description'],
       objectives: row['objectives'],
-      start_date: Time.zone.now,
-      end_date: Time.zone.now + 30.days
+      start_date: start_date,
+      end_date: end_date
     )
   end
 end
@@ -37,7 +47,8 @@ Given('the following milestones exist in the database') do |milestones|
       id: row['id'],
       title: row['title'],
       objective: row['objective'],
-      deadline: row['deadline'] ? DateTime.parse(row['deadline']) : nil
+      start_date: row['start_date'] ? DateTime.parse(row['start_date']) : Project.find(row['project_id']).start_date,
+      deadline: row['deadline'] ? DateTime.parse(row['deadline']) : Project.find(row['project_id']).end_date
     )
   end
 end

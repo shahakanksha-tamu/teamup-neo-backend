@@ -24,7 +24,7 @@ RSpec.describe ProjectHubController, type: :controller do
     end
 
     context 'when the user is logged in and has a project assignment' do
-      let(:project) { create(:project) }
+      let(:project) { create(:project,start_date: Date.today, end_date: Date.today + 1.year) }
 
       before do
         session[:user_id] = logged_in_user.id
@@ -39,7 +39,7 @@ RSpec.describe ProjectHubController, type: :controller do
   end
 
   describe 'project_hub#view_tasks' do
-    let(:project) { create(:project) }
+  let(:project) { create(:project,start_date: Date.today, end_date: Date.today + 1.year) }
 
     let(:logged_in_user) do
       User.create!(first_name: 'First Name', last_name: 'Last Name', contact: '1786839273', role: 'student', email: 'firstname@gmail.com')
@@ -54,8 +54,8 @@ RSpec.describe ProjectHubController, type: :controller do
       StudentAssignment.create(user_id: logged_in_user.id, project_id: project.id)
       StudentAssignment.create(user_id: other_user.id, project_id: project.id)
 
-      Milestone.create(project_id: project.id, title: 'milestone 1 title', objective: 'milestone 1 objective', status: 'In-Progress', deadline: '2024-12-12')
-      Milestone.create(project_id: project.id, title: 'milestone 2 title', objective: 'milestone 1 objective', status: 'Not Started', deadline: '2024-12-12')
+      Milestone.create(project_id: project.id, title: 'milestone 1 title', objective: 'milestone 1 objective', status: 'In-Progress', start_date: Date.today + 1.week, deadline: Date.today + 11.month)
+      Milestone.create(project_id: project.id, title: 'milestone 2 title', objective: 'milestone 1 objective', status: 'Not Started',  start_date: Date.today + 1.week, deadline: Date.today + 11.month)
 
       Task.create(task_name: 'milestone 1 task 1', status: 'Not Started', deadline: '2024-12-10', milestone_id: Milestone.find_by(title: 'milestone 1 title').id, description: 'milestone 1 task 1 description')
       Task.create(task_name: 'milestone 1 task 2', status: 'In-Progress', deadline: '2024-12-10', milestone_id: Milestone.find_by(title: 'milestone 1 title').id, description: 'milestone 1 task 2 description')
@@ -101,7 +101,7 @@ RSpec.describe ProjectHubController, type: :controller do
   end
 
   describe 'project_hub#update_task_status' do
-    let(:project) { create(:project) }
+    let(:project) { create(:project,start_date: Date.today, end_date: Date.today + 1.year) }
 
     let(:logged_in_user) do
       User.create!(first_name: 'First Name', last_name: 'Last Name', contact: '1786839273', role: 'student', email: 'firstname@gmail.com')
@@ -110,7 +110,7 @@ RSpec.describe ProjectHubController, type: :controller do
     before do
       session[:user_id] = logged_in_user.id
       StudentAssignment.create(user_id: logged_in_user.id, project_id: project.id)
-      Milestone.create(project_id: project.id, title: 'milestone 1 title', objective: 'milestone 1 objective', status: 'In-Progress', deadline: '2024-12-12')
+      Milestone.create(project_id: project.id, title: 'milestone 1 title', objective: 'milestone 1 objective', status: 'In-Progress', start_date: Date.today+1.week, deadline: Date.today + 11.month)
       Task.create(task_name: 'milestone 1 task 1', status: 'Not Started', deadline: '2024-12-10', milestone_id: Milestone.find_by(title: 'milestone 1 title').id, description: 'milestone 1 task 1 description')
       TaskAssignment.create(user_id: logged_in_user.id, task_id: Task.find_by(task_name: 'milestone 1 task 1').id)
       allow(controller).to receive(:current_user).and_return(logged_in_user)
@@ -138,7 +138,7 @@ RSpec.describe ProjectHubController, type: :controller do
     let(:logged_in_user) do
       User.create!(first_name: 'First Name', last_name: 'Last Name', contact: '1786839273', role: 'student', email: 'firstname@gmail.com')
     end
-    let(:project) { create(:project) }
+    let(:project) { create(:project, start_date: Date.today, end_date: Date.today + 1.year) }
 
     before do
       session[:user_id] = logged_in_user.id
@@ -199,7 +199,7 @@ RSpec.describe ProjectHubController, type: :controller do
     let(:logged_in_user) do
       User.create!(first_name: 'First Name', last_name: 'Last Name', contact: '1786839273', role: 'student', email: 'firstname@gmail.com')
     end
-    let(:project) { create(:project) }
+    let(:project) { create(:project,start_date: Date.today, end_date: Date.today + 1.year) }
 
     before do
       session[:user_id] = logged_in_user.id
@@ -210,8 +210,8 @@ RSpec.describe ProjectHubController, type: :controller do
     context 'when the user has an assigned project' do
       before do
         # Creating milestones with different statuses
-        create(:milestone, project:, title: 'Milestone 1', status: 'In-Progress')
-        create(:milestone, project:, title: 'Milestone 2', status: 'Completed')
+        create(:milestone, project:, title: 'Milestone 1', status: 'In-Progress', start_date: Date.today + 1.week, deadline: Date.today + 11.month)
+        create(:milestone, project:, title: 'Milestone 2', status: 'Completed', start_date: Date.today + 1.week, deadline: Date.today + 11.month)
       end
 
       it 'assigns @milestones for the user’s project' do

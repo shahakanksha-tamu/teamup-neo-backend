@@ -25,9 +25,9 @@ end
 
 # Projects
 projects = [
-  { name: 'Project Gamma', description: 'Third test project', objectives: 'Complete the gamma phase', status: 'active', start_date: Date.new(2024, 11, 1), end_date: Date.new(2025, 1, 1) },
-  { name: 'Project Delta', description: 'Fourth test project', objectives: 'Complete the delta phase', status: 'active', start_date: Date.new(2024, 11, 1), end_date: Date.new(2025, 1, 1) },
-  { name: 'Project Epsilon', description: 'Fifth test project', objectives: 'Complete the epsilon phase', status: 'active', start_date: Date.new(2024, 11, 1), end_date: Date.new(2025, 1, 1) }
+  { name: 'Project Gamma', description: 'Third test project', objectives: 'Complete the gamma phase', status: 'active', start_date: Date.new(2024, 11, 1), end_date: Date.new(2026, 1, 1) },
+  { name: 'Project Delta', description: 'Fourth test project', objectives: 'Complete the delta phase', status: 'active', start_date: Date.new(2024, 11, 1), end_date: Date.new(2026, 1, 1) },
+  { name: 'Project Epsilon', description: 'Fifth test project', objectives: 'Complete the epsilon phase', status: 'active', start_date: Date.new(2024, 11, 1), end_date: Date.new(2026, 1, 1) }
 ]
 
 projects.each do |project|
@@ -36,9 +36,9 @@ end
 
 # Milestones for Project Gamma
 milestones_gamma = [
-  { title: 'Gamma Milestone 1', objective: 'Gamma milestone 1 objective', project_id: Project.find_by(name: 'Project Gamma').id, start_date: Date.new(2024, 9, 21), deadline: Date.new(2024, 9, 27), status: 'In-Progress' },
-  { title: 'Gamma Milestone 2', objective: 'Gamma milestone 2 objective', project_id: Project.find_by(name: 'Project Gamma').id, start_date: Date.new(2024, 9, 27), deadline: Date.new(2024, 10, 3), status: 'Not Started' },
-  { title: 'Gamma Milestone 3', objective: 'Gamma milestone 3 objective', project_id: Project.find_by(name: 'Project Gamma').id, start_date: Date.new(2024, 10, 3), deadline: Date.new(2024, 10, 8) }
+  { title: 'Gamma Milestone 1', objective: 'Gamma milestone 1 objective', project_id: Project.find_by(name: 'Project Gamma').id, start_date: Date.new(2025, 9, 21), deadline: Date.new(2025, 9, 27), status: 'In-Progress' },
+  { title: 'Gamma Milestone 2', objective: 'Gamma milestone 2 objective', project_id: Project.find_by(name: 'Project Gamma').id, start_date: Date.new(2025, 9, 27), deadline: Date.new(2025, 10, 3), status: 'Not Started' },
+  { title: 'Gamma Milestone 3', objective: 'Gamma milestone 3 objective', project_id: Project.find_by(name: 'Project Gamma').id, start_date: Date.new(2025, 10, 3), deadline: Date.new(2025, 10, 8) }
 ]
 
 milestones_gamma.each do |milestone|
@@ -47,9 +47,9 @@ end
 
 # Milestones for Project Delta
 milestones_delta = [
-  { title: 'Delta Milestone 1', objective: 'Delta milestone 1 objective', project_id: Project.find_by(name: 'Project Delta').id, start_date: Date.new(2024, 9, 21), deadline: Date.new(2024, 9, 27), status: 'In-Progress' },
-  { title: 'Delta Milestone 2', objective: 'Delta milestone 2 objective', project_id: Project.find_by(name: 'Project Delta').id, start_date: Date.new(2024, 9, 27), deadline: Date.new(2024, 10, 3), status: 'Not Started' },
-  { title: 'Delta Milestone 3', objective: 'Delta milestone 3 objective', project_id: Project.find_by(name: 'Project Delta').id, start_date: Date.new(2024, 10, 3), deadline: Date.new(2024, 10, 8) }
+  { title: 'Delta Milestone 1', objective: 'Delta milestone 1 objective', project_id: Project.find_by(name: 'Project Delta').id, start_date: Date.new(2025, 9, 21), deadline: Date.new(2025, 9, 27), status: 'In-Progress' },
+  { title: 'Delta Milestone 2', objective: 'Delta milestone 2 objective', project_id: Project.find_by(name: 'Project Delta').id, start_date: Date.new(2025, 9, 27), deadline: Date.new(2025, 10, 3), status: 'Not Started' },
+  { title: 'Delta Milestone 3', objective: 'Delta milestone 3 objective', project_id: Project.find_by(name: 'Project Delta').id, start_date: Date.new(2025, 10, 3), deadline: Date.new(2025, 10, 8) }
 ]
 
 milestones_delta.each do |milestone|
@@ -58,9 +58,9 @@ end
 
 # Milestones for Project Epsilon
 milestones_epsilon = [
-  { title: 'Epsilon Milestone 1', objective: 'Epsilon milestone 1 objective', project_id: Project.find_by(name: 'Project Epsilon').id, start_date: Date.new(2024, 9, 21), deadline: Date.new(2024, 9, 27), status: 'In-Progress' },
-  { title: 'Epsilon Milestone 2', objective: 'Epsilon milestone 2 objective', project_id: Project.find_by(name: 'Project Epsilon').id, start_date: Date.new(2024, 9, 27), deadline: Date.new(2024, 10, 3), status: 'Not Started' },
-  { title: 'Epsilon Milestone 3', objective: 'Epsilon milestone 3 objective', project_id: Project.find_by(name: 'Project Epsilon').id, start_date: Date.new(2024, 10, 3), deadline: Date.new(2024, 10, 8) }
+  { title: 'Epsilon Milestone 1', objective: 'Epsilon milestone 1 objective', project_id: Project.find_by(name: 'Project Epsilon').id, start_date: Date.new(2025, 9, 21), deadline: Date.new(2025, 9, 27), status: 'In-Progress' },
+  { title: 'Epsilon Milestone 2', objective: 'Epsilon milestone 2 objective', project_id: Project.find_by(name: 'Project Epsilon').id, start_date: Date.new(2025, 9, 27), deadline: Date.new(2025, 10, 3), status: 'Not Started' },
+  { title: 'Epsilon Milestone 3', objective: 'Epsilon milestone 3 objective', project_id: Project.find_by(name: 'Project Epsilon').id, start_date: Date.new(2025, 10, 3), deadline: Date.new(2025, 10, 8) }
 ]
 
 milestones_epsilon.each do |milestone|

@@ -7,7 +7,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-md-12 mb-3">
-                    <h4 class="card-title"><%=@project.name%></h4>
+                    <h4 class="card-title"><%= @project.name %></h4>
                 </div>
               </div>
 
@@ -35,7 +35,6 @@
                 </div>
               </div>
 
-
               <div class="row mb-4">
                 <div class="col-12 col-md-12">
                   <p class="card-text text-secondary">Objective</p>
@@ -47,7 +46,6 @@
               </div>
             
               <div class="row mb-3">
-
                 <div class="col-12 col-md-4">
                   <div class="row mb-3">
                     <div class="col-12 col-md-12">
@@ -55,7 +53,11 @@
                     </div>
 
                     <div class="col-12 col-md-12">
-                      <p class="card-text"><%= @project.start_date&.strftime("%d %b %Y") %> </p>
+                      <% if @project.start_date.present? %>
+                        <p class="card-text"><%= @project.start_date.strftime("%d %b %Y") %></p>
+                      <% else %>
+                        <p class="card-text">No start date</p>
+                      <% end %>
                     </div>
                   </div>
                 </div>
@@ -67,11 +69,15 @@
                     </div>
 
                     <div class="col-12 col-md-12">
-                      <p class="card-text"><%= @project.end_date&.strftime("%d %b %Y") %></p>
+                      <% if @project.end_date.present? %>
+                        <p class="card-text"><%= @project.end_date.strftime("%d %b %Y") %></p>
+                      <% else %>
+                        <p class="card-text">No end date</p>
+                      <% end %>
                     </div>
                   </div>
                 </div>
-             </div>
+              </div>
 
               <div class="row mb-3">
                 <div class="col-12 col-md-4">
@@ -86,7 +92,7 @@
         </div>
         <div class="mb-3 p-2">
             <h4 class="mb-4">Certificate Completion Score</h4>
-            <h6 class="mb-3">Score : <%= @user.score%>/100</h6>
+            <h6 class="mb-3">Score : <%= @user.score %>/100</h6>
                <div style="height: 25px;" class="progress">
               <div 
                 id="progressBar" 
@@ -136,22 +142,22 @@
           <h3>Project Resources</h3>
           <% @resources.each do |resource| %>
             <% if resource.present? %>
-              <div class="col-12 col-md-6 mb-4"> <!-- Two cards per row -->
+              <div class="col-12 mb-4">
                 <div class="card" style="width: 100%;">
                   <div class="card-body">
                     <h5 class="card-title text-center"><%= resource.name %></h5>
                     <p class="card-text  text-center"><%= resource.file.filename.to_s %></p>
                     <p class="card-text  text-center"><%= resource.created_at&.strftime("%B %d, %Y %H:%M") %></p>
                     <div class="d-flex justify-content-center mt-3">
-                        <% if resource.file.attached? %>
-                              <%= link_to 'Download', download_project_resource_path(project_id: @project.id, id: resource.id), target: '_blank', class: 'btn btn-warning btn-sm mx-2' %>
-                            <%if resource.file.representable?%>
-                              <%= link_to 'Preview', open_project_resource_path(project_id: @project.id, id: resource.id), target: '_blank', class: 'btn btn-warning btn-sm mx-2' %>
-                            <%end%>
-                    </div>
-                    <% else %>
+                      <% if resource.file.attached? %>
+                        <%= link_to 'Download', download_project_resource_path(project_id: @project.id, id: resource.id), target: '_blank', class: 'btn btn-warning btn-sm mx-2' %>
+                        <% if resource.file.representable? %>
+                          <%= link_to 'Preview', open_project_resource_path(project_id: @project.id, id: resource.id), target: '_blank', class: 'btn btn-warning btn-sm mx-2' %>
+                        <% end %>
+                      <% else %>
                         <span class="disabled">No file attached</span>
-                    <% end %>
+                      <% end %>
+                    </div>
                   </div>
                 </div>
               </div>

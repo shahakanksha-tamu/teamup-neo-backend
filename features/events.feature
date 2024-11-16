@@ -14,8 +14,8 @@ Feature: Events Management
     | Josie            | Mathew           | josie@gmail.com           |  admin        |  214435356 |  google_oauth2  |
 
     And the following project exists in the database
-    | id | name               | description                    | objectives                    | 
-    | 1  | "Project Alpha"    | "Main project description"     | "Objective 1, Objective 2"    | 
+    | id | name               | description                    | objectives                    | start_date | end_date|
+    | 1  | "Project Alpha"    | "Main project description"     | "Objective 1, Objective 2"    | 2024-10-01 12:00:00 | 2025-10-01 12:00:00 |
 
     And the given student assignments exist
     | user_email             | project_name       |
@@ -25,7 +25,7 @@ Feature: Events Management
     And the following milestones exist in the database
     | project_id | title           | objective                       | deadline            | 
     | 1          | "Milestone 1"   | "Complete initial setup"        | 2024-12-01 10:00:00 | 
-    | 1          | "Milestone 3"   | "Develop core features"         | 2025-01-15 12:00:00 | 
+    | 1          | "Milestone 2"   | "Develop core features"         | 2025-01-15 12:00:00 | 
     | 1          | "Milestone 3"   | "Conduct testing and review"    | 2025-02-20 15:00:00 | 
 
     And the following tasks exist in the database
