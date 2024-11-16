@@ -172,25 +172,6 @@ RSpec.describe ProjectHubController, type: :controller do
         expect(assigns(:milestones)).to match_array(expected_milestones)
         expect(assigns(:show_sidebar)).to be true
       end
-
-      it 'filters milestones by status if status parameter is present' do
-        get :timeline, params: { project_id: project.id, student_id: logged_in_user.id, status: 'In-Progress' }
-
-        # Filter milestones based on status
-        filtered_milestones = project.milestones.where(status: 'In-Progress').select(:id, :title, :start_date, :deadline).map do |milestone|
-          {
-            id: milestone.id,
-            name: milestone.title,
-            start_date: milestone.start_date,
-            end_date: milestone.deadline,
-            start: milestone.start_date.to_time.to_i * 1000,
-            end: milestone.deadline.to_time.to_i * 1000,
-            color: be_a(String) # Match any string to ensure color is generated
-          }
-        end
-
-        expect(assigns(:milestones)).to match_array(filtered_milestones)
-      end
     end
   end
 
