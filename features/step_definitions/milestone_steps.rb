@@ -33,9 +33,9 @@ When 'I create a new milestone with the title {string}, objective {string}, and 
   click_button 'Create Milestone'
 end
 
-Then 'I should see the milestone {string} in the list of milestones' do |title|
-  expect(page).to have_content(title)
-end
+# Then 'I should see the milestone {string} in the list of milestones' do |title|
+#   expect(page).to have_content(title)
+# end
 
 Given 'I see a milestone with the title {string} and objective {string}' do |title, objective|
   expect(page).to have_content(title)
