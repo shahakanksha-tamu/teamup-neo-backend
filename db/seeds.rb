@@ -3,6 +3,7 @@
 # Users
 users = [
   { first_name: 'Akanksha', last_name: 'Shah', email: 'shahakanksha@tamu.edu', contact: '1234567890', role: 'admin' },
+  { first_name: 'Rahaan', last_name: 'Gandhi', email: 'rahaan123@gmail.com', contact: '1234567891', role: 1 },
   { first_name: 'Rahaan', last_name: 'Gandhi', email: 'rahaang99@tamu.edu', contact: '1234567891', role: 0 },
   { first_name: 'Dhruva', last_name: 'Khanwelkar', email: 'dhruvak@tamu.edu', contact: '1234567892', role: 0 },
   { first_name: 'Meghana', last_name: 'Pradhan', email: 'meghna.pradhan@tamu.edu', contact: '1234567893', role: 0 },
