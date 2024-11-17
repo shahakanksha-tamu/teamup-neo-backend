@@ -1,18 +1,32 @@
-<!-- app/views/calendars/calendars.html.erb -->
+<div class="fluid-container p-4">
+  <div class="d-flex align-items-center justify-content-between">
+    <h3>Google Calendar</h3>
+    <% if @calendar_list && @calendar_list.items.any? %>
+      <form method="get" action="<%= request.path %>" class="ms-auto">
+        <select id="calendar_select" name="calendar_id" class="form-select d-inline w-auto" onchange="this.form.submit()">
+          <% @calendar_list.items.each do |calendar| %>
+            <option value="<%= calendar.id %>" 
+                    <%= params[:calendar_id] == calendar.id ? 'selected' : '' %>>
+              <%= calendar.summary %>
+            </option>
+          <% end %>
+        </select>
+      </form>
+    <% end %>
+  </div>
 
-<h1>My Google Calendar</h1>
+  <% if @calendar_list && @calendar_list.items.any? %>
+    <% selected_calendar = @calendar_list.items.find { |cal| cal.id == params[:calendar_id] } || @calendar_list.items.first %>
 
-<% if @calendar_list && @calendar_list.items.any? %>
-  <% first_calendar = @calendar_list.items.first %>
-  
-  <iframe src="https://www.google.com/calendar/embed?src=<%= first_calendar.id %>&ctz=<%= first_calendar.time_zone %>" 
-  style="border: 0; margin-top: 53px;" 
-  width="800" 
-  height="600" 
-  frameborder="0" 
-  scrolling="no">
-</iframe>
-  </iframe>
-<% else %>
-  <p>No calendars found.</p>
-<% end %>
+    <iframe src="https://www.google.com/calendar/embed?src=<%= selected_calendar.id %>&ctz=<%= selected_calendar.time_zone %>" 
+      style="border: 0; margin-top: 25px;" 
+      width="800" 
+      height="600" 
+      frameborder="0" 
+      scrolling="no">
+    </iframe>
+  <% else %>
+    <p>No calendars found.</p>
+  <% end %>
+</div>
+
