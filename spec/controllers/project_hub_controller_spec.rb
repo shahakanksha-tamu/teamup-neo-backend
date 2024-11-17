@@ -138,7 +138,7 @@ RSpec.describe ProjectHubController, type: :controller do
     let(:logged_in_user) do
       User.create!(first_name: 'First Name', last_name: 'Last Name', contact: '1786839273', role: 'student', email: 'firstname@gmail.com')
     end
-    let(:project) { create(:project, start_date: Time.zone.today, end_date: Time.zone.today + 1.year) }
+    let(:project) { create(:project, start_date: '2024-10-16', end_date: '2024-11-30') }
 
     before do
       session[:user_id] = logged_in_user.id
