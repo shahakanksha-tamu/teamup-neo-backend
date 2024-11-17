@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 gem 'aws-sdk-s3', '~> 1.48'
 gem 'bootstrap', '~> 5.0.0'
-gem 'dotenv-rails'
+gem 'csv'
 gem 'google-apis-calendar_v3'
 gem 'jquery-rails'
 
@@ -41,8 +41,8 @@ gem 'bootsnap', require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
-# omniauth gems for google login
 gem 'highcharts-rails'
+# omniauth gems for google login
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
@@ -85,7 +85,7 @@ group :test do
   gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'simplecov', require: false
-  gem 'webmock'
+  gem 'webmock', require: false
   gem 'ZenTest'
 end
 
