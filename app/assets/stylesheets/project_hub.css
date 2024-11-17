@@ -34,3 +34,13 @@
   .event-notfication-card-text{
     width: 400px;
   }
+
+  .resource-card:hover{
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  .project-card:hover{
+    transform: none !important;
+    box-shadow: none !important;
+  }
