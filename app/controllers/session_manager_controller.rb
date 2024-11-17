@@ -43,24 +43,4 @@ class SessionManagerController < ApplicationController
     redirect_to root_path,
                 alert: "Authentication failed: #{params[:message].humanize}"
   end
-
-  private
-
-  def login(user, photo)
-    if user.present?
-      session[:user_id] = user.id
-      unless user.photo?
-        user.photo = photo
-        user.save
-      end
-
-      if user.role == 'student'
-        redirect_to dashboard_path, notice: 'You are logged in.'
-      else
-        redirect_to project_management_hub_path, notice: 'You are logged in.'
-      end
-    else
-      redirect_to root_path, alert: 'Login failed.'
-    end
-  end
 end
