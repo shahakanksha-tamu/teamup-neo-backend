@@ -4,7 +4,7 @@
 
         <% @students.each do |s| %>
 
-            <div class="col-md-3">
+            <div class="col-md-3 mb-5">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title text-center"><%=s.full_name%></h4>
@@ -19,7 +19,7 @@
                         </script>
 
                         <%= form_with(url: update_score_path, method: :patch, class: 'form-horizontal', data: { turbo: false }) do %>
-                            <div class="row">
+                            <div class="row mt-4">
                                 <div class="col-md-6 form-group">
                                     <%= number_field_tag "students[#{s.id}][score]", s.score, step: 0.01, class: 'form-control' %>
                                 </div>
@@ -41,11 +41,14 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     function createPieChart(canvasId, score) {
+        if (score == null){
+            score =0;
+        }
         var ctx = document.getElementById(canvasId).getContext("2d");
         new Chart(ctx, {
             type: 'doughnut',
             data: {
-                // labels: ['Score', 'Remaining'],
+                labels: ['Score', 'Remaining'],
                 datasets: [{
                     data: [score, 100 - score],
                     backgroundColor: ['#4caf50', '#e0e0e0']
@@ -54,11 +57,11 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                // plugins: {
-                //     legend: {
-                //         position: 'bottom',
-                //     },
-                // },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                },
             }
         });
     }
