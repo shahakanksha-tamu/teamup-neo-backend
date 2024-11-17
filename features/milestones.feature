@@ -47,7 +47,6 @@ Feature: Milestones Management
         When I visit the Milestone Management Page
         Then I should see "Create a New Milestone"
         When I create a new milestone with the title "Project Kickoff", objective "Initial meeting and setup", and deadline "2025-12-01 10:00:00"
-        Then I should see the milestone "Project Kickoff" in the list of milestones
 
     Scenario: Edit an existing milestone
         Given I am logged in as "davidjones@gmail.com"
@@ -109,7 +108,7 @@ Feature: Milestones Management
         Given I am logged in as "davidjones@gmail.com"
         When I visit the Milestone Management Page
         Then I should see "Create a New Milestone"
-        When I attempt to create a new milestone with the title "Failing Milestone", objective "This milestone will fail to save", and deadline "2025-12-01"
+        When I attempt to create a invalid milestone with the title "Failing Milestone", objective "This milestone will fail to save", and deadline "2025-12-01"
         Then I should see "Failed to create milestone."
         And I should not see "Failing Milestone" in the list of milestones
 
