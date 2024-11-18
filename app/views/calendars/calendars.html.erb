@@ -1,9 +1,10 @@
 <div class="fluid-container p-4">
-  <div class="d-flex align-items-center justify-content-between">
+  <div class="calendar-header d-flex align-items-center justify-content-between">
     <h3>Google Calendar</h3>
     <% if @calendar_list && @calendar_list.items.any? %>
-      <form method="get" action="<%= request.path %>" class="ms-auto">
-        <select id="calendar_select" name="calendar_id" class="form-select d-inline w-auto" onchange="this.form.submit()">
+      <form method="get" action="<%= request.path %>" class="d-flex align-items-center">
+        <label for="calendar_select" class="me-2">Select Calendar:</label>
+        <select id="calendar_select" name="calendar_id" class="form-select d-inline w-auto me-3" onchange="this.form.submit()">
           <% @calendar_list.items.each do |calendar| %>
             <option value="<%= calendar.id %>" 
                     <%= params[:calendar_id] == calendar.id ? 'selected' : '' %>>
@@ -11,22 +12,56 @@
             </option>
           <% end %>
         </select>
+
+        <!-- Date Picker Inputs -->
+        <label for="start_date" class="me-2">From:</label>
+        <input type="date" id="start_date" name="start_date" class="form-control w-auto me-2" value="<%= params[:start_date] %>">
+        
+        <label for="end_date" class="me-2">To:</label>
+        <input type="date" id="end_date" name="end_date" class="form-control w-auto me-3" value="<%= params[:end_date] %>">
+        
+        <button type="submit" class="btn btn-primary">Filter</button>
       </form>
     <% end %>
   </div>
 
-  <% if @calendar_list && @calendar_list.items.any? %>
-    <% selected_calendar = @calendar_list.items.find { |cal| cal.id == params[:calendar_id] } || @calendar_list.items.first %>
+  <% if @events.present? %>
+    <h4 class="mt-4">Upcoming Events</h4>
+    <% filtered_events = @events.items.select do |event| 
+         event_date = (event.start.date_time || event.start.date).to_date
+         (!params[:start_date].present? || event_date >= params[:start_date].to_date) &&
+         (!params[:end_date].present? || event_date <= params[:end_date].to_date)
+       end %>
 
-    <iframe src="https://www.google.com/calendar/embed?src=<%= selected_calendar.id %>&ctz=<%= selected_calendar.time_zone %>" 
-      style="border: 0; margin-top: 25px;" 
-      width="800" 
-      height="600" 
-      frameborder="0" 
-      scrolling="no">
-    </iframe>
+    <% if filtered_events.any? %>
+      <% grouped_events = filtered_events.group_by { |event| (event.start.date_time || event.start.date).to_date } %>
+      <% grouped_events.each do |date, events| %>
+        <div class="event-date-group mt-4">
+          <h5 class="event-date-heading"><%= date.strftime("%A, %B %d, %Y") %></h5>
+          <ul class="list-group event-list">
+            <% events.each do |event| %>
+              <li class="list-group-item event-item">
+                <div class="event-summary"><strong><%= event.summary %></strong></div>
+                <div class="event-time">
+                  <span><i class="bi bi-clock"></i> 
+                    <%= (event.start.date_time || event.start.date).strftime("%I:%M %p") if event.start.date_time %> - 
+                    <%= (event.end.date_time || event.end.date).strftime("%I:%M %p") if event.end.date_time %>
+                  </span>
+                </div>
+                <% if event.location %>
+                  <div class="event-location">
+                    <i class="bi bi-geo-alt"></i> <%= event.location %>
+                  </div>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-muted mt-4">No events found for the selected date range.</p>
+    <% end %>
   <% else %>
-    <p>No calendars found.</p>
+    <p class="text-muted">No events found for the selected calendar.</p>
   <% end %>
 </div>
-
