@@ -128,8 +128,11 @@
            <label for="milestone_deadline">Deadline</label>
             <%= form.date_select :deadline, class: "form-control, required: true", id: "milestone_deadline"%>
         </div>
-        <div>
+        <div class="d-flex">
             <%= form.submit @milestone.persisted? ? "Update Milestone" : "Create Milestone", class: "btn btn-primary mt-3" %>
+            <% if @milestone.persisted? %>
+              <%= link_to 'Cancel', project_milestones_path(@project), class: "btn btn-secondary mt-3 ms-2" %>
+            <% end %>
         </div>
       <% end %>
     </div>

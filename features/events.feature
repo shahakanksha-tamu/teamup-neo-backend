@@ -40,11 +40,19 @@ Feature: Events Management
     | 2  | "Sprint Review"     | "Review of sprint progress" | false |
     | 3  | "Final Presentation" | "Project final presentation" | false |
    
-
-    Scenario: Student sees event
+   @javascript
+    Scenario: Student sees event without event in session
         Given I am logged in as "johndoe@gmail.com"
+        And the session does not include an event
         When I visit the Project Hub
         Then I should see the "Kickoff Meeting" event
+
+    @javascript
+    Scenario: Student does not see event in session
+        Given I am logged in as "johndoe@gmail.com"
+        And the session includes the event
+        When I visit the Project Hub
+        Then I should not see the "Kickoff Meeting" event
 
     Scenario: Admin creates an event with show defaulted to true
         Given I am logged in as "davidjones@gmail.com"

@@ -124,3 +124,15 @@ When('I attempt to update the event with invalid data') do
   fill_in 'Description', with: ''
   click_button 'Update Event'
 end
+
+And('the session does not include an event') do
+  page.execute_script("sessionStorage.removeItem('event_1');")
+end
+
+And('the session includes the event') do
+  page.execute_script("sessionStorage.setItem('event_1', true);")
+end
+
+Then('I should not see the {string} event') do |event_name|
+  expect(page).not_to have_content(event_name)
+end
