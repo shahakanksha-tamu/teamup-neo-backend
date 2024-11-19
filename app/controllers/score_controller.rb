@@ -13,6 +13,10 @@ class ScoreController < ApplicationController
   def update
     params[:students].each do |id, score_params|
       student = User.find_by(id:)
+      if score_params[:score].to_f > 100
+        redirect_to view_score_path, alert: 'Failed to update score. Max allowed score is 100'
+        return nil
+      end
       student&.update(score: score_params[:score])
     end
 
