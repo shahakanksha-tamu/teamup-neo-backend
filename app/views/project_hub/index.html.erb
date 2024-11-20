@@ -110,10 +110,9 @@
     
     <div style="height: 90vh; overflow-y: auto; overflow-x: hidden;" class="col-12 col-lg-5">
       <div class="p-2">
-          <div class="rounded mb-3">
-          <div> 
-        <% if @event.present? %>
-            <div style="z-index: 1;" class="card mb-3 shadow-lg position-fixed event-notification-card">
+        <% if @event.present? %> 
+          <div data-controller="event" data-event-event-id-value="<%= @event.id %>"class="rounded mb-3">
+            <div  data-event-target="card" style="z-index: 1;" class="card mb-3 shadow-lg position-fixed event-notification-card">
               <div class="card-body d-flex">
                   <div>
                       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#ffc108" height="35px" width="35px" version="1.1" id="Layer_1" viewBox="0 0 300.005 300.005" xml:space="preserve">
@@ -130,14 +129,14 @@
                       <p class="card-text"><small class="text-muted">Date: <%= @event.updated_at&.strftime("%d %b %Y") %></small></p>
                   </div>
                   <div class="ml-auto event-notification-close">
-                    <button type="button" class="btn-close" aria-label="Close"onclick="this.closest('.event-notification-card').style.display='none';"></button>
+                    <button type="button" class="btn-close" aria-label="Close" data-action="click->event#closeCard"></button>
                     </button>
                   </div>
                 </div>
               </div>
-            </div>
+            </div> 
+          </div>
         <% end %>
-
         <!-- project resources -->
         <div class="row">
           <h4 class="mb-3">Project Resources</h4>

@@ -6,6 +6,7 @@
   }
 
   .event-notification-card{
+    display: block;
     border: 2px solid #ffc108; 
     background: #fcf2d4; 
     width:500px; 

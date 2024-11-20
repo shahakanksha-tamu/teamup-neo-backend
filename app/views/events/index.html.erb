@@ -55,8 +55,11 @@
       <div class="form-group mb-3">
         <label for="event_description">Description</label>
         <%= form.text_area :description, class: "form-control", id: "event_description"%>
-      </div>
+      </div class="d-flex">
         <%= form.submit @event.persisted? ? "Update Event" : "Create Event", class: "btn btn-primary mt-3" %>
+      <% if @event.persisted? %>
+        <%= link_to 'Cancel', events_path, class: "btn btn-secondary mt-3" %>
+      <% end %>
       </div>
     <% end %>
     </div>
