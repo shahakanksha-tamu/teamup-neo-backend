@@ -233,3 +233,13 @@ Then('I should see the milestone {string} in the list of milestones') do |milest
   milestones = Project.find_by(id: 1).milestones
   expect(milestones.pluck(:title)).to include(milestone_title)
 end
+
+When('I update the deadline field to {string}') do |new_deadline|
+  # Split the deadline into year, month, and day components
+  year, month, day = new_deadline.split('-')
+  select year, from: 'milestone_deadline_1i'
+  select Date::MONTHNAMES[month.to_i], from: 'milestone_deadline_2i'
+  select day.to_i, from: 'milestone_deadline_3i'
+
+  click_button 'Update Milestone'
+end

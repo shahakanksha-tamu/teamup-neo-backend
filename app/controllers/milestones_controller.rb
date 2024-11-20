@@ -29,9 +29,14 @@ class MilestonesController < ApplicationController # rubocop:disable Style/Docum
   end
 
   def update
-    return unless @milestone.update(milestone_params)
-
-    redirect_to project_milestones_path(@project), notice: 'Milestone was updated successfully.'
+    if @milestone.update(milestone_params)
+      flash[:notice] = 'Milestone was updated successfully.'
+      redirect_to project_milestones_path(@project)
+    else
+      @project = Project.find(params[:project_id])
+      flash[:alert] = @milestone.errors.full_messages.to_sentence
+      redirect_to edit_project_milestone_path(@project, @milestone)
+    end
   end
 
   def edit

@@ -64,18 +64,17 @@ RSpec.describe MilestonesController, type: :controller do
   describe 'PATCH #update' do
     it 'redirects to the milestones index page' do
       patch :update, params: { project_id: project.id, id: Milestone.find_by(title: 'milestone 1 title').id, milestone: { title: 'Milestone 1 updated', objective: 'Milestone 1 objective updated', deadline: 1.week.from_now } }
-      expect(response).to have_http_status(204)
+      expect(response).to have_http_status(302)
+      expect(flash[:notice]).to eq('Milestone was updated successfully.')
     end
 
     it 'sets flash error message when update fails' do
-      milestone = Milestone.find_by(title: 'Incorrect Milestone')
+      milestone = Milestone.find_by(title: 'milestone 1 title')
 
-      allow_any_instance_of(Milestone).to receive(:update).and_return(false)
+      patch :update, params: { project_id: project.id, id: Milestone.find_by(title: 'milestone 1 title').id, milestone: { title: 'Milestone 1 updated', objective: 'Milestone 1 objective updated', deadline: 2.years.from_now } }
 
-      patch :update_milestone_status, params: { project_id: project.id, id: milestone.id, milestone: { status: 'Completed' } }
-
-      expect(flash[:error]).to eq("status cannot be updated to 'Completed' unless the current date is within the milestone's start date and deadline")
-      expect(response).to redirect_to(project_milestones_path(project))
+      expect(response).to redirect_to(edit_project_milestone_path(project, milestone))
+      expect(flash[:alert]).to eq("Deadline must be within the project's start and end dates")
     end
   end
 

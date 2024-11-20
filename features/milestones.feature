@@ -111,3 +111,12 @@ Feature: Milestones Management
         When I attempt to create a invalid milestone with the title "Failing Milestone", objective "This milestone will fail to save", and deadline "2025-12-12"
         And I should not see "Failing Milestone" in the list of milestones
 
+    Scenario: Admin updates a milestone with wrong deadline
+        Given I am logged in as "davidjones@gmail.com"
+        When I visit the Milestone Management Page
+        And I see a milestone with the title "Milestone 1" and objective "Complete initial setup"
+        When I click the edit button for the milestone "Milestone 1"
+        Then I should see "Edit Milestone" 
+        When I update the deadline field to "2026-12-01"
+        Then I should see "Deadline must be within the project's start and end dates"
+        
