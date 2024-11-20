@@ -164,8 +164,8 @@ task_assignments = [
   { user_id: User.find_by(email: 'dhruvak@tamu.edu').id, task_id: Task.find_by(task_name: 'Gamma Milestone 1 Task 2').id },
   { user_id: User.find_by(email: 'dhruvak@tamu.edu').id, task_id: Task.find_by(task_name: 'Gamma Milestone 2 Task 2').id },
   { user_id: User.find_by(email: 'dhruvak@tamu.edu').id, task_id: Task.find_by(task_name: 'Gamma Milestone 3 Task 2').id },
-  { user_id: User.find_by(email: 'dhruvak@tamu.edu').id, task_id: Task.find_by(task_name: 'Gamma Milestone 1 Task 4').id },
   { user_id: User.find_by(email: 'dhruvak@tamu.edu').id, task_id: Task.find_by(task_name: 'Gamma Milestone 1 Task 5').id },
+  { user_id: User.find_by(email: 'dhruvak@tamu.edu').id, task_id: Task.find_by(task_name: 'Gamma Milestone 2 Task 5').id },
 
   { user_id: User.find_by(email: 'rahaang99@tamu.edu').id, task_id: Task.find_by(task_name: 'Gamma Milestone 1 Task 3').id },
   { user_id: User.find_by(email: 'rahaang99@tamu.edu').id, task_id: Task.find_by(task_name: 'Gamma Milestone 2 Task 3').id },

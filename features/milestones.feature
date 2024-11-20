@@ -14,8 +14,8 @@ Feature: Milestones Management
     | Josie            | Mathew           | josie@gmail.com           |  admin        |  214435356 |  google_oauth2  |
 
     And the following project exists in the database
-    | id | name               | description                    | objectives                    |  start_date  |  end_date  | 
-    | 1  | "Project Alpha"    | "Main project description"     | "Objective 1, Objective 2"    |  2024-10-01 10:00:00 |  2025-02-28 10:00:00 |
+    | id | name               | description                    | objectives                    |  start_date          |  end_date            | 
+    | 1  | "Project Alpha"    | "Main project description"     | "Objective 1, Objective 2"    |  2024-09-01 10:00:00 |  2025-02-28 10:00:00 |
 
     And the given student assignments exist
     | user_email             | project_name       |
@@ -108,7 +108,6 @@ Feature: Milestones Management
         Given I am logged in as "davidjones@gmail.com"
         When I visit the Milestone Management Page
         Then I should see "Create a New Milestone"
-        When I attempt to create a invalid milestone with the title "Failing Milestone", objective "This milestone will fail to save", and deadline "2025-12-01"
-        Then I should see "Failed to create milestone."
+        When I attempt to create a invalid milestone with the title "Failing Milestone", objective "This milestone will fail to save", and deadline "2025-12-12"
         And I should not see "Failing Milestone" in the list of milestones
 

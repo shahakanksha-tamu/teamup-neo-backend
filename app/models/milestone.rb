@@ -23,7 +23,7 @@ class Milestone < ApplicationRecord
 
   private
 
-  def start_and_end_dates_within_project_dates
+  def start_and_end_dates_within_project_dates # rubocop:disable Metrics/PerceivedComplexity
     return if project.blank?
 
     errors.add(:start_date, "must be within the project's start and end dates") if start_date.present? && project.start_date.present? && (start_date < project.start_date || start_date > project.end_date)
@@ -34,8 +34,11 @@ class Milestone < ApplicationRecord
   end
 
   def status_cannot_be_in_progress_before_start_date
-    return unless status == 'In-Progress' && start_date.present? && start_date > Time.zone.today
+    return unless status_changed?
 
-    errors.add(:status, "cannot be 'In-Progress' before the start date")
+    return unless start_date.present? && deadline.present?
+    return if Time.zone.today.between?(start_date, deadline)
+
+    errors.add(:status, "cannot be updated to '#{status}' unless the current date is within the milestone's start date and deadline")
   end
 end

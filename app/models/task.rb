@@ -19,13 +19,13 @@ class Task < ApplicationRecord
   def status_color
     case status
     when 'Not Completed'
-      '#B22222'  # Light red for pending
+      '#B22222'
     when 'In-Progress'
-      '#BDAA00'  # Light yellow for in-progress
+      '#BDAA00'
     when 'Completed'
-      '#006400'  # Light green for completed
+      '#006400'
     else
-      '#4B4B4B'  # Light gray as a default
+      '#4B4B4B'
     end
   end
 end
