@@ -1,9 +1,9 @@
-<div class="d-flex flex-column" style="min-height: 100vh;">
-  <div class="row justify-content-center mt-4 mt-3">
-    <h3 class="ms-5 text-start">Manage Tasks</h3>
+<div class="fluid-container p-2 ms-4" style="min-height: 100vh;">
+  <div class="row justify-content-start mt-4 mt-3">
+    <h3 class="text-start">Manage Tasks</h3>
   </div>
-  <div class="container mt-3 ms-3">
-    <div class="d-flex flex-wrap justify-content-start" style="gap: 20px;">
+  <div class="fluid-container mt-3">
+    <div class="d-flex flex-wrap justify-content-start">
       <% @students.each do |student| %>
         <div class="student-card" style="width: 370px;">
           <div id="<%= student.id %>" class="card h-100 shadow-sm" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
@@ -17,7 +17,7 @@
             <div class="card-body p-2" style="max-height: 100vh; overflow-y: auto;">
               <!-- Display task completion percentage -->
               <div class="mb-3">
-                <strong>Task Completion:</strong>
+                <strong>Task Completion</strong>
                 <div class="progress" style="height: 20px;">
                   <div class="progress-bar" role="progressbar" style="width: <%= @completion_percentages[student.id] %>%" aria-valuenow="<%= @completion_percentages[student.id] %>" aria-valuemin="0" aria-valuemax="100">
                     <%= @completion_percentages[student.id].round(2) %>%
