@@ -2,10 +2,11 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "bootstrap";
-
+import "@hotwired/turbo-rails"
 //= require jquery3
 //= require popper
 //= require bootstrap
 //= require turbolinks
 //= require_tree .
 //= require highcharts
+//= require rails-ujs
