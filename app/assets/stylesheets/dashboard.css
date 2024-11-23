@@ -4,7 +4,13 @@
     --success-color: #28a745;
     --background-color: #f8f9fa;
   }
-
+  
+.dashcard
+{
+  flex: 0 0 auto;
+  width: 55.666667%;
+  margin-left: 32px;
+}
   .dashboard-container {
     padding: 2rem;
   }
