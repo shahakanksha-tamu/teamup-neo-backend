@@ -44,17 +44,6 @@ class ProjectManagementHubController < ApplicationController
     params.require(:project).permit(:name, :description, :objectives, :status, :start_date, :end_date)
   end
 
-  def create_timeline(project)
-    timeline = project.build_timeline(
-      start_date: params[:start_date],
-      end_date: params[:end_date]
-    )
-    return if timeline.save
-
-    project.errors.add(:timeline, timeline.errors.full_messages.join(', '))
-    raise ActiveRecord::RecordInvalid, timeline
-  end
-
   def create_student_assignments(project, user_ids)
     return if user_ids.blank?
 
