@@ -12,11 +12,11 @@
             <li class="card text-bg-light mb-3" style="width: 600px" data-controller="milestone-chart"
        data-milestone-chart-tasks="<%= milestone.tasks.to_json %>"
        data-milestone-chart-id="<%= milestone.id %>">
-                <div class="card-header"><%= milestone.title %></div>
+                <div class="card-header"><i style="font-size: 12px; margin-right:5px;"class="fas fa-flag"></i><%= milestone.title %></div>
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                       <div>
-                          <span class="card-text text-secondary">Description</span>
+                          <span class="card-text text-secondary">Objective</span>
                           <p class="card-text"><%= milestone.objective %></p>
                           
                           <%if milestone.start_date%>
@@ -128,8 +128,11 @@
            <label for="milestone_deadline">Deadline</label>
             <%= form.date_select :deadline, class: "form-control, required: true", id: "milestone_deadline"%>
         </div>
-        <div>
+        <div class="d-flex">
             <%= form.submit @milestone.persisted? ? "Update Milestone" : "Create Milestone", class: "btn btn-primary mt-3" %>
+            <% if @milestone.persisted? %>
+              <%= link_to 'Cancel', project_milestones_path(@project), class: "btn btn-secondary mt-3 ms-2" %>
+            <% end %>
         </div>
       <% end %>
     </div>

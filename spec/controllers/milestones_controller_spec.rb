@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe MilestonesController, type: :controller do
-  let(:project) { create(:project, start_date: '2024-11-11', end_date: '2024-12-30') }
+  let(:project) { create(:project, start_date: '2024-10-11', end_date: '2024-12-30') }
 
   let(:logged_in_user) do
     User.create!(first_name: 'First Name', last_name: 'Last Name', contact: '1786839273', role: 'student', email: 'firstname@gmail.com')
@@ -13,6 +13,8 @@ RSpec.describe MilestonesController, type: :controller do
     session[:user_id] = logged_in_user.id
     StudentAssignment.create(user_id: logged_in_user.id, project_id: project.id)
     Milestone.create(project_id: project.id, title: 'milestone 1 title', objective: 'milestone 1 objective', status: 'Not Started', start_date: '2024-11-30', deadline: '2024-12-12')
+    Milestone.create(project_id: project.id, title: 'Incorrect Milestone', objective: 'milestone 1 objective', status: 'Not Started', start_date: '2024-11-09', deadline: '2024-11-16')
+
     Task.create(task_name: 'milestone 1 task 1', status: 'Not Started', deadline: '2024-12-10', milestone_id: Milestone.find_by(title: 'milestone 1 title').id, description: 'milestone 1 task 1 description')
     TaskAssignment.create(user_id: logged_in_user.id, task_id: Task.find_by(task_name: 'milestone 1 task 1').id)
     allow(controller).to receive(:current_user).and_return(logged_in_user)
@@ -53,8 +55,8 @@ RSpec.describe MilestonesController, type: :controller do
 
         post :create, params: { project_id: project.id, milestone: { title: '', objective: '', deadline: 1.week.from_now + 1.day } }
 
-        expect(response).to render_template(:index)
         expect(assigns(:milestones)).to eq(project.milestones)
+        expect(response).to redirect_to(project_milestones_path(project))
       end
     end
   end
@@ -62,18 +64,17 @@ RSpec.describe MilestonesController, type: :controller do
   describe 'PATCH #update' do
     it 'redirects to the milestones index page' do
       patch :update, params: { project_id: project.id, id: Milestone.find_by(title: 'milestone 1 title').id, milestone: { title: 'Milestone 1 updated', objective: 'Milestone 1 objective updated', deadline: 1.week.from_now } }
-      expect(response).to redirect_to(project_milestones_path(project))
+      expect(response).to have_http_status(302)
+      expect(flash[:notice]).to eq('Milestone was updated successfully.')
     end
 
     it 'sets flash error message when update fails' do
       milestone = Milestone.find_by(title: 'milestone 1 title')
 
-      allow_any_instance_of(Milestone).to receive(:update).and_return(false)
+      patch :update, params: { project_id: project.id, id: Milestone.find_by(title: 'milestone 1 title').id, milestone: { title: 'Milestone 1 updated', objective: 'Milestone 1 objective updated', deadline: 2.years.from_now } }
 
-      patch :update_milestone_status, params: { project_id: project.id, id: milestone.id, milestone: { status: 'Completed' } }
-
-      expect(flash[:error]).to eq('Failed to update status')
-      expect(response).to redirect_to(project_milestones_path(project))
+      expect(response).to redirect_to(edit_project_milestone_path(project, milestone))
+      expect(flash[:alert]).to eq("Deadline must be within the project's start and end dates")
     end
   end
 

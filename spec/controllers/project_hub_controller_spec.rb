@@ -138,7 +138,7 @@ RSpec.describe ProjectHubController, type: :controller do
     let(:logged_in_user) do
       User.create!(first_name: 'First Name', last_name: 'Last Name', contact: '1786839273', role: 'student', email: 'firstname@gmail.com')
     end
-    let(:project) { create(:project, start_date: Time.zone.today, end_date: Time.zone.today + 1.year) }
+    let(:project) { create(:project, start_date: '2024-10-16', end_date: '2024-11-30') }
 
     before do
       session[:user_id] = logged_in_user.id
@@ -149,8 +149,8 @@ RSpec.describe ProjectHubController, type: :controller do
     context 'when the user has an assigned project' do
       before do
         # Creating milestones with different statuses
-        create(:milestone, project:, title: 'Milestone 1', status: 'In-Progress', start_date: Time.zone.today + 1.week, deadline: Time.zone.today + 11.months)
-        create(:milestone, project:, title: 'Milestone 2', status: 'Completed', start_date: Time.zone.today + 1.week, deadline: Time.zone.today + 11.months)
+        create(:milestone, project:, title: 'Milestone 1', status: 'In-Progress', start_date: '2024-11-16', deadline: '2024-11-26')
+        create(:milestone, project:, title: 'Milestone 2', status: 'Completed', start_date: '2024-11-16', deadline: '2024-11-26')
       end
 
       it 'assigns @milestones for the user’s project' do

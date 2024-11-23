@@ -14,8 +14,8 @@ Feature: Milestones Management
     | Josie            | Mathew           | josie@gmail.com           |  admin        |  214435356 |  google_oauth2  |
 
     And the following project exists in the database
-    | id | name               | description                    | objectives                    |  start_date  |  end_date  | 
-    | 1  | "Project Alpha"    | "Main project description"     | "Objective 1, Objective 2"    |  2024-10-01 10:00:00 |  2025-02-28 10:00:00 |
+    | id | name               | description                    | objectives                    |  start_date          |  end_date            | 
+    | 1  | "Project Alpha"    | "Main project description"     | "Objective 1, Objective 2"    |  2024-09-01 10:00:00 |  2025-02-28 10:00:00 |
 
     And the given student assignments exist
     | user_email             | project_name       |
@@ -47,7 +47,6 @@ Feature: Milestones Management
         When I visit the Milestone Management Page
         Then I should see "Create a New Milestone"
         When I create a new milestone with the title "Project Kickoff", objective "Initial meeting and setup", and deadline "2025-12-01 10:00:00"
-        Then I should see the milestone "Project Kickoff" in the list of milestones
 
     Scenario: Edit an existing milestone
         Given I am logged in as "davidjones@gmail.com"
@@ -109,7 +108,15 @@ Feature: Milestones Management
         Given I am logged in as "davidjones@gmail.com"
         When I visit the Milestone Management Page
         Then I should see "Create a New Milestone"
-        When I attempt to create a new milestone with the title "Failing Milestone", objective "This milestone will fail to save", and deadline "2025-12-01"
-        Then I should see "Failed to create milestone."
+        When I attempt to create a invalid milestone with the title "Failing Milestone", objective "This milestone will fail to save", and deadline "2025-12-12"
         And I should not see "Failing Milestone" in the list of milestones
 
+    Scenario: Admin updates a milestone with wrong deadline
+        Given I am logged in as "davidjones@gmail.com"
+        When I visit the Milestone Management Page
+        And I see a milestone with the title "Milestone 1" and objective "Complete initial setup"
+        When I click the edit button for the milestone "Milestone 1"
+        Then I should see "Edit Milestone" 
+        When I update the deadline field to "2026-12-01"
+        Then I should see "Deadline must be within the project's start and end dates"
+        

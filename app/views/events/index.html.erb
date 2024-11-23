@@ -5,11 +5,11 @@
     </h3>
   </div>
   <div class="row mt-4">
-    <div class="col-md-7"> 
+    <div style="margin-right: 80px;"class="col-md-6"> 
       <h5 class="mb-4">Events</h5>
       <ul class="list-group mb-4 user-list-group" id="events_list">
         <% @events.order(updated_at: :desc).each do |event| %>         
-            <li class="card text-bg-light mb-3" style="width: 600px">
+            <li class="card text-bg-light mb-3">
             <div class="card-header d-flex justify-content-between">
                 <span>
                     <%= event.title %>
@@ -44,6 +44,7 @@
         <% end %>
       </ul>
     </div>
+
     <div class="col-md-5">
       <h5 class="mb-4"><%= @event.persisted? ? "Edit Event" : "Create a New Event" %></h5>
     <%= form_with(model: @event, local: true) do |form| %>
@@ -54,8 +55,11 @@
       <div class="form-group mb-3">
         <label for="event_description">Description</label>
         <%= form.text_area :description, class: "form-control", id: "event_description"%>
-      </div>
+      </div class="d-flex">
         <%= form.submit @event.persisted? ? "Update Event" : "Create Event", class: "btn btn-primary mt-3" %>
+      <% if @event.persisted? %>
+        <%= link_to 'Cancel', events_path, class: "btn btn-secondary mt-3" %>
+      <% end %>
       </div>
     <% end %>
     </div>

@@ -22,17 +22,20 @@ class MilestonesController < ApplicationController # rubocop:disable Style/Docum
     elsif @milestone.save
       redirect_to project_milestones_path(@project), notice: 'Milestone was successfully created.'
     else
-      flash[:alert] = 'Failed to create milestone.'
+      flash[:alert] = @milestone.errors.full_messages.to_sentence
       @milestones = @project.milestones.select(&:persisted?) # Only include saved milestones
-      render :index
+      redirect_to project_milestones_path(@project)
     end
   end
 
   def update
     if @milestone.update(milestone_params)
-      redirect_to project_milestones_path(@project), notice: 'Milestone was updated successfully.'
+      flash[:notice] = 'Milestone was updated successfully.'
+      redirect_to project_milestones_path(@project)
     else
-      render :edit
+      @project = Project.find(params[:project_id])
+      flash[:alert] = @milestone.errors.full_messages.to_sentence
+      redirect_to edit_project_milestone_path(@project, @milestone)
     end
   end
 
@@ -50,7 +53,7 @@ class MilestonesController < ApplicationController # rubocop:disable Style/Docum
     if @milestone.update(status: params[:milestone][:status])
       flash[:success] = 'Status updated successfully'
     else
-      flash[:error] = 'Failed to update status'
+      flash[:error] = @milestone.errors.full_messages.to_sentence
     end
     redirect_to project_milestones_path(@project)
   end

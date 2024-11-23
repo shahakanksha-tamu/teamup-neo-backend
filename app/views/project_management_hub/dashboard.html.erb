@@ -26,8 +26,8 @@
             </div>
             <div class="mb-4">
               <div class="info-label">Start Date</div>
-              <% if @project.end_date.present? %>
-                <%= @project.end_date.strftime("%B %d, %Y") %>
+              <% if @project.start_date.present? %>
+                <%= @project.start_date.strftime("%B %d, %Y") %>
               <% else %>
                 <span>No end date</span>
               <% end %>

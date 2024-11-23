@@ -14,7 +14,7 @@
       <% @milestones.each do |milestone| %>
         <div class="milestone-item">
           <div class="milestone-header">
-            <h5><%= milestone.title %></h5>
+            <h6><i style="font-size: 12px; margin-right:5px;"class="fas fa-flag"></i><%= milestone.title %></h6>
             <span class="milestone-status <%= milestone.status.downcase.gsub(" ", "-") %>"><%= milestone.status %></span>
           </div>
           <div class="milestone-dates">
