@@ -43,7 +43,6 @@ gem 'bootsnap', require: false
 
 gem 'highcharts-rails'
 # omniauth gems for google login
-gem 'highcharts-rails'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
