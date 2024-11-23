@@ -21,6 +21,7 @@ class ProjectManagementHubController < ApplicationController
       raise ActiveRecord::Rollback unless @project.save
 
       begin
+        # create_timeline(@project)
         create_student_assignments(@project, params[:user_ids])
       rescue ActiveRecord::RecordInvalid => e
         @project.errors.add(:base, "Error in associated data: #{e.message}")
@@ -96,7 +97,6 @@ class ProjectManagementHubController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     redirect_to project_management_hub_path, alert: 'Project not found.'
   end
-  
   def add_student
     Rails.logger.debug("Params: #{params.inspect}")
     user = User.find(params[:user_id])
