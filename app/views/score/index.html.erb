@@ -14,17 +14,20 @@
                         </div>
                         <script>
                             document.addEventListener("turbo:load", function() {
-                                createPieChart("scoreChart-<%= s.id %>", <%= s.score %>);
+                                createPieChart("scoreChart-<%= s.id %>", <%= s.score %>, <%= s.max_score %>);
                             });
                         </script>
 
                         <%= form_with(url: update_score_path, method: :patch, class: 'form-horizontal', data: { turbo: false }) do %>
-                            <div class="row mt-4">
-                                <div class="col-md-6 form-group">
+                            <div class="row">
+                                <div class="col-md-4 form-group">
                                     <%= number_field_tag "students[#{s.id}][score]", s.score, step: 0.01, class: 'form-control' %>
                                 </div>
-                                <div class="col-md-6 form-group">
-                                    <%= submit_tag 'Update Score', class: 'btn btn-primary' %>
+                                <div class="col-md-4 form-group">
+                                    <%= number_field_tag "students[#{s.id}][max_score]", s.max_score, step: 0.01, class: 'form-control' %>
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <%= submit_tag 'Update', class: 'btn btn-primary' %>
                                 </div>
                             </div>
                         <% end %>
@@ -40,17 +43,22 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    function createPieChart(canvasId, score) {
-        if (score == null){
-            score =0;
+    function createPieChart(canvasId, score, max_score) {
+        if (score == null) {
+            score = 0;
         }
+
+        if (max_score == null) {
+            max_score = 100;
+        }
+        
         var ctx = document.getElementById(canvasId).getContext("2d");
         new Chart(ctx, {
             type: 'doughnut',
             data: {
                 labels: ['Score', 'Remaining'],
                 datasets: [{
-                    data: [score, 100 - score],
+                    data: [score, max_score - score],
                     backgroundColor: ['#4caf50', '#e0e0e0']
                 }]
             },
