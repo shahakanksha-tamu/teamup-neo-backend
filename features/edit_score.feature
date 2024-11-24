@@ -17,8 +17,14 @@ Background: users in database
     | janesmith@gmail.com    | Capstone Project   |
     | marklee@gmail.com      | Capstone Project   |
 
-Scenario: Admin edits students' score
+Scenario: Admin fills in valid students' score
     Given the admin is logged in with "johndoe@gmail.com"
     When the admin visits the score page of "Capstone Project"
-    When the admin changes score for "Jane Smith"
+    When the admin fills in valid score for "Jane Smith"
     And I should see "Score updated successfully!"
+
+Scenario: Admin fills in invalid students' score
+    Given the admin is logged in with "johndoe@gmail.com"
+    When the admin visits the score page of "Capstone Project"
+    When the admin fills in invalid score for "Jane Smith"
+    And I should see "Failed to update score."
