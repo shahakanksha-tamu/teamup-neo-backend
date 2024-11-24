@@ -2,7 +2,7 @@
 
 # Project class contains all the details of the project, including timeline and list of milestones
 class Project < ApplicationRecord
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false, message: 'Title must be unique' }
   has_many :student_assignments, dependent: :destroy
   has_many :users, through: :student_assignments
   has_many :milestones, dependent: :destroy
@@ -18,6 +18,13 @@ class Project < ApplicationRecord
   def remove_student(user)
     student_assignment = StudentAssignment.find_by(user_id: user.id, project_id: id)
     student_assignment&.destroy
+
+    task_assignments = TaskAssignment.where(user_id: user.id)
+
+    task_ids = task_assignments.pluck(:task_id)
+
+    task_assignments.each(&:destroy)
+    Task.where(id: task_ids).destroy_all
   end
 
   # Get all students in the project (team members)

@@ -26,24 +26,6 @@ class ApplicationController < ActionController::Base
     }
   end
 
-  # original method with high cognitive complexity
-  # def restrict_access_based_on_role
-  #   return unless current_user
-
-  #   user_role = current_user.role.to_sym
-  #   controller_action = { controller: params[:controller], action: params[:action] }
-
-  #   restricted_roles = role_based_routes.keys - [user_role]
-
-  #   return unless restricted_roles.any? { |role| role_based_routes[role].include?(controller_action) }
-
-  #   if user_role == :student
-  #     redirect_to dashboard_path, alert: 'You are not authorized to access this page.'
-  #   else
-  #     redirect_to project_management_hub_path, alert: 'You are not authorized to access this page.'
-  #   end
-  # end
-
   def restrict_access_based_on_role
     return unless current_user
 

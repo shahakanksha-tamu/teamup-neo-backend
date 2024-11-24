@@ -33,9 +33,9 @@ When 'I create a new milestone with the title {string}, objective {string}, and 
   click_button 'Create Milestone'
 end
 
-Then 'I should see the milestone {string} in the list of milestones' do |title|
-  expect(page).to have_content(title)
-end
+# Then 'I should see the milestone {string} in the list of milestones' do |title|
+#   expect(page).to have_content(title)
+# end
 
 Given 'I see a milestone with the title {string} and objective {string}' do |title, objective|
   expect(page).to have_content(title)
@@ -168,4 +168,78 @@ Then 'I should see the task {string} with status {string}' do |task_name, status
     expect(page).to have_content(task_name)
     expect(page).to have_content(status)
   end
+end
+
+When('I set the milestone deadline to less than a week from now with the rest of the valid inputs') do
+  # Calculate a date that is 2 days from now
+  fill_in 'milestone_title', with: 'Test Milestone'
+  fill_in 'milestone_objective', with: 'Test Objective'
+  deadline = 2.days.from_now
+
+  # Split the calculated date into year, month, and day
+  year = deadline.year
+  month = deadline.strftime('%B') # Full month name
+  day = deadline.day
+
+  # Fill in the deadline fields with the calculated date
+  select year, from: 'milestone_deadline_1i'
+  select month, from: 'milestone_deadline_2i'
+  select day, from: 'milestone_deadline_3i'
+end
+
+When('I force a save failure for milestones') do
+  # This stubs the save method to return false, simulating a failure
+  allow_any_instance_of(Milestone).to receive(:save).and_return(false)
+end
+
+When 'I attempt to create a new milestone with the title {string}, objective {string}, and deadline {string}' do |title, objective, deadline|
+  # Stub the save method to return false, simulating a failure
+  allow_any_instance_of(Milestone).to receive(:save).and_return(false)
+
+  # Fill in the form fields with title, objective, and deadline
+  fill_in 'Title', with: title
+  fill_in 'Objective', with: objective
+
+  # Parse the deadline into year, month, and day components
+  year, month, day = deadline.split('-')
+  select year, from: 'milestone_deadline_1i'
+  select Date::MONTHNAMES[month.to_i], from: 'milestone_deadline_2i'
+  select day.to_i, from: 'milestone_deadline_3i'
+
+  click_button 'Create Milestone'
+
+  milestones = Project.find_by(id: 1).milestones
+  expect(milestones.pluck(:title)).to include(milestone_title)
+end
+
+When 'I attempt to create a invalid milestone with the title {string}, objective {string}, and deadline {string}' do |title, objective, deadline|
+  # Stub the save method to return false, simulating a failure
+  allow_any_instance_of(Milestone).to receive(:save).and_return(false)
+
+  # Fill in the form fields with title, objective, and deadline
+  fill_in 'Title', with: title
+  fill_in 'Objective', with: objective
+
+  # Parse the deadline into year, month, and day components
+  year, month, day = deadline.split('-')
+  select year, from: 'milestone_deadline_1i'
+  select Date::MONTHNAMES[month.to_i], from: 'milestone_deadline_2i'
+  select day.to_i, from: 'milestone_deadline_3i'
+
+  click_button 'Create Milestone'
+end
+
+Then('I should see the milestone {string} in the list of milestones') do |milestone_title|
+  milestones = Project.find_by(id: 1).milestones
+  expect(milestones.pluck(:title)).to include(milestone_title)
+end
+
+When('I update the deadline field to {string}') do |new_deadline|
+  # Split the deadline into year, month, and day components
+  year, month, day = new_deadline.split('-')
+  select year, from: 'milestone_deadline_1i'
+  select Date::MONTHNAMES[month.to_i], from: 'milestone_deadline_2i'
+  select day.to_i, from: 'milestone_deadline_3i'
+
+  click_button 'Update Milestone'
 end

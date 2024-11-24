@@ -14,8 +14,8 @@
     <div style="background-color: #F4F5F7;" class="row d-flex">
     
         <div class="col-12 col-md-3 border-end" id="not-started-tasks">
-            <div style="margin-bottom: 20px; margin-top:20px; border: 1px solid #ccc;">
-                <h6 class="text-muted" style="text-align: center; margin-top:10px; margin-bottom: 10px;">Not Started</h6>
+            <div style="margin-bottom: 20px; margin-top:20px; border: 1px solid #ccc; background-color:#4B4B4B;">
+                <h6 class="text-muted" style="text-align: center; margin-top:10px; margin-bottom: 10px; color:white !important;">Not Started</h6>
             </div>
            
             <% @not_started_tasks.each do |task| %>
@@ -39,8 +39,8 @@
 
 
         <div class="col-12 col-md-3 border-end" id="in-progress-tasks">
-             <div style="margin-bottom: 20px; margin-top:20px; border: 1px solid #ccc;">
-                <h6 class="text-muted" style="text-align: center; margin-top:10px; margin-bottom: 10px;">In-Progress</h6>
+             <div style="margin-bottom: 20px; margin-top:20px; border: 1px solid #ccc; background-color:#BDAA00;">
+                <h6 class="text-muted" style="text-align: center; margin-top:10px; margin-bottom: 10px; color:white !important;">In-Progress</h6>
             </div>
             <% @in_progress_tasks.each do |task| %>
                 <div class="card task-card mb-3"
@@ -63,8 +63,8 @@
 
 
         <div class="col-12 col-md-3 border-end" id="completed-tasks">
-              <div style="margin-bottom: 20px; margin-top:20px; border: 1px solid #ccc;">
-                <h6 class="text-muted" style="text-align: center; margin-top:10px; margin-bottom: 10px;">Completed</h6>
+              <div style="margin-bottom: 20px; margin-top:20px; border: 1px solid #ccc; background-color:#006400;">
+                <h6 class="text-muted" style="text-align: center; margin-top:10px; margin-bottom: 10px; color:white !important;">Completed</h6>
             </div>
             <% @completed_tasks.each do |task| %>
                 <div class="card task-card mb-3"
@@ -87,8 +87,8 @@
 
 
         <div class="col-12 col-md-3 border-end" id="not-completed-tasks">
-              <div style="margin-bottom: 20px; margin-top:20px; border: 1px solid #ccc;">
-                <h6 class="text-muted" style="text-align: center; margin-top:10px; margin-bottom: 10px;">Not Completed</h6>
+              <div style="margin-bottom: 20px; margin-top:20px; border: 1px solid #ccc; background-color: #B22222;">
+                <h6 class="text-muted" style="text-align: center; margin-top:10px; margin-bottom: 10px; color: white !important;">Not Completed</h6>
             </div>
             <% @not_completed_tasks.each do |task| %>
                 <div class="card task-card mb-3"
@@ -258,10 +258,10 @@
                     name: 'Tasks',
                     colorByPoint: true,
                     data: [
-                        { name: 'Not Started', y: taskData['Not Started'], color: '#EC7A08' },
-                        { name: 'In Progress', y: taskData['In Progress'], color: '#009596' },
-                        { name: 'Completed', y: taskData['Completed'], color: '#4CB140' },
-                        { name: 'Not Completed', y: taskData['Not Completed'], color: '#f45b5b' }
+                        { name: 'Not Started', y: taskData['Not Started'], color: '#4B4B4B' },
+                        { name: 'In Progress', y: taskData['In Progress'], color: '#BDAA00' },
+                        { name: 'Completed', y: taskData['Completed'], color: '#006400' },
+                        { name: 'Not Completed', y: taskData['Not Completed'], color: '#B22222' }
                     ]
                 }]
             });

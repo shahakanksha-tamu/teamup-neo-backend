@@ -59,7 +59,7 @@ RSpec.describe ImportDataController, type: :controller do
       session[:user_id] = user.id
     end
 
-    context 'when no file is uploaded' do 
+    context 'when no file is uploaded' do
       it 'redirects to import_path without processing' do
         post :upload_data
         expect(flash[:notice]).to be_nil

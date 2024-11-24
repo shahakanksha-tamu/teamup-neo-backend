@@ -8,6 +8,13 @@ class TaskManagementController < ApplicationController
   def index
     @students = @project.users.includes(task_assignments: :task)
     @show_sidebar = !@project.nil?
+    @completion_percentages = {}
+
+    @students.each do |student|
+      completed_tasks = student.tasks.where(status: 'Completed').count
+      total_tasks = student.tasks.count
+      @completion_percentages[student.id] = total_tasks.zero? ? 0 : (completed_tasks.to_f / total_tasks * 100).round(3)
+    end
   end
 
   def create
@@ -15,15 +22,27 @@ class TaskManagementController < ApplicationController
     @student = User.find(params[:user_id])
     @task = Task.new(task_params)
 
-    return unless @task.save
+    if @task.deadline && @task.milestone && @task.deadline > @task.milestone.deadline
+      flash[:alert] = "Deadline cannot be greater than the milestone's deadline."
+      redirect_to project_task_management_path(@project) and return
+    end
 
-    # Create the task assignment to associate the task with the student
-    TaskAssignment.create(user_id: @student.id, task_id: @task.id)
+    if @task.save
 
+      # Create the task assignment to associate the task with the student
+      TaskAssignment.create(user_id: @student.id, task_id: @task.id)
+    else
+      flash[:error] = @task.errors.full_messages.to_sentence
+
+    end
     redirect_to project_task_management_path(@project)
   end
 
   def update
+    if task_params[:deadline] && @task.milestone && task_params[:deadline].to_date > @task.milestone.deadline
+      flash[:alert] = "Deadline cannot be greater than the milestone's deadline."
+      redirect_to project_task_management_path(@project) and return
+    end
     return unless @task.update(task_params)
 
     redirect_to project_task_management_path(@project)

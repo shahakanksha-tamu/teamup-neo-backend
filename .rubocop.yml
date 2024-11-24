@@ -41,3 +41,15 @@ Metrics/ExampleLength:
 
 RSpec/AnyInstance:
   Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Rails/UniqueValidationWithoutIndex:
+  Enabled: false

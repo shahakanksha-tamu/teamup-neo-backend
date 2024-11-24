@@ -14,7 +14,6 @@ end
 Given('I visit landing page') do
   visit(root_path)
 end
-
 When('I press Login with Google and choose {string} as my google account for authentication') do |email|
   mock_omniauth(:google_oauth2, {
                   provider: 'google_oauth2',
@@ -28,6 +27,24 @@ When('I press Login with Google and choose {string} as my google account for aut
                     token: 'mock_token',
                     refresh_token: 'mock_refresh_token',
                     expires_at: Time.zone.now + 1.week
+                  },
+                  extra: {
+                    raw_info: {
+                      calendars: [
+                        {
+                          id: 'primary',
+                          summary: 'Primary Calendar',
+                          description: 'My primary Google calendar',
+                          access_role: 'owner'
+                        },
+                        {
+                          id: 'secondary',
+                          summary: 'Secondary Calendar',
+                          description: 'My secondary Google calendar',
+                          access_role: 'editor'
+                        }
+                      ]
+                    }
                   }
                 })
   click_button('Login with Google')

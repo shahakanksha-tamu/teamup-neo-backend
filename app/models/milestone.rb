@@ -23,21 +23,22 @@ class Milestone < ApplicationRecord
 
   private
 
-  def start_and_end_dates_within_project_dates
-    if project.present?
-      if start_date.present? && project.start_date.present? && (start_date < project.start_date || start_date > project.end_date)
-        errors.add(:start_date, "must be within the project's start and end dates")
-      end
+  def start_and_end_dates_within_project_dates # rubocop:disable Metrics/PerceivedComplexity
+    return if project.blank?
 
-      if deadline.present? && project.end_date.present? && (deadline < project.start_date || deadline > project.end_date)
-        errors.add(:deadline, "must be within the project's start and end dates")
-      end
-    end
+    errors.add(:start_date, "must be within the project's start and end dates") if start_date.present? && project.start_date.present? && (start_date < project.start_date || start_date > project.end_date)
+
+    return unless deadline.present? && project.end_date.present? && (deadline < project.start_date || deadline > project.end_date)
+
+    errors.add(:deadline, "must be within the project's start and end dates")
   end
 
   def status_cannot_be_in_progress_before_start_date
-    if status == 'In-Progress' && start_date.present? && start_date > Date.today
-      errors.add(:status, "cannot be 'In-Progress' before the start date")
-    end
+    return unless status_changed?
+
+    return unless start_date.present? && deadline.present?
+    return if Time.zone.today.between?(start_date, deadline)
+
+    errors.add(:status, "cannot be updated to '#{status}' unless the current date is within the milestone's start date and deadline")
   end
 end

@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -22,8 +21,7 @@ RSpec.describe CalendarsController, type: :controller do
 
   before do
     session[:user_id] = user.id
-    allow(controller).to receive(:current_user).and_return(user)
-    allow(controller).to receive(:callback_url).and_return('http://test.host/callback')
+    allow(controller).to receive_messages(current_user: user, callback_url: 'http://test.host/callback')
   end
 
   describe 'GET #calendars' do
@@ -35,7 +33,7 @@ RSpec.describe CalendarsController, type: :controller do
         {
           token: 'fake_access_token',
           refresh_token: 'fake_refresh_token',
-          expires_at: Time.now + 3600
+          expires_at: Time.zone.now + 3600
         }
       end
 
@@ -61,8 +59,7 @@ RSpec.describe CalendarsController, type: :controller do
 
       context 'when token is expired' do
         before do
-          allow(client).to receive(:expired?).and_return(true)
-          allow(client).to receive(:refresh!).and_return(true)
+          allow(client).to receive_messages(expired?: true, refresh!: true)
           allow(session[:authorization]).to receive(:[]=)
         end
 
@@ -75,7 +72,5 @@ RSpec.describe CalendarsController, type: :controller do
         end
       end
     end
-
-   
   end
 end

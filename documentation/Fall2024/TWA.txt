@@ -5,32 +5,43 @@
 
 We prioritize clear and transparent communication between team members. To facilitate this, Slack will be our primary platform for daily communication. In cases where urgent communication is required, or if there is no response on Slack, we will use WhatsApp to ensure timely responses.
 
+We will schedule regular check-ins or stand-up meetings to ensure alignment and address any issues promptly.
+
 We aim to be responsive on all communication platforms and strive to reply within a reasonable timeframe to avoid blocking the progress of other team members or workflow.
 
-Task assignments should be communicated clearly so there is no overlap between each members tasks.
+Task assignments should be communicated clearly so there is no overlap between each member's tasks.
+
+We will use a shared task management tool (e.g., Jira, Trello) to assign and track tasks, ensuring clarity and avoiding overlap
 
 ### Agendas:
 
 Apart from Scrum meetings, all other meetings must have a well-defined agenda that is shared with the entire team in advance. We aim to keep meetings focused, with an emphasis on discussing blockers and ensuring they are on the path to resolution.
 
+Meeting agendas will be shared at least 24 hours in advance to allow team members to prepare adequately
+
 Each meeting should conclude with clear action items, ideally delegated to specific team members. Meeting minutes (MoM) should be recorded to track discussions and serve as a reference for anyone who missed the meeting.
+
+Action items from meetings will have clear deadlines and assigned owners to ensure accountability
 
 ### Disagreements:
 
 We accept that disagreements are inevitable, and we aim to foster a safe space where all team members can freely voice their opinions. Everyone is encouraged to engage in respectful discussions, even when there are disagreements.
 
-If a disagreement cannot be resolved among those involved, they should seek assistance from a neutral team member to help facilitate a respectful and constructive resolution.
+We will employ a decision-making framework, such as consensus or majority vote, when resolving unresolved disagreements.
 
+If a disagreement cannot be resolved among those involved, they should seek assistance from a neutral team member to help facilitate a respectful and constructive resolution.
 
 ### Roles:
 
-We have two defined roles: Product Owner and Scrum Master. We expect the team members in these roles to perform their duties to the best of their abilities during the sprint, with the rest of the team providing support as needed. While there are no specific roles assigned to the remaining team members, we expect everyone to be accountable for their tasks and consistently give their best effort.
+We have two defined roles: Product Owner and Scrum Master. We expect the team members in these roles to perform their duties to the best of their abilities during the sprint, with the rest of the team providing support as needed. While there are no specific roles assigned to the remaining team members, we expect everyone to be accountable for their tasks and consistentlygive their best effort.
 
+We will periodically review and adjust roles and responsibilities to align with project needs and individual growth.
 
 ### Values:
 
 As a team, we value proactive collaboration, inclusion, and continuous learning. We aim to build a great product by leveraging our collective strengths and supporting each other. We aim to improve both as developers and team members, learning from challenges and growing together.
 
+We are committed to continuous feedback and recognize that constructive criticism is vital for individual and team development.
 
 ## Roles for Retrospecitves
 For Sprint Retrospectives the roles are typically assigned to help facilitate productive discussions and ensure that the session is structured and goal-oriented. We would follow below roles and responsibilities:

@@ -3,9 +3,17 @@
 Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   # Calendars route
   resources :resources
+
   get 'calendars', to: 'calendars#calendars', as: :calendar_view
-  get "/redirect", to: "calendars#redirect" , as: :calendar_redirect
-  get "/callback", to: "calendars#callback"
+  get '/redirect', to: 'calendars#redirect', as: :calendar_redirect
+  get '/callback', to: 'calendars#callback'
+
+  resources :events do
+    member do
+      patch 'update_show', to: 'events#update_show'
+    end
+  end
+
   # Health check route
   get 'up' => 'rails/health#show', as: :rails_health_check
 
@@ -24,6 +32,9 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   get '/project_management_hub', to: 'project_management_hub#index', as: :project_management_hub
 
   # Project Hub routes
+  get 'view_score', to: 'score#index', as: :view_score
+  patch 'update_score', to: 'score#update', as: :update_score
+
   resources :projects do # rubocop:disable Metrics/BlockLength
     get 'dashboard', to: 'project_management_hub#dashboard', as: 'dashboard'
     get 'team_management', to: 'project_management_hub#team', as: 'team_management'
@@ -79,8 +90,18 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   root 'landing_page#index'
 
   # Score routes
-  get '/score/edit', to: 'score#edit', as: :edit_score
-  patch '/score/update', to: 'score#update', as: :update_score
+  # get '/score/index', to: 'score#index', as: :view_score
+  # patch '/score/update', to: 'score#update', as: :update_score
+
+  # Event routes
+  # resources :events
+  # get '/events', to: 'event#index', as: :events
+  # post '/events', to: 'event#create', as: :create_event
+  # get '/events/:id/edit', to: 'event#edit', as: :edit_event
+  # patch '/events/:id', to: 'event#update', as: :update_event
+  # delete '/events/:id', to: 'event#destroy', as: :destroy_event
+
+  # patch 'update_event', to: 'event#update', as: 'update_event'
 
   # Catch-all route for handling 404s
   match '*path', to: 'application#not_found', via: :all

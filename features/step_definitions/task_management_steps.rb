@@ -5,23 +5,23 @@
 # Given the following project exists in the database
 Given('the following project exists in the database') do |projects|
   projects.hashes.each do |row|
-    if row['start_date'].nil?
-      start_date = Time.zone.now
-    else
-      start_date = DateTime.parse(row['start_date'])
-    end
-    if row['end_date'].nil?
-      end_date = Time.zone.now + 30.days
-    else
-      end_date = DateTime.parse(row['end_date'])
-    end
+    start_date = if row['start_date'].nil?
+                   Time.zone.now
+                 else
+                   DateTime.parse(row['start_date'])
+                 end
+    end_date = if row['end_date'].nil?
+                 Time.zone.now + 30.days
+               else
+                 DateTime.parse(row['end_date'])
+               end
     Project.create!(
       id: row['id'],
       name: row['name'],
       description: row['description'],
       objectives: row['objectives'],
-      start_date: start_date,
-      end_date: end_date
+      start_date:,
+      end_date:
     )
   end
 end
@@ -116,7 +116,7 @@ end
 
 # Then each card should display the student’s tasks with task details
 Then('each card should display the student’s tasks with task details') do
-  page.all('.card').find_each do |card|
+  page.all('.card').each do |card|
     within(card) do
       expect(page).to have_content('Not started')
     end
@@ -213,6 +213,10 @@ Then('I should see {string} under {string} with the correct details') do |task_n
   end
 end
 
+Then('I should see a flash alert {string}') do |message|
+  expect(page).to have_selector('.alert', text: message)
+end
+
 When(/^I delete the task "(.*?)"$/) do |task_name|
   # Find the task by name
   task = Task.find_by(task_name:)
@@ -233,4 +237,25 @@ Then('the task should be deleted from the database') do
 
   # Assert that the task is no longer in the database
   expect(task).to be_nil
+end
+
+Given('{string} has completed {int} out of {int} tasks') do |student_name, completed_tasks, _total_tasks|
+  @student = User.find_by(email: student_name.downcase.delete(' ').concat('@gmail.com').to_s)
+
+  completed_tasks.times do |i|
+    status = 'Completed'
+    task = Task.create(task_name: "Completed Task #{i + 1}", milestone_id: 1, status:, description: 'Completed task description', deadline: Date.parse('2023-10-25'))
+    TaskAssignment.create(user: @student, task:)
+  end
+end
+
+Then('I should see {string} with a completion percentage of {string}') do |student_name, expected_percentage|
+  student = User.find_by(email: student_name.downcase.delete(' ').concat('@gmail.com').to_s)
+  completed_tasks = student.tasks.where(status: 'Completed').count
+  total_tasks = student.tasks.count
+  completion_percentage = total_tasks.zero? ? 0 : (completed_tasks.to_f / total_tasks * 100)
+
+  formatted_percentage = format('%.0f', completion_percentage)
+
+  expect(formatted_percentage).to eq(expected_percentage)
 end
