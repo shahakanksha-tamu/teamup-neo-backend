@@ -120,3 +120,11 @@ Feature: Milestones Management
         When I update the deadline field to "2026-12-01"
         Then I should see "Deadline must be within the project's start and end dates"
         
+    Scenario: Admin updates a milestone to completed with incomplete tasks
+        Given I am logged in as "davidjones@gmail.com"
+        When I visit the Milestone Management Page
+        And I see a milestone with the title "Milestone 1" and objective "Complete initial setup"
+        When I click the update status button for the milestone "Milestone 1"
+        And I select "Completed" from the status dropdown
+        And I click "Update Status" in the modal
+        Then I should see "Status cannot be changed to 'Completed' unless all associated tasks are in 'Completed' status"
