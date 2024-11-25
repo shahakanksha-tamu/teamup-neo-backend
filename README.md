@@ -282,4 +282,14 @@ If you have not already done so, install the [Heroku CLI](https://devcenter.hero
 
 Your app is now successfully deployed to the production environment.
 
+# Contact Information
+
+Rahaan Gandhi - rahaang99@tamu.edu
+Dhruva Khanwelkar - dhruvak@tamu.edu
+Akanksha Shah - shahakanksha@tamu.edu
+Meghna Pradhan - meghna.pradhan@tamu.edu
+Ramneek Kaur - ramneek983@tamu.edu
+Hao Jin - q389974204@tamu.edu
+Yiyang Yan - yyy2000@tamu.edu
+
 
