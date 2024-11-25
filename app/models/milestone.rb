@@ -4,9 +4,9 @@
 class Milestone < ApplicationRecord
   belongs_to :project
 
-  # validate :start_and_end_dates_within_project_dates, on: :update
   validate :start_and_end_dates_within_project_dates
   validate :status_cannot_be_in_progress_before_start_date, on: :update
+  validate :milestone_complete_check, on: :update
 
   has_many :tasks, dependent: :destroy
   has_many :task_assignments, through: :tasks, dependent: :destroy
@@ -40,5 +40,12 @@ class Milestone < ApplicationRecord
     return if Time.zone.today.between?(start_date, deadline)
 
     errors.add(:status, "cannot be updated to '#{status}' unless the current date is within the milestone's start date and deadline")
+  end
+
+  def milestone_complete_check
+    return unless status_changed? && status == 'Completed'
+    if tasks.any? { |task| task.status != 'Completed' }
+      errors.add(:status, "cannot be changed to 'Completed' unless all associated tasks are in 'Completed' status")
+    end
   end
 end

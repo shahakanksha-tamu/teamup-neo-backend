@@ -44,5 +44,22 @@ RSpec.describe Milestone, type: :model do
         expect(milestone.errors[:start_date]).to include("must be within the project's start and end dates")
       end
     end
+
+    context 'when some task is not completed' do
+      it 'is not valid' do
+        milestone = described_class.new(
+          project:,
+          title: 'Milestone 1',
+          start_date: Time.zone.today + 1.day,
+          deadline: Time.zone.today + 6.months,
+          status: 'In-Progress'
+        )
+        create(:task,milestone:milestone, status: 'Not Started')
+
+        milestone.status = 'Completed'
+        expect(milestone).not_to be_valid
+        expect(milestone.errors[:status]).to include("cannot be changed to 'Completed' unless all associated tasks are in 'Completed' status")
+      end
+    end
   end
 end
