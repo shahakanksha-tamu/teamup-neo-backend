@@ -96,40 +96,6 @@ git clone https://github.com/shahakanksha-tamu/teamup-neo-backend.git
 cd teamup-neo-backend
 ```
 
-### Install Dependencies
-
-- Execute the below command to install all the required gems
-
-```bash
-bundle install 
-```
-### Database Setup
-- Create database
-
-```bash
-rails db:create
-```
-
-- Execute the DB migration to create the users table in the local database using the below command
-
-```bash
-rails db:migrate
-```
-
-- Create seed data into database, use the below command to prepopulate the database with list of authorized users
-
-```bash
-rails db:seed
-```
-
-### Running Application
-
-- Launch the rails application using the below command, the application will be hosted on http://localhost or http://127.0.0.0 with the default port as 3000
-
-```bash
-rails server
-```
-
 ### Google OAuth Configuration
 
 ![alt text](app/assets/images/image.png)
@@ -188,6 +154,40 @@ Note: Replace your_client_id and your_client_secret with your own Google OAuth c
 After adding your credentials, save the changes and exit the editor.
 
 Now, your Google OAuth credentials are securely stored in the Rails credentials file and your application will be able to use them for authentication. Make sure to keep your credentials safe and secret.
+
+### Install Dependencies
+
+- Execute the below command to install all the required gems
+
+```bash
+bundle install 
+```
+### Database Setup
+- Create database
+
+```bash
+rails db:create
+```
+
+- Execute the DB migration to create the users table in the local database using the below command
+
+```bash
+rails db:migrate
+```
+
+- Create seed data into database, use the below command to prepopulate the database with list of authorized users
+
+```bash
+rails db:seed
+```
+
+### Running Application
+
+- Launch the rails application using the below command, the application will be hosted on http://localhost or http://127.0.0.0 with the default port as 3000
+
+```bash
+rails server
+```
 
 ### Running Tests
 
