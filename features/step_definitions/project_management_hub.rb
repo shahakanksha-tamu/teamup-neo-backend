@@ -163,3 +163,44 @@ end
 When('An unknown error would occur when creating the resource') do
   allow_any_instance_of(Resource).to receive(:save).and_return(false)
 end
+
+When('I click on the Delete Project button') do
+  find('.deleteButton').click
+end
+Then('I should see a confirmation dialog with message {string}') do |message|
+  begin
+    alert = page.driver.browser.switch_to.alert
+    puts "Alert text: #{alert.text}"
+    expect(alert.text).to eq(message)
+  rescue Selenium::WebDriver::Error::NoSuchAlertError
+    raise "No alert appeared when expected"
+  end
+end
+
+When('I confirm the deletionn') do
+  begin
+    page.driver.browser.switch_to.alert.accept
+    puts "Alert was successfully accepted."
+    puts current_path
+  rescue Selenium::WebDriver::Error::NoSuchAlertError
+    raise "No alert to accept, something went wrong."
+  end
+end
+When('I cancel the deletionn') do
+  begin
+    page.driver.browser.switch_to.alert.dismiss
+    puts "Alert was successfully accepted."
+    puts current_path
+  rescue Selenium::WebDriver::Error::NoSuchAlertError
+    raise "No alert to accept, something went wrong."
+  end
+end
+
+Then('I should be redirected to the project management hub page') do
+  Capybara.default_max_wait_time = 10 # Increase to 10 seconds, adjust as needed
+  expect(page).to have_current_path(project_management_hub_path)
+end
+Then('I should still be on the project management page for {string}') do |project_name|
+  project = Project.find_by(name: project_name)
+  expect(current_path).to eq(project_dashboard_path(project.id))
+end

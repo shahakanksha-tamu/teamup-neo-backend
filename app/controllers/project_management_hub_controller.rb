@@ -21,7 +21,7 @@ class ProjectManagementHubController < ApplicationController
       raise ActiveRecord::Rollback unless @project.save
 
       begin
-        create_timeline(@project)
+        # create_timeline(@project)
         create_student_assignments(@project, params[:user_ids])
       rescue ActiveRecord::RecordInvalid => e
         @project.errors.add(:base, "Error in associated data: #{e.message}")
@@ -42,17 +42,6 @@ class ProjectManagementHubController < ApplicationController
 
   def project_params2
     params.require(:project).permit(:name, :description, :objectives, :status, :start_date, :end_date)
-  end
-
-  def create_timeline(project)
-    timeline = project.build_timeline(
-      start_date: params[:start_date],
-      end_date: params[:end_date]
-    )
-    return if timeline.save
-
-    project.errors.add(:timeline, timeline.errors.full_messages.join(', '))
-    raise ActiveRecord::RecordInvalid, timeline
   end
 
   def create_student_assignments(project, user_ids)
@@ -86,6 +75,15 @@ class ProjectManagementHubController < ApplicationController
     end
   end
 
+  def destroy
+    @project = Project.find(params[:project_id])
+    
+    if @project.destroy
+      redirect_to project_management_hub_path, notice: 'Project was successfully deleted.'
+    else
+      redirect_to project_dashboard_path(@project), alert: 'Unable to delete the project.'
+    end
+  end
   def add_student
     Rails.logger.debug("Params: #{params.inspect}")
     user = User.find(params[:user_id])
