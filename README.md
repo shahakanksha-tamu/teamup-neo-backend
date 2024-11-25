@@ -58,12 +58,27 @@ The primary objectives of Neo are to:
   Allows admins to assign tasks to students and view task assignments by students.
 
 - **Admin Project Overview**  
-  Provides a project overview on the admin dashboard with CRUD capabilities for projects and milestone completion tracking.
+  Provides an admin dashboard overview with CRUD capabilities for projects and milestone completion tracking.
 
+## MVP-IV Features
+- **Certificate Completion**  
+  Introduces a feature that allows admins/mentors to assign managed scores of each student towards earning a certificate of completion.
+
+- **Task Progress View Per Student for Admin**  
+  Incorporates a progress bar to quantify the progress of the student's task.
+
+- **Events Broadcast Banner**  
+  Enables admins to create, manage, and broadcast certain events to all students.
+
+- **Calendar Integration**  
+  Integrates the Google Calendar view for students and admins to view their events and schedules.
+
+- **Import Data**  
+  Provides an admin to manage the student and mentor data in the application through an Excel sheet or CSV file.
 
 
 **NOTE:**
-The deployed version will only allow users who are registered as users in the database to log in successfully.
+The deployed version will only allow users who are registered as users in the database to log in successfully. To successfully register yourselves, add your email id to the users database via seeds.rb file. The registration module is out of scope and has limited capabilities with only admins to manage the user data.
  
 ## Project Set Up
 
