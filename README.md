@@ -78,7 +78,7 @@ The primary objectives of Neo are to:
 
 
 **NOTE:**
-The deployed version will only allow users who are registered as users in the database to log in successfully. To successfully register yourselves, add your email id to the users database via seeds.rb file. The registration module is out of scope and has limited capabilities with only admins to manage the user data.
+The deployed version will only allow users who are registered as users in the database to log in successfully. To successfully register yourselves, add your email id to the users database via seeds.rb file. The registration module is out of scope and has limited capabilities with only admins being able to manage the user data.
  
 ## Project Set Up
 
