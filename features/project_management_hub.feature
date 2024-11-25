@@ -127,7 +127,27 @@ Scenario: Create a resource but saving fails
   Then the project should be updated successfully
   Then the progress chart should show 0% complete
 
-  Scenario: Project update failure due to invalid data
+  @javascript
+  Scenario: Successfully deleting a project from the dashboard
+  Given I am logged in as 'johndoe@gmail.com'
+  And I navigate to the project management page for "Alpha Project"
+  When I click on the Delete Project button
+  Then I should see a confirmation dialog with message "Are you sure you want to delete this project? This action cannot be undone."
+  When I confirm the deletionn
+  Then I should be redirected to the project management hub page
+  And I should see "Project was successfully deleted."
+  And I should not see "Alpha Project"
+
+  @javascript
+  Scenario: Canceling project deletion
+  Given I am logged in as 'johndoe@gmail.com'
+  And I navigate to the project management page for "Alpha Project"
+  When I click on the Delete Project button
+  Then I should see a confirmation dialog with message "Are you sure you want to delete this project? This action cannot be undone."
+  When I cancel the deletionn
+  Then I should still be on the project management page for "Alpha Project"
+
+Scenario: Project update failure due to invalid data
   Given I am logged in as 'johndoe@gmail.com'
   And I navigate to the project management page for "Alpha Project"
   When I click on the Edit Project button
