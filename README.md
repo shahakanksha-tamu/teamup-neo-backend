@@ -268,6 +268,7 @@ If you have not already done so, install the [Heroku CLI](https://devcenter.hero
 
 10. Migrate the Database
     ```bash
+    heroku run rails db:create
     heroku run rails db:migrate
     ```
 11. Seed the Database
