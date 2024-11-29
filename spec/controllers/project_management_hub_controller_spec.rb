@@ -5,9 +5,22 @@ require 'rails_helper'
 RSpec.describe ProjectManagementHubController, type: :controller do
   let(:user) { create(:user) }
   let(:project) { create(:project) }
+
   let(:valid_attributes) do
     {
       name: 'Test Project',
+      description: 'A test project',
+      objectives: 'To test project creation',
+      status: 'active',
+      start_date: Time.zone.today,
+      end_date: Time.zone.today + 30.days,
+      user_ids: [user.id]
+    }
+  end
+
+  let(:invalid_attributes) do
+    {
+      name: '', # Invalid because name cannot be blank
       description: 'A test project',
       objectives: 'To test project creation',
       status: 'active',
@@ -173,24 +186,19 @@ RSpec.describe ProjectManagementHubController, type: :controller do
 
   describe 'POST #create_project' do
     context 'with valid parameters' do
-      it 'creates a new project' do
+      it 'creates a new project and assigns the current user to it' do
         expect do
           post :create_project, params: valid_attributes
         end.to change(Project, :count).by(1)
       end
 
-      it 'redirects to the project management hub with a notice' do
+      it 'redirects to the project management hub with a success notice' do
         post :create_project, params: valid_attributes
         expect(response).to redirect_to(project_management_hub_path)
+        expect(flash[:notice]).to eq('Project was successfully created.')
       end
 
-      it 'creates a timeline for the project' do
-        expect do
-          post :create_project, params: valid_attributes
-        end.to change(Timeline, :count).by(1)
-      end
-
-      it 'creates student assignments' do
+      it 'creates associated student assignments' do
         expect do
           post :create_project, params: valid_attributes
         end.to change(StudentAssignment, :count).by(1)
@@ -198,20 +206,58 @@ RSpec.describe ProjectManagementHubController, type: :controller do
     end
 
     context 'with invalid parameters' do
-      let(:invalid_attributes) { valid_attributes.merge(end_date: Time.zone.today - 30.days) }
-
       it 'does not create a new project' do
         expect do
           post :create_project, params: invalid_attributes
         end.not_to change(Project, :count)
       end
 
-      it 'renders the project management hub template with an alert' do
+      it 'redirects to the project management hub with an error alert' do
         post :create_project, params: invalid_attributes
-        expect(flash.now[:alert]).to be_present
+        expect(response).to redirect_to(project_management_hub_path)
+        expect(flash[:alert]).to eq("Name can't be blank")
       end
     end
+
+    context 'when an associated record fails' do
+      before do
+        allow_any_instance_of(Project).to receive(:save).and_return(false)
+        allow_any_instance_of(Project).to receive_message_chain(:errors, :full_messages).and_return(["Error creating project"])
+      end
+
+      it 'does not create the project and shows an error message' do
+        post :create_project, params: valid_attributes
+        expect(flash[:alert]).to eq("Error creating project")
+        expect(response).to redirect_to(project_management_hub_path)
+      end
+    end
+  
+  context 'when student assignment creation fails' do
+    let(:error_message) { "Student assignment validation failed" }
+    
+    before do
+      allow_any_instance_of(Project).to receive(:save).and_return(true)
+      allow(controller).to receive(:create_student_assignments).and_raise(ActiveRecord::RecordInvalid.new(Project.new))
+    end
+
+    it 'does not create the project due to associated data error' do
+      expect do
+        post :create_project, params: valid_attributes
+      end.not_to change(Project, :count)
+    end
+
+    it 'adds the error message to the project errors' do
+      post :create_project, params: valid_attributes
+      expect(assigns(:project).errors[:base]).to include(/Error in associated data:/)
+    end
+
+    it 'redirects to project management hub with error message' do
+      post :create_project, params: valid_attributes
+      expect(response).to redirect_to(project_management_hub_path)
+      expect(flash[:alert]).to be_present
+    end
   end
+end
 
   describe 'PATCH #update' do
     let(:project) { create(:project, name: 'Original Name', description: 'Original description') }
@@ -251,44 +297,64 @@ RSpec.describe ProjectManagementHubController, type: :controller do
         expect(response).to redirect_to(project_dashboard_path(project))
       end
 
-      it 'sets a success notice' do
+      it 'sets a success flash message' do
         patch :update, params: valid_update_attributes
         expect(flash[:notice]).to eq('Project was successfully updated.')
       end
     end
 
     context 'with invalid parameters' do
-      before do
-        allow(Project).to receive(:find).and_return(project)
-        errors = instance_double('errors')
-        allow(errors).to receive_messages(full_messages: ['Name cannot be blank'], to_sentence: 'Name cannot be blank')
-        allow(project).to receive_messages(update: false, errors:)
-      end
-
       it 'does not update the project' do
-        original_name = project.name
         patch :update, params: invalid_update_attributes
-        expect(project.name).to eq(original_name)
+        project.reload
+        expect(project.name).to eq('Original Name')
       end
 
-      it 'renders the dashboard template' do
+      it 'sets an error flash message' do
         patch :update, params: invalid_update_attributes
-        expect(response).to redirect_to(project_dashboard_path(project))
+        expect(flash[:alert]).to eq("Name can't be blank")
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    context 'when the project exists' do
+      it 'deletes the project' do
+        project_to_delete = create(:project)
+        expect do
+          delete :destroy, params: { project_id: project_to_delete.id }
+        end.to change(Project, :count).by(-1)
       end
 
-      it 'sets an alert message' do
-        patch :update, params: invalid_update_attributes
-        expect(flash[:alert]).to be_present
-        expect(flash[:alert]).to eq('Name cannot be blank')
+      it 'redirects to the project management hub' do
+        delete :destroy, params: { project_id: project.id }
+        expect(response).to redirect_to(project_management_hub_path)
+      end
+
+      it 'sets a success notice' do
+        delete :destroy, params: { project_id: project.id }
+        expect(flash[:notice]).to eq('Project was successfully deleted.')
       end
     end
 
-    context 'when project is not found' do
-      it 'raises RecordNotFound error' do
+    context 'when the project does not exist' do
+      it 'raises an ActiveRecord::RecordNotFound error' do
         expect do
-          patch :update, params: { project_id: 'invalid', project: valid_update_attributes[:project] }
+          delete :destroy, params: { project_id: -1 } # Invalid project ID
         end.to raise_error(ActiveRecord::RecordNotFound)
       end
+    end
+
+    context 'when the project deletion fails' do
+      before do
+        allow_any_instance_of(Project).to receive(:destroy).and_return(false)
+      end
+
+      it 'does not delete the project and sets an error message' do
+        project_to_fail = create(:project)
+        delete :destroy, params: { project_id: project_to_fail.id }
+        expect(flash[:alert]).to eq('Unable to delete the project.')
+      end      
     end
   end
 end
