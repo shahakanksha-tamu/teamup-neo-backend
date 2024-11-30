@@ -238,7 +238,7 @@ If you have not already done so, install the [Heroku CLI](https://devcenter.hero
 
 6. Provision a Database
     ```bash
-    heroku addons:create heroku-postgresql:essential
+    heroku addons:create heroku-postgresql:essential-0
     ```
     An essential-0 PostgreSQL database costs $5 a month, prorated to the minute.
 
