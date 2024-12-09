@@ -25,16 +25,16 @@ Feature: Milestones Management
     
     And the following milestones exist in the database
     | project_id | title           | objective                       | deadline            | start_date          |
-    | 1          | "Milestone 1"   | "Complete initial setup"        | 2024-12-01 10:00:00 | 2024-10-01 12:00:00 |
+    | 1          | "Milestone 1"   | "Complete initial setup"        | 2024-12-15 10:00:00 | 2024-10-01 12:00:00 |
     | 1          | "Milestone 2"   | "Develop core features"         | 2025-01-15 12:00:00 | 2024-11-01 12:00:00 |
     | 1          | "Milestone 3"   | "Conduct testing and review"    | 2025-02-20 15:00:00 | 2025-01-15 12:00:00 |
 
 
     And the following tasks exist in the database
     | milestone_id | task_name         | description           | status        | deadline            |
-    | 1            | "Task 1"          | "First task example"  | Not Completed | 2024-10-30 12:00:00 | 
-    | 1            | "Task 2"          | "Second task example" | Completed     | 2024-11-05 12:00:00 | 
-    | 1            | "Task 3"          | "Third task example"  | Not Completed | 2024-11-10 12:00:00 | 
+    | 1            | "Task 1"          | "First task example"  | Not Completed | 2024-12-15 12:00:00 | 
+    | 1            | "Task 2"          | "Second task example" | Completed     | 2024-12-15 12:00:00 | 
+    | 1            | "Task 3"          | "Third task example"  | Not Completed | 2024-12-15 12:00:00 | 
 
     
     Scenario: View all the Milestones for a Project
@@ -56,7 +56,7 @@ Feature: Milestones Management
         Then I should see "Edit Milestone" 
         And the title field should contain "\"Milestone 1\""
         And the objective field should contain "\"Complete initial setup\""
-        And the deadline field should be set to "2024-12-01"
+        And the deadline field should be set to "2024-12-15"
         When I update the objective to "Revised initial meeting and setup"
         And I click "Update Milestone"
         Then I should see the milestone "Milestone 1" with objective "Revised initial meeting and setup" in the list of milestones

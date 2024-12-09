@@ -42,8 +42,8 @@
             </div>
             <div class="mb-4">
               <div class="info-label">Start Date</div>
-              <% if @project.end_date.present? %>
-                <%= @project.end_date.strftime("%B %d, %Y") %>
+              <% if @project.start_date.present? %>
+                <%= @project.start_date.strftime("%B %d, %Y") %>
               <% else %>
                 <span>No end date</span>
               <% end %>
@@ -100,11 +100,11 @@
             </div>
             <div class="form-group">
               <%= form.label :start_date, 'Project Start Date', class: 'info-label' %>
-              <%= form.date_field :start_date, class: 'form-control', value: @project.start_date %>
+              <%= form.date_field :start_date, min: Date.today, class: 'form-control', value: @project.start_date %>
             </div>
             <div class="form-group">
               <%= form.label :end_date, 'Project End Date', class: 'info-label' %>
-              <%= form.date_field :end_date, class: 'form-control', value: @project.end_date %>
+              <%= form.date_field :end_date, min: @project.start_date, class: 'form-control', value: @project.end_date %>
             </div>
             <div class="form-group">
               <%= form.label :status, class: 'info-label' %>
