@@ -222,42 +222,42 @@ RSpec.describe ProjectManagementHubController, type: :controller do
     context 'when an associated record fails' do
       before do
         allow_any_instance_of(Project).to receive(:save).and_return(false)
-        allow_any_instance_of(Project).to receive_message_chain(:errors, :full_messages).and_return(["Error creating project"])
+        allow_any_instance_of(Project).to receive_message_chain(:errors, :full_messages).and_return(['Error creating project'])
       end
 
       it 'does not create the project and shows an error message' do
         post :create_project, params: valid_attributes
-        expect(flash[:alert]).to eq("Error creating project")
+        expect(flash[:alert]).to eq('Error creating project')
         expect(response).to redirect_to(project_management_hub_path)
       end
     end
-  
-  context 'when student assignment creation fails' do
-    let(:error_message) { "Student assignment validation failed" }
-    
-    before do
-      allow_any_instance_of(Project).to receive(:save).and_return(true)
-      allow(controller).to receive(:create_student_assignments).and_raise(ActiveRecord::RecordInvalid.new(Project.new))
-    end
 
-    it 'does not create the project due to associated data error' do
-      expect do
+    context 'when student assignment creation fails' do
+      let(:error_message) { 'Student assignment validation failed' }
+
+      before do
+        allow_any_instance_of(Project).to receive(:save).and_return(true)
+        allow(controller).to receive(:create_student_assignments).and_raise(ActiveRecord::RecordInvalid.new(Project.new))
+      end
+
+      it 'does not create the project due to associated data error' do
+        expect do
+          post :create_project, params: valid_attributes
+        end.not_to change(Project, :count)
+      end
+
+      it 'adds the error message to the project errors' do
         post :create_project, params: valid_attributes
-      end.not_to change(Project, :count)
-    end
+        expect(assigns(:project).errors[:base]).to include(/Error in associated data:/)
+      end
 
-    it 'adds the error message to the project errors' do
-      post :create_project, params: valid_attributes
-      expect(assigns(:project).errors[:base]).to include(/Error in associated data:/)
-    end
-
-    it 'redirects to project management hub with error message' do
-      post :create_project, params: valid_attributes
-      expect(response).to redirect_to(project_management_hub_path)
-      expect(flash[:alert]).to be_present
+      it 'redirects to project management hub with error message' do
+        post :create_project, params: valid_attributes
+        expect(response).to redirect_to(project_management_hub_path)
+        expect(flash[:alert]).to be_present
+      end
     end
   end
-end
 
   describe 'PATCH #update' do
     let(:project) { create(:project, name: 'Original Name', description: 'Original description') }
@@ -354,7 +354,7 @@ end
         project_to_fail = create(:project)
         delete :destroy, params: { project_id: project_to_fail.id }
         expect(flash[:alert]).to eq('Unable to delete the project.')
-      end      
+      end
     end
   end
 end

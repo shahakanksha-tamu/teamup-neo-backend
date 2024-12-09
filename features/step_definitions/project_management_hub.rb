@@ -168,32 +168,26 @@ When('I click on the Delete Project button') do
   find('.deleteButton').click
 end
 Then('I should see a confirmation dialog with message {string}') do |message|
-  begin
-    alert = page.driver.browser.switch_to.alert
-    puts "Alert text: #{alert.text}"
-    expect(alert.text).to eq(message)
-  rescue Selenium::WebDriver::Error::NoSuchAlertError
-    raise "No alert appeared when expected"
-  end
+  alert = page.driver.browser.switch_to.alert
+  puts "Alert text: #{alert.text}"
+  expect(alert.text).to eq(message)
+rescue Selenium::WebDriver::Error::NoSuchAlertError
+  raise 'No alert appeared when expected'
 end
 
 When('I confirm the deletionn') do
-  begin
-    page.driver.browser.switch_to.alert.accept
-    puts "Alert was successfully accepted."
-    puts current_path
-  rescue Selenium::WebDriver::Error::NoSuchAlertError
-    raise "No alert to accept, something went wrong."
-  end
+  page.driver.browser.switch_to.alert.accept
+  puts 'Alert was successfully accepted.'
+  puts current_path
+rescue Selenium::WebDriver::Error::NoSuchAlertError
+  raise 'No alert to accept, something went wrong.'
 end
 When('I cancel the deletionn') do
-  begin
-    page.driver.browser.switch_to.alert.dismiss
-    puts "Alert was successfully accepted."
-    puts current_path
-  rescue Selenium::WebDriver::Error::NoSuchAlertError
-    raise "No alert to accept, something went wrong."
-  end
+  page.driver.browser.switch_to.alert.dismiss
+  puts 'Alert was successfully accepted.'
+  puts current_path
+rescue Selenium::WebDriver::Error::NoSuchAlertError
+  raise 'No alert to accept, something went wrong.'
 end
 
 Then('I should be redirected to the project management hub page') do

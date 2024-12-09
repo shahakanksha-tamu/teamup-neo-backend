@@ -54,7 +54,7 @@ RSpec.describe Milestone, type: :model do
           deadline: Time.zone.today + 6.months,
           status: 'In-Progress'
         )
-        create(:task,milestone:milestone, status: 'Not Started')
+        create(:task, milestone: milestone, status: 'Not Started')
 
         milestone.status = 'Completed'
         expect(milestone).not_to be_valid

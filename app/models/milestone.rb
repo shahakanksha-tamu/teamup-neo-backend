@@ -44,8 +44,9 @@ class Milestone < ApplicationRecord
 
   def milestone_complete_check
     return unless status_changed? && status == 'Completed'
-    if tasks.any? { |task| task.status != 'Completed' }
-      errors.add(:status, "cannot be changed to 'Completed' unless all associated tasks are in 'Completed' status")
-    end
+
+    return unless tasks.any? { |task| task.status != 'Completed' }
+
+    errors.add(:status, "cannot be changed to 'Completed' unless all associated tasks are in 'Completed' status")
   end
 end

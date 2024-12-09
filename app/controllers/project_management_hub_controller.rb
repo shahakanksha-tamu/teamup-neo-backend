@@ -77,13 +77,14 @@ class ProjectManagementHubController < ApplicationController
 
   def destroy
     @project = Project.find(params[:project_id])
-    
+
     if @project.destroy
       redirect_to project_management_hub_path, notice: 'Project was successfully deleted.'
     else
       redirect_to project_dashboard_path(@project), alert: 'Unable to delete the project.'
     end
   end
+
   def add_student
     Rails.logger.debug("Params: #{params.inspect}")
     user = User.find(params[:user_id])
