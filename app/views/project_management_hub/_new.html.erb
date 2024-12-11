@@ -24,7 +24,7 @@
             
             <div style="margin-right: 5%; ">
                 <span class="form-label"><%= form.label :start_date, 'Project Start Date' %></span>
-                <%= form.date_field :start_date %>
+                <%= form.date_field :start_date, min: Date.today %>
             </div>
 
             <div>

@@ -90,7 +90,8 @@ group :test do
 end
 
 group :production do
-  gem 'pg' # for Heroku deployment
+  gem 'dotenv-rails'
+  gem 'pg' # for Heroku deployments
 end
 
 group :development, :test do # rubocop:disable Bundler/DuplicatedGroup

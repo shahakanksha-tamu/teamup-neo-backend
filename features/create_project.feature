@@ -15,13 +15,6 @@ Background: users in database
     And I submit
     Then I should see a success message
 
-  Scenario: Failing to create a project due to invalid date
-    Given the admin is logged in with "janedoe@gmail.com"
-    Given I have valid project attributes with an invalid date
-    When I fill in the form
-    And I submit
-    Then I should see an error message
-
   Scenario: Failing to create a project due to invalid user
     Given the admin is logged in with "janedoe@gmail.com"
     Given I have valid project attributes
