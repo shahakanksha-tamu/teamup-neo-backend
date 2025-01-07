@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'aws-sdk-s3', '~> 1.48'
+gem 'aws-sdk-s3', '~> 1.177'
 gem 'bootstrap', '~> 5.0.0'
 gem 'csv'
 gem 'google-apis-calendar_v3'
